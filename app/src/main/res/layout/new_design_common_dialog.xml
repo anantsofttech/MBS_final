@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/rounded_corner_signup"
+    android:layout_width="match_parent"
+    android:padding="@dimen/dimen_15"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textSize="@dimen/dimen_17"
+        android:id="@+id/tv_title"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:text="Title"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:layout_gravity="left"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:visibility="gone"
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_title"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:textSize="@dimen/dimen_15"
+        android:id="@+id/tv_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_below="@+id/view_line" />
+
+    <TextView
+        android:textSize="@dimen/dimen_15"
+        android:layout_below="@+id/tv_message"
+        android:text=""
+        android:layout_marginTop="@dimen/_7sdp"
+        android:id="@+id/tv_message2"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_below="@+id/tv_message2"
+        android:id="@+id/btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@drawable/round_shap_red"
+        android:text="@string/str_OK"
+        android:textAllCaps="false"
+        android:textSize="@dimen/dimen_13"
+        android:padding="@dimen/dimen_ButtonPadding"
+        android:textColor="@color/White" />
+</RelativeLayout>

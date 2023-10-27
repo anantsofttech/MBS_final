@@ -1,0 +1,215 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+        <!-- Customize your theme here.android:Theme.Holo.Light -->
+        <!--<item name="colorPrimary">@color/primary</item>-->
+        <!--  <item name="colorPrimaryDark">@color/primaryDark</item>-->
+        <!--<item name="colorPrimary">@color/primary_1</item>-->
+        <!--  <item name="colorPrimaryDark">@color/primaryDark</item>-->
+
+        <item name="colorAccent">@color/primary</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!--<item name="android:statusBarColor">@color/primary</item>-->
+        <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
+        <!--<item name="android:popupMenuStyle">@style/MyApp.PopupMenu</item>-->
+        <item name="android:itemBackground">@color/primary</item>
+        <item name="cardViewStyle">@style/CardView</item>
+    </style>
+
+    <style name="MyApp.PopupMenu" parent="android:Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@color/primaryDark</item>
+    </style>
+
+    <style name="Widget.ActionButton.Overflow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_category</item>
+        <!--    <item name="android:colorBackground">@color/primaryDark</item>-->
+    </style>
+
+    <style name="MyprogressDTheme" parent="android:Theme.Holo.Dialog">
+        <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_gravity">center</item>
+
+    </style>
+
+    <style name="CustomAlertDialogStyle">
+        <item name="android:bottomBright">@android:color/transparent</item>
+        <item name="android:bottomDark">@android:color/transparent</item>
+        <item name="android:bottomMedium">@android:color/transparent</item>
+        <item name="android:centerBright">@android:color/transparent</item>
+        <item name="android:centerDark">@android:color/transparent</item>
+        <item name="android:centerMedium">@android:color/transparent</item>
+        <item name="android:fullBright">@android:color/black</item>
+        <item name="android:fullDark">@android:color/transparent</item>
+        <item name="android:topBright">@android:color/transparent</item>
+        <item name="android:topDark">@android:color/transparent</item>
+    </style>
+
+    <style name="slider_textview_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:textSize">@dimen/slider_text_size</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingLeft">25dp</item>
+        <item name="android:background">@drawable/colorstate</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+
+    <style name="DialogSlideAnim" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--   <item name="android:windowBackground">@drawable/rounded_corner_login</item>-->
+    </style>
+
+    <style name="DialogSlideAnimStoreLocation" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowBackground">@drawable/round_top_only</item>
+    </style>
+
+    <style name="DialogSlideAnim_login" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="android:windowBackground">@drawable/rounded_corner_login</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="DialogSlideAnim_Signup" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="android:windowBackground">@drawable/rounded_corner_login</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="InputLayoutSize" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">@dimen/dimen_15</item>
+    </style>
+
+    <style name="Edittext_style1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">@dimen/dimen_10</item>
+        <item name="android:paddingTop">@dimen/dimen_10</item>
+        <item name="android:background">@drawable/border_edittext</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:textSize">@dimen/dimen_12</item>
+        <!--<EditText
+            android:id="@+id/edtempId_for"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/str_email"
+            android:paddingBottom="@dimen/dimen_10"
+            android:paddingTop="@dimen/dimen_10"
+            android:background="@drawable/border_edittext"
+            android:singleLine="true"
+            android:paddingLeft="5dp"
+            />-->
+    </style>
+
+    <style name="Edittext_style2">
+        <item name="android:paddingBottom">@dimen/dimen_10</item>
+        <item name="android:paddingTop">@dimen/dimen_5</item>
+        <item name="android:background">@drawable/border_edittext_simple</item>
+        <item name="android:singleLine">true</item>
+
+        <!--<EditText
+            android:id="@+id/edtempId_for"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/str_email"
+            android:paddingBottom="@dimen/dimen_10"
+            android:paddingTop="@dimen/dimen_10"
+            android:background="@drawable/border_edittext"
+            android:singleLine="true"
+            android:paddingLeft="5dp"
+            />-->
+    </style>
+
+    <style name="Edittext_style3">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/radius_corner_with_greyborder</item>
+        <item name="android:textSize">@dimen/_11sdp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="custom_button" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:background">@drawable/round_shap_red</item>
+    </style>
+
+    <style name="TransparentProgressDialog" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.AppCompat.Transparent.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--<item name="android:windowContentOverlay">@null</item>-->
+        <!-- <item name="android:windowNoTitle">true</item>
+         <item name="android:windowIsFloating">true</item>-->
+
+    </style>
+
+    <!--Edited by Janvi 22th Oct-->
+    <style name="MyPopupMenu" parent="android:Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@android:color/white</item>
+        <item name="android:itemBackground">@android:color/white</item>
+    </style>
+    <!--end **********-->
+
+    <style name="FullScreenDialogStyle">
+
+        <item name="windowMinWidthMajor">100%</item>
+        <item name="windowMinWidthMinor">100%</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@android:color/transparent</item>
+
+    </style>
+<!--    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>-->
+<!--    <item name="android:windowSoftInputMode">adjustResize</item>-->
+
+    <!--<style name="NoActionBar" parent="MyTheme">-->
+        <!--<item name="android:windowActionBar">false</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+    <!--</style>-->
+
+</resources>

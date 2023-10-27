@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:padding="@dimen/_3sdp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/androidWhite"
+    android:id="@+id/ll_Sharepopup"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        android:paddingLeft="@dimen/_8sdp"
+        android:paddingRight="@dimen/_8sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:drawableLeft="@drawable/ic_emailnew"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:textSize="@dimen/_10sdp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tvFacebook"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_7sdp"
+        android:paddingLeft="@dimen/_8sdp"
+        android:paddingRight="@dimen/_8sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:drawableLeft="@drawable/facebook_1"
+        android:layout_gravity="center_vertical"
+        android:textSize="@dimen/_10sdp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tvTwitter"
+        android:paddingTop="@dimen/_7sdp"
+        android:paddingBottom="@dimen/_7sdp"
+        android:paddingLeft="@dimen/_8sdp"
+        android:paddingRight="@dimen/_8sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:drawableLeft="@drawable/ic_twitter"
+        android:layout_gravity="center"
+        android:textSize="@dimen/_10sdp"
+        android:text="" />
+
+
+</LinearLayout>

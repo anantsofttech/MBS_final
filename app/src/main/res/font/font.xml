@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/arial" />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/times_new_roman" />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/verdana" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/brush_script_mt" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/calibri" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/cambria" />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/open_sans" />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/courier_new" />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/garamond" />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/georgia" />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/tahoma" />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/eras_light_itc" />
+
+</font-family>

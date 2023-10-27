@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_corner_all"
+    android:orientation="vertical">
+
+    <TextView
+        android:textSize="@dimen/_15sdp"
+        android:id="@+id/tv_request_title"
+        android:text="Request"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginLeft="@dimen/_7sdp"
+        android:layout_marginRight="@dimen/_7sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/_7sdp"
+        android:layout_marginRight="@dimen/_7sdp"
+        android:layout_below="@+id/tv_legal_title"
+        android:background="@android:color/darker_gray" />
+
+
+    <!--    android:textSize="@dimen/_11sdp"-->
+    <TextView
+        android:id="@+id/tv_request"
+        android:text=""
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginLeft="@dimen/_7sdp"
+        android:layout_marginRight="@dimen/_7sdp"
+        android:layout_marginBottom="@dimen/_7sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:textSize="@dimen/_15sdp"
+        android:id="@+id/tv_responseTitle"
+        android:text="Response"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginLeft="@dimen/_7sdp"
+        android:layout_marginRight="@dimen/_7sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/view_line2"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/_7sdp"
+        android:layout_marginRight="@dimen/_7sdp"
+        android:layout_below="@+id/tv_legal_title"
+        android:background="@android:color/darker_gray" />
+
+
+<!--    android:textSize="@dimen/_11sdp"-->
+    <TextView
+        android:id="@+id/tv_response"
+        android:text=""
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginLeft="@dimen/_7sdp"
+        android:layout_marginRight="@dimen/_7sdp"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="@dimen/_7sdp"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:layout_marginLeft="@dimen/_7sdp"
+        android:layout_marginRight="@dimen/_7sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:id="@+id/btnok"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_shap_red"
+        android:text="OK"
+        android:textSize="@dimen/dimen_ButtonTextSize"
+        android:textAllCaps="false"
+        android:textColor="@color/White" />
+
+
+</LinearLayout>

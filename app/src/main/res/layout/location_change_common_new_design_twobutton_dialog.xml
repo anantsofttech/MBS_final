@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/rounded_corner_signup"
+    android:layout_width="match_parent"
+    android:padding="@dimen/dimen_15"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textSize="@dimen/dimen_15"
+        android:id="@+id/tv_title"
+        android:layout_marginBottom="@dimen/dimen_9"
+        android:textStyle="bold"
+        android:layout_gravity="left"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_title"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:layout_marginTop="@dimen/dimen_9"
+        android:text="text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_13" />
+
+    <TextView
+        android:textSize="@dimen/dimen_13"
+        android:layout_below="@+id/tv_message"
+        android:text="Your current location is located at:"
+        android:layout_marginTop="@dimen/_11sdp"
+        android:id="@+id/tv_message2"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textSize="@dimen/dimen_13"
+        android:layout_below="@+id/tv_message2"
+        android:text=""
+        android:id="@+id/storeaddress"
+        android:textColor="@color/black"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/storeaddress"
+        android:paddingLeft="-4dp"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/round_shap_red"
+            android:text="@string/str_Cancel"
+            android:textAllCaps="false"
+            android:textSize="@dimen/dimen_13"
+            android:padding="@dimen/dimen_ButtonPadding"
+            android:textColor="@color/White" />
+
+        <!--        android:layout_margin="@dimen/_4sdp"-->
+        <!--        android:textSize="@dimen/dimen_12"-->
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:background="@drawable/round_shap_red"
+        android:text="@string/str_OK"
+        android:textAllCaps="false"
+        android:textSize="@dimen/dimen_13"
+        android:padding="@dimen/dimen_ButtonPadding"
+        android:textColor="@color/White" />
+
+    </LinearLayout>
+</RelativeLayout>

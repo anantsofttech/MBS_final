@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="Home"
+        app:showAsAction="ifRoom" />
+
+    <!--<item-->
+        <!--android:id="@+id/action_wishlist"-->
+        <!--android:enabled="true"-->
+        <!--android:visible="false"-->
+        <!--android:icon="@drawable/ic_star"-->
+        <!--android:title="Wish List"-->
+        <!--app:showAsAction="ifRoom" />-->
+    <item
+        android:id="@+id/action_search"
+        android:enabled="true"
+        android:icon="@drawable/ic_search_"
+        android:title="Search"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_contactus"
+        android:enabled="true"
+        android:icon="@drawable/ic_contact_phone"
+        android:title="Contact Us"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile"
+        android:title="My Account"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_others"
+        android:enabled="true"
+        android:icon="@drawable/ic_others"
+        android:title="Other"
+        app:showAsAction="ifRoom" />
+</menu>

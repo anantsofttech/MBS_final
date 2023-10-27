@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#4D4D4D</color>
+    <color name="primaryDark">#00796b</color>
+    <color name="accent">#E45E66</color>
+    <color name="accentLight">#F4FF81</color>
+    <color name="White">#FFFFFF</color>
+    <color name="androidWhite">@android:color/white</color>
+    <color name="black">#000000</color>
+    <color name="pressed_color">#4d90fe</color>
+    <color name="pressed_color_light">#AF4D90FE</color>
+    <color name="default_color">#4D4D4D</color>
+    <color name="bg_colorBig_three">#58121d</color>
+    <color name="tab_indicator_text">#808080</color>
+    <color name="store_Namecolor">#742614</color>
+    <color name="store_104color">#ffdcd4</color>
+
+
+
+    <!--Theme color-->
+
+    <color name="primary_1">#4D4D4D</color>
+    <!-- <color name="Header">#4D4D4D</color>-->
+
+    <!--Test theme-->
+    <color name="Header">#4D4D4D</color>
+    <color name="lighter_grey">#beb9b9</color>
+    <color name="light_grey">#ccbeb9b9</color>
+    <color name="very_light_grey">#63beb9b9</color>
+    <color name="dark_gray">@android:color/darker_gray</color>
+    <color name="dark_gray_medium">#a3707070</color>
+    <color name="darker_gray">#FF707070</color>
+    <color name="grey">#C4707070</color>
+    <color name="rating_bar">#FFC120</color>
+    <color name="red">#ff0000</color>
+    <color name="Notification_Color">#126eb5</color>
+    <color name="green">#289441</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="blue_search">#3B65FA</color>
+
+    <color name="littledarkgreen">#00A300</color>
+
+
+</resources>

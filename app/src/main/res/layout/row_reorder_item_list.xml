@@ -1,0 +1,90 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:id="@+id/llmain"
+    android:focusableInTouchMode="true"
+    android:layout_margin="@dimen/_5sdp"
+    android:layout_height="wrap_content">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/llrow"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:textSize="@dimen/_12sdp"
+        android:id="@+id/tvItemName"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:textColor="@color/black"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_height="wrap_content"
+        android:text="text"/>
+
+    <LinearLayout
+        android:id="@+id/llQtyAndcheckbox"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        android:gravity="right"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_gravity="right|center_vertical"
+        android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/etQty"
+        android:inputType="number"
+        android:maxLength="3"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_edittext"
+        android:layout_gravity="center_vertical"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:paddingRight="@dimen/_5sdp"
+        android:paddingLeft="@dimen/_5sdp"
+        android:gravity="center"
+        android:textSize="@dimen/_10sdp"
+        android:text="1"/>
+
+    <CheckBox
+        android:id="@+id/checkbox1"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/primary_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:drawablePadding="@dimen/_35sdp" />
+
+    <TextView
+        android:id="@+id/tvItemOutofStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:text="Out of stock"
+        android:textColor="@color/red"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+    <TextView
+        android:layout_marginTop="@dimen/_5sdp"
+        android:id="@+id/tvItemNoLonger"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="Item is no longer available online."
+        android:textColor="@color/red"/>
+
+<View
+android:layout_marginTop="@dimen/_5sdp"
+android:layout_width="match_parent"
+android:layout_height="1dp"
+android:background="@android:color/darker_gray" />
+</LinearLayout>

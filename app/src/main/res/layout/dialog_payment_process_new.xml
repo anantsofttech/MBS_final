@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dimen_15"
+    android:paddingTop="@dimen/dimen_15">
+
+    <TextView
+        android:id="@+id/tv_root_dialog_payment_process"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingLeft="@dimen/dimen_11"
+        android:paddingRight="@dimen/dimen_11"
+        android:text="@string/lbl_title_payment_process_new"
+        android:textSize="@dimen/dimen_15"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/img_dialog_payment_process"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="@dimen/dimen_11"
+        android:background="@drawable/dotted"
+        android:layerType="software" />
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_13"
+        android:layout_marginBottom="@dimen/dimen_13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimen_11"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_cardEndingTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Card Ending..."
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="@dimen/dimen_13" />
+
+            <TextView
+                android:layout_marginTop="@dimen/dimen_11"
+                android:id="@+id/tv_Cardtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount:"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_13" />
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_cardEnding"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="0514"-->
+            <!--android:layout_marginLeft="@dimen/_5sdp"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textSize="@dimen/dimen_13" />-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dimen_5"
+            android:paddingRight="@dimen/dimen_11"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_cardnumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_13" />
+
+            <TextView
+                android:layout_marginTop="@dimen/dimen_11"
+                android:id="@+id/tv_Amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_13" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_standby"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <!--<View-->
+    <!--android:id="@+id/view_"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="@android:color/darker_gray" />-->
+
+    <TextView
+        android:layout_marginTop="@dimen/dimen_11"
+        android:id="@+id/tv_standby"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please stand by"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:paddingLeft="@dimen/dimen_11"
+        android:textSize="@dimen/dimen_13" />
+
+</LinearLayout>

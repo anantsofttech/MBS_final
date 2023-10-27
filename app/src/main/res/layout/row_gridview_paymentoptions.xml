@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<ImageView
+    android:id="@+id/iv_first_payment_option"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_3sdp"
+    android:background="@drawable/border_edittext"
+    android:layout_margin="@dimen/_2sdp"
+    android:layout_marginBottom="@dimen/_3sdp"
+    android:contentDescription=""
+    tools:ignore="UnusedAttribute" />
+
+
+</LinearLayout>

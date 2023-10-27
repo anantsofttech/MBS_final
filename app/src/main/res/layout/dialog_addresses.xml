@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_corner_signup"
+    android:padding="@dimen/dimen_5">
+
+    <ImageView
+        android:layout_margin="@dimen/dimen_5"
+        android:id="@+id/img_cancel_rv_addresses_dialog"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_close"
+        android:visibility="visible" />
+
+    <TextView
+        android:layout_toLeftOf="@+id/img_cancel_rv_addresses_dialog"
+        android:id="@+id/tv_title_addresses_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:textSize="30sp"
+        android:text="@string/lbl_other_address" />
+
+    <View
+        android:id="@+id/v_addresses_dialog"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_below="@+id/tv_title_addresses_dialog"
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_addresses_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v_addresses_dialog"
+        android:layout_marginBottom="@dimen/dimen_30"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:visibility="visible"
+        Tools:text="You are now being redirected back to the application..." />
+
+    <TextView
+        android:layout_below="@+id/rv_addresses_dialog"
+        android:id="@+id/tv_alternate_address_addresses_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dimen_30"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_marginBottom="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        Tools:visibility="visible"
+        android:text="@string/lbl_no_alternate_address_on_file"
+        Tools:ignore="MissingPrefix" />
+
+    <View
+        android:id="@+id/v_alternate_addresses_dialog"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginRight="@dimen/dimen_30"
+        android:layout_marginLeft="@dimen/dimen_30"
+        android:layout_below="@+id/tv_alternate_address_addresses_dialog"
+        android:background="@android:color/darker_gray"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/dimen_30"
+        Tools:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</RelativeLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:id="@+id/llmain"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@drawable/lightgrey_simple_border"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/Header"
+            android:id="@+id/listTitleDepartment"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12sdp"
+            android:padding="@dimen/_10sdp"
+            android:textStyle="bold"
+            android:text=""
+            android:layout_alignParentLeft="true"
+            />
+        <!--android:textSize="@dimen/slider_text_size"-->
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/iv_subDept"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

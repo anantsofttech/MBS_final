@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/rounded_corner_signup"
+    android:layout_width="match_parent"
+    android:padding="@dimen/dimen_15"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textSize="@dimen/dimen_15"
+        android:id="@+id/tv_hi_login_success_dialog"
+        android:text="Hi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textSize="@dimen/dimen_15"
+        android:id="@+id/tv_username_login_success_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User"
+        android:layout_marginStart="@dimen/dimen_5"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tv_hi_login_success_dialog" />
+
+    <TextView
+        android:textSize="@dimen/dimen_15"
+        android:id="@+id/tv_welcome_to_store_login_success_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome to our store."
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_below="@+id/tv_hi_login_success_dialog" />
+
+
+    <TextView
+        android:visibility="gone"
+        android:gravity="center"
+        android:textSize="@dimen/dimen_20"
+        android:id="@+id/tv_oky_login_success_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_below="@+id/tv_welcome_to_store_login_success_dialog" />
+
+    <Button
+        android:layout_below="@+id/tv_welcome_to_store_login_success_dialog"
+        android:id="@+id/btn_ok_login_success_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:background="@drawable/round_shap_red"
+        android:text="@string/str_OK"
+        android:textAllCaps="false"
+        android:padding="@dimen/dimen_ButtonPadding"
+        android:textColor="@color/White" />
+</RelativeLayout>

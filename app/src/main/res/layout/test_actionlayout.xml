@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:gravity="left|center_vertical"
+    android:background="@color/primaryDark"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="30dp"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:background="@drawable/ic_home"
+        android:layout_height="30dp"
+        />
+    <TextView
+        android:text="Hello"
+        android:textColor="@color/White"
+        android:layout_width="match_parent"
+        android:gravity="center|left"
+        android:visibility="gone"
+
+        android:layout_height="match_parent" />
+
+
+
+</LinearLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/rounded_corner_signup"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_5">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10"
+                android:text="@string/str_delivery_error"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_15"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:padding="@dimen/dimen_10"
+                android:text="The ZIP Code of ‘xxxxx’ is outside our delivery zone.Our current delivery zone is:"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_110sdp"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/Ziplist"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:divider="@color/White"
+                    android:nestedScrollingEnabled="true"
+                    android:padding="@dimen/dimen_10">
+
+                </ListView>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtLast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:padding="@dimen/dimen_10"
+                android:text=""
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/btn_Ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_15"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_weight="1"
+                android:background="@drawable/round_shap_red"
+                android:padding="@dimen/dimen_ButtonPadding"
+                android:text="@string/str_OK"
+                android:textColor="@color/White"
+                android:textSize="@dimen/dimen_ButtonTextSize"
+                Tools:visibility="visible" />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

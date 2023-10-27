@@ -1,0 +1,1654 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/rl_main_payment_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/dimen_5"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll_payment_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_root_payment_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dimen_5">
+
+            <LinearLayout
+                android:id="@+id/llorderInfoStoreAlert"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_title_order_info_payment_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:text="@string/lbl_order_info"
+                android:textSize="@dimen/dimen_12"
+                android:textStyle="bold" />
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_warn_two_hour_ago_delivery_option_fragment"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:textColor="@color/red"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_marginLeft="@dimen/dimen_10"-->
+                <!--android:text=""-->
+                <!--android:textStyle="italic"-->
+                <!--android:textSize="@dimen/dimen_ButtonTextSize"-->
+                <!--tools:text="Note: Store closes soon" />-->
+
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tool="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/cv_pickup_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llorderInfoStoreAlert"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="@dimen/dimen_5"
+                android:layout_marginRight="@dimen/dimen_5"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                tool:cardElevation="3dp"
+                tools:ignore="UnusedAttribute"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_pickup_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/red"
+                        android:paddingTop="@dimen/_4sdp"
+                        android:paddingBottom="@dimen/_4sdp"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:text=""
+                        android:visibility="gone"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_12sdp"
+                        tools:text="" />
+
+                    <TextView
+                        android:id="@+id/tv_warn_two_hour_ago_delivery_option_fragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/red"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:text=""
+                        android:textStyle="italic"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:paddingBottom="@dimen/_4sdp"
+                        android:textSize="@dimen/_12sdp"
+                        tools:text="Note: Store closes soon" />
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tool="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/cv_order_info_payment_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cv_pickup_time"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="@dimen/dimen_5"
+                android:layout_marginRight="@dimen/dimen_5"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                tool:cardElevation="3dp"
+                tools:ignore="UnusedAttribute"
+                tools:visibility="visible">
+
+                <RelativeLayout
+                    android:id="@+id/rl_order_info_payment_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <!--
+                                        <include android:id="@+id/title"
+                                            android:layout_marginRight="@dimen/dimen_10"
+                                            android:layout_marginLeft="@dimen/dimen_10"
+                                            layout="@layout/item_rv_item_list_payment_fragment"
+                                            android:layout_height="wrap_content"
+                                            android:layout_width="match_parent" />
+                    -->
+
+                    <LinearLayout
+                        android:id="@+id/ll_title_cart_item_payment_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_marginRight="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:id="@+id/tv_title_gift_wrap_payment_fragment"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="19"
+                            android:text="@string/lbl_gift_wrap"
+                            android:textSize="@dimen/dimen_12"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_title_item_payment_fragment"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="45"
+                            android:gravity="left"
+                            android:paddingLeft="@dimen/dimen_5"
+                            android:text="@string/lbl_item"
+                            android:textSize="@dimen/dimen_12"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_title_quantity_payment_fragment"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="18"
+                            android:gravity="right"
+                            android:text="@string/lbl_qty"
+                            android:textSize="@dimen/dimen_12"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_title_price_payment_fragment"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="18"
+                            android:gravity="right"
+                            android:text="@string/lbl_price"
+                            android:textSize="@dimen/dimen_12"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                    <View
+                        android:id="@+id/v_title_cart_item_payment_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_below="@+id/ll_title_cart_item_payment_fragment"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_marginRight="@dimen/dimen_10"
+                        android:layout_marginTop="5dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view_payment_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/v_title_cart_item_payment_fragment"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_marginRight="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:nestedScrollingEnabled="false"
+                        tools:ignore="UnusedAttribute" />
+
+                    <View
+                        android:id="@+id/view_rv_payment_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_below="@+id/recycler_view_payment_fragment"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_marginRight="@dimen/dimen_10"
+                        android:layout_marginTop="5dp"
+                        android:background="@android:color/darker_gray"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_financial_data_payment_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view_rv_payment_fragment"
+                        android:layout_marginBottom="@dimen/dimen_10"
+                        android:layout_marginLeft="@dimen/dimen_5"
+                        android:layout_marginRight="@dimen/dimen_10"
+                        android:layout_marginTop="-5dp"
+                        android:orientation="vertical">
+
+                        <!--Edited by Janvi 2ndOct *********-->
+
+                        <!-- Delivery fee -->
+                        <LinearLayout
+                            android:id="@+id/ll_Delivery_fee_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_Delivery_fee_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="57"
+                                android:gravity="right"
+                                android:text="Delivery Fee"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_Delivery_fee_Qty_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="25"
+                                android:gravity="end"
+                                android:text="1"
+                                android:textSize="@dimen/dimen_12" />
+
+                            <TextView
+                                android:id="@+id/tv_Delivery_fee_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text="$4"
+                                android:textSize="@dimen/dimen_12" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_subtotal_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_Delivery_fee_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray"
+                            android:visibility="gone" />
+
+                        <!--End ************ -->
+
+
+                        <!-- Sub Total -->
+                        <LinearLayout
+                            android:id="@+id/ll_my_reward_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_subtotal_payment_fragment"
+                            android:visibility="gone"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_my_reward_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="82"
+                                android:gravity="right"
+                                android:text=""
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_my_reward_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text=""
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_my_reward_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_my_reward_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray"
+                            android:visibility="gone" />
+
+                        <!-- Sub Total -->
+                        <LinearLayout
+                            android:id="@+id/ll_sub_total_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_my_reward_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_sub_total_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="82"
+                                android:gravity="right"
+                                android:text="Subtotal"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_sub_total_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text="$15.25"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_sales_tex_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_sub_total_payment_fragment"
+                            android:layout_marginTop="5dp"
+
+                            android:background="@android:color/darker_gray" />
+
+                        <!-- Sales Tex -->
+                        <LinearLayout
+                            android:id="@+id/ll_sales_tex_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_sales_tex_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_sales_tex_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="82"
+                                android:gravity="right"
+                                android:text="Sales Tax"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_sales_tex_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text="$0.16"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+                        <View
+                            android:id="@+id/view_bottle_deposit_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_sales_tex_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray" />
+                        <!--Bottle Deposit-->
+                        <LinearLayout
+                            android:id="@+id/ll_bottle_deposit_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_bottle_deposit_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_bottle_deposit_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="82"
+                                android:gravity="right"
+                                android:text="Bottle Deposit"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_bottle_deposit_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text="$0.16"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_wine_tex_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_bottle_deposit_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray" />
+                        <!--Wine Tax-->
+                        <LinearLayout
+                            android:id="@+id/ll_wine_tex_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_wine_tex_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_wine_tex_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="82"
+                                android:gravity="right"
+                                android:text="Wine Tax"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_wine_tex_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text="$0.16"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+                        <View
+                            android:id="@+id/view_misc_tax_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_wine_tex_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray" />
+                        <!--Misc Tax-->
+                        <LinearLayout
+                            android:id="@+id/ll_misc_tax_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_misc_tax_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_misc_tax_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="82"
+                                android:gravity="right"
+                                android:text="Misc Tax"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_misc_tax_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text="$0.16"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_flat_tax_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_misc_tax_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray" />
+                        <!--Flat Tax-->
+                        <LinearLayout
+                            android:id="@+id/ll_flat_tax_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_flat_tax_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_flat_tax_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="82"
+                                android:gravity="right"
+                                android:text="Flat Tax"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_flat_tax_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text="$0.16"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_shipping_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_flat_tax_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray"
+                            android:visibility="visible" />
+                        <!--Shipping-->
+                        <LinearLayout
+                            android:id="@+id/ll_shipping_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_shipping_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:visibility="visible"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_shipping_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="82"
+                                android:gravity="right"
+                                android:text="Shipping"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_shipping_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text=""
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_tip_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_shipping_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray"
+                            android:visibility="gone" />
+                        <!--Shipping-->
+                        <LinearLayout
+                            android:id="@+id/ll_tip_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_tip_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:visibility="gone"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_tip_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="82"
+                                android:gravity="right"
+                                android:text="Shipping"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_tip_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text="$0.16"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_total_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@id/ll_tip_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray" />
+                        <!-- Total -->
+                        <LinearLayout
+                            android:id="@+id/ll_total_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_total_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_total_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="82"
+                                android:gravity="right"
+                                android:text="Total"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_total_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text="$16.14"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Total Saving -->
+                        <View
+                            android:id="@+id/view_check_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_total_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_total_saving_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_check_box"
+                            android:layout_marginTop="5dp"
+                            android:visibility="gone"
+                            android:weightSum="100"
+                            tools:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/tv_title_total_saving_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="82"
+                                android:gravity="right"
+                                android:text="Total Saving"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_total_saving_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text="$16.14"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Loyalty Reward -->
+                        <View
+                            android:id="@+id/view_total_saving_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_total_saving_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_loyalty_reward_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_total_saving_payment_fragment"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:visibility="gone"
+                            android:weightSum="100"
+                            tools:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/tv_title_loyalty_reward_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="82"
+                                android:gravity="right"
+                                android:text="Rewards Points Earned on this Purchase"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_loyalty_reward_payment_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="18"
+                                android:gravity="end"
+                                android:text="0"
+                                android:textSize="@dimen/dimen_12"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Loyalty Reward -->
+                        <View
+                            android:id="@+id/view_no_tax_are_being_applied_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_loyalty_reward_payment_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
+
+
+                        <TextView
+                            android:id="@+id/tv_no_tax_being_applied_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_no_tax_are_being_applied_payment_fragment"
+                            android:gravity="start"
+                            android:text="@string/lbl_no_tax_are_being_applied_order_being_shipped_out_of_gj"
+                            android:textSize="@dimen/dimen_12"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--Edited by Janvi 25th Oct-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_title_payment_options_fragment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/cv_order_info_payment_fragment"-->
+            <!--android:layout_margin="@dimen/dimen_10"-->
+            <!--android:visibility="gone"-->
+            <!--android:text="@string/lbl_payment_options"-->
+            <!--android:textStyle="bold" />-->
+
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tool="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/cv_payment_options_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cv_order_info_payment_fragment"
+                android:layout_margin="5dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tool:cardElevation="3dp"
+                tools:ignore="UnusedAttribute">
+
+                <RelativeLayout
+                    android:id="@+id/rl_payment_options_main_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dimen_10">
+
+                    <com.aspl.Utils.CustomGridView xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/gridView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:numColumns="2"
+                        android:stretchMode="columnWidth" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--end ************-->
+
+
+            <TextView
+                android:id="@+id/tv_title_payment_payment_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cv_payment_options_fragment"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginEnd="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_10"
+                android:text="@string/lbl_payment"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold" />
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_payment_payment_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tv_title_payment_payment_fragment"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical"
+                app:cardElevation="3dp"
+                tools:ignore="UnusedAttribute">
+
+                <RelativeLayout
+                    android:id="@+id/rl_payment_main_payment_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dimen_10">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_card_detail_payment_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_add_cart_payment_fragment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="@string/lbl_new_cart"
+                            android:textSize="@dimen/dimen_12" />
+
+
+                        <!--Cart number -->
+                        <TextView
+                            android:id="@+id/tv_title_cart_number_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_add_cart_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/lbl_card_number"
+                            android:textSize="@dimen/dimen_12"
+                            android:visibility="gone" />
+
+                        <EditText
+                            android:id="@+id/et_cart_number_payment_fragment"
+                            style="@style/Edittext_style1"
+                            android:layout_below="@+id/tv_title_cart_number_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:hint="@string/lbl_card_number"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="19"
+                            android:textSize="@dimen/dimen_12"
+                            tools:ignore="HardcodedText,MissingPrefix,TextFields" />
+                        <!-- android:hint=" xxxx xxxx xxxx xxxx " -->
+                        <!---->
+
+                        <!--CVV -->
+                        <TextView
+                            android:id="@+id/tv_title_cvv_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/et_cart_number_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/lbl_cvv"
+                            android:textSize="@dimen/dimen_12"
+                            android:visibility="gone" />
+
+                        <EditText
+                            android:id="@+id/et_cvv_payment_fragment"
+                            style="@style/Edittext_style1"
+                            android:layout_below="@+id/tv_title_cvv_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:hint="@string/lbl_cvv"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="4"
+                            android:minHeight="48dp"
+                            android:textSize="@dimen/dimen_12"
+                            tools:ignore="HardcodedText,TextFields,TouchTargetSizeCheck" />
+                        <!--android:hint=" xxxx "-->
+
+                        <!-- Card Holder Name -->
+                        <TextView
+                            android:id="@+id/tv_title_card_holder_name_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/et_cvv_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/lbl_card_holder_name"
+                            android:textSize="@dimen/dimen_12"
+                            android:visibility="gone" />
+
+                        <EditText
+                            android:id="@+id/et_card_holder_name_payment_fragment"
+                            style="@style/Edittext_style1"
+                            android:layout_below="@+id/tv_title_card_holder_name_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:hint="@string/lbl_card_holder_name"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPhonetic"
+                            android:maxLength="25"
+                            android:textSize="@dimen/dimen_12"
+                            tools:ignore="HardcodedText,TextFields" />
+
+                        <!-- Expiration -->
+                        <TextView
+                            android:id="@+id/tv_title_expiration_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/et_card_holder_name_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/lbl_expiration"
+                            android:textSize="@dimen/dimen_12"
+                            android:visibility="gone" />
+
+                        <EditText
+                            android:id="@+id/et_expiration_payment_fragment"
+                            style="@style/Edittext_style1"
+                            android:layout_below="@+id/tv_title_expiration_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:hint="@string/lbl_expiration"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="5"
+                            android:textSize="@dimen/dimen_12"
+                            tools:ignore="HardcodedText,TextFields" />
+                        <!--android:hint=" mm / yy "-->
+
+                    </RelativeLayout>
+
+                    <!-- Billing Address -->
+                    <RelativeLayout
+                        android:id="@+id/rl_billing_address_payment_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rl_card_detail_payment_fragment">
+
+                        <!-- Billing Address -->
+                        <TextView
+                            android:id="@+id/tv_title_billing_address_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/lbl_billing_address1"
+                            android:textSize="@dimen/dimen_12"
+                            android:textStyle="bold" />
+
+
+                        <!-- Address 1 -->
+                        <TextView
+                            android:id="@+id/tv_title_address_one_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_title_billing_address_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/lbl_address1"
+                            android:textSize="@dimen/dimen_12"
+                            android:visibility="gone" />
+
+                        <AutoCompleteTextView
+                            android:id="@+id/et_address_one_payment_fragment"
+                            style="@style/Edittext_style1"
+                            android:layout_below="@+id/tv_title_address_one_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:hint="@string/lbl_address1"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLength="50"
+                            android:textSize="@dimen/dimen_12" />
+
+                        <!-- Address 2 -->
+                        <TextView
+                            android:id="@+id/tv_title_address_two_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/et_address_one_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/lbl_address2"
+                            android:textSize="@dimen/dimen_12"
+                            android:visibility="gone" />
+
+                        <EditText
+                            android:id="@+id/et_address_two_payment_fragment"
+                            style="@style/Edittext_style1"
+                            android:layout_below="@+id/tv_title_address_two_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:hint="@string/lbl_address2"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLength="50"
+                            android:textSize="@dimen/dimen_12" />
+
+                        <!-- Zip -->
+                        <TextView
+                            android:id="@+id/tv_title_zip_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/et_address_two_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/lbl_zip_postal"
+                            android:textSize="@dimen/dimen_12"
+                            android:visibility="gone" />
+
+                        <!--<EditText-->
+                        <!--android:hint="@string/lbl_zip_postal"-->
+                        <!--android:id="@+id/et_zip_payment_fragment"-->
+                        <!--style="@style/Edittext_style1"-->
+                        <!--android:layout_below="@+id/tv_title_zip_payment_fragment"-->
+                        <!--android:layout_marginTop="@dimen/dimen_5"-->
+                        <!--android:imeOptions="actionNext"-->
+                        <!--android:inputType="number"-->
+                        <!--android:maxLength="5" />-->
+
+                        <!-- City -->
+                        <!-- <TextView
+                             android:visibility="gone"
+                             android:id="@+id/tv_title_city_payment_fragment"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:layout_below="@+id/et_zip_payment_fragment"
+                             android:layout_marginTop="@dimen/dimen_10"
+                             android:text="@string/lbl_city" />-->
+
+                        <!--<EditText-->
+                        <!--android:hint="@string/lbl_city"-->
+                        <!--android:id="@+id/et_city_payment_fragment"-->
+                        <!--style="@style/Edittext_style1"-->
+                        <!--android:layout_below="@+id/tv_title_city_payment_fragment"-->
+                        <!--android:layout_marginTop="@dimen/dimen_5"-->
+                        <!--android:imeOptions="actionNext"-->
+                        <!--android:inputType="textCapWords"-->
+                        <!--android:maxLength="25" />-->
+
+                        <!-- State -->
+                        <!--<TextView-->
+                        <!--android:visibility="gone"-->
+                        <!--android:id="@+id/tv_title_state_payment_fragment"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_below="@+id/et_city_payment_fragment"-->
+                        <!--android:layout_marginTop="@dimen/dimen_10"-->
+                        <!--android:text="@string/lbl_state" />-->
+
+                        <!--<EditText-->
+                        <!--android:hint="@string/lbl_state"-->
+                        <!--android:id="@+id/et_state_payment_fragment"-->
+                        <!--style="@style/Edittext_style1"-->
+                        <!--android:layout_below="@+id/tv_title_state_payment_fragment"-->
+                        <!--android:layout_marginTop="@dimen/dimen_5"-->
+                        <!--android:inputType="textCapCharacters"-->
+                        <!--android:maxLength="2" />-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/et_address_two_payment_fragment"
+                            android:orientation="horizontal"
+                            android:weightSum="100">
+
+
+                            <EditText
+                                android:id="@+id/et_city_payment_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:layout_weight="60"
+                                android:hint="@string/lbl_city"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords"
+                                android:maxLength="25"
+                                android:textSize="@dimen/dimen_12" />
+
+                            <EditText
+                                android:id="@+id/et_state_payment_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:layout_weight="14"
+                                android:hint="@string/lbl_state"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapCharacters"
+                                android:maxLength="2"
+                                android:textSize="@dimen/dimen_12" />
+
+                            <EditText
+                                android:id="@+id/et_zip_payment_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:layout_weight="26"
+                                android:hint="@string/lbl_zip_postal"
+                                android:inputType="number"
+                                android:maxLength="5"
+                                android:textSize="@dimen/dimen_12" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <!-- Shipping Address -->
+                    <RelativeLayout
+                        android:id="@+id/rl_shipping_address_payment_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rl_billing_address_payment_fragment">
+
+                        <!-- Shipping Address -->
+                        <TextView
+                            android:id="@+id/tv_title_shipping_address_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/lbl_shipping_address"
+                            android:textSize="@dimen/dimen_12"
+                            android:textStyle="bold" />
+
+
+                        <!-- Address 1 -->
+                        <TextView
+                            android:id="@+id/tv_title_shipping_address_one_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_title_shipping_address_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/lbl_address1"
+                            android:textSize="@dimen/dimen_12"
+                            android:visibility="gone" />
+
+                        <AutoCompleteTextView
+                            android:id="@+id/et_shipping_address_one_payment_fragment"
+                            style="@style/Edittext_style1"
+                            android:layout_below="@+id/tv_title_shipping_address_one_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:hint="@string/lbl_address1"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLength="50"
+                            android:textSize="@dimen/dimen_12" />
+
+                        <!-- Address 2 -->
+                        <TextView
+                            android:id="@+id/tv_title_shipping_address_two_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/et_shipping_address_one_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/lbl_address2"
+                            android:textSize="@dimen/dimen_12"
+                            android:visibility="gone" />
+
+                        <EditText
+                            android:id="@+id/et_shipping_address_two_payment_fragment"
+                            style="@style/Edittext_style1"
+                            android:layout_below="@+id/tv_title_shipping_address_two_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:hint="@string/lbl_address2"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLength="50"
+                            android:textSize="@dimen/dimen_12" />
+
+                        <!-- Zip -->
+                        <TextView
+                            android:id="@+id/tv_title_shipping_zip_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/et_shipping_address_two_payment_fragment"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/lbl_zip_postal"
+                            android:textSize="@dimen/dimen_12"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/et_shipping_address_two_payment_fragment"
+                            android:orientation="horizontal"
+                            android:weightSum="100">
+
+
+                            <EditText
+                                android:id="@+id/et_shipping_city_payment_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:layout_weight="60"
+                                android:hint="@string/lbl_city"
+                                android:maxLength="25"
+                                android:textSize="@dimen/dimen_12" />
+
+                            <EditText
+                                android:id="@+id/et_shipping_state_payment_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:layout_weight="14"
+                                android:hint="@string/lbl_state"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapCharacters"
+                                android:maxLength="2"
+                                android:textSize="@dimen/dimen_12" />
+
+                            <EditText
+                                android:id="@+id/et_shipping_zip_payment_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:layout_weight="26"
+                                android:hint="@string/lbl_zip_postal"
+                                android:inputType="number"
+                                android:maxLength="5"
+                                android:textSize="@dimen/dimen_12" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <!-- Save Cart -->
+                    <RelativeLayout
+                        android:id="@+id/rl_save_cart_payment_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rl_shipping_address_payment_fragment"
+                        tools:visibility="gone">
+
+                        <CheckBox
+                            android:id="@+id/cbx_save_cart_for_future_update_payment_fragment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="-5dp"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:buttonTint="@android:color/tab_indicator_text"
+                            android:text="@string/lbl_save_cart_for_further_purchase"
+                            android:textColor="@android:color/tab_indicator_text"
+                            android:textSize="@dimen/dimen_12"
+                            tools:ignore="UnusedAttribute" />
+
+
+                        <LinearLayout
+                            android:id="@+id/ll_hide_check_box"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="1dp"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:background="#cccccc"
+                            android:orientation="horizontal"
+                            android:visibility="visible" />
+                        <!-- Note : If Cart is already... -->
+                        <TextView
+                            android:id="@+id/tv_note_payment_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/cbx_save_cart_for_future_update_payment_fragment"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:gravity="start"
+                            android:text="@string/lbl_note_if_card_is_already_on_file_then_this_card_will_override_it"
+                            android:textSize="@dimen/dimen_12" />
+
+                    </RelativeLayout>
+
+                    <!-- Reward Cash -->
+                    <RelativeLayout
+                        android:id="@+id/rl_reward_cash_available_payment_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rl_save_cart_payment_fragment"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/tv_title_reward_cash_available_payment_fragment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:text="@string/lbl_reward_cash_available"
+                            android:textSize="@dimen/dimen_12"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_rewards_cash_available_payment_fragment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:layout_toRightOf="@+id/tv_title_reward_cash_available_payment_fragment"
+                            android:text=""
+                            android:textSize="@dimen/dimen_12"
+                            android:textStyle="bold" />
+
+
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_rewards_cash_available_payment_fragment">
+
+
+                            <CheckBox
+                                android:id="@+id/cbx_reward_cash_available_payment_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_title_reward_cash_available_payment_fragment"
+                                android:layout_marginStart="-5dp"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:buttonTint="@android:color/tab_indicator_text"
+                                android:text="@string/lbl_apply"
+                                android:textColor="@android:color/tab_indicator_text"
+                                android:textSize="@dimen/dimen_12"
+                                tools:ignore="UnusedAttribute" />
+
+                            <!-- Reward cash -->
+                            <TextView
+                                android:id="@+id/tv_reward_cash_available_payment_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_title_reward_cash_available_payment_fragment"
+                                android:layout_marginStart="@dimen/dimen_10"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:layout_toRightOf="@+id/cbx_reward_cash_available_payment_fragment"
+                                android:text=""
+                                android:textSize="@dimen/dimen_12" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                    <!-- Reward cash available -->
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/tv_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/cv_payment_payment_fragment"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:text=""
+                android:textSize="@dimen/dimen_12"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/ll_join_reward_payment_fragment"
+                android:layout_below="@+id/tv_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_title_join_reward_payment_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:text="@string/lbl_join_reward"
+                    android:textSize="@dimen/dimen_12"
+                    android:textStyle="bold" />
+
+
+                <CheckBox
+                    android:id="@+id/cbx_join_reward_payment_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_title_join_reward_payment_fragment"
+                    android:layout_marginStart="-5dp"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:buttonTint="@android:color/tab_indicator_text"
+                    android:text="@string/lbl_join_reward_checkbox_text"
+                    android:textColor="@android:color/tab_indicator_text"
+                    android:textSize="@dimen/dimen_12"
+                    tools:ignore="UnusedAttribute" />
+
+                <!-- Reward join -->
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_pick_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_join_reward_payment_fragment"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_main_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Your order will be placed at the following location:"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:layout_marginBottom="@dimen/dimen_5" />
+
+                <TextView
+                    android:id="@+id/tv_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_marginBottom="@dimen/dimen_3" />
+
+                <TextView
+                    android:id="@+id/tv_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_marginBottom="@dimen/dimen_3" />
+
+                <TextView
+                    android:id="@+id/tv_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_marginBottom="@dimen/dimen_3" />
+
+                <TextView
+                    android:id="@+id/tv_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_marginBottom="@dimen/dimen_3" />
+
+                <TextView
+                    android:id="@+id/tv_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_marginBottom="@dimen/dimen_3" />
+
+                <TextView
+                    android:id="@+id/tv_main_hours"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Today &amp; Tomorrow’s Hours:"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:layout_marginBottom="@dimen/dimen_5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:id="@+id/tv_6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="wednesday"
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:layout_marginBottom="@dimen/dimen_3"
+                            android:layout_weight="1.4"/>
+
+                        <TextView
+                            android:id="@+id/tv_7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="10:00 AM - 10:00PM"
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:layout_marginBottom="@dimen/dimen_3"
+                            android:layout_weight="0.6"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="2">
+
+                        <TextView
+                            android:id="@+id/tv_8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:layout_marginBottom="@dimen/dimen_3"
+                            android:layout_weight="1.4"/>
+
+                        <TextView
+                            android:id="@+id/tv_9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:layout_marginBottom="@dimen/dimen_3"
+                            android:layout_weight="0.6"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/dayaftertomorrow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="2"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tv_10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:layout_marginBottom="@dimen/dimen_3"
+                            android:layout_weight="1.4"/>
+
+                        <TextView
+                            android:id="@+id/tv_11"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:layout_marginBottom="@dimen/dimen_3"
+                            android:layout_weight="0.6"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_button_payment_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_pick_up"
+                android:layout_margin="@dimen/dimen_5"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dimen_10"
+                android:paddingTop="@dimen/dimen_10"
+                android:weightSum="100">
+
+                <Button
+                    android:id="@+id/btn_prev_payment_fragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_5"
+                    android:layout_weight="50"
+                    android:background="@drawable/round_shap_red"
+                    android:padding="@dimen/dimen_ButtonPadding"
+                    android:text="@string/str_prev"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/dimen_ButtonTextSize" />
+
+                <Button
+                    android:id="@+id/btn_place_payment_fragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:background="@drawable/round_shap_red"
+                    android:padding="@dimen/dimen_ButtonPadding"
+                    android:text="@string/lbl_place_order"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/dimen_ButtonTextSize" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressbar_payment_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>
+    </RelativeLayout>

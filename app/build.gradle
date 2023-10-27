@@ -1,0 +1,447 @@
+apply plugin: 'com.android.application'
+android {
+    signingConfigs {
+//        config {
+//            keyAlias 'boxsalt'
+//            keyPassword 'boxsaltapp123'
+//            storeFile file('E:/Janvi/Android Workspace/MBS/MBS 2_current/boxsalt327keystore.jks')
+//            storePassword 'boxsaltapp123'
+//        }
+
+        //need to uncomment above config when release on playstore and signingConfig signingConfigs.config - this line also in every places of this page
+    }
+
+//    configurations.matching { it.name == '_internal_aapt2_binary' }.all { config ->
+//        config.resolutionStrategy.eachDependency { details ->
+//            details.useVersion("3.3.2-5309881")
+//        }
+//    }
+
+    compileSdkVersion 33
+    buildToolsVersion '28.0.3'
+//    buildToolsVersion '29.0.2'
+    defaultConfig {
+        applicationId "com.aspl.mbs"
+        minSdkVersion 17
+        targetSdkVersion 33
+        versionCode 15
+        versionName "1.15"
+        multiDexEnabled true
+//        signingConfig signingConfigs.config
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+    aaptOptions {
+        cruncherEnabled = false
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    buildTypes {
+        release {
+//            shrinkResources true
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
+            buildConfigField "java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)"
+            debuggable false
+        }
+        debug {
+            buildConfigField "java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)"
+//            applicationIdSuffix ".debug"
+//            signingConfig signingConfigs.config
+            minifyEnabled false
+        }
+        jnidebug {
+            initWith debug
+            applicationIdSuffix ".jnidebug"
+            jniDebuggable true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    flavorDimensions "store"
+    productFlavors {
+        store707 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 1
+            versionName '1.0'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store707"
+            resValue "string", "app_names", "W & L Wines"
+            //Editde by Janvi *******//end ************
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+        store1000 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 1
+            versionName '1.0'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store1000"
+            resValue "string", "app_names", "Store1000"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+        store327 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 15
+            versionName '1.15'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store327"
+            resValue "string", "app_names", "BEASTYFEAST®"
+            //Editde by Janvi *******//end ************
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+//            signingConfig signingConfigs.config
+            testInstrumentationRunner 'android.support.test.runner.AndroidJUnItRunner'
+        }
+        store315 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 7
+            versionName '1.7'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store315" //Editde by Janvi *******
+            resValue "string", "app_names", "Post Wine & Spirits - Larchmont" //end ************
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+        store57 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 15
+            versionName '1.15'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store57" //Editde by Janvi *******
+            resValue "string", "app_names", "@string/app_name_store57" //end ************
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+        store44 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 1
+            versionName '1.0'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store44"
+            resValue "string", "app_names", "@string/app_name_store44"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+        store99 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 1
+            versionName '1.0'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store99"
+            resValue "string", "app_names", "@string/app_name_store99"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+        store7365 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 1
+            versionName '1.0'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store7365"
+            resValue "string", "app_names", "@string/app_name_store7365"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+        store105 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 1
+            versionName '1.0'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store105"
+            resValue "string", "app_names", "FARM STORES"
+            //Editde by Janvi *******//end ************
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+        store90 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 12
+            versionName '1.12'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store90"
+            resValue "string", "app_names", "@string/app_name_store90"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+
+        store3824 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 14
+            versionName '1.14'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store3824"
+            resValue "string", "app_names", "@string/app_name_store3824"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+
+        store96 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 9
+            versionName '1.9'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store96"
+            resValue "string", "app_names", "@string/app_name_store96"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+
+
+        store540 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 9
+            versionName '1.9'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store540"
+            resValue "string", "app_names", "Main Wines & Liquors, New Rochelle, NY"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+
+        store104 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 1
+            versionName '1.0'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store104"
+            resValue "string", "app_names", "Project Orbitz - Atlanta"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+
+        store1802 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 4
+            versionName '1.4'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store1802"
+            resValue "string", "app_names", "Columbus Circle Wine & Spirits"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+
+        store2105 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 1
+            versionName '1.0'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store2105"
+            resValue "string", "app_names", "NEW ROCHELLE WINES"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+
+        store224 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 1
+            versionName '1.0'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store224"
+            resValue "string", "app_names", "Tuxedo Wine & Liquor Store"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+
+        store4450 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 3
+            versionName '1.3'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store4450"
+            resValue "string", "app_names", "Spirits N Such"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+
+        store2401 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 1
+            versionName '1.0'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store2401"
+            resValue "string", "app_names", "Wine & Spirit"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+
+
+        store4473 {
+            minSdkVersion 17
+            targetSdkVersion 33
+            versionCode 3
+            versionName '1.3'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store4473"
+            resValue "string", "app_names", "@string/app_name_store4473"
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+
+    }
+    useLibrary 'org.apache.http.legacy'
+}
+repositories {
+    mavenCentral()
+    google()
+}
+
+ext {
+    supportLibraryVersion = '28.0.0'
+    pageIndicatorVersion = '1.0.1'
+    jacksonVersion = '2.8.8'
+    firebase_coreVersion = '11.6.0'
+    firebase_messagingVersion = '11.6.0'
+    firebase_playservices = '17.3.3'
+    playservicesvision = '18.0.0'
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // testCompile 'junit:junit:4.12'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'commons-logging:commons-logging-api:1.1'
+    implementation 'org.jsoup:jsoup:1.10.2'
+    /*  compile 'com.android.support:customtabs:23.0.0+'*/
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    //    annotationProcessor 'com.github.bumptech.glide:compiler:3.7.0'
+    //    implementation "com.google.firebase:firebase-core:$firebase_coreVersion"
+    //    implementation "com.google.firebase:firebase-messaging:$firebase_messagingVersion"
+    //
+    //    /*implementation "com.google.android.gms:play-services:$firebaseVersion"*/
+    //    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    //    implementation 'com.google.android.gms:play-services-places:17.0.0'
+    //    implementation "com.google.firebase:firebase-crash:$firebasecrash"
+//    implementation 'com.google.android.gms:play-services-ads:12.0.1'
+    implementation 'com.google.firebase:firebase-core:12.0.1'
+    implementation 'com.google.firebase:firebase-messaging:12.0.1'
+    implementation 'com.google.firebase:firebase-crash:12.0.1'
+
+//    implementation 'com.google.firebase:firebase-core:11.6.0'
+
+//    implementation 'com.google.android.gms:play-services:11.6.0'
+    implementation 'com.google.android.gms:play-services:12.0.1'
+//    implementation 'com.google.android.gms:play-services-vision:20.1.3'
+    implementation 'com.google.android.gms:play-services-vision:12.0.1'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    /* Google Vision API for Image scanning */
+    implementation 'com.intuit.sdp:sdp-android:1.0.5'
+    implementation 'com.mcxiaoke.volley:library:1.0.19'
+    /*compile ('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
+                                        exclude module: 'support-v4'
+                                    }*/
+    implementation 'com.github.santalu:auto-viewpager:1.0.4'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    //    implementation 'com.facebook.android:facebook-share:[5,6)'
+
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
+//    implementation 'androidx.webkit:webkit:1.4.0'
+
+}
+apply plugin: 'com.google.gms.google-services'

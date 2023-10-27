@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llMain"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtDepartmentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:text="Departments"
+        android:textSize="@dimen/dimen_18" />
+
+    <View
+        android:visibility="gone"
+        android:background="#656565"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"/>
+    <!--android:text="All Deparments"-->
+
+    <ExpandableListView
+        android:id="@+id/dept_expList"
+        android:groupIndicator="@null"
+        android:layout_width="match_parent"
+        android:divider="@null"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

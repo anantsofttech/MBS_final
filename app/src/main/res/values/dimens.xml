@@ -1,0 +1,82 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">@dimen/_16sdp</dimen>
+    <dimen name="activity_vertical_margin">@dimen/_16sdp</dimen>
+    <dimen name="nav_header_vertical_spacing">@dimen/_16sdp</dimen>
+    <dimen name="nav_header_height">@dimen/_140sdp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="fab_margin">@dimen/_16sdp</dimen>
+    <dimen name="profile_width">@dimen/_75sdp</dimen>
+    <dimen name="profile_height">@dimen/_75sdp</dimen>
+    <dimen name="text_header">@dimen/_25sdp</dimen>
+    <dimen name="text_header_17">@dimen/_17sdp</dimen>
+    <dimen name="slider_text_size">@dimen/_13sdp</dimen>
+    <dimen name="text_sort_size">20dp</dimen>
+    <dimen name="dimen_3">3dp</dimen>
+    <dimen name="dimen_5">5dp</dimen>
+    <dimen name="dimen_7">@dimen/_7sdp</dimen>
+    <dimen name="dimen_9">@dimen/_9sdp</dimen>
+    <dimen name="dimen_10">@dimen/_10sdp</dimen>
+
+    <dimen name="dimen_11">@dimen/_11sdp</dimen>
+    <dimen name="dimen_12">@dimen/_12sdp</dimen>
+    <dimen name="dimen_13">@dimen/_13sdp</dimen>
+    <dimen name="dimen_14">@dimen/_14sdp</dimen>
+    <dimen name="dimen_15">@dimen/_15sdp</dimen>
+    <dimen name="dimen_17">@dimen/_17sdp</dimen>
+    <dimen name="dimen_18">@dimen/_18sdp</dimen>
+    <dimen name="dimen_20">@dimen/_20sdp</dimen>
+    <dimen name="dimen_25">@dimen/_25sdp</dimen>
+    <dimen name="dimen_30">@dimen/_30sdp</dimen>
+    <dimen name="dimen_35">@dimen/_35sdp</dimen>
+    <dimen name="dimen_40">@dimen/_40sdp</dimen>
+    <dimen name="dimen_45">@dimen/_45sdp</dimen>
+    <dimen name="dimen_55">@dimen/_55sdp</dimen>
+    <dimen name="dimen_65">@dimen/_65sdp</dimen>
+    <dimen name="dimen_90">@dimen/_90sdp</dimen>
+    <dimen name="dimen_100">@dimen/_100sdp</dimen>
+    <dimen name="dimen_170">@dimen/_170sdp</dimen>
+    <dimen name="dimen_70">@dimen/_70sdp</dimen>
+    <dimen name="dimen_80">@dimen/_80sdp</dimen>
+    <dimen name="badge_text_size">@dimen/_10sdp</dimen>
+
+
+
+    <dimen name="dimen_CartTextSize">@dimen/_12sdp</dimen>
+    <dimen name="dimen_ButtonTextSize">@dimen/_12sdp</dimen>
+    <dimen name="dimen_ButtonPadding">@dimen/_7sdp</dimen>
+    <dimen name="dimen_DeliveryTextSize">@dimen/_14sdp</dimen>
+
+    <dimen name="dimen_HeaderTextSize">@dimen/_15sdp</dimen>
+    <!--<dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">140dp</dimen>
+
+    &lt;!&ndash; Default screen margins, per the Android Design guidelines. &ndash;&gt;
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="profile_width">75dp</dimen>
+    <dimen name="profile_height">75dp</dimen>
+    <dimen name="text_header">25dp</dimen>
+    <dimen name="text_header_17">17dp</dimen>
+    <dimen name="slider_text_size">@dimen/_13sdp</dimen>
+    <dimen name="text_sort_size">20dp</dimen>
+    <dimen name="dimen_5">5dp</dimen>
+    <dimen name="dimen_10">10dp</dimen>
+
+    <dimen name="dimen_11">11dp</dimen>
+    <dimen name="dimen_12">12dp</dimen>
+    <dimen name="dimen_13">13dp</dimen>
+
+    <dimen name="dimen_15">15dp</dimen>
+    <dimen name="dimen_18">18dp</dimen>
+    <dimen name="dimen_20">20dp</dimen>
+    <dimen name="dimen_25">25dp</dimen>
+    <dimen name="dimen_30">30dp</dimen>
+    <dimen name="dimen_35">35dp</dimen>
+    <dimen name="dimen_40">40dp</dimen>
+    <dimen name="dimen_45">45dp</dimen>
+    <dimen name="badge_text_size">10sp</dimen>-->
+
+</resources>

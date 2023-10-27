@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--edited by Janvi 19th Oct-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:orientation="vertical" android:layout_width="match_parent"-->
+    <!--android:gravity="center"-->
+    <!--android:id="@+id/ll_splace"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/splaceImage"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal" />-->
+<!--</LinearLayout>-->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:id="@+id/fl_splace"
+    android:background="@android:color/white"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/splaceImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:id="@+id/tvDate"/>
+
+    <FrameLayout
+        android:id="@+id/dummy_map_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"/>
+
+</FrameLayout>
+
+<!--end *********-->

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"
+        android:visible="false"
+        app:showAsAction="ifRoom|withText" />
+    <!--<item android:title="None">
+        <menu>
+            &lt;!&ndash; The none checkableBehavior is default, but we explicitly show it here. &ndash;&gt;
+            <group
+                android:id="@+id/noncheckable_group"
+                android:checkableBehavior="none">
+                &lt;!&ndash; Notice how these items inherit from the group. &ndash;&gt;
+                <item
+                    android:id="@+id/noncheckable_item_1"
+                    android:title="@string/app_name" />
+                <item
+                    android:id="@+id/noncheckable_item_2"
+                    android:title="@string/app_name" />
+                <item
+                    android:id="@+id/noncheckable_item_3"
+                    android:title="@string/app_name" />
+            </group>
+        </menu>
+    </item>-->
+
+    <!--<item
+        android:id="@+id/menu_depts"
+        android:icon="@drawable/ic_category"
+        android:title="Departments"
+        android:visible="false"
+        app:showAsAction="ifRoom|withText">
+        <group
+            android:id="@+id/checkable_group"
+            android:checkableBehavior="all">
+
+            <item
+                android:id="@+id/Accessory"
+                android:title="@string/Accessory" />
+            <item
+                android:id="@+id/Blenders"
+                android:title="@string/Blenders" />
+            <item
+                android:id="@+id/Champagne"
+                android:title="@string/Champagne" />
+            <item
+                android:id="@+id/Cordials"
+                android:title="@string/Cordials" />
+            <item
+                android:id="@+id/Juices"
+                android:title="@string/Juices" />
+            <item
+                android:id="@+id/Liquor"
+                android:title="@string/Liquor" />
+            <item
+                android:id="@+id/Miscellaneous"
+                android:title="@string/Miscellaneous" />
+
+            <item
+                android:id="@+id/Mixers"
+                android:title="@string/Mixers" />
+            <item
+                android:id="@+id/Mobiles"
+
+                android:title="@string/Mobiles" />
+            <item
+                android:id="@+id/Ovens"
+                android:title="@string/Ovens" />
+            <item
+                android:id="@+id/Red_Beer"
+                android:title="@string/Red_Beer" />
+            <item
+                android:id="@+id/Rum"
+                android:title="@string/Rum" />
+            <item
+                android:id="@+id/Soup"
+                android:title="@string/Soup" />
+            <item
+                android:id="@+id/Unassigned"
+                android:title="@string/Unassigned" />
+            <item
+                android:id="@+id/Vodka78$"
+                android:title="@string/Vodka78$" />
+            <item
+                android:id="@+id/White_Beer"
+                android:title="@string/White_Beer" />
+            <item
+                android:id="@+id/Wine"
+                android:title="@string/Wine" />
+
+        </group>
+    </item>-->
+    <item
+        android:visible="false"
+        android:id="@+id/menu_wishlist"
+        android:icon="@drawable/ic_star"
+        android:title="@string/wishList"
+        app:showAsAction="ifRoom|withText" />
+
+    <!--<item-->
+        <!--android:id="@+id/menu_Mic"-->
+        <!--android:icon="@drawable/ic_mic"-->
+        <!--android:title=""-->
+        <!--app:showAsAction="ifRoom|withText" />-->
+
+    <item
+        android:id="@+id/menu_Cart"
+        android:actionLayout="@layout/icon_shopping_cart_count"
+        android:icon="@drawable/ic_shopping_cart"
+        android:title="@string/cart"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:visible="false"
+        android:id="@+id/menu_Count"
+        android:title="0"
+        app:showAsAction="always" />
+
+</menu>

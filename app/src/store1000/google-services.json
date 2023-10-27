@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "357626466339",
+    "firebase_url": "https://boxsalt-50102.firebaseio.com",
+    "project_id": "boxsalt-50102",
+    "storage_bucket": "boxsalt-50102.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357626466339:android:db0b4a66eb8116db",
+        "android_client_info": {
+          "package_name": "com.aspl.mbs"
+        }
+      },
+      "client_info": {
+        "mobilesdk_app_id": "1:357626466339:android:db0b4a66eb8116db",
+        "android_client_info": {
+          "package_name": "com.aspl.mbs.store1000"
+        }
+      },
+//      "client_info": {
+//        "mobilesdk_app_id": "1:357626466339:android:db0b4a66eb8116db",
+//        "android_client_info": {
+//          "package_name": "com.aspl.mbs.store"
+//        }
+//      },
+      "oauth_client": [
+        {
+          "client_id": "357626466339-1fn1idv57msbkrhi9634tsh7dambqlgc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aspl.mbs",
+            "certificate_hash": "ac4614c7560c8ead59a813ba23fb887ae1e3fc97"
+          }
+        },
+        {
+          "client_id": "357626466339-hce7hr5k6n3viaukajspi60p7hnsvs6q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-5bnuGUrnkjpNAOZh9XFpT0Zdokiky_I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357626466339-hce7hr5k6n3viaukajspi60p7hnsvs6q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

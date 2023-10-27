@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title_toy_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center"
+        android:maxLines="2"
+        android:text="Welcome"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_20"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_view"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/tv_title_toy_dialog"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/dotted"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/img_view"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/tv_title_toy_dialog"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/dotted"
+        android:layerType="software" />
+
+    <TextView
+        android:id="@+id/tv_title_second_toy_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_view"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center"
+        android:maxLines="2"
+        android:text="WE NEED TO CHECK YOUR ID"
+        android:textAllCaps="true"
+        android:textColor="#FF0000"
+        android:textSize="@dimen/dimen_20"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_title_third_toy_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title_second_toy_dialog"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:text="YOU MUST BE OF LEGAL DRINKING AGE TO ENTER THIS SITE"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_15"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_title_legal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title_third_toy_dialog"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="10dp"
+        android:focusable="true"
+        android:layout_centerInParent="true"
+        android:focusableInTouchMode="true"
+        android:text="@string/Legal_Disclaimer"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_12"
+        android:textStyle="italic" />
+
+    <LinearLayout
+        android:id="@+id/ll_monthYearDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title_legal"
+        android:orientation="horizontal"
+        android:weightSum="3.5">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1.8">
+
+            <Spinner
+                android:id="@+id/spinner_toy_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/border_edittext_simple"
+                android:focusableInTouchMode="true"
+                android:spinnerMode="dropdown" />
+
+            <ImageView
+                android:id="@+id/iv_down_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="end"
+                android:paddingEnd="@dimen/_10sdp"
+                android:src="@drawable/ic_arrow_down" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_date_toy_dialog"
+            android:layout_width="0dp"
+            android:layout_weight="0.7"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/border_edittext_simple"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:hint="dd"
+            android:inputType="date"
+            android:maxLength="2"
+            android:paddingLeft="3dp" />
+
+        <EditText
+            android:id="@+id/et_year_toy_dialog"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_toRightOf="@+id/et_date_toy_dialog"
+            android:background="@drawable/border_edittext_simple"
+            android:ems="10"
+            android:hint="yyyy"
+            android:inputType="date"
+            android:maxLength="4"
+            android:paddingLeft="3dp" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_submit_toy_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_monthYearDate"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:background="@drawable/round_shap_red"
+        android:padding="@dimen/dimen_ButtonPadding"
+        android:text="Submit"
+        android:textColor="@color/White"
+        android:textSize="@dimen/dimen_ButtonTextSize" />
+
+    <TextView
+        android:id="@+id/tv_or_toy_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_submit_toy_dialog"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center"
+        android:text="OR"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_20"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_facebook_toy_dialog"
+        style=""
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/tv_or_toy_dialog"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/facebook_button_background"
+        android:gravity="center"
+        android:padding="@dimen/dimen_ButtonPadding"
+        android:paddingLeft="@dimen/dimen_40"
+        android:paddingRight="@dimen/dimen_40"
+        android:text="Verify with Facebook"
+        android:textColor="@color/White"
+        android:visibility="gone" />
+
+
+</RelativeLayout>

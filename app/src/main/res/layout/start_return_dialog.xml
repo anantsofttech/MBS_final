@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/llmainReturn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llstartreturn_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/_5sdp"
+                        android:text="Return Product"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_17sdp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/iv_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:padding="@dimen/_7sdp"
+                        android:src="@drawable/ic_close" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llStartReturnRoot"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="7"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dimen_7">
+
+                            <!--<android.support.v7.widget.RecyclerView-->
+                            <!--android:id="@+id/recyclerview"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_weight="9"-->
+                            <!--android:layout_height="0dp"/>-->
+
+                            <!--<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+                            <!--android:id="@+id/ll_desc"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="0dp"-->
+                            <!--android:layout_marginTop="@dimen/_10sdp"-->
+                            <!--android:layout_weight="9"-->
+                            <!--android:scrollbars="vertical">-->
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_7sdp">
+
+                                    <ImageView
+                                        android:id="@+id/ivProdctImage"
+                                        android:layout_width="@dimen/_80sdp"
+                                        android:layout_height="@dimen/_80sdp"
+                                        android:layout_gravity="center"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/no_image_new" />
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/tvDescription"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/_7sdp"
+                                    android:gravity="center"
+                                    android:text=""
+                                    android:textColor="@android:color/black"
+                                    android:textSize="@dimen/_13sdp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginBottom="@dimen/_2sdp"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:layout_marginRight="@dimen/_10sdp"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:gravity="center"
+                                    android:text="Qty:"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="@dimen/_13sdp" />
+
+
+                                <LinearLayout
+                                    android:id="@+id/ll_quantity_count"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_discount_name_rv_item"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal"
+                                    android:padding="@dimen/_5sdp">
+
+                                    <ImageView
+                                        android:id="@+id/img_minus"
+                                        android:layout_width="@dimen/_20sdp"
+                                        android:layout_height="@dimen/_20sdp"
+                                        android:padding="@dimen/_2sdp"
+                                        android:src="@drawable/ic_minus_black" />
+
+                                    <TextView
+                                        android:id="@+id/tv_item_quantity_upper"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginLeft="@dimen/_5sdp"
+                                        android:gravity="center"
+                                        android:inputType="number"
+                                        android:text="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/dimen_DeliveryTextSize"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:inputType="number"
+                                        android:text="/"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/dimen_DeliveryTextSize"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/tv_item_quantity_lower"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginRight="@dimen/_5sdp"
+                                        android:gravity="center"
+                                        android:inputType="number"
+                                        android:text="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/dimen_DeliveryTextSize"
+                                        android:textStyle="bold" />
+
+                                    <ImageView
+                                        android:id="@+id/img_plus"
+                                        android:layout_width="@dimen/_20sdp"
+                                        android:layout_height="@dimen/_20sdp"
+                                        android:padding="@dimen/_2sdp"
+                                        android:src="@drawable/ic_plus_black" />
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:layout_marginBottom="@dimen/_5sdp"
+                                    android:layout_marginLeft="@dimen/_11sdp"
+                                    android:layout_marginRight="@dimen/_11sdp"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:gravity="start"
+                                    android:text="@string/whyare"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="@dimen/_13sdp" />
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:layout_marginRight="@dimen/_10sdp"
+                                    android:background="@drawable/radius_corner_with_greyborder">
+
+                                    <Spinner
+                                        android:id="@+id/spinnerReason"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:focusableInTouchMode="true"
+                                        android:spinnerMode="dropdown"
+                                        android:textSize="@dimen/_7sdp" />
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:layout_marginBottom="@dimen/_5sdp"
+                                    android:layout_marginLeft="@dimen/_11sdp"
+                                    android:layout_marginRight="@dimen/_11sdp"
+                                    android:layout_marginTop="@dimen/_8sdp"
+                                    android:gravity="start"
+                                    android:text="Comments(optional):"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="@dimen/_13sdp" />
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/textEdtCustomerNote"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:overScrollMode="always"
+                                    android:scrollbarStyle="insideInset"
+                                    android:scrollbars="vertical"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:layout_marginRight="@dimen/_10sdp"
+                                    android:background="@drawable/radius_corner_with_greyborder"
+                                    android:gravity="top"
+                                    android:imeOptions="actionDone"
+                                    android:maxLength="200"
+                                    android:maxLines="4"
+                                    android:minLines="4"
+                                    android:nestedScrollingEnabled="true"
+                                    android:padding="@dimen/_3sdp"
+                                    android:scrollIndicators="right"
+                                    android:textSize="@dimen/_13sdp"
+                                    tools:ignore="UnusedAttribute" />
+
+                                <!--android:background="@drawable/light_black_border"-->
+
+                                <TextView
+                                    android:id="@+id/txtCounter"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:layout_marginBottom="@dimen/_5sdp"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:layout_marginRight="@dimen/_15sdp"
+                                    android:layout_marginTop="@dimen/_2sdp"
+                                    android:gravity="start"
+                                    android:text=""
+                                    android:textColor="@android:color/black"
+                                    android:textSize="@dimen/_13sdp" />
+
+                            </LinearLayout>
+
+                            <!--</android.support.v4.widget.NestedScrollView>-->
+
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                android:id="@+id/btnContinue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@drawable/round_shap_red"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:text="Continue"
+                android:textColor="@color/White"
+                android:textSize="@dimen/dimen_ButtonTextSize" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
+
+                <!--<Button-->
+                    <!--android:id="@+id/btnContinue"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_marginBottom="@dimen/_3sdp"-->
+                    <!--android:layout_marginLeft="@dimen/_7sdp"-->
+                    <!--android:layout_marginRight="@dimen/_15sdp"-->
+                    <!--android:layout_marginTop="@dimen/_2sdp"-->
+                    <!--android:background="@drawable/round_shap_red"-->
+                    <!--android:paddingLeft="@dimen/_5sdp"-->
+                    <!--android:paddingRight="@dimen/_5sdp"-->
+                    <!--android:text="Continue"-->
+                    <!--android:textColor="@color/White"-->
+                    <!--android:textSize="@dimen/dimen_ButtonTextSize" />-->
+
+            <!--</LinearLayout>-->
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

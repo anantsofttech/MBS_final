@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_10">
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/dimen_18"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/llCardEnding"
+            android:weightSum="1.8"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtCardEnding"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textSize="@dimen/dimen_15"
+                android:text="Card Ending in : "
+                android:textColor="@color/black" />
+
+
+            <TextView
+                android:id="@+id/txtCardnumber"
+                android:layout_width="0dp"
+                android:layout_weight="0.8"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textSize="@dimen/dimen_15"
+                android:text=""
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/llCardApproval"
+            android:weightSum="1.8"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtApprovalCode"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:textSize="@dimen/dimen_15"
+                android:text=""
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/txtApprovalNumber"
+                android:layout_width="0dp"
+                android:layout_weight="0.8"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textSize="@dimen/dimen_15"
+                android:text=""
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnOK"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_12"
+            android:padding="@dimen/dimen_ButtonPadding"
+            android:background="@drawable/round_shap_red"
+            android:text="@string/str_OK"
+            android:textSize="@dimen/dimen_ButtonTextSize"
+            android:textAllCaps="false"
+            android:textColor="@color/White" />
+    </LinearLayout>
+</ScrollView>

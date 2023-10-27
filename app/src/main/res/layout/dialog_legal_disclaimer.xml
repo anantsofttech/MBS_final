@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/rounded_corner_signup"
+    android:layout_width="match_parent"
+    android:padding="@dimen/dimen_15"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_legal_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Legal Disclaimer"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_15" />
+    <TextView
+        android:id="@+id/tv_age_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_15" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_legal_title"
+        android:background="@android:color/darker_gray" />
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_hi_legal_msg"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/view_line"-->
+    <!--android:layout_marginTop="@dimen/dimen_13"-->
+    <!--android:text="Hi"-->
+    <!--android:textSize="@dimen/dimen_15" />-->
+
+    <TextView
+        android:id="@+id/tv_legal_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text=""
+        android:textSize="@dimen/dimen_15" />
+
+    <TextView
+        android:id="@+id/tv_age_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text=""
+        android:visibility="gone"
+        android:textSize="@dimen/dimen_15" />
+
+
+    <!--<TextView-->
+    <!--android:visibility="gone"-->
+    <!--android:gravity="center"-->
+    <!--android:textSize="@dimen/dimen_20"-->
+    <!--android:id="@+id/tv_oky_login_success_dialog"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="OK"-->
+    <!--android:layout_marginTop="@dimen/dimen_15"-->
+    <!--android:layout_below="@+id/tv_welcome_to_store_login_success_dialog" />-->
+
+    <Button
+        android:id="@+id/btn_ok_legal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_legal_msg"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:background="@drawable/rounded_corner_all"
+        android:padding="@dimen/dimen_ButtonPadding"
+        android:text="@string/str_OK"
+        android:textSize="@dimen/_12sdp"
+        android:textAllCaps="false"
+        android:textColor="@color/White" />
+</LinearLayout>

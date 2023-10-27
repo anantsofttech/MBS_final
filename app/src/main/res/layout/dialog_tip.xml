@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_corner_signup"
+    android:padding="@dimen/dimen_5">
+
+    <ImageView
+        android:layout_margin="@dimen/dimen_5"
+        android:id="@+id/iv_close"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_close"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_title_tip_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_marginEnd="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:textSize="@dimen/dimen_25"
+        android:text="@string/lbl_optional_tip_on_credit_cart" />
+
+    <View
+        android:id="@+id/v_tip_dialog"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_below="@+id/tv_title_tip_dialog"
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_custom_tip"
+        android:layout_below="@+id/v_tip_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_22sdp"
+        android:layout_marginRight="@dimen/_22sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/dimen_12"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="@string/lbl_enter_amt"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/et_tipvalue"
+            style="@style/Edittext_style1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:imeOptions="actionDone"
+            android:inputType="numberDecimal"
+
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_below="@+id/v_tip_dialog"
+        android:id="@+id/tv_title_sub_total_tip_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_25"
+        android:layout_marginEnd="@dimen/dimen_5"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:textSize="@dimen/dimen_12"
+        android:textStyle="bold"
+        android:text="@string/lbl_your_sub_total_is" />
+
+    <TextView
+        android:layout_below="@+id/v_tip_dialog"
+        android:layout_toRightOf="@+id/tv_title_sub_total_tip_dialog"
+        android:id="@+id/tv_sub_total_tip_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:textSize="@dimen/dimen_12"
+        android:textStyle="bold"
+        Tools:text="@string/lbl_your_sub_total_is"
+        android:text="" />
+
+    <TextView
+        android:layout_below="@+id/tv_title_sub_total_tip_dialog"
+        android:id="@+id/tv_apply_tip_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_25"
+        android:layout_marginEnd="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:textSize="@dimen/dimen_12"
+        android:textStyle="bold"
+        android:text="@string/lbl_would_you_like_to_apply_tip_of" />
+    
+    <RadioGroup
+        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_marginBottom="@dimen/dimen_15"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_below="@+id/tv_apply_tip_dialog"
+        android:id="@+id/rg_tip_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:visibility="gone"
+            Tools:visibility="visible"
+            android:id="@+id/rb_fifteen_tip_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@android:color/tab_indicator_text"
+            android:text=""
+            android:textSize="@dimen/dimen_12"
+            android:textColor="@android:color/tab_indicator_text"
+            Tools:ignore="UnusedAttribute" />
+
+        <RadioButton
+            android:visibility="gone"
+            Tools:visibility="visible"
+            android:id="@+id/rb_eighteen_tip_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@android:color/tab_indicator_text"
+            android:text=""
+            android:textSize="@dimen/dimen_12"
+            android:textColor="@android:color/tab_indicator_text"
+            Tools:ignore="UnusedAttribute" />
+
+        <RadioButton
+            android:visibility="gone"
+            Tools:visibility="visible"
+            android:id="@+id/rb_twenty_tip_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@android:color/tab_indicator_text"
+            android:text=""
+            android:textSize="@dimen/dimen_12"
+            android:textColor="@android:color/tab_indicator_text"
+            Tools:ignore="UnusedAttribute" />
+
+        <RadioButton
+            android:id="@+id/rb_custom_tip_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@android:color/tab_indicator_text"
+            android:text="@string/lbl_custom_tip"
+            android:textColor="@android:color/tab_indicator_text"
+            android:textSize="@dimen/dimen_12"
+            android:visibility="gone"
+            Tools:ignore="UnusedAttribute"
+            Tools:visibility="visible" />
+
+        <RadioButton
+            android:checked="true"
+            android:visibility="gone"
+            Tools:visibility="visible"
+            android:id="@+id/rb_cash_tip_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimen_12"
+            android:buttonTint="@android:color/tab_indicator_text"
+            android:text="@string/lbl_cash_tip"
+            android:textColor="@android:color/tab_indicator_text"
+            Tools:ignore="UnusedAttribute" />
+
+        <RadioButton
+            android:id="@+id/rb_no_tip_dialog"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@android:color/tab_indicator_text"
+            android:text="@string/lbl_no_tip_on_credit_cart"
+            android:textColor="@android:color/tab_indicator_text"
+            android:textSize="@dimen/dimen_12"
+            Tools:ignore="UnusedAttribute" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rg_tip_dialog"
+        android:weightSum="2">
+
+        <Button
+            android:background="@drawable/round_shap_red"
+            android:text="@string/str_back"
+            android:textColor="@color/White"
+            android:id="@+id/btn_back_tip_dialog"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginBottom="@dimen/dimen_15"
+            Tools:visibility="visible"
+            android:padding="@dimen/dimen_ButtonPadding"
+            android:textSize="@dimen/dimen_ButtonTextSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+
+        <Button
+            android:background="@drawable/round_shap_red"
+            android:text="@string/str_continue"
+            android:textColor="@color/White"
+            android:id="@+id/btn_continue_tip_dialog"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginBottom="@dimen/dimen_15"
+            Tools:visibility="visible"
+            android:padding="@dimen/dimen_ButtonPadding"
+            android:textSize="@dimen/dimen_ButtonTextSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:background="@drawable/round_shap_red"
+        android:text="@string/str_submit"
+        android:textColor="@color/White"
+        android:visibility="gone"
+        android:id="@+id/btn_submit_tip_dialog"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_below="@+id/ll_custom_tip"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/dimen_15"
+        android:padding="@dimen/dimen_ButtonPadding"
+        android:textSize="@dimen/dimen_ButtonTextSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

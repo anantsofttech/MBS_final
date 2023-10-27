@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/rounded_corner_signup"
+    android:layout_width="match_parent"
+    android:padding="@dimen/dimen_5"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:gravity="center"
+        android:textSize="@dimen/dimen_40"
+        android:textStyle="bold"
+        android:textColor="#5d9f01"
+        android:id="@+id/tv_title_twenty_one_year_success_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Success!"
+        android:layout_marginTop="@dimen/dimen_20" />
+
+
+    <TextView
+        android:visibility="visible"
+        android:gravity="center"
+        android:textSize="@dimen/dimen_20"
+        android:id="@+id/tv_sub_title_twenty_one_year_success_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You are now being redirected back to the application..."
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginRight="@dimen/dimen_5"
+        android:layout_marginLeft="@dimen/dimen_5"
+
+        android:layout_marginBottom="@dimen/dimen_35"
+        android:layout_below="@+id/tv_title_twenty_one_year_success_dialog" />
+
+</RelativeLayout>

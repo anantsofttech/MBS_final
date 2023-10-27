@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_Home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home" />
+
+        <item
+            android:id="@+id/nav_wishList"
+            android:icon="@drawable/ic_star"
+            android:title="@string/wishList" />
+
+        <item
+            android:id="@+id/nav_Contactus"
+            android:icon="@drawable/ic_contact_phone"
+            android:title="@string/contactus" />
+        <item
+            android:id="@+id/nav_event_calender"
+            android:icon="@drawable/ic_event_calender"
+            android:title="@string/event_calender" />
+      <!--  app:actionLayout="@layout/test_actionlayout"-->
+    </group>
+    <!--<item>
+        <menu>
+            <item
+                android:id="@+id/nav_photos1"
+                android:icon="@drawable/ic_home"
+                android:title="@string/nav_option1" />
+            <item
+                android:id="@+id/nav_movies1"
+                android:icon="@drawable/ic_home"
+                android:title="@string/nav_option2" />
+
+            <item
+                android:id="@+id/nav_notifications1"
+                android:icon="@drawable/ic_home"
+                android:title="@string/nav_option3" />
+
+            <item
+                android:id="@+id/nav_settings1"
+                android:icon="@drawable/ic_home"
+                android:title="@string/nav_option4" />
+        </menu>
+    </item>-->
+
+</menu>

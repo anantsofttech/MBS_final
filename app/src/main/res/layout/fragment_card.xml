@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_to_refresh"
+    android:layout_width="match_parent"
+    android:background="#fff"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tool="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/rl_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_root_item_card_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_card_title_card_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_10"
+                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:layout_marginRight="@dimen/dimen_5"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="Shopping Cart"
+                    android:textSize="@dimen/_13sdp"
+                    android:textColor="@color/accent"
+                    android:textStyle="bold" />
+
+                <!-- Shopping Cart Item RecyclerView -->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/card_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_5"
+                    android:nestedScrollingEnabled="false"
+                    tools:ignore="UnusedAttribute" />
+
+                <!-- Total Saving-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_5">
+
+                    <TextView
+                        android:id="@+id/tv_title_total_saving_card_fragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/tv_total_saving_card_fragment"
+                        android:gravity="end"
+                        android:text=""
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        tools:text="Total Saving" />
+
+                    <TextView
+                        android:id="@+id/tv_total_saving_card_fragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="end"
+                        android:text=""
+                        android:visibility="gone"
+                        tools:text="Total Saving" />
+
+                </RelativeLayout>
+                <!-- Loyalty Reward-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_5">
+
+                    <TextView
+                        android:id="@+id/tv_title_loyalty_reward_card_fragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/tv_loyalty_reward_card_fragment"
+                        android:gravity="end"
+                        android:text=""
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        tools:text="Loyalty reward" />
+
+                    <TextView
+                        android:id="@+id/tv_loyalty_reward_card_fragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="end"
+                        android:text=""
+                        android:visibility="gone"
+                        tools:text="Loyalty reward" />
+
+                </RelativeLayout>
+                <!-- Financial data Showing-->
+                <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/tools"
+                    android:id="@+id/card_total_rv_shopping_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_5"
+                    android:layout_marginLeft="@dimen/_3sdp"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    app:ignore="NamespaceTypo"
+                    tool:cardElevation="4dp">
+
+                    <RelativeLayout
+                        android:id="@+id/ll_root_total_card_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="vertical">
+
+                        <!-- Sub Total -->
+                        <LinearLayout
+                            android:id="@+id/ll_sub_totle_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_sub_total_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="80"
+                                android:gravity="start"
+                                android:text="Subtotal"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_sub_total_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="20"
+                                android:gravity="end"
+                                android:text="$15.25"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_sales_tex_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_sub_totle_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray" />
+
+                        <!-- Sales Tex -->
+                        <LinearLayout
+                            android:id="@+id/ll_sales_tex_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_sales_tex_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_sales_tex_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="80"
+                                android:gravity="start"
+                                android:text="Sales Tax"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_sales_tex_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="20"
+                                android:gravity="end"
+                                android:text="$0.16"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_wine_tex_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_sales_tex_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray" />
+                        <!--Wine Tax-->
+                        <LinearLayout
+                            android:id="@+id/ll_wine_tex_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_wine_tex_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_wine_tex_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="80"
+                                android:gravity="start"
+                                android:text="Wine Tax"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_wine_tex_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="20"
+                                android:gravity="end"
+                                android:text="$0.16"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_bottle_deposit_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_wine_tex_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray" />
+                        <!--Bottle Deposit-->
+                        <LinearLayout
+                            android:id="@+id/ll_bottle_deposit_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_bottle_deposit_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_bottle_deposit_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="80"
+                                android:gravity="start"
+                                android:text="Bottle Deposit"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_bottle_deposit_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="20"
+                                android:gravity="end"
+                                android:text="$0.16"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_misc_tax_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_bottle_deposit_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray" />
+                        <!--Misc Tax-->
+                        <LinearLayout
+                            android:id="@+id/ll_misc_tax_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_misc_tax_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_misc_tax_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="80"
+                                android:gravity="start"
+                                android:text="Misc Tax"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_misc_tax_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="20"
+                                android:gravity="end"
+                                android:text="$0.16"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_flat_tax_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_misc_tax_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray" />
+                        <!--Flat Tax-->
+                        <LinearLayout
+                            android:id="@+id/ll_flat_tax_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_flat_tax_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_flat_tax_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="80"
+                                android:gravity="start"
+                                android:text="Flat Tax"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_flat_tax_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="20"
+                                android:gravity="end"
+                                android:text="$0.16"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_shipping_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_flat_tax_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray"
+                            android:visibility="gone" />
+                        <!--Shipping-->
+                        <LinearLayout
+                            android:id="@+id/ll_shipping_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_shipping_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:visibility="gone"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_shipping_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="80"
+                                android:gravity="start"
+                                android:text="Shipping"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_shipping_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="20"
+                                android:gravity="end"
+                                android:text="$0.16"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_total_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@id/ll_shipping_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray" />
+                        <!-- Total -->
+                        <LinearLayout
+                            android:id="@+id/ll_total_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_total_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:weightSum="100">
+
+                            <TextView
+                                android:id="@+id/tv_title_total_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="80"
+                                android:gravity="start"
+                                android:text="Total"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_total_card_fragment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="20"
+                                android:gravity="end"
+                                android:text="$16.14"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_check_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_total_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray" />
+
+                        <!-- 21 year agree-->
+                        <LinearLayout
+                            android:id="@+id/ll_check_box_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_below="@+id/view_check_box"
+                            android:layout_marginTop="5dp"
+                            android:gravity="start|center"
+                            android:visibility="gone">
+
+                            <CheckBox
+                                android:id="@+id/cbx_i_agree_card_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="-5dp"
+                                android:buttonTint="@android:color/darker_gray"
+                                android:gravity="center_vertical"
+                                android:text="I agree, I'm 21 years old or over."
+                                android:textColor="@android:color/tab_indicator_text"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+                            <!-- -->
+                            <!--
+                                                        <TextView
+                                                            android:visibility="gone"
+                                                            android:id="@+id/tv_chechbox_title_card_fragment"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="match_parent"
+                                                            android:layout_gravity="center"
+                                                            android:layout_marginStart="5dp"
+                                                            android:layout_toRightOf="@+id/cbx_i_agree_card_fragment"
+                                                            android:gravity="center"
+                                                            android:text="I agree, I'm 21 years old or over. " />-->
+
+                            <TextView
+                                android:id="@+id/tv_title_legal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_20sdp"
+                                android:layout_marginLeft="@dimen/_20sdp"
+                                android:gravity="start"
+                                android:text="@string/Legal_Disclaimer"
+                                android:textSize="@dimen/dimen_CartTextSize"
+                                android:textStyle="italic"
+                                android:clickable="true"
+                                android:focusable="true" />
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/tv_title_legal"-->
+                                <!--android:layout_marginTop="@dimen/_5sdp"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_below="@+id/cbx_i_agree_card_fragment"-->
+                                <!--android:focusable="true"-->
+                                <!--android:layout_centerInParent="true"-->
+                                <!--android:focusableInTouchMode="true"-->
+                                <!--android:text="@string/Legal_Disclaimer"-->
+                                <!--android:textColor="@color/black"-->
+                                <!--android:textSize="@dimen/dimen_12"-->
+                                <!--android:textStyle="italic" />-->
+
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_button_next_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/ll_check_box_card_fragment"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@android:color/darker_gray" />
+
+                        <!--Legend for Tax -->
+                        <RelativeLayout
+                            android:id="@+id/rv_legend_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_button_next_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/tv_legend_sales_tax_total_card_fragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="start"
+                                android:text="@string/legend_tax_sales"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_legend_wine_tax_card_fragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_legend_sales_tax_total_card_fragment"
+                                android:gravity="start"
+                                android:text="@string/legend_tax_wine"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_legend_misc_tax_card_fragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_legend_wine_tax_card_fragment"
+                                android:gravity="start"
+                                android:text="@string/legend_tax_misc"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_legend_flat_tax_card_fragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_legend_misc_tax_card_fragment"
+                                android:gravity="start"
+                                android:text="@string/legend_tax_flat"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_legend_bottle_deposit_card_fragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_legend_flat_tax_card_fragment"
+                                android:gravity="start"
+                                android:text="@string/legend_bottle_deposit"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+
+                            <TextView
+                                android:id="@+id/tv_legend_non_taxable_card_fragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_legend_bottle_deposit_card_fragment"
+                                android:gravity="start"
+                                android:text="@string/legend_non_taxable"
+                                android:textSize="@dimen/dimen_CartTextSize" />
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/view_legend"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_below="@+id/rv_legend_card_fragment"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/darker_gray"
+                            android:visibility="gone" />
+                        <!--Button-->
+                        <LinearLayout
+                            android:id="@+id/ll_button_next_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_legend"
+                            android:layout_marginTop="10dp">
+
+                            <Button
+                                android:id="@+id/btn_next_card_fragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/round_shap_red"
+                                android:padding="@dimen/dimen_ButtonPadding"
+                                android:text="@string/str_next"
+                                android:textAllCaps="false"
+                                android:textColor="@color/White"
+                                android:textSize="@dimen/dimen_ButtonTextSize" />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btn_continue_shoping_card_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/ll_button_next_card_fragment"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/round_shap_red"
+                            android:padding="@dimen/dimen_ButtonPadding"
+                            android:text="Continue Shopping"
+                            android:textAllCaps="true"
+                            android:textColor="@color/White"
+                            android:textSize="@dimen/dimen_ButtonTextSize" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_root_empty_card_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_empty_card_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Empty"
+                    android:textColor="@color/accent"
+                    android:textSize="@dimen/dimen_20"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/img_empty_rv_card_fragment"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:src="@drawable/empty_card" />
+
+                <Button
+                    android:id="@+id/btn_continue_shopping_empty_card_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/round_shap_red"
+                    android:text="Continue Shopping"
+                    android:textAllCaps="true"
+                    android:padding="@dimen/dimen_ButtonPadding"
+                    android:textSize="@dimen/dimen_ButtonTextSize"
+                    android:textColor="@color/White" />
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

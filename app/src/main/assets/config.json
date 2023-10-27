@@ -1,0 +1,233 @@
+[
+  {
+    "Status": "Success/Fail",
+    "Message": "Successfully Completed/Oops Fail try Again ",
+    "AppLogoUrl": "http://192.168.172.211:888/img/logo/707/636132761918877009.png",
+    "SearchUrl":"http://192.168.172.211:888/SearchKey= or SearchUrl",
+    "AppName": "MobileBoxSalt",
+    "Sort": [
+      {
+        "SortId": "1",
+        "Sort_Name": "Price : Lowest First",
+        "Sort_Key": "LowestFirst",
+        "Sort_flag": "true"
+      },
+      {
+        "SortId": "2",
+        "Sort_Name": "Price : Highest First",
+        "Sort_Key": "HighestFirst",
+        "Sort_flag": "true"
+      },
+      {
+        "SortId": "3",
+        "Sort_Name": "Title : A - Z",
+        "Sort_Key": "AtoZ",
+        "Sort_flag": "true"
+      },
+      {
+        "SortId": "4",
+        "Sort_Name": "Title : Z - A",
+        "Sort_Key": "ZtoA",
+        "Sort_flag": "true"
+      }
+    ],
+    "Account_Manage": [
+      {
+        "AccountOptionID": "1",
+        "AccountOption_Name": "change password",
+        "AccountOption_Url": "http://changepassword.aspx",
+        "AccountOption_flag": "true"
+      },
+      {
+        "AccountOptionID": "2",
+        "AccountOption_Name": "forget password",
+        "AccountOption_Url": "http://forgetpassword.aspx",
+        "AccountOption_flag": "true"
+      }
+    ],
+    "Footer": [
+
+      {
+        "FooterId": "1",
+        "Footer_Name": "Customer Service",
+        "Footer_Url": "http://192.168.172.211:888/BoxSalt/Support-CustomerService",
+        "Footer_flag": "true"
+      },
+      {
+        "FooterId": "2",
+        "Footer_Name": "Payments  &  Refund",
+        "Footer_Url": "http://192.168.172.211:888/BoxSalt/Payments-Refunds",
+        "Footer_flag": "true"
+      },
+      {
+        "FooterId": "3",
+        "Footer_Name": "Shipping",
+        "Footer_Url": "http://192.168.172.211:888/BoxSalt/Shipping",
+        "Footer_flag": "true"
+      },
+      {
+        "FooterId": "4",
+        "Footer_Name": "About Us",
+        "Footer_Url": "http://192.168.172.211:888/BoxSalt/AboutUs",
+        "Footer_flag": "true"
+      },
+      {
+        "FooterId": "5",
+        "Footer_Name": "Privacy",
+        "Footer_Url": "http://192.168.172.211:888/BoxSalt/Privacy",
+        "Footer_flag": "true"
+      },
+      {
+        "FooterId": "6",
+        "Footer_Name": "Terms",
+        "Footer_Url": "http://192.168.172.211:888/BoxSalt/Terms",
+        "Footer_flag": "true"
+      },
+      {
+        "FooterId": "7",
+        "Footer_Name": "Contact Us",
+        "Footer_Url": "http://192.168.172.211:888/BoxSalt/ContactUs",
+        "Footer_flag": "true"
+      },
+      {
+        "FooterId": "8",
+        "Footer_Name": "FAQ",
+        "Footer_Url": "http://192.168.172.211:888/BoxSalt/FAQ",
+        "Footer_flag": "true"
+      },
+      {
+        "FooterId": "9",
+        "Footer_Name": "Help",
+        "Footer_Url": "http://192.168.172.211:888/BoxSalt/Help",
+        "Footer_flag": "true"
+      }
+    ],
+    "Departments": [
+      {
+        "deptId": "1",
+        "dept_Name": "Accessory",
+        "dept_flag": "true",
+        "dept_Url": "http://abc.com",
+        "SubDepartment": [
+          {
+            "SubDeptId": "1",
+            "Subdept_flag": "true",
+            "SubDept_Name": "Lighter!",
+            "SubDept_Url": "http://abc.com"
+          }
+        ],
+        "Price": [
+          {
+            "PriceName": "1$ - 10$",
+            "PriceUrlKey": "10to20.aspx"
+          },
+          {
+            "PriceName": "10$ - 20$",
+            "PriceUrlKey": "10to20.aspx"
+          }
+        ],
+        "Size": [
+          {
+            "SizeName": "1-7",
+            "SizeUrlKey": "zyz"
+          },
+          {
+            "SizeName": "7 - 14",
+            "SizeUrlKey": "xyz"
+          }
+        ]
+      },
+      {
+        "deptId": "2",
+        "dept_Name": "Mixers",
+        "dept_Url": "http://Accessory.aspx",
+        "dept_flag": "flase",
+        "SubDepartment": [
+          {
+            "SubDeptId": "1",
+            "SubDept_Name": "Micro",
+            "Subdept_flag": "flase",
+            "SubDept_Url": "http://charger.com"
+          }
+        ],
+        "Price": [
+          {
+            "PriceName": "20$ - 30$",
+            "PriceUrlKey": "10to20.aspx"
+          },
+          {
+            "PriceName": "30$ - 40$",
+            "PriceUrlKey": "10to20.aspx"
+          }
+        ],
+        "Size": [
+          {
+            "SizeName": "14-21",
+            "PriceUrlKey": "zyz"
+          },
+          {
+            "SizeName": "21 - 28",
+            "SizeUrlKey": "xyz"
+          }
+        ]
+      },{
+        "deptId": "3",
+        "dept_Name": "Wine",
+        "dept_Url": "http://Accessory.aspx",
+        "dept_flag": "flase",
+        "SubDepartment": [
+          {
+            "SubDeptId": "1",
+            "SubDept_Name": "Alcohol Free",
+            "Subdept_flag": "flase",
+            "SubDept_Url": "http://charger.com"
+          },{
+            "SubDeptId": "1",
+            "SubDept_Name": "Aperitif",
+            "Subdept_flag": "flase",
+            "SubDept_Url": "http://charger.com"
+          },{
+            "SubDeptId": "1",
+            "SubDept_Name": "Port American",
+            "Subdept_flag": "flase",
+            "SubDept_Url": "http://charger.com"
+          },{
+            "SubDeptId": "1",
+            "SubDept_Name": "Port Imported",
+            "Subdept_flag": "flase",
+            "SubDept_Url": "http://charger.com"
+          },{
+            "SubDeptId": "1",
+            "SubDept_Name": "Sherry American",
+            "Subdept_flag": "flase",
+            "SubDept_Url": "http://charger.com"
+          },{
+            "SubDeptId": "1",
+            "SubDept_Name": "Sherry Imported",
+            "Subdept_flag": "flase",
+            "SubDept_Url": "http://charger.com"
+          }
+        ],
+        "Price": [
+          {
+            "PriceName": "40$ - 50$",
+            "PriceUrlKey": "10to20.aspx"
+          },
+          {
+            "PriceName": "50$ - 60$",
+            "PriceUrlKey": "10to20.aspx"
+          }
+        ],
+        "Size": [
+          {
+            "SizeName": "28-35",
+            "PriceUrlKey": "zyz"
+          },
+          {
+            "SizeName": "35 - 49",
+            "SizeUrlKey": "xyz"
+          }
+        ]
+      }
+    ]
+  }]

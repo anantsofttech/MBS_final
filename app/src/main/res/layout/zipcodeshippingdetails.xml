@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_6sdp"
+            android:background="@drawable/rounded_corner_all"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_additional_charges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_additional"
+                    android:text="Additional Charges:"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_2sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3" />
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_price_additional"
+                    android:text="$100.00"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.7"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_handling_charges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_total_handling"
+                    android:text="Handling Charges:"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_2sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"/>
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_total_handling_price"
+                    android:text="$1999.00"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.7"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_shipping_charges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_shipping_charges"
+                    android:text="Shipping charges"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"/>
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_Shipping_charges_price"
+                    android:text="$1999.00"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.7"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_Transportation_charges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <!-- *******************   Edited by Varun on 1 Aug 2022 **************************-->
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/Transportation_charges"
+                    android:text="Trasportation Charges"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"/>
+
+                <!-- ****************** END *******************-->
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/Transportation_charges_price"
+                    android:text="$1999.00"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.7"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_base_charges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_base_charges"
+                    android:text=">Base:"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"/>
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_base_charges_price"
+                    android:text="$1999.00"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.7"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_surcharges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_surcharges"
+                    android:text="Surcharges"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3" />
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_surcharges_price"
+                    android:text="$1999.00"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.7"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_AdultSign_Charges_Per_PKG"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/AdultSign_Charges_Per_PKG"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"/>
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/AdultSign_Charges_Per_PKG_price"
+                    android:text="$1999.00"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.7"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_AdultSign_Total_Charges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/AdultSign_Total_Charges"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"/>
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/AdultSign_Total_Charges_price"
+                    android:text="$1999.00"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.7"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_dashed_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@drawable/dashed_line"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="8dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_shipping_charges_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_shipping_charges_2"
+                    android:text="Shipping charges:"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"/>
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_Shipping_charges_price_2"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.7"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_Additional_Sign_charges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/Additional_Sign_charges"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"/>
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/Additional_Sign_charges_price"
+                    android:text="$1999.00"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.7"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_total_charges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_total_charges"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_total_charges_price"
+                    android:text="$1999.00"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.7"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_billing_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/tv_billing_weight"
+                    android:text="Billing Weight"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"/>
+
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/billing_weight_price"
+                    android:text="19 lbs"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.7"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_Rate_Shipment_Alert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <!-- *******************   Edited by Varun on 1 Aug 2022 **************************-->
+                <TextView
+                    android:textSize="@dimen/dimen_15"
+                    android:id="@+id/Rate_Shipment_Alert"
+                    android:text="Rate Shipment Alert"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <!-- ****************** END *******************-->
+
+
+
+            </LinearLayout>
+
+            <Button
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:layout_marginRight="@dimen/_7sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:id="@+id/btnclose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_shap_red"
+                android:text="CLOSE"
+                android:textSize="@dimen/dimen_ButtonTextSize"
+                android:textAllCaps="false"
+                android:textColor="@color/White"
+                android:padding="@dimen/_8sdp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

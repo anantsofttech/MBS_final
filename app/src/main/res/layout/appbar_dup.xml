@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true"
+    tools:context=".MainActivityDup">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_main_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_below="@+id/rl_main_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+<!--            app:navigationIcon="?attr/homeAsUpIndicator"-->
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                <!--android:background="?attr/colorPrimary"-->
+
+                <!--Displayed logo image here-->
+                <ImageView
+                    android:id="@+id/imgHome"
+                    android:layout_width="60dp"
+                    android:layout_height="fill_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true" />
+
+                <!--android:src="@drawable/ic_home"-->
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+        <!-- <FrameLayout
+                android:id="@+id/frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            </FrameLayout>-->
+        <RelativeLayout
+            android:id="@+id/llsearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appbar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btndept"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/deptimg"
+                android:padding="5dp"
+                android:textAllCaps="false"
+                android:textColor="@color/primary"
+                android:visibility="visible" />
+            <!--android:text="@string/str_department"
+            android:background="@drawable/style_white"
+            -->
+
+            <!--<EditText-->
+            <AutoCompleteTextView
+                android:id="@+id/searchedt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/style_white"
+                android:drawableRight="@drawable/places_ic_search"
+                android:drawablePadding="@dimen/_35sdp"
+                android:dropDownVerticalOffset="2dp"
+                android:ellipsize="end"
+                android:hint="Search"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:singleLine="true" />
+
+
+            <ImageButton
+                android:id="@+id/search_clear"
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="@dimen/_28sdp"
+                android:background="@drawable/ic_close"
+                android:textAllCaps="false"
+                android:textColor="@color/primary"
+                android:visibility="gone"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/img_search_camera"
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"
+                android:layout_alignEnd="@+id/searchedt"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_28sdp"
+                android:src="@drawable/ic_camera"
+                android:background="@null"
+                android:textColor="@color/primary"
+                android:padding="@dimen/_5sdp"
+                android:visibility="gone"
+                tools:visibility="gone" />
+          <!--  <ImageButton
+                android:layout_marginRight="@dimen/_30sdp"
+                android:id="@+id/img_microphone"
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"
+                android:layout_alignEnd="@+id/img_search_camera"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_mic"
+                android:padding="@dimen/dimen_10"
+                android:background="@null"
+                android:textColor="@color/primary"
+                android:visibility="gone"
+                tools:visibility="visible" />-->
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_Reward_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llsearch"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_marginBottom="@dimen/_7sdp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/tv_Reward_point_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Reward points:"
+                    android:textSize="@dimen/_13sdp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tv_points_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:textSize="@dimen/_13sdp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tv_rebate_point_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Rebate Available:"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:textSize="@dimen/_13sdp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tv_rebate_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:layout_marginLeft="@dimen/_7sdp"
+                    android:textSize="@dimen/_13sdp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/ll_Reward_main"
+            android:id="@+id/RecHorizontalList"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_margin="@dimen/_4sdp"
+                android:visibility="gone"
+                android:id="@+id/txtheaderbtn1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Text1"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="@dimen/_10sdp"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textColor="@color/White"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/_7sdp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+
+            <TextView
+                android:layout_margin="@dimen/_4sdp"
+                android:visibility="gone"
+                android:id="@+id/txtheaderbtn2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textColor="@color/White"
+                android:text="Text1"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textSize="@dimen/_10sdp"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:padding="@dimen/_7sdp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+
+            <TextView
+                android:layout_margin="@dimen/_4sdp"
+                android:visibility="gone"
+                android:id="@+id/txtheaderbtn3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textColor="@color/White"
+                android:text="Text1"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="@dimen/_10sdp"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/_7sdp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+
+        </LinearLayout>
+
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:id="@+id/RecHorizontalList"-->
+            <!--android:layout_below="@+id/llsearch"-->
+            <!--android:layout_height="wrap_content">-->
+
+        <!--</android.support.v7.widget.RecyclerView>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/RecHorizontalList"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/mContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/llcheckInternet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/btn_round_corner_red"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/str_network_message" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dimen_ButtonPadding"
+                        android:text="Try again" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.aspl.Utils.ObservableWebView
+                android:id="@+id/Container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/llsortandfilter"
+            android:layout_alignParentRight="true"
+            android:background="@color/White"
+            android:src="@drawable/ic_filter"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/llsortandfilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/White"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-2dp"
+                android:paddingRight="5dp"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:id="@+id/llSort"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="1px"
+                    android:layout_weight="0.5"
+                    android:background="@color/White"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_ic_sort_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sort"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/Header">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llFilter"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:background="@color/White"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_filter" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Filter"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+                <!--<Button
+                    android:id="@+id/btnsort"
+                    android:layout_width="0dip"
+                    android:layout_height="50dp"
+                    android:layout_weight="0.5"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_sort"
+                    android:foregroundGravity="center"
+                    android:gravity="center"
+                    android:padding="-10dp"
+                    android:text="Sort"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btnfilter"
+                    android:layout_width="0dip"
+                    android:layout_height="50dp"
+                    android:layout_weight="0.5"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/ic_sort"
+                    android:gravity="center"
+                    android:padding="-10dp"
+                    android:text="Filter"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black" />-->
+                <!--android:background="@drawable/ripple"-->
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- <android.support.design.widget.FloatingActionButton
+          android:id="@+id/fab"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="bottom|end"
+          android:layout_margin="10dp"
+          app:backgroundTint="@color/primary"
+          app:srcCompat="@android:drawable/ic_dialog_email" />
+         -->
+
+</android.support.design.widget.CoordinatorLayout>

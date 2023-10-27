@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvBlock1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_margin="@dimen/_1sdp"
+        android:layout_weight="0.5"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:orientation="vertical"
+        tool:cardElevation="5dp"
+        tools:ignore="UnusedAttribute"
+        tools:targetApi="lollipop">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/block1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/_8sdp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textoffername1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="20%0ff"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtofferdesc1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="20%0ff"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/txtshop1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SHOP NOW"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_9sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvBlock2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_margin="@dimen/_1sdp"
+        android:layout_weight="0.5"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:orientation="vertical"
+        tool:cardElevation="5dp"
+        tools:ignore="UnusedAttribute"
+        tools:targetApi="lollipop">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/block2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/_8sdp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textoffername2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="20%0ff"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtofferdesc2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="20%0ff"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/txtshop2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SHOP NOW"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_9sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

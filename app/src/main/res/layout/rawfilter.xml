@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:id="@+id/llMain"
+    android:layout_height="match_parent"
+    android:background="@drawable/colorstate"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/listTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:textColor="@drawable/statechangecolor"
+        android:textSize="@dimen/slider_text_size" />
+
+
+</LinearLayout>

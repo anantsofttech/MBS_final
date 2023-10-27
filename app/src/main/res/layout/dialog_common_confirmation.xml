@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/_15sdp"
+    android:padding="@dimen/_5sdp">
+
+    <TextView
+        android:id="@+id/tv_sub_title_warning_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:gravity="left"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13sdp"
+        android:visibility="visible"
+        Tools:text="" />
+
+    <LinearLayout
+        android:id="@+id/llbtnLayout"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/tv_sub_title_warning_dialog"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_Cancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:background="@drawable/round_shap_red"
+            android:padding="@dimen/dimen_ButtonPadding"
+            android:text="Cancel"
+            android:textColor="@color/White"
+            android:textSize="@dimen/dimen_ButtonTextSize" />
+
+        <Button
+            android:id="@+id/btn_OK"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:background="@drawable/round_shap_red"
+            android:padding="@dimen/dimen_ButtonPadding"
+            android:text="Ok"
+            android:textColor="@color/White"
+            android:textSize="@dimen/dimen_ButtonTextSize" />
+
+    </LinearLayout>
+    <!--
+        android:layout_marginBottom="@dimen/dimen_35"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_15"-->
+</RelativeLayout>

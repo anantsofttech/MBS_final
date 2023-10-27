@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:elevation="10dp"
+    android:gravity="right"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:targetApi="lollipop">
+    <TextView
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginStart="@dimen/dimen_20"
+        android:id="@+id/tv_title_shorting_filter"
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold"
+        android:text="Sort By"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_below="@+id/tv_title_shorting_filter"
+        android:id="@+id/v_shorting_filter"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#656565"/>
+
+    <RadioGroup
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/v_shorting_filter"
+        android:id="@+id/rg_shorting_filter"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_marginBottom="@dimen/dimen_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:checked="true"
+            android:id="@+id/rb_price_lowest_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price : Lowest First"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="#656565"
+            android:textStyle="bold"/>
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_price_highest_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price : Highest First"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="#656565"
+
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_title_a_to_z"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title : A - Z"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="#656565"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_title_z_to_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title : Z - A"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="#656565"
+            android:textStyle="bold" />
+
+    </RadioGroup>
+
+    <Button
+        android:background="@drawable/round_shap_red"
+        android:text="Apply"
+        android:textColor="@color/White"
+        android:id="@+id/btn_apply_short_dialog"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_below="@+id/rg_shorting_filter"
+        android:layout_marginBottom="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:padding="@dimen/dimen_ButtonPadding"
+        android:textSize="@dimen/dimen_ButtonTextSize"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

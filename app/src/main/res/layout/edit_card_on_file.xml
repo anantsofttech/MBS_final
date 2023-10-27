@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rv_MainLayout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="@dimen/dimen_20"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:gravity="center_vertical"
+            android:textColor="@color/default_color"
+            android:text="Edit Card"
+            android:textSize="@dimen/_17sdp" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:padding="@dimen/_7sdp"
+            android:src="@drawable/ic_close" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/llTitle"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/light_grey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/view_line"
+        android:id="@+id/llll"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/tv_title_cart_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_line"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="Card Number:"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/dimen_12" />
+
+        <TextView
+            android:id="@+id/card_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="start"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_11sdp" />
+
+    </LinearLayout>
+
+
+
+    <EditText
+        android:background="@drawable/dark_grey_border_thick"
+        android:id="@+id/et_cart_number"
+        android:layout_below="@+id/llll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingRight="@dimen/_5sdp"
+        android:paddingBottom="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_10"
+        android:singleLine="true"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:maxLength="19"
+        android:textSize="@dimen/dimen_12"
+        tools:ignore="HardcodedText,MissingPrefix,TextFields" />
+
+
+    <TextView
+        android:id="@+id/tvExpireDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:gravity="start"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_below="@+id/et_cart_number"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@android:color/black"
+        android:text="Expire Date:" />
+
+    <LinearLayout
+        android:id="@+id/ll_monthYearDate"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvExpireDate"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/border_edittext_simple"
+            android:padding="@dimen/dimen_7">
+
+            <Spinner
+                android:id="@+id/spinner_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:entries="@array/month"
+                android:focusableInTouchMode="true"
+                android:overlapAnchor="false"
+                android:spinnerMode="dropdown" />
+
+            <!--<ImageView-->
+            <!--android:id="@+id/iv_down_arrow1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_gravity="end"-->
+            <!--android:paddingEnd="@dimen/_10sdp"-->
+            <!--android:src="@drawable/ic_arrow_down" />-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="@dimen/dimen_7"
+            android:background="@drawable/border_edittext_simple"
+            android:layout_weight="1.5">
+
+            <Spinner
+                android:id="@+id/spinner_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:overlapAnchor="false"
+                android:focusableInTouchMode="true"
+                android:spinnerMode="dropdown" />
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_down_arrow2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_gravity="end"-->
+                <!--android:paddingEnd="@dimen/_10sdp"-->
+                <!--android:src="@drawable/ic_arrow_down" />-->
+        </RelativeLayout>
+
+    </LinearLayout>
+
+        <Button
+            android:layout_marginTop="@dimen/dimen_25"
+            android:layout_below="@+id/ll_monthYearDate"
+            android:id="@+id/btn_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:background="@drawable/round_shap_red"
+            android:padding="@dimen/_4sdp"
+            android:text="PUBLISH"
+            android:textAllCaps="false"
+            android:textColor="@color/White"
+            android:textSize="@dimen/dimen_ButtonTextSize" />
+
+</RelativeLayout>
+

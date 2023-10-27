@@ -1,0 +1,374 @@
+<resources>
+    <string name="Place_API_key">AIzaSyASEp2onrkLsqGpONGfjC6ezqZtkArXmfI</string>
+    <string name="app_name">MBS</string>
+    <string name="app_name_store57">Michael\'s Liquors</string>
+    <string name="app_name_store90">McCabes Wines - Manhattan, NY</string>
+    <string name="app_name_store3824">Big Three Liquor – Bronx, NY</string>
+    <string name="app_name_store96">Wine Room of Forest Hills</string>
+    <string name="app_name_store44">Astoria Liquors</string>
+    <string name="app_name_store99">Amazing Grapes</string>
+    <string name="app_name_store7365">Computer Perfect</string>
+    <string name="app_name_store4473">Adolfo\'s Liquor Store</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+    <string name="search">search</string>
+    <string name="cart">cart</string>
+    <string name="wishList">Wish List</string>
+    <string name="rewards">Loyalty Rewards</string>
+    <string name="Mic">Mic</string>
+    <string name="contactus">Contact Us</string>
+    <string name="ManageAccount">Manage Account</string>
+    <string name="aboutus">About Us</string>
+    <string name="inv_change">The inventory availability has changed at the store. </string>
+    <string name="please_review">Please review the revised order before continuing.</string>
+    <string name="Card_On_File">Card On File</string>
+    <string name="no_card_info">A Credit card is not on file and can only be entered at checkout.\nOnce you have made a purchase there is an option to save that data for future purchases.</string>
+    <string name="ChangePassword">Change Password</string>
+    <string name="PasswordRules">Password Rules</string>
+    <string name="PasswordRules_text">Must be between 8-15 characters.</string>
+    <string name="event_calender">Event Calender</string>
+    <string name="return_eligibility"><b>Return Eligibilty: </b></string>
+
+    <string name="home">Home</string>
+    <string name="nav_option5">Option5</string>
+    <string name="nav_option6">Option6</string>
+    <string name="nav_option7">Option7</string>
+    <string name="nav_option8">Option8</string>
+
+    <string name="dialog_message">Loading...</string>
+    <string name="dialog_title">@string/app_name</string>
+    <string name="Legal_Disclaimer"><u>Legal Disclaimer</u></string>
+    <string name="Accessory">Accessory</string>
+    <string name="Blenders">Blenders</string>
+    <string name="Champagne">Champagne</string>
+    <string name="Cordials">Cordials</string>
+    <string name="Juices">Juices</string>
+    <string name="Liquor">Liquor</string>
+    <string name="Miscellaneous">Miscellaneous</string>
+    <string name="Mixers">Mixers</string>
+    <string name="Mobiles">Mobiles</string>
+    <string name="Ovens">Ovens</string>
+    <string name="Red_Beer">Red Beer</string>
+    <string name="Rum">Rum</string>
+    <string name="Soup">Soup</string>
+    <string name="Unassigned">Unassigned</string>
+    <!--<string name="Vodka78$">Vodka78$</string>-->
+    <string name="White_Beer">White Beer</string>
+    <string name="Wine">Wine</string>
+    <string name="successMsg">success\</string>
+
+
+    <!--Slider Option-->
+    <string name="str_home">Home</string>
+    <string name="str_store_hour">Store Hour</string>
+    <string name="str_event_calander">Event Calendar</string>
+    <string name="str_department">Departments</string>
+    <string name="str_notification">Notifications</string>
+    <string name="str_network_message">It seems there is an issue with network connectivity. Please try again later.</string>
+    <!--End-->
+
+    <string name="str_email">Email</string>
+    <string name="str_hint_password">Password</string>
+    <string name="str_signinHeader">Sign In / Create Account</string>
+    <!--Edited by Janvi 4th oct ********-->
+    <string name="str_wishlistHeader">WishList Registration</string>
+    <string name="str_registerToWishList">You must register to WishList an item</string>
+    <!--end **********-->
+
+    <string name="str_forgetPassword">Forgot Password?</string>
+    <string name="str_signin">Sign In!</string>
+    <string name="str_cap_signin">SIGN IN</string>
+    <string name="str_recover_passwrod">RECOVER PASSWORD</string>
+    <string name="str_next">NEXT</string>
+    <string name="str_prev">PREV</string>
+    <string name="str_createaccount">CREATE ACCOUNT</string>
+    <string name="str_continue">CONTINUE</string>
+    <string name="str_back">Back</string>
+    <string name="str_submit">SUBMIT</string>
+
+    <string name="str_forget_instruction">Enter your Email and we will send you the Instructions.</string>
+
+    <string name="confirm_email"><![CDATA[Confirm Email  <font color=red>*</font>]]></string>
+    <!--<string name="store_close"><![CDATA[ <font color=black>Delivery not available as it is outside our </font> <font color=red><u> delivery hours </u></font>]]></string>-->
+    <string name="store_close">Delivery not available as it is outside our  </string>
+    <string name="delivery_hours"><u> delivery hours </u></string>
+    <string name="store_resume"><![CDATA[ <font color=red>Deliveries resume </font>]]></string>
+    <string name="str_firstname"><![CDATA[First Name  <font color=red>*</font>]]></string>
+    <string name="str_lastname"><![CDATA[Last Name  <font color=red>*</font>]]></string>
+    <string name="str_companyname">Company Name</string>
+    <string name="str_addressline1"><![CDATA[Address Line 1  <font color=red>*</font>]]></string>
+    <string name="str_addressline2">Address Line 2</string>
+    <string name="str_zip"><![CDATA[Zip <font color=red>*</font>]]></string>
+    <string name="str_city"><![CDATA[City <font color=red>*</font>]]></string>
+    <string name="str_state"><![CDATA[State  <font color=red>*</font>]]></string>
+
+    <string name="str_password"><![CDATA[Password <font color=red>*</font>]]></string>
+    <string name="str_cnfpassword"><![CDATA[Confirm Password <font color=red>*</font>]]></string>
+    <string name="str_signup_instruction">* 8 to 15 Characters  \n* A welcome email will be sent.</string>
+
+    <string name="str_guest_limitations">By selecting the guest option, you will not have access to features: \n • Easy re-ordering \n • Stored credit card if you select to. \n • Ability to quickly cancel orders. \n • Review your in-store &amp; online purchases. \n • Participate in our rewards program, if applicable. \n • Coupons specifically catered to you. \n • Faster order processing. \n • and more…..</string>
+
+
+
+    <string name="str_enterpassword">Enter Password</string>
+
+    <string name="speech_prompt">Speak now</string>
+    <string name="speech_not_supported">Speech is not supported</string>
+    <string name="str_enter_otp">Enter OTP</string>
+    <string name="str_otp_ins">A One Time Password (OTP) has been emailed to:</string>
+
+    <string name="str_otp">Enter One Time Password</string>
+    <string name="str_oops">Oops!</string>
+    <string name="str_OK">OK</string>
+    <string name="str_cancelorder">CANCEL ORDER</string>
+    <string name="str_Cancel">Cancel</string>
+    <string name="str_send">SEND</string>
+
+    <string name="str_otp_error">You entered wrong OTP, please try again.</string>
+    <string name="str_resend_otp"><![CDATA[<a  style="cursor: pointer"><u>Resend One Time Password</u></a>]]></string>
+
+    <string name="str_seturpassword">Set your Password.</string>
+
+    <string name="str_hint_confirm_password">Confirm Password</string>
+
+    <string name="str_psw_validation1">Password must be between 8 to 15 characters.</string>
+    <string name="str_psw_validation2">Password and Confirm Password must be the same.</string>
+    <string name="str_password_hint">* 8 to 15 Characters</string>
+
+    <string name="str_signup_validation1">Email ID and Confirm Email ID must be the same.</string>
+    <string name="str_signup_validation2">You are missing required information.</string>
+
+    <string name="str_Congratulation">Congratulations!</string>
+    <string name="str_Congratulation_indtruct">You have successfully registered.</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+
+    <string name="str_mobile"><![CDATA[(___) ___-____<font color=red>*</font>]]></string>
+    <string name="error_network">We were unable to complete your request. Please try again.</string>
+
+    <!--Taxes on Shopping Cart Fragment-->
+    <string name="legend_tax_sales">T = Sales Tax</string>
+    <string name="legend_tax_wine">T2 = Wine Tax</string>
+    <string name="legend_tax_misc">T3 = Misc Tax</string>
+    <string name="legend_tax_flat">T4 = Flat Tax</string>
+    <string name="legend_bottle_deposit">D = Bottle Deposit</string>
+    <string name="legend_non_taxable">NT = Non-Taxable</string>
+    <string name="legend_loyalty_reward">Reward Points Earned on this Purchase</string>
+
+
+    <!-- Delivery Option Fragment -->
+    <string name="lbl_delivery_option">Delivery Options</string>
+    <string name="lbl_delivery_details">Delivery Details</string>
+    <string name="lbl_billing_shipping_details">Billing/Shipping Details</string>
+    <string name="lbl_billing_details">Billing Details</string>
+    <string name="lbl_shipping_details">Shipping Details</string>
+    <string name="lbl_pick_up_at_store">Pick up at Store</string>
+    <string name="lbl_pay_at_store">Pay at Store</string>
+    <string name="lbl_pay_with_card">Pay with Credit Card</string>
+    <string name="lbl_payment_options_title">&#160;<i>Including: \n PayPal \n Google Pay \n Masterpass</i></string>
+    <string name="lbl_uber_rush">Uber Rush</string>
+    <string name="lbl_hand_delivery">Hand Delivery</string>
+    <!--<string name="lbl_hand_delivery">Hand Delivery \n  (The store will personally deliver)</string>-->
+    <string name="lbl_hand_del">Hand Delivery</string>
+    <string name="lbl_ship">Ship</string>
+    <string name="lbl_ship_temporarily"> Temporarily only available on our site: </string>
+    <string name="lbl_ship_to_different_address">Ship to a Different Address</string>
+    <string name="lbl_no_alternate_address_on_file">No alternate addresses on file.</string>
+    <string name="lbl_optional_tip_on_credit_cart">Optional TIP on Credit Card</string>
+    <string name="lbl_your_sub_total_is">Your Sub-Total is $ </string>
+    <string name="lbl_would_you_like_to_apply_tip_of">Would you like to apply a TIP of</string>
+    <string name="lbl_no_tip_on_credit_cart">No TIP on credit card</string>
+    <string name="lbl_cash_tip">Cash TIP/No TIP on credit card</string>
+    <string name="lbl_custom_tip">Custom Dollar TIP</string>
+    <string name="lbl_enter_amt">Enter Amount($)</string>
+    <string name="lbl_shipping_service">Select Shipping Service</string>
+
+
+    <string name="lbl_address_list">Address List</string>
+    <string name="lbl_first_name"><![CDATA[First Name  <font color=red>*</font>]]></string>
+    <string name="lbl_last_name"><![CDATA[Last Name  <font color=red>*</font>]]></string>
+    <string name="lbl_email_title">E-mail : </string>
+    <string name="lbl_company_name">Company Name</string>
+    <string name="lbl_phone_number_simple">Phone Number : </string>
+    <string name="valid_phone_number_simple">Mobile number must be 10 digits</string>
+    <string name="lbl_phone_number"><![CDATA[Phone Number  <font color=red>*</font>]]></string>
+    <string name="lbl_address1"><![CDATA[Address 1  <font color=red>*</font>]]></string>
+    <string name="lbl_address2">Address 2</string>
+    <string name="lbl_zip"><![CDATA[Zip <font color=red>*</font>]]></string>
+    <string name="lbl_city"><!--<![CDATA[City <font color=red>*</font>]]>-->City</string>
+    <string name="lbl_state"><!--<![CDATA[State  <font color=red>*</font>]]>-->State</string>
+    <string name="lbl_city_mendatory"><![CDATA[City <font color=red>*</font>]]></string>
+    <string name="lbl_state_mendatory"><![CDATA[State <font color=red>*</font>]]></string>
+    <string name="lbl_clear">Clear/Add</string>
+    <string name="str_mobile_hint">(___) ___-____</string>
+    <string name="lbl_zip_postal"><![CDATA[Zip/Postal <font color=red>*</font>]]></string>
+    <string name="lbl_customer_card_error">The credit card services are experiencing technical difficulties. Please try later.</string>
+    <string name="NoLonger"><![CDATA[<font color=red>No Longer in Stock</font>]]></string>
+
+    <string name="lbl_order_info">Order Info</string>
+
+    <!-- End -->
+
+    <string name="lbl_gift_wrap">Gift Wrap</string>
+
+    <!-- Payment Fragment -->
+    <string name="lbl_item">Item</string>
+    <string name="lbl_qty">QTY</string>
+    <string name="lbl_price">Price</string>
+    <string name="lbl_ext">Ext.</string>
+    <string name="lbl_subtotal">Subtotal</string>
+    <string name="lbl_sales_tax">Sales Tax</string>
+    <string name="lbl_bottle_deposit">Bottle Deposit</string>
+    <string name="lbl_wine_tax">Wine Tax</string>
+    <string name="lbl_misc_tax">Misc Tax</string>
+    <string name="lbl_flat_tax">Flat Tax</string>
+    <string name="lbl_shipping">Shipping</string>
+    <string name="lbl_total">Total</string>
+    <string name="lbl_total_savings">Total Savings</string>
+    <string name="lbl_card_number">Card Number</string>
+    <string name="lbl_cvv">CVV</string>
+    <string name="lbl_card_holder_name">Card Holder Name</string>
+    <string name="lbl_expiration">Expiration</string>
+    <string name="lbl_billing_address">Billing Address:</string>
+    <string name="lbl_billing_address1">Billing Address</string>
+    <string name="lbl_delivery_address">Delivery Address:</string>
+    <string name="lbl_shipping_address">Shipping Address</string>
+    <string name="lbl_Purchase_at">Purchased at:</string>
+    <string name="lbl_other_address">Other Addresses</string>
+    <string name="lbl_save_cart_for_further_purchase">Save card for future purchases</string>
+    <string name="lbl_note_if_card_is_already_on_file_then_this_card_will_override_it">Note: If a card is already on file, then this card will override it.</string>
+    <string name="lbl_no_tax_are_being_applied_order_being_shipped_out_of_gj">No taxes are being applied, order being shipped out of GJ</string>
+    <string name="lbl_title_payment_process">Please wait, your transaction is processing.</string>
+    <string name="lbl_title_payment_process_new">Processing Transaction:</string>
+    <string name="lbl_technical_difficulty">The credit card services are experiencing technical difficulties. Please try later.</string>
+    <string name="lbl_message_payment_process">Don’t hit ‘Back’ or ‘Refresh’ button.  Doing so may cause you to be billed more than once.</string>
+    <string name="lbl_payment">Payment</string>
+
+    <string name="lbl_payment_options">Advanced Payment Options</string>
+
+    <string name="lbl_cart_number">Card Number</string>
+    <string name="lbl_reward_cash_available">Rewards Cash Available:</string>
+    <string name="lbl_apply">Apply</string>
+    <string name="lbl_place_order">PLACE ORDER</string>
+    <string name="lbl_new_cart">New Card</string>
+    <string name="lbl_existing_card">Existing Card</string>
+    <string name="whyare">Why are you returning this?</string>
+    <string name="lbl_your_order_was_successful">, your order was successful!</string>
+    <string name="lbl_order_summary">Order Summary</string>
+
+    <string name="lbl_join_reward">Join Our Rewards Program:</string>
+    <string name="lbl_join_reward_checkbox_text">Check this box to join our loyalty program.</string>
+
+
+    <!-- Order Summary -->
+    <string name="lbl_detail">Details</string>
+    <string name="lbl_payment_option">Payment Option:</string>
+    <string name="lbl_delivery_options">Delivery Option:</string>
+    <string name="lbl_you_might_also_like">You Might Also Like</string>
+    <string name="lbl_contact_no">Contact No</string>
+    <string name="lbl_zip_title">Zip</string>
+    <string name="lbl_return_to_home">RETURN TO HOME</string>
+    <string name="action_settings">Settings</string>
+    <string name="lbl_paid_via">Paid Via:</string>
+    <!--<string name="title_activity_lay_out_one">MBS</string>-->
+    <string name="lbl_pickup_time">Pick Up Time:</string>
+    <string name="lbl_delivery_method">Delivery Method:</string>
+    <string name="ok">Ok</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+
+
+    <!-- Image To Text scanning  -->
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
+    <string name="title_activity_main">Ocr Detector Sample</string>
+    <string name="ocr_header">Click &quot;Detect Text&quot; to detect text</string>
+    <string name="read_text">Detect Text</string>
+    <string name="more_times"><u>More Times</u></string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Use Flash</string>
+    <string name="ocr_success">Text read successfully</string>
+    <string name="ocr_failure">No text captured</string>
+    <string name="ocr_error">"Error reading text: %1$s"</string>
+    <string name="Channle_name">MBS_1</string>
+    <string name="str_delete_confirmation">Are you sure you want to delete?</string>
+    <string name="str_setdefault_confirmation">Are you sure you want to set this address as default?</string>
+    <string name="str_delete_defalult_shippingAdd">Deletion of the default shipping address is not allowed.</string>
+
+    <string name="str_confirmation_text">"Are you sure you want to repeat this order?"</string>
+    <string name="str_confirmation_buyitagain">"Are you sure you want to buy it again?"</string>
+    <string name="str_select_reason">"Please select reason."</string>
+    <string name="str_delivery_error">Delivery error</string>
+    <string name="str_payment_Option_under_develop">Payment method under development on Android platform.</string>
+    <string name="str_Declined">Declined</string>
+    <string name="str_CardEnding">Card Ending In:</string>
+    <string name="str_guestCheckout">Your account is setup as a guest, not a registered user.  Guest checkouts are not allowed on this
+    mobile app.\n\nWe expect to have allow guest checkouts by December 2020.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="emailReceipe"><u>Email Recipe</u></string>
+    <string name="shipping_charge_lbl">Shipping Charges: </string>
+    <string name="based_on"> based on delivery to ZIP</string>
+    <string name="fedexhome">Shipper is stating the address does not quality for this FedEx Home Delivery.\n\nDefaulting back to FedEx Ground Service.</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="All_shoopers">All Shoppers Must Be 21 Years Of Age</string>
+    <string name="were_you_born">Were You Born Before This Date?</string>
+    <string name="facebook_app_id">com.aspl.mbs</string>
+    <string name="Editing_not_allowed_text">If you wish to change your e-mail or mobile, please contact the store at: </string>
+    <string name="lbl_changelocation"><u>Change Location</u></string>
+    <string name="Location_change_message">items in your cart which will not transfer over to your new location due to pricing and qty availability.</string>
+    <string name="Location_change_locate">Your current location is located at: </string>
+    <string name="serach_hint">    🔍 City, State or Zip</string>
+    <string name="Comments"><B>Comments:</B></string>
+    <string-array name="number_type">
+        <item>Mobile</item>
+        <item>Home</item>
+        <item>Work</item>
+    </string-array>
+    <string-array name="month_name">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
+    <string-array name="month">
+        <item>Select</item>
+        <item>JAN</item>
+        <item>FEB</item>
+        <item>MAR</item>
+        <item>APR</item>
+        <item>MAY</item>
+        <item>JUN</item>
+        <item>JUL</item>
+        <item>AUG</item>
+        <item>SEP</item>
+        <item>OCT</item>
+        <item>NOV</item>
+        <item>DEC</item>
+    </string-array>
+
+    <string-array name="item_montharray">
+        <item>3 Months</item>
+        <item>6 Months</item>
+        <item>12 Months</item>
+        <item>All</item>
+    </string-array>
+
+    <string-array name="shipping_service">
+        <item>UPS Ground</item>
+        <item>UPS 2nd Day Air</item>
+        <item>UPS 2nd Day Air A.M.</item>
+        <item>UPS 3 Day Select</item>
+        <item>UPS Next Day Air</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D9000000"
+    android:padding="@dimen/text_header_17">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/_13sdp"
+            android:text="What are you looking for?"
+            android:textColor="@color/White"
+            android:textSize="@dimen/dimen_20" />
+
+        <TextView
+            android:id="@+id/txtsearchinst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Say something like…"
+            android:textColor="@color/White"
+            android:textSize="@dimen/_13sdp" />
+
+        <TextView
+            android:id="@+id/txtItem1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="Store Hours"
+            android:textColor="@color/White"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:id="@+id/txtItem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vitamin E"
+            android:textColor="@color/White"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:id="@+id/txtItem3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rum"
+            android:textColor="@color/White"
+            android:textSize="@dimen/_15sdp" />
+
+
+        <RelativeLayout
+            android:id="@+id/rlmain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp">
+
+            <LinearLayout
+                android:id="@+id/llBottomParent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:id="@+id/llMic"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/imgMic"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="@dimen/_70sdp"
+                        android:background="@drawable/mic_white" />
+
+                    <TextView
+                        android:id="@+id/txtMic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="tap to try again"
+                        android:textColor="@color/White" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSearch"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/imgSearch"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="@dimen/_70sdp"
+                        android:background="@drawable/ic_search_" />
+
+                    <TextView
+                        android:id="@+id/txtSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="type your search"
+                        android:textColor="@color/White" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imgGif"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_below="@id/rlmain"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/_15sdp"
+
+                tools:ignore="NotSibling" />
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/imgClose"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:background="@drawable/ic__close_mic" />
+    </LinearLayout>
+
+
+</RelativeLayout>

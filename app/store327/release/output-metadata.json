@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.aspl.mbs.store327",
+  "variantName": "store327Release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 15,
+      "versionName": "1.15",
+      "outputFile": "app-store327-release.apk"
+    }
+  ],
+  "elementType": "File"
+}
