@@ -149,10 +149,10 @@
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center|left"
             android:layout_marginTop="@dimen/_1sdp"
             android:focusedByDefault="true"
-            android:foregroundGravity="center"
+            android:foregroundGravity="center|left"
             android:visibility="gone" />
         <!--android:max="2"-->
         <!--android:numStars="2"-->

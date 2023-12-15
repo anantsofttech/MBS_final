@@ -738,13 +738,13 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
         }
 
 //        //ratingbar code starts ------------
-//        if (!itemDescModel.getInventoryRating().isEmpty() && Integer.parseInt(itemDescModel.getInventoryRating()) > 0) {
-//            ratingBar.setVisibility(View.VISIBLE);
-//            ratingBar.setNumStars(Integer.parseInt(itemDescModel.getInventoryRating()));
-//            ratingBar.setRating(Float.parseFloat(itemDescModel.getInventoryRating()));
-//        } else {
-//            ratingBar.setVisibility(View.GONE);
-//        }
+        if (!itemDescModel.getInventoryRating().isEmpty() && Integer.parseInt(itemDescModel.getInventoryRating()) > 0) {
+            ratingBar.setVisibility(View.VISIBLE);
+            ratingBar.setNumStars(Integer.parseInt(itemDescModel.getInventoryRating()));
+            ratingBar.setRating(Float.parseFloat(itemDescModel.getInventoryRating()));
+        } else {
+            ratingBar.setVisibility(View.GONE);
+        }
         //ratingbar code end ------------
 
         displayeThemeColorOnButton();

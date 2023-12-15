@@ -291,6 +291,29 @@ public class HomePageListAdapter extends RecyclerView.Adapter<HomePageListAdapte
         }
 
 
+        if(Constant.twentyOneYear.getInvRatings()){
+            holder.ratingBar.setVisibility(View.VISIBLE);
+
+            String inventoryRating = listHomrItem.get(position).getInventoryRating();
+
+            if (inventoryRating != null && !inventoryRating.isEmpty()) {
+                try {
+                    int rating = Integer.parseInt(inventoryRating);
+                    holder.ratingBar.setNumStars(rating);
+                    holder.ratingBar.setRating((float) rating);
+                } catch (NumberFormatException e) {
+                    // Handle the case where the string is not a valid integer
+                    e.printStackTrace(); // Log the exception or handle it according to your needs
+                }
+            } else {
+                // Handle the case where the string is null or empty
+                holder.ratingBar.setVisibility(View.GONE);
+            }
+        } else {
+            holder.ratingBar.setVisibility(View.GONE);
+        }
+
+
         /*if (Double.parseDouble(listHomrItem.get(position).getPromoPrice()) > 0) {
             String price = "$" + listHomrItem.get(position).getPrice() *//*+ " ea."*//*;
             holder.tvPrice.setText("$" + listHomrItem.get(position).getPromoPrice());

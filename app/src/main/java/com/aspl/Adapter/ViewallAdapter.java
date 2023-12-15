@@ -231,6 +231,14 @@ public class ViewallAdapter extends RecyclerView.Adapter<ViewallAdapter.ViewallH
                 }
             });
 
+        if (!listHomrItem.get(position).getInventoryRating().isEmpty() && Integer.parseInt(listHomrItem.get(position).getInventoryRating()) > 0) {
+            holder.ratingBar.setVisibility(View.VISIBLE);
+            holder.ratingBar.setNumStars(Integer.parseInt(listHomrItem.get(position).getInventoryRating()));
+            holder.ratingBar.setRating(Float.parseFloat(listHomrItem.get(position).getInventoryRating()));
+        } else {
+            holder.ratingBar.setVisibility(View.GONE);
+        }
+
     }
 
     private Drawable placeholder;

@@ -1194,7 +1194,11 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
                     if (orderSummary.getLoyaltyPoints() != null && !orderSummary.getLoyaltyPoints().isEmpty() && Float.parseFloat(orderSummary.getLoyaltyPoints()) > 0) {
                         llLoyaltyReword.setVisibility(View.VISIBLE);
                         vLoyaltyReward.setVisibility(View.VISIBLE);
-                        tvLoyaltyReward.setText(orderSummary.getLoyaltyPoints());
+                        if (isFromReturnProcessing) {
+                            tvLoyaltyReward.setText("-"+orderSummary.getLoyaltyPoints());
+                        }else{
+                            tvLoyaltyReward.setText(orderSummary.getLoyaltyPoints());
+                        }
                     } else {
                         llLoyaltyReword.setVisibility(View.GONE);
                         vLoyaltyReward.setVisibility(View.GONE);
