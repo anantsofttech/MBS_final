@@ -860,7 +860,6 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 
         if(isAdded()){
             Drawable roundDrawable = getResources().getDrawable(R.drawable.only_three_side_border_with_radius);
-            roundDrawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
             buttonname.setBackground(roundDrawable);
         }
     }

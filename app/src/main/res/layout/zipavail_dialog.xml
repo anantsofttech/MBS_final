@@ -21,33 +21,39 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_10"
+                android:padding="@dimen/dimen_5"
                 android:text="@string/str_delivery_error"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_15"
                 android:textStyle="bold" />
 
+            <View
+                android:id="@+id/img_view"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/light_grey" />
+
+
             <TextView
                 android:id="@+id/tv_first"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:padding="@dimen/dimen_10"
                 android:text="The ZIP Code of ‘xxxxx’ is outside our delivery zone.Our current delivery zone is:"
                 android:textColor="@color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_110sdp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ListView
                     android:id="@+id/Ziplist"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_150sdp"
-                    android:divider="@color/White"
+                    android:layout_height="@dimen/_130sdp"
+                    android:divider="@color/black"
                     android:nestedScrollingEnabled="true"
-                    android:padding="@dimen/dimen_10">
+                    android:padding="@dimen/dimen_5">
 
                 </ListView>
 
@@ -57,8 +63,8 @@
                 android:id="@+id/txtLast"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:padding="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:padding="@dimen/dimen_5"
                 android:text=""
                 android:textColor="@color/black" />
 
@@ -69,7 +75,7 @@
                 android:layout_marginBottom="@dimen/dimen_15"
                 android:layout_marginLeft="@dimen/dimen_10"
                 android:layout_marginRight="@dimen/dimen_10"
-                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_5"
                 android:layout_weight="1"
                 android:background="@drawable/round_shap_red"
                 android:padding="@dimen/dimen_ButtonPadding"
