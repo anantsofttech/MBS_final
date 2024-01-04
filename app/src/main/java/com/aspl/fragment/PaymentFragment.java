@@ -3652,7 +3652,11 @@ public class PaymentFragment extends Fragment
 
                 if (rewardDollar > subtotalval) {
                     rewardDollar = rewardDollar - subtotalval;
-                    subtotalval = 0.00f;
+                    if (isDeliveryFee && ll_Delivery_fee.isShown()){
+                        subtotalval = deliveryFeeSurchargeVal;
+                    }else {
+                        subtotalval = 0.00f;
+                    }
                 } else {
                     subtotalval = (subtotalval - rewardDollar);
                     rewardDollar = 0.0f;

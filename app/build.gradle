@@ -24,8 +24,8 @@ android {
         applicationId "com.aspl.mbs"
         minSdkVersion 17
         targetSdkVersion 33
-        versionCode 15
-        versionName "1.15"
+        versionCode 5
+        versionName '1.5'
         multiDexEnabled true
 //        signingConfig signingConfigs.config
     }
@@ -139,8 +139,8 @@ android {
         store57 {
             minSdkVersion 17
             targetSdkVersion 33
-            versionCode 15
-            versionName '1.15'
+            versionCode 21
+            versionName '1.21'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store57" //Editde by Janvi *******
@@ -225,8 +225,8 @@ android {
         store3824 {
             minSdkVersion 17
             targetSdkVersion 33
-            versionCode 14
-            versionName '1.14'
+            versionCode 15
+            versionName '1.15'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store3824"
@@ -240,8 +240,8 @@ android {
         store96 {
             minSdkVersion 17
             targetSdkVersion 33
-            versionCode 9
-            versionName '1.9'
+            versionCode 10
+            versionName '1.10'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store96"
@@ -256,8 +256,8 @@ android {
         store540 {
             minSdkVersion 17
             targetSdkVersion 33
-            versionCode 9
-            versionName '1.9'
+            versionCode 11
+            versionName '1.11'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store540"
@@ -286,8 +286,8 @@ android {
         store1802 {
             minSdkVersion 17
             targetSdkVersion 33
-            versionCode 4
-            versionName '1.4'
+            versionCode 5
+            versionName '1.5'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store1802"
@@ -331,8 +331,8 @@ android {
         store4450 {
             minSdkVersion 17
             targetSdkVersion 33
-            versionCode 3
-            versionName '1.3'
+            versionCode 4
+            versionName '1.4'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store4450"
@@ -362,8 +362,8 @@ android {
         store4473 {
             minSdkVersion 17
             targetSdkVersion 33
-            versionCode 3
-            versionName '1.3'
+            versionCode 5
+            versionName '1.5'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store4473"
@@ -423,7 +423,14 @@ dependencies {
 //    implementation 'com.google.firebase:firebase-core:11.6.0'
 
 //    implementation 'com.google.android.gms:play-services:11.6.0'
-    implementation 'com.google.android.gms:play-services:12.0.1'
+//    implementation 'com.google.android.gms:play-services:12.0.1'
+    //noinspection UseOfBundledGooglePlayServices
+    implementation ('com.google.android.gms:play-services:12.0.1') {
+        exclude group: 'com.google.android.gms', module: 'play-services-ads'
+        exclude group: 'com.google.android.gms', module: 'play-services-ads-lite'
+        // Add more exclusions for Ads-related modules if needed
+    }
+
 //    implementation 'com.google.android.gms:play-services-vision:20.1.3'
     implementation 'com.google.android.gms:play-services-vision:12.0.1'
     implementation 'com.android.support:multidex:1.0.3'

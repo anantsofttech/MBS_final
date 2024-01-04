@@ -234,23 +234,67 @@
     </LinearLayout>
 
 
-
-    <Button
-        android:background="@drawable/round_shap_red"
-        android:text="@string/str_submit"
-        android:textColor="@color/White"
-        android:visibility="gone"
-        android:id="@+id/btn_submit_tip_dialog"
-        android:layout_marginTop="@dimen/dimen_15"
-        android:layout_marginRight="@dimen/dimen_15"
-        android:layout_marginLeft="@dimen/dimen_15"
+    <LinearLayout
+        android:id="@+id/ll_custom_tip_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/ll_custom_tip"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/dimen_15"
-        android:padding="@dimen/dimen_ButtonPadding"
-        android:textSize="@dimen/dimen_ButtonTextSize"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:weightSum="2"
+        android:visibility="gone">
+
+        <Button
+            android:background="@drawable/round_shap_red"
+            android:text="@string/str_back"
+            android:textColor="@color/White"
+            android:id="@+id/btn_back2_tip_dialog"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginBottom="@dimen/dimen_15"
+            Tools:visibility="visible"
+            android:padding="@dimen/dimen_ButtonPadding"
+            android:textSize="@dimen/dimen_ButtonTextSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+
+        <Button
+            android:background="@drawable/round_shap_red"
+            android:text="@string/str_submit"
+            android:textColor="@color/White"
+            android:id="@+id/btn_submit_tip_dialog"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginBottom="@dimen/dimen_15"
+            Tools:visibility="visible"
+            android:padding="@dimen/dimen_ButtonPadding"
+            android:textSize="@dimen/dimen_ButtonTextSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+
+
+<!--    <Button-->
+<!--        android:background="@drawable/round_shap_red"-->
+<!--        android:text="@string/str_submit"-->
+<!--        android:textColor="@color/White"-->
+<!--        android:visibility="gone"-->
+<!--        android:id="@+id/btn_submit_tip_dialog"-->
+<!--        android:layout_marginTop="@dimen/dimen_15"-->
+<!--        android:layout_marginRight="@dimen/dimen_15"-->
+<!--        android:layout_marginLeft="@dimen/dimen_15"-->
+<!--        android:layout_below="@+id/ll_custom_tip"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_marginBottom="@dimen/dimen_15"-->
+<!--        android:padding="@dimen/dimen_ButtonPadding"-->
+<!--        android:textSize="@dimen/dimen_ButtonTextSize"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
 
 
 </RelativeLayout>

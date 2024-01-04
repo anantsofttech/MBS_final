@@ -209,7 +209,7 @@ public class DeliveryOptionsFragment extends Fragment
     public static ImageView imgCancel, iv_close;
     public static RadioGroup rgTipTD;
     public static RadioButton rbTipFifteenTD, rbTipEighteenTD, rbTipTwentyTD, rbCustomTipTD, rbCashTipTD, rbNoTipTD;
-    public static Button btnContinueTD, btn_submit_tip_dialog , btnBackTD;
+    public static Button btnContinueTD, btn_submit_tip_dialog , btnBackTD , btnBackTD2;
 
     public float tipValue = 00.f, _total = 0.0f, _subTotal = 0.0f, _salesTax = 0.0f, _wineTax = 0.0f, _miscTax = 0.0f, _flatTax = 0.0f, _bottleDeposit = 0.0f, _shipping = 0.0f, _totalSaving, _lPoints = 0.0f, _minimumHandDeliveryLimit = 0.0f;
     public int tipSubTotalValue = 0;
@@ -230,7 +230,7 @@ public class DeliveryOptionsFragment extends Fragment
     DeliveryOptionsEvent myDeliveryOptionsEvent;
     List<StoreHour> liDeliveryHour;
 
-    LinearLayout ll_custom_tip, llAdvancePaymentOptions;
+    LinearLayout ll_custom_tip, llAdvancePaymentOptions , ll_custom_tip_btn;
     boolean isNextCall = false;
     ListView listView;
     RecyclerView recyclerView;
@@ -2260,6 +2260,7 @@ public class DeliveryOptionsFragment extends Fragment
         et_tipvalue.setText(String.valueOf(df.format(defaultVal)));
         et_tipvalue.setFilters(new InputFilter[]{new Utils.DecimalDigitsInputFilter(3, 2)});
         ll_custom_tip = vTipDialog.findViewById(R.id.ll_custom_tip);
+        ll_custom_tip_btn = vTipDialog.findViewById(R.id.ll_custom_tip_btn);
         iv_close = vTipDialog.findViewById(R.id.iv_close);
         iv_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2288,6 +2289,10 @@ public class DeliveryOptionsFragment extends Fragment
         GradientDrawable bgShape2 = (GradientDrawable) btnBackTD.getBackground();
         bgShape.setColor(Color.parseColor(Constant.themeModel.ThemeColor));
 
+        btnBackTD2 = vTipDialog.findViewById(R.id.btn_back2_tip_dialog);
+        GradientDrawable bgShape3 = (GradientDrawable) btnBackTD2.getBackground();
+        bgShape.setColor(Color.parseColor(Constant.themeModel.ThemeColor));
+
         btn_submit_tip_dialog = vTipDialog.findViewById(R.id.btn_submit_tip_dialog);
         GradientDrawable bgShape1 = (GradientDrawable) btn_submit_tip_dialog.getBackground();
         bgShape1.setColor(Color.parseColor(Constant.themeModel.ThemeColor));
@@ -2306,9 +2311,11 @@ public class DeliveryOptionsFragment extends Fragment
                         tvSubTotalTD.setVisibility(View.GONE);
                         tvTipApplyTD.setVisibility(View.GONE);
                         rgTipTD.setVisibility(View.GONE);
+                        btnBackTD.setVisibility(View.GONE);
                         ll_custom_tip.setVisibility(View.VISIBLE);
-                        btn_submit_tip_dialog.setVisibility(View.VISIBLE);
-                        tvTitleTD.setText("Custom dollar Tip");
+                        ll_custom_tip_btn.setVisibility(View.VISIBLE);
+//                        btn_submit_tip_dialog.setVisibility(View.VISIBLE);
+                        tvTitleTD.setText("Custom Dollar Tip");
                         iv_close.setVisibility(View.VISIBLE);
 //                        et_tipvalue.setText(""+ defaultVal);
                         et_tipvalue.setText(String.valueOf(df.format(defaultVal)));
@@ -2361,9 +2368,9 @@ public class DeliveryOptionsFragment extends Fragment
                 } else if (rgTipTD.getCheckedRadioButtonId() == rbTipTwentyTD.getId()) {
                     tipSelectedOption = 3;
                 }
-//                else if (rgTipTD.getCheckedRadioButtonId() == rbCustomTipTD.getId()) {
-//                    tipSelectedOption = 4;
-//                }
+                else if (rgTipTD.getCheckedRadioButtonId() == rbCustomTipTD.getId()) {
+                    tipSelectedOption = 4;
+                }
                 else if (rgTipTD.getCheckedRadioButtonId() == rbCashTipTD.getId()) {
                     tipSelectedOption = 5;
                 } else if (rgTipTD.getCheckedRadioButtonId() == rbNoTipTD.getId()) {
@@ -2383,6 +2390,14 @@ public class DeliveryOptionsFragment extends Fragment
         });
 
         btnBackTD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tipDialog.isShowing())
+                    tipDialog.dismiss();
+            }
+        });
+
+        btnBackTD2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (tipDialog.isShowing())
@@ -2413,9 +2428,9 @@ public class DeliveryOptionsFragment extends Fragment
         if (Constant.twentyOneYear.getBSSetupTip3())
             rbTipTwentyTD.setVisibility(View.VISIBLE);
         if (Constant.twentyOneYear.getBSSetupTip4())
-            rbCustomTipTD.setVisibility(View.VISIBLE);
-        if (Constant.twentyOneYear.getBSSetupTip5())
             rbCashTipTD.setVisibility(View.VISIBLE);
+        if (Constant.twentyOneYear.getBSSetupTip5())
+            rbCustomTipTD.setVisibility(View.VISIBLE);
     }
 
 

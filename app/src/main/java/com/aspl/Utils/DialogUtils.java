@@ -1272,7 +1272,13 @@ public class DialogUtils {
         Button btnBack = (Button) dialog.findViewById(R.id.btnBack);
 
         ImageView iv_close = (ImageView) dialog.findViewById(R.id.iv_close);
-        Drawable myDrawabledesc = MainActivity.getInstance().getResources().getDrawable(R.drawable.ic_close);
+        Drawable myDrawabledesc ;
+        if (Constant.SCREEN_LAYOUT==1) {
+             myDrawabledesc = MainActivity.getInstance().getResources().getDrawable(R.drawable.ic_close);
+        }else{
+             myDrawabledesc = MainActivityDup.getInstance().getResources().getDrawable(R.drawable.ic_close);
+
+        }
         myDrawabledesc.setColorFilter(new LightingColorFilter(Color.BLACK, Color.BLACK));
 
         tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);

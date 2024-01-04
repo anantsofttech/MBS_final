@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.aspl.mbs.store1802",
+  "variantName": "store1802Release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 5,
+      "versionName": "1.5",
+      "outputFile": "app-store1802-release.apk"
+    }
+  ],
+  "elementType": "File"
+}
