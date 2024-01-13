@@ -3,8 +3,10 @@ package com.aspl.mbs;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -41,6 +43,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.Task;
 import com.google.firebase.crash.FirebaseCrash;
 import com.intuit.sdp.BuildConfig;
 
@@ -84,6 +91,7 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
     int sCurrentVersion = 0;
     int sLatestVersion = 0;
     /////////////////////
+    String latestVersionName;
 
     public static SplaceScreen getInstance() {
         return splaceScreen;
@@ -199,7 +207,7 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 
 //        Edited by Varun for to check the playstore version code and mobile phone version code if less then playstore version code then pop up of update
 
-//        Call_Update_App_Verification();
+        Call_Update_App_Verification();
 
 //        END
         //for main store id
@@ -250,7 +258,7 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
         tvDate.setText("Version Date: " + simple.format(buildDate));
         //end
 
-        callgetThemeWS();
+//        callgetThemeWS();
 
 //        Edited by Varun for lockdown feature
 //        callcontactinfo();
@@ -768,57 +776,90 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 
     private void Call_Update_App_Verification() {
 
-        new FetchLatestVersionCodeTask().execute();
+//        new FetchLatestVersionCodeTask().execute();
+        UpdateApp();
 
     }
 
+    public void UpdateApp() {
 
-    public class FetchLatestVersionCodeTask extends AsyncTask<String,String,String> {
+        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
 
-        @Override
-        protected String doInBackground(String... strings) {
+        appUpdateInfoTask.addOnSuccessListener(result -> {
+            Log.e("UpdateApp", "UpdateApp: "+result );
             try {
-                Document document = Jsoup.connect("https://play.google.com/store/apps/details?id=" + getPackageName() + "&hl=en")
-                        .timeout(30000)
-                        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
-                        .referrer("http://www.google.com")
-                        .ignoreHttpErrors(true)
-                        .get();
-
-                Element versionElement = document.select("span.htlgb:nth-child(4) > .htlgb span").first();
-                if (versionElement != null) {
-                    String version = versionElement.ownText();
-                    return version;
-                } else {
-                    return "0";
-                }
-
-            } catch (Exception e) {
-                return "";
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String version) {
-            super.onPostExecute(version);
-            sLatestVersion = Integer.parseInt(version);
-
-
-            if (sLatestVersion != 0 ) {
-                int sCurrentVersion = BuildConfig.VERSION_CODE;
-                if (sLatestVersion > sCurrentVersion) {
-                    Toast.makeText(SplaceScreen.this, "Update Available", Toast.LENGTH_SHORT).show();
+                if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                    latestVersionName = String.valueOf(result.availableVersionCode());
                     showUpdateDialog();
                 } else {
-                    Toast.makeText(SplaceScreen.this, "Update not Available", Toast.LENGTH_SHORT).show();
-                    callgetThemeWS();
+                    // Handle the case when no update is available
+                   callgetThemeWS();
                 }
-            }else{
-                Toast.makeText(SplaceScreen.this, "Failed to fetch version code", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                // Log the exception for further investigation
+                Log.e("UpdateCheck", "Exception during update check", e);
+                // Handle the exception accordingly, e.g., show an error message
+                Toast.makeText(splaceScreen, "Exception during update check", Toast.LENGTH_SHORT).show();
                 callgetThemeWS();
             }
-        }
+        }).addOnFailureListener(e -> {
+            // Log the failure for further investigation
+            Log.e("UpdateCheck", "Failure during update check", e);
+            // Handle the failure accordingly, e.g., show an error message
+            Toast.makeText(splaceScreen, "Failure during update check", Toast.LENGTH_SHORT).show();
+            callgetThemeWS();
+        });
+
     }
+
+
+//    public class FetchLatestVersionCodeTask extends AsyncTask<String,String,String> {
+//
+//        @Override
+//        protected String doInBackground(String... strings) {
+//            try {
+//                Document document = Jsoup.connect("https://play.google.com/store/apps/details?id=" + getPackageName() + "&hl=en")
+//                        .timeout(30000)
+//                        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+//                        .referrer("http://www.google.com")
+//                        .ignoreHttpErrors(true)
+//                        .get();
+//
+//                Element versionElement = document.select("span.htlgb:nth-child(4) > .htlgb span").first();
+//                if (versionElement != null) {
+//                    String version = versionElement.ownText();
+//                    return version;
+//                } else {
+//                    return "0";
+//                }
+//
+//            } catch (Exception e) {
+//                return "";
+//            }
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String version) {
+//            super.onPostExecute(version);
+//            sLatestVersion = Integer.parseInt(version);
+//
+//
+//            if (sLatestVersion != 0 ) {
+//                int sCurrentVersion = BuildConfig.VERSION_CODE;
+//                if (sLatestVersion > sCurrentVersion) {
+//                    Toast.makeText(SplaceScreen.this, "Update Available", Toast.LENGTH_SHORT).show();
+//                    showUpdateDialog();
+//                } else {
+//                    Toast.makeText(SplaceScreen.this, "Update not Available", Toast.LENGTH_SHORT).show();
+//                    callgetThemeWS();
+//                }
+//            }else{
+//                Toast.makeText(SplaceScreen.this, "Failed to fetch version code", Toast.LENGTH_SHORT).show();
+//                callgetThemeWS();
+//            }
+//        }
+//    }
 
 //    private class FetchLatestVersionCodeTask extends AsyncTask<Void, Void, Integer> {
 //
@@ -862,9 +903,22 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 //    }
 
     private void showUpdateDialog() {
+
+
+        PackageManager packageManager = getApplicationContext().getPackageManager();
+        ApplicationInfo applicationInfo = null;
+        try {
+            applicationInfo = packageManager.getApplicationInfo(getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String appName = (String) packageManager.getApplicationLabel(applicationInfo);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Update Available");
-        builder.setMessage("A new update is available for the app. Please update to the latest version.");
+        builder.setMessage("A new version of "+ appName +" is available. Please update to new version now.");
+
         builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -873,7 +927,6 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                 intent.setData(Uri.parse("market://details?id=" + getPackageName()));
 
                 // Verify if the Play Store app is available
-                PackageManager packageManager = getPackageManager();
                 List<ResolveInfo> resolveInfoList = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
 
                 if (resolveInfoList.size() > 0) {
@@ -883,8 +936,10 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                     intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName()));
                     startActivity(intent);
                 }
+                finish();
             }
         });
+
         builder.setNegativeButton("Later", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -892,8 +947,13 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                 callgetThemeWS();
             }
         });
+
+        // Set the dialog to not dismiss when touched outside
         AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+
         dialog.show();
     }
+
 
 }

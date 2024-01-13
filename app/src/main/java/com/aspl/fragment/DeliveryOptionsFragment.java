@@ -3155,11 +3155,11 @@ public class DeliveryOptionsFragment extends Fragment
             if (!tvWarnTwoHourAgo.getText().toString().isEmpty()) {
 //                Edited by Varun for store closes textview above the rbpayatstore will only show when the rbpayat store are enable from the back side
 //                And it will not show when the rbpayatstore will disable from the set-up
-//                if (liShippingData.get(0).getBSSetupPayAtStore()) {
-//                    tvWarnTwoHourAgo.setVisibility(View.VISIBLE);
-//                } else {
-//                    tvWarnTwoHourAgo.setVisibility(View.GONE);
-//                }
+                if (liShippingData.get(0).getBSSetupPayAtStore()) {
+                    tvWarnTwoHourAgo.setVisibility(View.VISIBLE);
+                } else {
+                    tvWarnTwoHourAgo.setVisibility(View.GONE);
+                }
             }else{
                 tvWarnTwoHourAgo.setVisibility(View.GONE);
             }

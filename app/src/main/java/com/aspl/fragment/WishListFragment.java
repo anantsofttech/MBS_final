@@ -224,11 +224,14 @@ public class WishListFragment extends Fragment
         }
 
         String itemIdSku = null;
-        try {
-            itemIdSku = URLEncoder.encode(liShoppingCard.get(position).getItemMstId().trim(), "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        if (!liShoppingCard.get(position).getItemMstId().trim().isEmpty() && !liShoppingCart.get(position).getItemMstId().trim().equals("")){
+            try {
+                itemIdSku = URLEncoder.encode(liShoppingCard.get(position).getItemMstId().trim(), "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
+
 
         String id = String.valueOf(liShoppingCart.get(position).getCartID());
         String url = Constant.WS_BASE_URL + Constant.DELETE_CART + id + "/" + "Cart" + "/" + UserModel.Cust_mst_ID +

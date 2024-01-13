@@ -2460,6 +2460,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onGetViewallResult(List<HomeItemModel> itemListing, String type) {
 
