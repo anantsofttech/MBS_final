@@ -74,6 +74,7 @@ public class Constant {
     public static String WS_BASE_POS_URL = "https://ecomtest.lightningpos.com/Home/";
     public static String WS_BASE_FOR_POS_LIGHTNING = "https://evo.lightningpos.com/CSCode/WebStoreOnlineService.asmx/";
 
+
 //    Azure Test Server URL
 
 //    public static String IMG_BASE = "https://aimages.lightningpos.com/";
