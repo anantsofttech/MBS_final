@@ -1331,6 +1331,8 @@ public class Utils{
 
             else if(shippingType.equalsIgnoreCase("USPS")){
 
+                ll_total_charges.setVisibility(View.VISIBLE);
+
                 tv_additional.setText("Additional Charges:");
                 tv_additional_price.setText("$" + String.format(df.format(finalCalculateShippingModel.getAdditionalCharges())));
 
@@ -1339,6 +1341,9 @@ public class Utils{
 
                 tv_shipping_charges.setText("Shipping Charges:");
                 tv_Shipping_charges_price.setText("$" + String.format(df.format(finalCalculateShippingModel.getOriginalCharges())));
+
+                tv_total_charges.setText("Total Shipping Fees to Customer:");
+                tv_total_charges_price.setText("$" + String.format(df.format(finalCalculateShippingModel.getShippingCharges())));
 
                 ll_dashed_line.setVisibility(View.GONE);
                 ll_base_charges.setVisibility(View.GONE);
@@ -2677,6 +2682,17 @@ public class Utils{
         dialog.setCancelable(false);
 
         dialog.show();
+    }
+
+    public static String getCurrentDate() {
+        // Get the current date
+        Date currentDate = new Date();
+
+        // Create a SimpleDateFormat object to format the date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        // Format the date and return it
+        return sdf.format(currentDate);
     }
 
 }

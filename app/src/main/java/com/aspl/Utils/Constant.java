@@ -298,7 +298,7 @@ public class Constant {
     public static String CALCULATE_SHIPPING_RATES_UPS ="CalculateShippingRatesUPS";
 
 //    Edited by Varun for new shipping charges
-//    public static String CALCULATE_SHIPPING_RATES_USPS_V1 ="CalculateShippingRatesUSPS_V1";
+    public static String CALCULATE_SHIPPING_RATES_USPS_V1 ="CalculateShippingRatesUSPS_V1";
     public static String CALCULATE_SHIPPING_RATES_FEDEX_V1 ="CalculateShippingRatesFedEx_V1";
     public static String CALCULATE_SHIPPING_RATES_UPS_V1 ="CalculateShippingRatesUPS_V1";
 //    END

@@ -3691,8 +3691,10 @@ public class DeliveryOptionsFragment extends Fragment
         }
         else if(servicename.equalsIgnoreCase("USPS")){
 
-            String Url = Constant.WS_BASE_URL + Constant.CALCULATE_SHIPPING_RATES_USPS + "/" +  finalCustomerId +"/" + Constant.STOREID+ "/" + additionalCharges + "/" + finalZipval + "/" + contrycode + "/" + selectedID + "/"
-                    + finalToaddress.trim() + "/" + finalToCity.trim() + "/" + finalToState.trim();
+            String formattedDate = Utils.getCurrentDate();
+
+            String Url = Constant.WS_BASE_URL + Constant.CALCULATE_SHIPPING_RATES_USPS_V1 + "/" +  finalCustomerId +"/" + Constant.STOREID+ "/" + additionalCharges + "/" + finalZipval + "/" + contrycode + "/" + selectedID + "/"
+                  +formattedDate + "/" + finalToaddress.trim() + "/" + finalToCity.trim() + "/" + finalToState.trim();
 
             TaskShippingRates taskShippingRates = new TaskShippingRates(this,getActivity(),Constant.CALCULATE_SHIPPING_RATES_USPS,servicename);
             taskShippingRates.execute(Url);

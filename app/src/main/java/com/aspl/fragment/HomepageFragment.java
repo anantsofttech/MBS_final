@@ -1,8 +1,12 @@
 package com.aspl.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -15,6 +19,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
@@ -211,6 +216,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
     public LinearLayout   ll_Reward_main;
     public TextView tv_Reward_point_main ,tv_points_main , tv_rebate_point_main , tv_rebate_main;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         filterFragment = this;
@@ -251,19 +257,19 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
             cvBannerContent.setVisibility(View.GONE);
             BannerText = rootView.findViewById(R.id.BannerText);
             BannerText.setText("Header");
-            progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
+            progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
             progressBar.setVisibility(View.GONE);
 
-            ll_Reward_main= rootView.findViewById(R.id.ll_Reward_main);
-            tv_points_main= rootView.findViewById(R.id.tv_points_main);
-            tv_rebate_main= rootView.findViewById(R.id.tv_rebate_main);
+            ll_Reward_main = rootView.findViewById(R.id.ll_Reward_main);
+            tv_points_main = rootView.findViewById(R.id.tv_points_main);
+            tv_rebate_main = rootView.findViewById(R.id.tv_rebate_main);
             tv_rebate_point_main = rootView.findViewById(R.id.tv_rebate_point_main);
             tv_Reward_point_main = rootView.findViewById(R.id.tv_Reward_point_main);
 
             loadRewardWSData();
 
             //store location
-            if(Constant.co_storeno_value != null && !Constant.co_storeno_value.isEmpty()) {
+            if (Constant.co_storeno_value != null && !Constant.co_storeno_value.isEmpty()) {
 
                 if (Constant.contatInfo != null) {
                     cvStorelocation = rootView.findViewById(R.id.cvStorelocation);
@@ -325,7 +331,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                             if (today.equals(Constant.liOnlyStoreHour.get(i).getStoreDay())) {
                                 pos = i;
                                 if (Constant.liOnlyStoreHour.get(i).getClosed()) {
-                                isStoreClosedtoday = true;
+                                    isStoreClosedtoday = true;
                                 }
                                 break;
                             }
@@ -333,7 +339,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 
                         String closeTime = "";
 
-                        if(isStoreClosedtoday){
+                        if (isStoreClosedtoday) {
                             int j = 1;
                             String tomorrowDay = Utils.getNextDay(j);
                             String nextDayOpenTime = "";
@@ -349,9 +355,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                                 }
                             }
 
-                            tvStoreOpen.setText("Reopens " + nextDayOpenTime +" "+tomorrowDay);
+                            tvStoreOpen.setText("Reopens " + nextDayOpenTime + " " + tomorrowDay);
 
-                        }else{
+                        } else {
                             closeTime = Constant.liOnlyStoreHour.get(pos).getCloseTime();
                             tvStoreOpen.setText("Open until " + closeTime);
                         }
@@ -359,20 +365,20 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                        tvStoreOpen.setText("Open until " + closeTime);
                     }
 
-                  if (Constant.SCREEN_LAYOUT == 1) {
+                    if (Constant.SCREEN_LAYOUT == 1) {
 
-                    if (MainActivity.getInstance().miles != 0.0) {
-                        String milesStr = String.format("%.1f", MainActivity.getInstance().miles);
-                        tvStoreDistance.setText(milesStr + " Miles");
+                        if (MainActivity.getInstance().miles != 0.0) {
+                            String milesStr = String.format("%.1f", MainActivity.getInstance().miles);
+                            tvStoreDistance.setText(milesStr + " Miles");
+                        }
+
+                    } else if (Constant.SCREEN_LAYOUT == 2) {
+
+                        if (MainActivityDup.getInstance().miles != 0.0) {
+                            String milesStr = String.format("%.1f", MainActivityDup.getInstance().miles);
+                            tvStoreDistance.setText(milesStr + " Miles");
+                        }
                     }
-
-                  } else if (Constant.SCREEN_LAYOUT == 2) {
-
-                      if (MainActivityDup.getInstance().miles != 0.0) {
-                          String milesStr = String.format("%.1f", MainActivityDup.getInstance().miles);
-                          tvStoreDistance.setText(milesStr + " Miles");
-                      }
-                  }
 
 //                getLatandLongFromAddress(tvStoreaddress.getText().toString());
 
@@ -392,35 +398,96 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                 }
             }
 
-//          if(Constant.themeModel.SBPageContent!=null && !Constant.themeModel.SBPageContent.isEmpty()){
-//                cvBannerContent.setVisibility(View.VISIBLE);
-//                BannerText.setText(Constant.themeModel.SBPageContent);
-//
-//                if(Constant.themeModel.SBfont_weight && Constant.themeModel.SBFontStyle){
-//                    Typeface typeface = getResources().getFont(R.font.arial);
-////                    Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "fonts/arial.ttf");
-//                    BannerText.setTypeface(typeface);
-//
-//                }else if(!Constant.themeModel.SBfont_weight && Constant.themeModel.SBFontStyle){
-//                    Typeface typeface = getResources().getFont(R.font.arial);
-////                    Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "fonts/arial.ttf");
-//                    BannerText.setTypeface(typeface);
-//
-//                }else if(Constant.themeModel.SBfont_weight && !Constant.themeModel.SBFontStyle){
-//                    Typeface typeface = getResources().getFont(R.font.arial);
-////                    Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "fonts/arial.ttf");
-//                    BannerText.setTypeface(typeface);
-//                }else{
-//                    Typeface typeface = getResources().getFont(R.font.arial);
-////                    Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "fonts/arial.ttf");
-//                    BannerText.setTypeface(typeface);
-//                    BannerText.setTextColor(Color.parseColor(Constant.themeModel.SBFontColor));
-//                }
-//                BannerText.setTextSize(TypedValue.COMPLEX_UNIT_SP, Constant.themeModel.SBFontSize);
-//            }else{
-//                cvBannerContent.setVisibility(View.GONE);
-//            }
+//                  Setting the Special Banner Message on Home Page Top
+            if (Constant.themeModel.SBPageContent != null && !Constant.themeModel.SBPageContent.isEmpty()
+                    && Constant.themeModel.SBActiveDisplay) {
+
+                cvBannerContent.setVisibility(View.VISIBLE);
+
+                // Displaying the Text
+                BannerText.setText(Constant.themeModel.SBPageContent);
+
+                // Set Typeface
+                Typeface typeface = null;
+                if (Constant.themeModel.SBfont_weight && Constant.themeModel.SBFontStyle) {
+                    typeface = getResources().getFont(R.font.arial_mt_bold_italic);
+                } else if (!Constant.themeModel.SBfont_weight && Constant.themeModel.SBFontStyle) {
+                    typeface = getResources().getFont(R.font.arial_mt_italic);
+                } else if (Constant.themeModel.SBfont_weight && !Constant.themeModel.SBFontStyle) {
+                    typeface = getResources().getFont(R.font.arial_mt_bold);
+                } else {
+                    typeface = getResources().getFont(R.font.arial);
+                }
+                BannerText.setTypeface(typeface);
+
+                // Underline for textview
+                if (Constant.themeModel.SBtext_decoration) {
+                    BannerText.setPaintFlags(BannerText.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                }
+
+                // Set background color with rounded corners
+                if (Constant.themeModel.SBBackColor != null && !Constant.themeModel.SBBackColor.isEmpty()) {
+                    try {
+                        Drawable roundDrawable = getResources().getDrawable(R.drawable.rounded_corner_all);
+                        roundDrawable.setColorFilter(Color.parseColor(Constant.themeModel.SBBackColor), PorterDuff.Mode.SRC_ATOP);
+                        cvBannerContent.setBackground(roundDrawable);
+                    } catch (IllegalArgumentException e) {
+                        // Handle the case when ThemeColor is not a valid color
+                        e.printStackTrace();
+                        // Provide a default color or alternative handling
+                        cvBannerContent.setBackgroundColor(0x000000); // Note: Hexadecimal color value
+                    }
+                }
+
+                try {
+                    // Set Text Color
+                    if (Constant.themeModel.SBFontColor != null && !Constant.themeModel.SBFontColor.isEmpty()) {
+                        try {
+                            BannerText.setTextColor(Color.parseColor(Constant.themeModel.SBFontColor));
+                        } catch (IllegalArgumentException e) {
+                            // Handle the case when SBFontColor is not a valid color
+                            e.printStackTrace();
+                            // Provide a default color or alternative handling
+                            BannerText.setTextColor(0x000000); // Note: Hexadecimal color value
+                        }
+                    }
+
+                    // Set Font Size
+                    if (Constant.themeModel.SBFontSize > 0) {
+                        BannerText.setTextSize(TypedValue.COMPLEX_UNIT_SP, Constant.themeModel.SBFontSize);
+                    }
+
+                } catch (Resources.NotFoundException e) {
+                    // Handle the case when the font resource is not found
+                    e.printStackTrace();
+                    // Provide a default typeface or alternative handling
+                    BannerText.setTypeface(Typeface.DEFAULT);
+                }
+
+                // Set Text Alignment
+                if (Constant.themeModel.SBText_Align != null && !Constant.themeModel.SBText_Align.isEmpty()) {
+                    switch (Constant.themeModel.SBText_Align) {
+                        case "center":
+                            BannerText.setGravity(Gravity.CENTER);
+                            break;
+                        case "left":
+                            BannerText.setGravity(Gravity.LEFT);
+                            break;
+                        case "right":
+                            BannerText.setGravity(Gravity.RIGHT);
+                            break;
+                        case "justify":
+                            BannerText.setGravity(Gravity.START); // or use Gravity.LEFT
+                            BannerText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+                            BannerText.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
+                            break;
+                    }
+                }
+            } else {
+                cvBannerContent.setVisibility(View.GONE);
+            }
         }
+
         if (Constant.SCREEN_LAYOUT == 1) {
             CustomerID = MainActivity.getUserId();
             MainActivity.shortingCheckBoxPosition = 0;

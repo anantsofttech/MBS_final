@@ -108,8 +108,8 @@ android {
         store327 {
             minSdkVersion 17
             targetSdkVersion 33
-            versionCode 15
-            versionName '1.15'
+            versionCode 16
+            versionName '1.16'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store327"
