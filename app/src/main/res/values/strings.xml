@@ -371,4 +371,11 @@
         <item>UPS Next Day Air</item>
     </string-array>
 
+    <!-- ... other string resources ... -->
+    <string name="shortcut_long_label_open_cart">Open Cart</string>
+    <string name="shortcut_short_label_open_cart">Cart</string>
+    <string name="shortcut_short_label_open_wishlist">Wishlist</string>
+    <string name="shortcut_long_label_open_wishlist">Open Wishlist</string>
+
+
 </resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <shortcut
+        android:shortcutId="cart"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:shortcutShortLabel="@string/shortcut_short_label_open_cart"
+        android:shortcutLongLabel="@string/shortcut_long_label_open_cart">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="com.aspl.mbs.store707"
+            android:targetClass="com.aspl.mbs.SplaceScreen">
+            <extra android:name="android.intent.extra.shortcut.ID" android:value="cart" />
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="wishlist"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_star_24"
+        android:shortcutShortLabel="@string/shortcut_short_label_open_wishlist"
+        android:shortcutLongLabel="@string/shortcut_long_label_open_wishlist">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="com.aspl.mbs.store707"
+            android:targetClass="com.aspl.mbs.SplaceScreen">
+            <extra android:name="android.intent.extra.shortcut.ID" android:value="wishlist" />
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+</shortcuts>
+
+
+    <!--    android:targetPackage="com.aspl.mbs.store707"-->

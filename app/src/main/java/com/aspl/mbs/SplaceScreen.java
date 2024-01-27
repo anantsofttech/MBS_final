@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -60,6 +63,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -623,27 +627,114 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
     }
 
     public void gotoDeshboard() {
-        //handler.postDelayed(runnableCode, 5000);
 
-        Intent ii=null;
-        if(Constant.SCREEN_LAYOUT==1) {
-            ii = new Intent(SplaceScreen.this, MainActivity.class);
-        }else if(Constant.SCREEN_LAYOUT==2){
-            ii = new Intent(SplaceScreen.this, MainActivityDup.class);
-        }
+        if (getIntent() != null && getIntent().getAction() != null &&
+                getIntent().getAction().equals(Intent.ACTION_MAIN) &&
+                getIntent().hasExtra("android.intent.extra.shortcut.ID")) {
+
+            String shortcutId = getIntent().getStringExtra("android.intent.extra.shortcut.ID");
+
+            // Handle the shortcut click based on the shortcutId
+            if ("cart".equals(shortcutId)) {
+                // Handle the "cart" shortcut click
+                // For example, navigate to the Cart activity
+                Intent intent = new Intent(this, Constant.SCREEN_LAYOUT == 1 ? MainActivity.class : MainActivityDup.class);
+                intent.putExtra("openCartFragment", true);
+                startActivity(intent);
+            } else if ("wishlist".equals(shortcutId)) {
+                // Handle the "wishlist" shortcut click
+                // For example, navigate to the Wishlist activity
+                Intent intent = new Intent(this, Constant.SCREEN_LAYOUT == 1 ? MainActivity.class : MainActivityDup.class);
+                intent.putExtra("openWishlistFragment", true);
+                startActivity(intent);
+            }
+
+            // Clear the extra data to avoid triggering the same action again
+            getIntent().removeExtra("android.intent.extra.shortcut.ID");
+//        }
+//
+//        if (getIntent().getAction() != null && getIntent().getAction().equals("android.intent.extra.shortcut.ID")) {
+//
+//            handleShortcut(getIntent());
+//            String shortcutDestination = getIntent().getStringExtra("shortcutDestination");
+//
+//            if ("cartFragment".equals(shortcutDestination)) {
+//                // Navigate to CartFragment in MainActivity
+//                Intent intent = new Intent(this, Constant.SCREEN_LAYOUT == 1 ? MainActivity.class : MainActivityDup.class);
+//                intent.putExtra("openCartFragment", true);
+//                startActivity(intent);
+//            } else if ("wishlistFragment".equals(shortcutDestination)) {
+//                // Navigate to WishlistFragment in MainActivity
+//                Intent intent = new Intent(this, Constant.SCREEN_LAYOUT == 1 ? MainActivity.class : MainActivityDup.class);
+//                intent.putExtra("openWishlistFragment", true);
+//                startActivity(intent);
+//            }
+            finish();
+        } else {
+            createDynamicShortcuts();
+
+            Intent ii = null;
+            if (Constant.SCREEN_LAYOUT == 1) {
+                ii = new Intent(SplaceScreen.this, MainActivity.class);
+            } else if (Constant.SCREEN_LAYOUT == 2) {
+                ii = new Intent(SplaceScreen.this, MainActivityDup.class);
+            }
 
 //        try{
-        if(ii != null){
-            ii.putExtra("CustomerId", CustomerId);
-            ii.putExtra("URL", URL);
-            startActivity(ii);
-            finish();
-        }
+            if (ii != null) {
+                ii.putExtra("CustomerId", CustomerId);
+                ii.putExtra("URL", URL);
+                startActivity(ii);
+                finish();
+            }
 
 //        }catch (Exception e){
 //
 //        }
 //
+        }
+
+    }
+
+    private void createDynamicShortcuts() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
+
+            if (shortcutManager != null) {
+                List<ShortcutInfo> shortcuts = new ArrayList<>();
+
+                // CartFragment shortcut
+                Intent cartShortcutIntent = new Intent(getApplicationContext(), SplaceScreen.class);
+                cartShortcutIntent.setAction(Intent.ACTION_MAIN);
+                cartShortcutIntent.putExtra("android.intent.extra.shortcut.ID", "cart");
+
+                ShortcutInfo cartShortcut = new ShortcutInfo.Builder(this, "dynamic_shortcut_cart")
+                        .setShortLabel(getString(R.string.shortcut_short_label_open_cart))
+                        .setLongLabel(getString(R.string.shortcut_long_label_open_cart))
+                        .setIcon(Icon.createWithResource(this, R.drawable.ic_baseline_shopping_cart_24))
+                        .setIntent(cartShortcutIntent)
+                        .build();
+
+                shortcuts.add(cartShortcut);
+
+                // WishlistFragment shortcut
+                Intent wishlistShortcutIntent = new Intent(getApplicationContext(), SplaceScreen.class);
+                wishlistShortcutIntent.setAction(Intent.ACTION_MAIN);
+                wishlistShortcutIntent.putExtra("android.intent.extra.shortcut.ID", "wishlist");
+
+                ShortcutInfo wishlistShortcut = new ShortcutInfo.Builder(this, "dynamic_shortcut_wishlist")
+                        .setShortLabel(getString(R.string.shortcut_short_label_open_wishlist))
+                        .setLongLabel(getString(R.string.shortcut_long_label_open_wishlist))
+                        .setIcon(Icon.createWithResource(this, R.drawable.ic_baseline_star_24))
+                        .setIntent(wishlistShortcutIntent)
+                        .build();
+
+                shortcuts.add(wishlistShortcut);
+
+                // Set the dynamic shortcuts
+                shortcutManager.setDynamicShortcuts(shortcuts);
+            }
+        }
     }
 
     private Runnable runnableCode = new Runnable() {

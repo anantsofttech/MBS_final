@@ -3337,41 +3337,54 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
 
     public void CallHomeFragment() {
-        clearFilterSelection();
+
+        if (getIntent().getBooleanExtra("openCartFragment", false)) {
+            getIntent().putExtra("openCartFragment", false);
+            loadCardFragment();
+        } else if (getIntent().getBooleanExtra("openWishlistFragment", false)) {
+            getIntent().putExtra("openWishlistFragment", false);
+            if (UserModel.Cust_mst_ID == null || UserModel.Cust_mst_ID.isEmpty()) {
+                CallHomeFragment();
+            }
+            loadWishListFragment();
+        }
+        else {
+            clearFilterSelection();
 
 //        ************ Edited by Varun for backbutton and shopping cart ****************
-        hidebackbutton();
+            hidebackbutton();
 //        onGetCartData("");
 
-        rbPayAtStore = false;
-        rbPickUpAtStore = false;
-        pick_up_time="";
+            rbPayAtStore = false;
+            rbPickUpAtStore = false;
+            pick_up_time = "";
 //        **************** END ************************
 
-        MainActivity.iscomfromSort = false;
-        llsearch.setVisibility(View.VISIBLE);
-        mContainer.setVisibility(View.GONE);
-        llsortandfilter.setVisibility(View.GONE);
-        llcheckInternet.setVisibility(View.GONE);
-        mContent.setVisibility(View.VISIBLE);
-        //if (fragment == null) {
-        homepageFragment = new HomepageFragment();
+            MainActivity.iscomfromSort = false;
+            llsearch.setVisibility(View.VISIBLE);
+            mContainer.setVisibility(View.GONE);
+            llsortandfilter.setVisibility(View.GONE);
+            llcheckInternet.setVisibility(View.GONE);
+            mContent.setVisibility(View.VISIBLE);
+            //if (fragment == null) {
+            homepageFragment = new HomepageFragment();
 
-        clearBackStack();
+            clearBackStack();
         /*}
         if (Constant.DepartmentList.size() == 0) {
             String Url1 = Constant.WS_BASE_URL + Constant.GETDEPARTMENT + Constant.STOREID;
             new Async_getCommonService(this, Url1).execute();
         } else {*/
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-        fragmentTransaction.replace(R.id.mContent, homepageFragment, "fragment");
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+            fragmentTransaction.replace(R.id.mContent, homepageFragment, "fragment");
 
-        //fragmentTransaction.addToBackStack(FilterFragment.class.getSimpleName());
-        //fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commitAllowingStateLoss();
-        mDrawer.setDrawerListener(actionBarDrawerToggle);
-        //}
+            //fragmentTransaction.addToBackStack(FilterFragment.class.getSimpleName());
+            //fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commitAllowingStateLoss();
+            mDrawer.setDrawerListener(actionBarDrawerToggle);
+            //}
+        }
     }
 
     public void displayDepartmentList() {
@@ -3787,6 +3800,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                         mContainer.setVisibility(View.GONE);
                         llsearch.setVisibility(View.VISIBLE);
                         mContent.setVisibility(View.VISIBLE);
+                        CallHomeFragment();
                     } else {
                         mContainer.setVisibility(View.VISIBLE);
                         llsearch.setVisibility(View.VISIBLE);
