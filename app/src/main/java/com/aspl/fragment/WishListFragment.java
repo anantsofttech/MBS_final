@@ -304,8 +304,10 @@ public class WishListFragment extends Fragment
 //            END
 
             if(Constant.SCREEN_LAYOUT==1){
+                Utils.vibrateDevice(getContext());
                 MainActivity.onGetCartData("");
             }else if(Constant.SCREEN_LAYOUT==2) {
+                Utils.vibrateDevice(getContext());
                 MainActivityDup.onGetCartData();
             }
             liShoppingCard.remove(position);

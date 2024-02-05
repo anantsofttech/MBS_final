@@ -24,6 +24,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -2693,6 +2694,16 @@ public class Utils{
 
         // Format the date and return it
         return sdf.format(currentDate);
+    }
+
+    public static void vibrateDevice(Context context) {
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+
+        // Check if the device has a vibrator
+        if (vibrator != null && vibrator.hasVibrator()) {
+            // Vibrate for the predefined duration
+            vibrator.vibrate(500);
+        }
     }
 
 }

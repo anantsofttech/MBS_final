@@ -2256,6 +2256,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 
             if (addToCart.getResult().equalsIgnoreCase("success")) {
                 DialogUtils.showDialog("Added to cart!");
+                Utils.vibrateDevice(getContext());
                 onGetCartData("", addToCart);
                 if(isFromadpter_whenclickedonaddtocart){
                     isFromadpter_whenclickedonaddtocart = false;
@@ -2450,6 +2451,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
     @Override
     public void updateCartResult(UpdateCartQuantity updateCart) {
         if (updateCart.getResult().equalsIgnoreCase("success")) {
+            Utils.vibrateDevice(getContext());
             onGetCartData("buyitagain",updateCart);
         }
     }

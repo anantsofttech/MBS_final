@@ -375,7 +375,7 @@ public class FooterAdapter extends BaseAdapter {
                     }
 //                    else if (page.equals("Linkedln")) {
                     //LINKDIN_PAGE_URL = footerModel.PageTitle;
-                    else if (page.contains("linkedin")) {
+                   /* else if (page.contains("linkedin")) {
                         //end *************
                         MainActivity.getInstance().loadHomeWebPage();
                         Intent intent = null;
@@ -383,7 +383,7 @@ public class FooterAdapter extends BaseAdapter {
                             MainActivity.getInstance().getPackageManager().getPackageInfo("com.linkedin.android", 0);
                             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("linkedin://profile/")); //linkedin://profile/mehultpatel
                         } catch (Exception e) {
-                            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(LINKDIN_PAGE_URL/*"https://www.linkedin.com"*/)); //https://www.linkedin.com/in/olankimehuln
+                            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(LINKDIN_PAGE_URL)); //https://www.linkedin.com/in/olankimehuln
                         } finally {
                             MainActivity.getInstance().startActivity(intent);
                         }
@@ -407,6 +407,55 @@ public class FooterAdapter extends BaseAdapter {
                     else if (page.contains("foursquare")) {
                         String uriString = "https:\\/\\/foursquare.com";
                         MainActivity.getInstance().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uriString)));
+                    }*/
+                    else if (page.contains("linkedin")) {
+                        MainActivity.getInstance().loadHomeWebPage();
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(page));
+                        // Check if the LinkedIn app is installed
+                        try {
+                            MainActivity.getInstance().getPackageManager().getPackageInfo("com.linkedin.android", 0);
+                            intent.setPackage("com.linkedin.android"); // Set the package name to open LinkedIn app specifically
+                        } catch (Exception e) {
+                            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(page));
+                        } finally {
+                            MainActivity.getInstance().startActivity(intent);
+                        }
+                    } else if (page.contains("instagram")) {
+                        MainActivity.getInstance().loadHomeWebPage();
+                        Uri uri = Uri.parse(page);
+                        Intent insta = new Intent(Intent.ACTION_VIEW, uri);
+                        insta.setPackage("com.instagram.android"); // Set the package name to open Instagram app specifically
+                        // Check if the Instagram app is installed
+                        if (isIntentAvailable(MainActivity.getInstance(), insta)) {
+                            MainActivity.getInstance().startActivity(insta);
+                        } else {
+                            // Instagram app is not installed, open the Instagram profile in the default web browser
+                            MainActivity.getInstance().startActivity(new Intent(Intent.ACTION_VIEW, uri));
+                        }
+                    }
+                    else if (page.contains("yelp")) {
+                        MainActivity.getInstance().loadHomeWebPage();
+                        Uri uri = Uri.parse(page);
+                        Intent yelpIntent = new Intent(Intent.ACTION_VIEW, uri);
+                        // Check if the Yelp app is installed
+                        if (isIntentAvailable(MainActivity.getInstance(), yelpIntent)) {
+                            MainActivity.getInstance().startActivity(yelpIntent);
+                        } else {
+                            // Yelp app is not installed, open the Yelp profile in the default web browser
+                            MainActivity.getInstance().startActivity(new Intent(Intent.ACTION_VIEW, uri));
+                        }
+                    }
+                    else if (page.contains("foursquare")) {
+                        MainActivity.getInstance().loadHomeWebPage();
+                        Uri uri = Uri.parse(page);
+                        Intent foursquareIntent = new Intent(Intent.ACTION_VIEW, uri);
+                        // Check if the Foursquare app is installed
+                        if (isIntentAvailable(MainActivity.getInstance(), foursquareIntent)) {
+                            MainActivity.getInstance().startActivity(foursquareIntent);
+                        } else {
+                            // Foursquare app is not installed, open the Foursquare profile in the default web browser
+                            MainActivity.getInstance().startActivity(new Intent(Intent.ACTION_VIEW, uri));
+                        }
                     }
 
                     else if (page.equals("Rate App")) {

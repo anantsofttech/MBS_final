@@ -779,6 +779,7 @@ public class ViewAllFragment extends Fragment implements
     public void updateCartResult(UpdateCartQuantity updateCart) {
 
         if (updateCart.getResult().equalsIgnoreCase("success")) {
+            Utils.vibrateDevice(getContext());
             onGetCartData("", null);
         }
     }
@@ -951,6 +952,7 @@ public class ViewAllFragment extends Fragment implements
 
             if (addToCart.getResult().equalsIgnoreCase("success")) {
                 DialogUtils.showDialog("Added to cart!");
+                Utils.vibrateDevice(getContext());
                 onGetCartData("", addToCart);
                 if(isFromadpter_whenclickedonaddtocart){
                     isFromadpter_whenclickedonaddtocart = false;

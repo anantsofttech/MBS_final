@@ -1529,6 +1529,7 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 
             if (addToCart.getResult().equalsIgnoreCase("success")) {
                 DialogUtils.showDialog("Added to cart!");
+                Utils.vibrateDevice(context);
                 onGetCartData();
 
             } else if (addToCart.getResult().equalsIgnoreCase("Already added")) {
@@ -1639,6 +1640,7 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
     public void updateCartResult(UpdateCartQuantity updateCart) {
 
         if (updateCart.getResult().equalsIgnoreCase("success")) {
+            Utils.vibrateDevice(context);
             onGetCartData();
         }
     }
