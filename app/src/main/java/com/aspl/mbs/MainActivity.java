@@ -3353,7 +3353,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
 //        ************ Edited by Varun for backbutton and shopping cart ****************
             hidebackbutton();
-//        onGetCartData("");
+            onGetCartData("");
 
             rbPayAtStore = false;
             rbPickUpAtStore = false;
@@ -3450,7 +3450,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
         if (MainActivity.countMenu != null)
             MainActivity.countMenu.setTitle(String.valueOf(quantity));
-        MainActivity.getInstance().updateShoppingCartItemCount(quantity);
+            MainActivity.getInstance().updateShoppingCartItemCount(quantity);
     }
 
     public static void onCallGlobalSetup() {

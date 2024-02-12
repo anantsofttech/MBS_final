@@ -184,8 +184,8 @@ public class CardFragment extends Fragment implements View.OnClickListener
 //        ************** Edited by Varun for shopping cart on 29 july 2022 ********************
 //        not to refresh when login
 
-//        oncall();
-        onGetCartData();
+        oncall();
+//        onGetCartData();
 
         //******************* END **************************
 
@@ -208,18 +208,17 @@ public class CardFragment extends Fragment implements View.OnClickListener
 
 ////    *************** Edited by Varun for shopping cart on 29 july 2022 *********************
 ////          not to refresh when login
-//    public void oncall() {
-//
-//
-//        if (Constant.SCREEN_LAYOUT == 1){
-//            MainActivity.moveSessionToCart();
-//        }else if (Constant.SCREEN_LAYOUT == 2){
-//            MainActivityDup.moveSessionToCart();
-//        }
-//        onGetCartData();
-//        getCustomerData();
-//
-//    }
+    public void oncall() {
+
+        if (Constant.SCREEN_LAYOUT == 1){
+            MainActivity.moveSessionToCart();
+        }else if (Constant.SCREEN_LAYOUT == 2){
+            MainActivityDup.moveSessionToCart();
+        }
+        onGetCartData();
+        getCustomerData();
+
+    }
 //
 ////     ********************** END ************************
 

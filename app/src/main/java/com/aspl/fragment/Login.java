@@ -2284,19 +2284,19 @@ public class Login {
 //                            //************ Edited by Varun for shopping cart on 29 july 2022 **********
 //                            //                                    not to refresh when login
 //
-//                            if (Constant.SCREEN_LAYOUT==1){
-////                                MainActivity.getInstance().loadCardFragment();
-////                                CardFragment.getInstance().getCustomerData();
-////                                CardFragment.getInstance().onGetCartData();
-//                                CardFragment.getInstance().oncall();
-//                            }else if (Constant.SCREEN_LAYOUT==2){
-//                                //     CardFragment.getInstance().oncall();
-//                                // MainActivityDup.getInstance().loadCardFragment();
-//                                CardFragment.getInstance().oncall();
-//                            }
+                            if (Constant.SCREEN_LAYOUT==1){
+//                                MainActivity.getInstance().loadCardFragment();
+//                                CardFragment.getInstance().getCustomerData();
+//                                CardFragment.getInstance().onGetCartData();
+                                CardFragment.getInstance().oncall();
+                            }else if (Constant.SCREEN_LAYOUT==2){
+                                //     CardFragment.getInstance().oncall();
+                                // MainActivityDup.getInstance().loadCardFragment();
+                                CardFragment.getInstance().oncall();
+                            }
 //                            //  CardFragment.getInstance().redirectToHome();
 //                            //*********** END ***********
-                            CardFragment.getInstance().redirectToHome();
+//                            CardFragment.getInstance().redirectToHome();
                         }
                     }catch (NullPointerException e){
 
