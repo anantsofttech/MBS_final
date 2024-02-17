@@ -617,13 +617,32 @@ public class CardFragment extends Fragment implements View.OnClickListener
         for (int i = 0; i < liShoppingCard.size(); i++) {
 
             // if (!liShoppingCard.get(i).getLoyaltyOn().isEmpty())
+//            if (liShoppingCard.get(i).getLoyaltyOn().trim().equals("onItem")) {
+//                //tvLoyaltyReward.setText("Loyalty Reward is on");
+//                _lPoints = Float.valueOf(liShoppingCard.get(i).getLoyaltyPointsOnItem()) + _total;
+//                if (((Float.valueOf(liShoppingCard.get(i).getLoyaltyPointsOnItem()) * _total) % 1) > 0.5) {
+//                    _lPoints = Float.valueOf(liShoppingCard.get(i).getLoyaltyPointsOnItem()) * _total;
+//                }
+//            }
+
+//            Edited By Varun For Crash issue when get LoyaltyPointsOnItem is null or Empty
+
             if (liShoppingCard.get(i).getLoyaltyOn().trim().equals("onItem")) {
-                //tvLoyaltyReward.setText("Loyalty Reward is on");
-                _lPoints = Float.valueOf(liShoppingCard.get(i).getLoyaltyPointsOnItem()) + _total;
-                if (((Float.valueOf(liShoppingCard.get(i).getLoyaltyPointsOnItem()) * _total) % 1) > 0.5) {
-                    _lPoints = Float.valueOf(liShoppingCard.get(i).getLoyaltyPointsOnItem()) * _total;
+                String loyaltyPointsStr = liShoppingCard.get(i).getLoyaltyPointsOnItem();
+
+                // Check if loyaltyPointsStr is not null and not empty
+                if (loyaltyPointsStr != null && !loyaltyPointsStr.trim().isEmpty()) {
+                    float loyaltyPoints = Float.valueOf(loyaltyPointsStr);
+
+                    _lPoints = loyaltyPoints + _total;
+
+                    // Check for the condition involving the fractional part
+                    if ((loyaltyPoints * _total) % 1 > 0.5) {
+                        _lPoints = loyaltyPoints * _total;
+                    }
                 }
             }
+//            END
 
 //            Edited by Varun for not going in when loyalityreward enable or disable
             if (!liShoppingCard.get(i).getIsLoyaltyRewardEnable().equals("N")) {
@@ -781,10 +800,12 @@ public class CardFragment extends Fragment implements View.OnClickListener
         }
 
         String itemIdSku = null;
-        try {
-            itemIdSku = URLEncoder.encode(liShoppingCard.get(position).getItemMstId().trim(), "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        if (!liShoppingCard.get(position).getItemMstId().trim().isEmpty() && !liShoppingCard.get(position).getItemMstId().trim().equals("")) {
+            try {
+                itemIdSku = URLEncoder.encode(liShoppingCard.get(position).getItemMstId().trim(), "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
 //              Edited by Varun for Crash Issue in Cart when we try to remove item when Sign in is not Done
 

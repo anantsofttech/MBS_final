@@ -3564,13 +3564,13 @@ public class PaymentFragment extends Fragment
             if (updatePOSBillingAddress != null && !updatePOSBillingAddress.getResult().isEmpty() && updatePOSBillingAddress.getResult().equals("success")) {
 
                 Utils.showCardValidationDialog(getActivity(), "APPROVED",fourDigitCardNoValue,_authCode);
-
-
 // if (myPaymentEvent != null) {
 //                myPaymentEvent.loadOrderSummaryFragment(i);
 //                //Hide dialog when order completed...
 //                //hideDialog();
 //            }
+            }else{
+                Utils.showCardValidationDialog(getActivity(), getResources().getString(R.string.str_Declined),fourDigitCardNoValue,_authCode);
             }
         }
 

@@ -186,13 +186,30 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyCardViewHold
         quantity = Integer.parseInt(holder.tvQuantityChange.getText().toString());
         holder.tvTotal.setText(String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(i).getPrice()) * quantity)));*/
         _total = Float.parseFloat(liShoppingCat.get(i).getCartPrice()) * Float.parseFloat(liShoppingCat.get(i).getQty());
+//        if (liShoppingCat.get(i).getLoyaltyOn().trim().equals("onItem")) {
+//            //tvLoyaltyReward.setText("Loyalty Reward is on");
+//            _lPoints = Float.valueOf(liShoppingCat.get(i).getLoyaltyPointsOnItem()) * _total;
+//            if (((Float.valueOf(liShoppingCat.get(i).getLoyaltyPointsOnItem()) * _total) % 1) > 0.5) {
+//                _lPoints = Float.valueOf(liShoppingCat.get(i).getLoyaltyPointsOnItem()) * _total;
+//            }
+//        }
+//        Edited By Varun For Crash issue when get LoyaltyPointsOnItem is null or Empty
         if (liShoppingCat.get(i).getLoyaltyOn().trim().equals("onItem")) {
-            //tvLoyaltyReward.setText("Loyalty Reward is on");
-            _lPoints = Float.valueOf(liShoppingCat.get(i).getLoyaltyPointsOnItem()) * _total;
-            if (((Float.valueOf(liShoppingCat.get(i).getLoyaltyPointsOnItem()) * _total) % 1) > 0.5) {
-                _lPoints = Float.valueOf(liShoppingCat.get(i).getLoyaltyPointsOnItem()) * _total;
+            String loyaltyPointsStr = liShoppingCat.get(i).getLoyaltyPointsOnItem();
+
+            // Check if loyaltyPointsStr is not null and not empty
+            if (loyaltyPointsStr != null && !loyaltyPointsStr.trim().isEmpty()) {
+                float loyaltyPoints = Float.valueOf(loyaltyPointsStr);
+
+                _lPoints = loyaltyPoints + _total;
+
+                // Check for the condition involving the fractional part
+                if ((loyaltyPoints * _total) % 1 > 0.5) {
+                    _lPoints = loyaltyPoints * _total;
+                }
             }
         }
+//        END
 
         if (liShoppingCat.get(i).getLoyaltyType().equals("Internal")
                 && liShoppingCat.get(i).getLoyaltyOn().equals("onItem")
@@ -463,10 +480,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyCardViewHold
 
 
         String itemIdSku = null;
-        try {
-            itemIdSku = URLEncoder.encode(liShoppingCat.get(pos).getItemMstId().trim(), "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        if (!liShoppingCat.get(pos).getItemMstId().trim().isEmpty() && !liShoppingCat.get(pos).getItemMstId().trim().equals("")) {
+            try {
+                itemIdSku = URLEncoder.encode(liShoppingCat.get(pos).getItemMstId().trim(), "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
 
         if(UserModel.Cust_mst_ID == null){
