@@ -5,19 +5,25 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:layout_marginLeft="@dimen/_4sdp"
+    android:layout_marginRight="@dimen/_4sdp"
     android:weightSum="1">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/cvBlock1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_80sdp"
-        android:layout_margin="@dimen/_1sdp"
+        android:layout_height="@dimen/_100sdp"
         android:layout_weight="0.5"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:orientation="vertical"
-        tool:cardElevation="5dp"
+        tool:cardElevation="7dp"
+        tool:cardCornerRadius="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:layout_marginLeft="@dimen/_1sdp"
+        android:layout_marginRight="@dimen/_4sdp"
         tools:ignore="UnusedAttribute"
         tools:targetApi="lollipop">
 
@@ -47,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:text="20%0ff"
                 android:textColor="@color/White"
-                android:textSize="@dimen/_11sdp"
+                android:textSize="@dimen/_13sdp"
                 android:textStyle="bold" />
 
             <TextView
@@ -56,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:text="20%0ff"
                 android:textColor="@color/White"
-                android:textSize="@dimen/_8sdp" />
+                android:textSize="@dimen/_10sdp" />
 
             <TextView
                 android:id="@+id/txtshop1"
@@ -64,22 +70,25 @@
                 android:layout_height="wrap_content"
                 android:text="SHOP NOW"
                 android:textColor="@color/White"
-                android:textSize="@dimen/_9sdp"
+                android:textSize="@dimen/_11sdp"
                 android:textStyle="bold" />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/cvBlock2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_80sdp"
-        android:layout_margin="@dimen/_1sdp"
+        android:layout_height="@dimen/_100sdp"
         android:layout_weight="0.5"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:orientation="vertical"
-        tool:cardElevation="5dp"
+        tool:cardElevation="7dp"
+        tool:cardCornerRadius="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:layout_marginRight="@dimen/_1sdp"
         tools:ignore="UnusedAttribute"
         tools:targetApi="lollipop">
 
@@ -109,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:text="20%0ff"
                 android:textColor="@color/White"
-                android:textSize="@dimen/_11sdp"
+                android:textSize="@dimen/_13sdp"
                 android:textStyle="bold" />
 
             <TextView
@@ -118,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:text="20%0ff"
                 android:textColor="@color/White"
-                android:textSize="@dimen/_8sdp" />
+                android:textSize="@dimen/_10sdp" />
 
             <TextView
                 android:id="@+id/txtshop2"
@@ -126,8 +135,8 @@
                 android:layout_height="wrap_content"
                 android:text="SHOP NOW"
                 android:textColor="@color/White"
-                android:textSize="@dimen/_9sdp"
+                android:textSize="@dimen/_11sdp"
                 android:textStyle="bold" />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

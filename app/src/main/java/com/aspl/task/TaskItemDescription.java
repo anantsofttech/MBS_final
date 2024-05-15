@@ -4,15 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.aspl.Utils.NetworkUtil;
-import com.aspl.mbs.MainActivity;
 import com.aspl.mbs.R;
 import com.aspl.mbsmodel.ItemDescModel;
-import com.aspl.mbsmodel.MultiPackModel;
-import com.aspl.mbsmodel.WishList;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -23,7 +19,6 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
 
 public class TaskItemDescription extends AsyncTask<String, Void, String> {
 

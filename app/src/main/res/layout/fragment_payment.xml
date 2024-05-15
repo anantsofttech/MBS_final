@@ -12,7 +12,7 @@
     android:layout_margin="@dimen/dimen_5"
     android:orientation="vertical">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scroll_payment_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -38,7 +38,7 @@
                 android:layout_marginLeft="@dimen/dimen_10"
                 android:layout_marginRight="@dimen/dimen_10"
                 android:text="@string/lbl_order_info"
-                android:textSize="@dimen/dimen_12"
+                android:textSize="@dimen/dimen_DeliveryTextSize"
                 android:textStyle="bold" />
 
             <!--<TextView-->
@@ -56,7 +56,7 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tool="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/cv_pickup_time"
@@ -68,7 +68,8 @@
                 android:layout_marginRight="@dimen/dimen_5"
                 android:layout_marginTop="5dp"
                 android:orientation="vertical"
-                tool:cardElevation="3dp"
+                tool:cardElevation="7dp"
+                tool:cardCornerRadius="@dimen/_8sdp"
                 tools:ignore="UnusedAttribute"
                 tools:visibility="visible">
 
@@ -107,9 +108,9 @@
                 </LinearLayout>
 
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tool="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/cv_order_info_payment_fragment"
@@ -121,7 +122,8 @@
                 android:layout_marginRight="@dimen/dimen_5"
                 android:layout_marginTop="5dp"
                 android:orientation="vertical"
-                tool:cardElevation="3dp"
+                tool:cardElevation="7dp"
+                tool:cardCornerRadius="@dimen/_8sdp"
                 tools:ignore="UnusedAttribute"
                 tools:visibility="visible">
 
@@ -202,7 +204,7 @@
                         android:layout_marginTop="5dp"
                         android:background="@android:color/darker_gray" />
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_view_payment_fragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -769,7 +771,7 @@
                     </RelativeLayout>
 
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <!--Edited by Janvi 25th Oct-->
 
@@ -784,7 +786,7 @@
             <!--android:textStyle="bold" />-->
 
 
-            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tool="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/cv_payment_options_fragment"
@@ -794,7 +796,8 @@
                 android:layout_margin="5dp"
                 android:orientation="vertical"
                 android:visibility="gone"
-                tool:cardElevation="3dp"
+                tool:cardElevation="7dp"
+                tool:cardCornerRadius="@dimen/_8sdp"
                 tools:ignore="UnusedAttribute">
 
                 <RelativeLayout
@@ -813,7 +816,7 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <!--end ************-->
 
@@ -823,16 +826,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cv_payment_options_fragment"
-                android:layout_marginStart="@dimen/dimen_10"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:layout_marginEnd="@dimen/dimen_10"
-                android:layout_marginBottom="@dimen/dimen_10"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginEnd="@dimen/dimen_5"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_marginBottom="@dimen/dimen_5"
                 android:text="@string/lbl_payment"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/dimen_DeliveryTextSize"
                 android:textStyle="bold" />
 
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cv_payment_payment_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -842,7 +847,8 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
                 android:orientation="vertical"
-                app:cardElevation="3dp"
+                app:cardElevation="7dp"
+                app:cardCornerRadius="@dimen/_8sdp"
                 tools:ignore="UnusedAttribute">
 
                 <RelativeLayout
@@ -1372,7 +1378,7 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
             <TextView
@@ -1386,7 +1392,7 @@
                 android:layout_marginTop="@dimen/_7sdp"
                 android:text=""
                 android:textSize="@dimen/dimen_12"
-                android:textStyle="bold" />
+                android:textStyle="bold|italic" />
 
             <LinearLayout
                 android:id="@+id/ll_join_reward_payment_fragment"
@@ -1608,10 +1614,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ll_pick_up"
-                android:layout_margin="@dimen/dimen_5"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginEnd="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/dimen_10"
                 android:paddingTop="@dimen/dimen_10"
+                android:paddingBottom="@dimen/dimen_10"
                 android:weightSum="100">
 
                 <Button
@@ -1641,7 +1650,7 @@
 
         </RelativeLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
         android:id="@+id/progressbar_payment_fragment"

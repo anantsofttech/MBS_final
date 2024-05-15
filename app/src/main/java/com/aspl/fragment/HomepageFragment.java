@@ -9,16 +9,17 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.core.widget.NestedScrollView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Layout;
 import android.util.Log;
 import android.util.TypedValue;
@@ -38,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aspl.Adapter.DepartmentListAdapter;
+import com.aspl.Adapter.DiscountBlockAdapter;
 import com.aspl.Adapter.HomePageListAdapter;
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.DeviceInfo;
@@ -85,7 +87,6 @@ import com.santalu.autoviewpager.AutoViewPager;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +127,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setRetainInstance(true);
+        Constant.IsComeFromSplash=false;
         if(Constant.SCREEN_LAYOUT == 2){
             MainActivityDup.getInstance().hidebackbutton();
         }
@@ -201,17 +203,27 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
     public boolean isSpecialOfferBlock1 = false, isSpecialOfferBlock2 = false;
     public boolean isSpecialOfferBlock3 = false, isSpecialOfferBlock4 = false;
     public boolean isItemBlock1 = false, isItemBlock2 = false;
-    public boolean  isnewadditionBlock1 = false, isstaffpickBlock2 = false , isfalse = false;
+    public boolean isnewadditionBlock = false, isstaffpickBlock = false , isfalse = false;
+    public boolean  isnewadditionActive = false, isstaffpickActive = false , isitemonpromotionActive = false;
+
 
     String CustomerID = "";
     AutoScrollAdapter autoScrollAdapter;
     ObservableWebView Container;
     TextView BannerText, tvStoreNameText, tvStoreaddress, tvStoreDistance, tvStoreOpen, tvChangeLocation;
-    CardView cvBannerContent, cvStorelocation;
+    CardView cvBannerContent, cvStorelocation , cvBannerImages , cvContainer, cvReward;
     ProgressBar progressBar;
     public static String storeaddress;
 //    double store_longi = 0.0;
 //    double store_lat = 0.0;
+
+    Handler handler;
+    RecyclerView rv_Block;
+    List<DataFrontModel> Discount_Block_List = new ArrayList<DataFrontModel>();
+    List<DataFrontModel> Discount_Block2_List = new ArrayList<DataFrontModel>();
+    List<DataFrontModel> Announcement_Block_List = new ArrayList<DataFrontModel>();
+    List<DataFrontModel> Promotion_Block_List = new ArrayList<DataFrontModel>();
+    List<DataFrontModel> Block_List = new ArrayList<DataFrontModel>();
 
     public LinearLayout   ll_Reward_main;
     public TextView tv_Reward_point_main ,tv_points_main , tv_rebate_point_main , tv_rebate_main;
@@ -223,6 +235,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         View rootView = inflater.inflate(R.layout.fragment_homepage, container, false);
 
         viewPager = (AutoViewPager) rootView.findViewById(R.id.view_pager);
+        cvBannerImages = (CardView) rootView.findViewById(R.id.cvBannerImages);
         //  viewPager.setOffscreenPageLimit(1);
 
 
@@ -252,6 +265,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
             linTest3 = rootView.findViewById(R.id.linTest3);
 
             mainscrollList = rootView.findViewById(R.id.mainscrollList);
+            cvContainer = rootView.findViewById(R.id.cvContainer);
             Container = rootView.findViewById(R.id.Container);
             cvBannerContent = rootView.findViewById(R.id.cvBannerContent);
             cvBannerContent.setVisibility(View.GONE);
@@ -261,12 +275,29 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
             progressBar.setVisibility(View.GONE);
 
             ll_Reward_main = rootView.findViewById(R.id.ll_Reward_main);
+            cvReward = rootView.findViewById(R.id.cvReward);
             tv_points_main = rootView.findViewById(R.id.tv_points_main);
             tv_rebate_main = rootView.findViewById(R.id.tv_rebate_main);
             tv_rebate_point_main = rootView.findViewById(R.id.tv_rebate_point_main);
             tv_Reward_point_main = rootView.findViewById(R.id.tv_Reward_point_main);
 
+            Log.e("", "onCreateView: Varun Home Fragment" );
+
             loadRewardWSData();
+
+            String Urlban = Constant.WS_BASE_URL + Constant.GET_BANNERDETAILS + Constant.STOREID + "/Mobile";
+            TaskBannerItem taskBannerItem = new TaskBannerItem(this, getActivity());
+//            Edited by Varun For Speed -up
+//            taskBannerItem.execute(Urlban);
+            taskBannerItem.executeOnExecutor(TaskBannerItem.THREAD_POOL_EXECUTOR,Urlban);
+
+            String Url1 = Constant.WS_BASE_URL + Constant.GET_TEMPLATE + Constant.STOREID + "/home";
+            TaskTemplate taskTemplate = new TaskTemplate(this);
+//        Edited by Varun For Speed -up
+//        taskTemplate.execute(Url1);
+            taskTemplate.executeOnExecutor(TaskTemplate.THREAD_POOL_EXECUTOR,Url1);
+
+            checkUSAePAYactivestatus();
 
             //store location
             if (Constant.co_storeno_value != null && !Constant.co_storeno_value.isEmpty()) {
@@ -501,13 +532,6 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         //MainActivityDup.getInstance().llsortandfilter.setVisibility(View.GONE);
         //Utils.collapse(MainActivityDup.getInstance().llsortandfilter, 500, 0);
 
-        String Urlban = Constant.WS_BASE_URL + Constant.GET_BANNERDETAILS + Constant.STOREID + "/Mobile";
-        TaskBannerItem taskBannerItem = new TaskBannerItem(this, getActivity());
-        taskBannerItem.execute(Urlban);
-
-//        loadRewardWSData();
-        checkUSAePAYactivestatus();
-
 
         return rootView;
     }
@@ -525,7 +549,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         URL = Constant.WS_BASE_URL + Constant.GET_USAEPAY_ACTIVE_STATUS + Constant.STOREID + "/" + Constant.ENCODE_TOKEN_ID;
 
         TaskCheckUSAePAYStatus taskCheckUSAePAYStatus = new TaskCheckUSAePAYStatus(this,getContext());
-        taskCheckUSAePAYStatus.execute(URL);
+//        Edited by Varun For Speed -up
+//        taskCheckUSAePAYStatus.execute(URL);
+        taskCheckUSAePAYStatus.executeOnExecutor(TaskCheckUSAePAYStatus.THREAD_POOL_EXECUTOR,URL);
 
     }
 
@@ -1062,7 +1088,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                String Url1 = Constant.WS_BASE_URL + Constant.GET_INVENTORYBY_HOMEPAGEDATA + Constant.STOREID;
                 String Url1 = Constant.WS_BASE_URL + Constant.GET_INVENTORYBY_HOMEPAGEDATA_NEW + Constant.STOREID;
                 TaskHomePageItem taskHomePageItem = new TaskHomePageItem(this);
-                taskHomePageItem.execute(Url1);
+//                Edited by Varun For Speed -up
+//                taskHomePageItem.execute(Url1);
+                taskHomePageItem.executeOnExecutor(TaskHomePageItem.THREAD_POOL_EXECUTOR,Url1);
             }
         }
 
@@ -1074,7 +1102,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                String Url2 = Constant.WS_BASE_URL + Constant.GET_INVENTORYBY_NEWADDITION + Constant.STOREID;
                 String Url2 = Constant.WS_BASE_URL + Constant.GET_INVENTORYBY_NEWADDITION_NEW + Constant.STOREID;
                 TaskNewAdditionItem taskNewAdditionItem = new TaskNewAdditionItem(this);
-                taskNewAdditionItem.execute(Url2);
+//                Edited by Varun For Speed -up
+//                taskNewAdditionItem.execute(Url2);
+                taskNewAdditionItem.executeOnExecutor(TaskNewAdditionItem.THREAD_POOL_EXECUTOR,Url2);
             }
         }
 
@@ -1086,7 +1116,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                String Url3 = Constant.WS_BASE_URL + Constant.GET_INVENTORYBY_STAFFPICKS + Constant.STOREID;
                 String Url3 = Constant.WS_BASE_URL + Constant.GET_INVENTORYBY_STAFFPICKS_NEW + Constant.STOREID;
                 TaskStaffPicksItem taskStaffPicksItem = new TaskStaffPicksItem(this);
-                taskStaffPicksItem.execute(Url3);
+//                Edited by Varun For Speed -up
+//                taskStaffPicksItem.execute(Url3);
+                taskStaffPicksItem.executeOnExecutor(TaskStaffPicksItem.THREAD_POOL_EXECUTOR,Url3);
             }
         }
 
@@ -1098,7 +1130,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                String Url4 = Constant.WS_BASE_URL + Constant.GET_INVENTORYBY_SPECIALOFFER + Constant.STOREID;
                 String Url4 = Constant.WS_BASE_URL + Constant.GET_INVENTORYBY_SPECIALOFFER_V1 + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
                 TaskSpecialOffer taskSpecialOffer = new TaskSpecialOffer(this);
-                taskSpecialOffer.execute(Url4);
+//                Edited by Varun For Speed -up
+//                taskSpecialOffer.execute(Url4);
+                taskSpecialOffer.executeOnExecutor(TaskSpecialOffer.THREAD_POOL_EXECUTOR,Url4);
             }
         }
 
@@ -1112,7 +1146,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                    Log.e("homeItemList","homeItemList-no value");
                     String Url5 = Constant.WS_BASE_URL + Constant.GET_DEPARTMETS + Constant.STOREID;
                     TaskDepartments taskDepartments = new TaskDepartments(this);
-                    taskDepartments.execute(Url5);
+//                    Edited by Varun For Speed -up
+//                    taskDepartments.execute(Url5);
+                    taskDepartments.executeOnExecutor(TaskDepartments.THREAD_POOL_EXECUTOR,Url5);
                 }
 
         }
@@ -1125,7 +1161,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                String Url4 = Constant.WS_BASE_URL + Constant.GET_ALLINVENTORY + Constant.STOREID;
                 String Url4 = Constant.WS_BASE_URL + Constant.GET_ALLINVENTORY_V1 + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
                 TaskAllItems taskAllItems = new TaskAllItems(this);
-                taskAllItems.execute(Url4);
+//                Edited by Varun For Speed -up
+//                taskAllItems.execute(Url4);
+                taskAllItems.executeOnExecutor(TaskAllItems.THREAD_POOL_EXECUTOR,Url4);
             }
         }
         if (templateModel.getItemsOnPromotion()) {
@@ -1137,7 +1175,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                String Url4 = Constant.WS_BASE_URL + Constant.GET_INVENTORY_PRAMOTION + Constant.STOREID ;
                 String Url4 = Constant.WS_BASE_URL + Constant.GET_INVENTORY_PRAMOTION_AUTH_NEW + Constant.STOREID + "/" + Constant.ENCODE_TOKEN_ID;
                 TaskPramotionItem taskPramotionItem = new TaskPramotionItem(this);
-                taskPramotionItem.execute(Url4);
+//                    Edited by Varun For Speed -up
+//                    taskPramotionItem.execute(Url4);
+                taskPramotionItem.executeOnExecutor(TaskPramotionItem.THREAD_POOL_EXECUTOR,Url4);
             }
         }
         if (!CustomerID.trim().equalsIgnoreCase("0") && templateModel.getWishListItems()) {
@@ -1147,7 +1187,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //            String Url6 = Constant.WS_BASE_URL + Constant.GET_CUSTOMERCARTDATA + CustomerID + "/Wishlist/" + Constant.STOREID;
             String Url6 = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + CustomerID + "/Wishlist/" + Constant.STOREID +Constant.ENCODE_TOKEN_ID;
             TaskWishListItem taskWishListItem = new TaskWishListItem(this);
-            taskWishListItem.execute(Url6);
+//            Edited by Varun For Speed -up
+//            taskWishListItem.execute(Url6);
+            taskWishListItem.executeOnExecutor(TaskWishListItem.THREAD_POOL_EXECUTOR,Url6);;
             // }
 
         }
@@ -1159,7 +1201,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //            String Url7 = Constant.WS_BASE_URL + Constant.GET_CUSTOMERCARTDATA + CustomerID + "/Cart/" + Constant.STOREID;
             String Url7 = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + CustomerID + "/Cart/" + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
             TaskCartListItem taskCartListItem = new TaskCartListItem(this);
-            taskCartListItem.execute(Url7);
+//            Edited by Varun For Speed -up
+//            taskCartListItem.execute(Url7);
+            taskCartListItem.executeOnExecutor(TaskCartListItem.THREAD_POOL_EXECUTOR,Url7);;
             // }
         }
         if (!CustomerID.trim().equalsIgnoreCase("0") && templateModel.getRecentViewedItems()) {
@@ -1169,7 +1213,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //            String Url8 = Constant.WS_BASE_URL + Constant.GET_RECENTLYVIEWEDITEMS + Constant.STOREID + "/" + CustomerID;
             String Url8 = Constant.WS_BASE_URL + Constant.GET_RECENTLYVIEWEDITEMS_V1 + Constant.STOREID + "/" + CustomerID +Constant.ENCODE_TOKEN_ID;
             TaskRecentViewedItem taskRecentViewedItem = new TaskRecentViewedItem(this);
-            taskRecentViewedItem.execute(Url8);
+//            Edited by Varun For Speed -up
+//            taskRecentViewedItem.execute(Url8);
+            taskRecentViewedItem.executeOnExecutor(TaskRecentViewedItem.THREAD_POOL_EXECUTOR,Url8);;
             //}
         }
 
@@ -1214,7 +1260,8 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //            CookieManager cookieManager = CookieManager.getInstance();
 //            cookieManager.removeAllCookie();
 //        }
-            Container.setVisibility(View.VISIBLE);
+            cvContainer.setVisibility(View.VISIBLE);
+//            Container.setVisibility(View.VISIBLE);
             WebSettings settings = Container.getSettings();
             settings.setJavaScriptEnabled(true);
             Container.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
@@ -1227,9 +1274,14 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
             }
             if (webdatamodel != null && webdatamodel.getBlockDescription() != null) {
 //                ?Edited by Varun for Html Text not Seen in live store 57
-//                Container.loadData(webdatamodel.getBlockDescription(), null, null);
-                Container.loadDataWithBaseURL("file:///android_asset/", webdatamodel.getBlockDescription(), "text/html", "utf-8", null);
+                String htmlContent = webdatamodel.getBlockDescription();
+                if (htmlContent.contains("<img")) {
+                    // If <img> tags are present, wrap the image with a container div and apply styling to control its size
+                    htmlContent = "<html><head><style>img { max-width: 100%; max-height: 50%; height: auto; }</style></head><body>" + htmlContent + "</body></html>";
+                }
+                Container.loadDataWithBaseURL("file:///android_asset/", htmlContent, "text/html", "utf-8", null);
                 Container.getSettings().setAllowFileAccess(true);
+
 //                END
             }
         }
@@ -1437,7 +1489,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         Log.e("Url", "callWSForBlockItemList:12 "+Url );
 
         TaskViewAll taskPromotionBlock = new TaskViewAll(this, getActivity(), type);
-        taskPromotionBlock.execute(Url);
+//        Edited by Varun For Speed -up
+//        taskPromotionBlock.execute(Url);
+        taskPromotionBlock.executeOnExecutor(TaskViewAll.THREAD_POOL_EXECUTOR,Url);
 
     }
 
@@ -1501,9 +1555,6 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                 Glide.with(getActivity()).load(imgUrl + dataPramotion1.getImage())
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true).into(img1);
-
-
-
 //                 For text size
 //                textoffername1.setTextSize(Float.parseFloat(dataPramotion1.getFontSize()));
 //                txtofferdesc1.setTextSize(Float.parseFloat(dataPramotion1.getFontSize()));
@@ -1514,16 +1565,12 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                textoffername1.setTypeface(Typeface.SANS_SERIF, Typeface.ITALIC);
 
             }else{
-                cvBlock1.setBackgroundColor(Color.parseColor(Constant.themeModel.ThemeColor));
-                cvBlock2.setBackgroundColor(Color.parseColor(Constant.themeModel.ThemeColor));
+                block1.setBackgroundColor(Color.parseColor(Constant.themeModel.ThemeColor));
             }
             if (dataPramotion2.getImage()!=""){
                 Glide.with(getActivity()).load(imgUrl + dataPramotion2.getImage())
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true).into(img2);
-
-
-
 //                For text size
 
 //                textoffername2.setTextSize(Float.parseFloat(dataPramotion2.getFontSize()));
@@ -1531,8 +1578,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                txtshop2.setTextSize(Float.parseFloat(dataPramotion2.getFontSize()));
 
             }else{
-                cvBlock1.setBackgroundColor(Color.parseColor(Constant.themeModel.ThemeColor));
-                cvBlock2.setBackgroundColor(Color.parseColor(Constant.themeModel.ThemeColor));
+                block2.setBackgroundColor(Color.parseColor(Constant.themeModel.ThemeColor));
             }
 
 //            For Style given by setup for block 1
@@ -2105,29 +2151,6 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
             } else {
                 img_left.setVisibility(View.VISIBLE);
             }
-            /*img_left.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int positionView = ((LinearLayoutManager) rec_home.getLayoutManager()).findFirstVisibleItemPosition();
-                    *//*if (positionView > 0) {
-                        rec_home.smoothScrollToPosition(positionView - 1);
-                    } else {
-                        rec_home.smoothScrollToPosition(0);
-                    }*//*
-
-                }
-            });
-            img_right.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // int positionView = ((LinearLayoutManager)rec_home.getLayoutManager()).findLastVisibleItemPosition();
-                    // rec_home.smoothScrollToPosition(positionView + 1);
-                }
-            });
-            DepartmentListAdapter departmentListAdapter = new DepartmentListAdapter(getActivity(), this, DepartmentList);
-            rec_home.setAdapter(departmentListAdapter);
-            rec_home.setNestedScrollingEnabled(false);
-            linDepartments.addView(v1);*/
 
 
             if (Constant.SCREEN_LAYOUT == 1) {
@@ -2143,7 +2166,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                        String Url6 = Constant.WS_BASE_URL + Constant.GET_CUSTOMERCARTDATA + CustomerID + "/Wishlist/" + Constant.STOREID;
                         String Url6 = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + CustomerID + "/Wishlist/" + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
                         TaskWishListItem taskWishListItem = new TaskWishListItem(this);
-                        taskWishListItem.execute(Url6);
+//                        Edited by Varun For Speed -up
+//                        taskWishListItem.execute(Url6);
+                        taskWishListItem.executeOnExecutor(TaskWishListItem.THREAD_POOL_EXECUTOR,Url6);
                     }
                 }
 
@@ -2154,7 +2179,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                        String Url7 = Constant.WS_BASE_URL + Constant.GET_CUSTOMERCARTDATA + CustomerID + "/Cart/" + Constant.STOREID;
                         String Url7 = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + CustomerID + "/Cart/" + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
                         TaskCartListItem taskCartListItem = new TaskCartListItem(this);
-                        taskCartListItem.execute(Url7);
+//                        Edited by Varun For Speed -up
+//                        taskCartListItem.execute(Url7);
+                        taskCartListItem.executeOnExecutor(TaskCartListItem.THREAD_POOL_EXECUTOR,Url7);
                     }
                 }
                 if (!CustomerID.trim().equalsIgnoreCase("0") && templateModel.getRecentViewedItems()) {
@@ -2164,7 +2191,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //                        String Url8 = Constant.WS_BASE_URL + Constant.GET_RECENTLYVIEWEDITEMS + Constant.STOREID + "/" + CustomerID;
                         String Url8 = Constant.WS_BASE_URL + Constant.GET_RECENTLYVIEWEDITEMS_V1 + Constant.STOREID + "/" + CustomerID + Constant.ENCODE_TOKEN_ID;
                         TaskRecentViewedItem taskRecentViewedItem = new TaskRecentViewedItem(this);
-                        taskRecentViewedItem.execute(Url8);
+//                        Edited by Varun For Speed -up
+//                        taskRecentViewedItem.execute(Url8);
+                        taskRecentViewedItem.executeOnExecutor(TaskRecentViewedItem.THREAD_POOL_EXECUTOR,Url8);
                     }
                 }
             }
@@ -2179,20 +2208,20 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         //autoScrollAdapter.notifyDataSetChanged();
         if (isAdded()) {
             if (BannerItemList != null && BannerItemList.size() > 0) {
-                viewPager.setVisibility(View.VISIBLE);
+//                viewPager.setVisibility(View.VISIBLE);
+                cvBannerImages.setVisibility(View.VISIBLE);
                 if (viewPager != null && bannerItemList != null && bannerItemList.size() > 0) {
                     autoScrollAdapter = new AutoScrollAdapter(getChildFragmentManager());
                     viewPager.setAdapter(autoScrollAdapter);
                 }
             } else {
-                viewPager.setVisibility(View.GONE);
+                cvBannerImages.setVisibility(View.GONE);
+//                viewPager.setVisibility(View.GONE);
             }
         }
         //}
         //viewPager.setOffscreenPageLimit(BannerItemList.size());
-        String Url1 = Constant.WS_BASE_URL + Constant.GET_TEMPLATE + Constant.STOREID + "/home";
-        TaskTemplate taskTemplate = new TaskTemplate(this);
-        taskTemplate.execute(Url1);
+
     }
 
     public void fromSavelocation() {
@@ -2236,14 +2265,18 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                         "/" + Constant.STOREID + "/" + "0" + "/" + "add" + "/" + Constant.invType;
 
                 TaskAddtoCart taskAddToCart = new TaskAddtoCart((TaskAddtoCart.TaskAddToCartEvent) this);
-                taskAddToCart.execute(cartWSurl);
+//                Edited by Varun For Speed -up
+                taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                taskAddToCart.execute(cartWSurl);
             } else {
                 String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + "0" + "/" + "Cart" + "/" + "0" +
                         "/" + sku + "/" + resquantity +
                         "/" + Constant.STOREID + "/" + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + "add" + "/" + Constant.invType;;
 
                 TaskAddtoCart taskAddToCart = new TaskAddtoCart((TaskAddtoCart.TaskAddToCartEvent) this);
-                taskAddToCart.execute(cartWSurl);
+//                Edited by Varun For Speed -up
+                taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                taskAddToCart.execute(cartWSurl);
             }
 
         }
@@ -2306,13 +2339,17 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 //            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID;
             url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID  + Constant.ENCODE_TOKEN_ID;
             TaskCart taskCart = new TaskCart((TaskCart.TaskCardEvent) this, "");
-            taskCart.execute(url);
+//            Edited by Varun For Speed -up
+            taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
+//            taskCart.execute(url);
         } else {
             if (isAdded()) {
 //                url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + Constant.SESSION + Constant.STOREID;
                 url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + Constant.SESSION + Constant.STOREID  + Constant.ENCODE_TOKEN_ID;
                 TaskCart taskCart = new TaskCart((TaskCart.TaskCardEvent) this, "");
-                taskCart.execute(url);
+//                Edited by Varun For Speed -up
+                taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
+//                taskCart.execute(url);
             }
         }
 
@@ -2434,7 +2471,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                         "/" + Constant.STOREID + "/" + "0" + "/" + "Updatemoreincart" + "/" + Constant.invType;
 
                 TaskUpdatetoCart taskUpdatetoCart = new TaskUpdatetoCart(this);
-                taskUpdatetoCart.execute(cartWSurl);
+//                Edited by Varun For Speed -up
+                taskUpdatetoCart.executeOnExecutor(TaskUpdatetoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                taskUpdatetoCart.execute(cartWSurl);
             } else {
 
                 String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + noteCartId + "/" + "Cart" + "/" + "0" +
@@ -2443,7 +2482,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 
 
                 TaskUpdatetoCart taskUpdatetoCart = new TaskUpdatetoCart(this);
-                taskUpdatetoCart.execute(cartWSurl);
+//                Edited by Varun For Speed -up
+                taskUpdatetoCart.executeOnExecutor(TaskUpdatetoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                taskUpdatetoCart.execute(cartWSurl);
             }
         }
     }
@@ -2557,8 +2598,20 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                 if (isPromotionBlock1 || isPromotionBlock2) {
                     DataFrontModel dataPramotion1 = ReturnDataFrontModel("Promotion 1");
                     DataFrontModel dataPramotion2 = ReturnDataFrontModel("Promotion 2");
+
+                    if (!Promotion_Block_List.isEmpty()){
+                        Promotion_Block_List.clear();
+                    }
+                    if (isPromotionBlock1){
+                        Promotion_Block_List.add(dataPramotion1);
+                    }
+                    if (isPromotionBlock2){
+                        Promotion_Block_List.add(dataPramotion2);
+                    }
+
                     if (isAdded()) {
-                        onAddBlock(linPRamotionBlock, dataPramotion1, dataPramotion2, isPromotionBlock1, isPromotionBlock2);
+//                        onAddBlock(linPRamotionBlock, dataPramotion1, dataPramotion2, isPromotionBlock1, isPromotionBlock2);
+                        call_rv_add_on_blocks(linPRamotionBlock, Promotion_Block_List);
                     }
                 }
             }
@@ -2575,254 +2628,24 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
             if (isPromotionBlock1 || isPromotionBlock2) {
                 DataFrontModel dataPramotion1 = ReturnDataFrontModel("Promotion 1");
                 DataFrontModel dataPramotion2 = ReturnDataFrontModel("Promotion 2");
+
+                if (!Promotion_Block_List.isEmpty()){
+                    Promotion_Block_List.clear();
+                }
+                if (isPromotionBlock1){
+                    Promotion_Block_List.add(dataPramotion1);
+                }
+                if (isPromotionBlock2){
+                    Promotion_Block_List.add(dataPramotion2);
+                }
+
                 if (isAdded()) {
-                    onAddBlock(linPRamotionBlock, dataPramotion1, dataPramotion2, isPromotionBlock1, isPromotionBlock2);
+//                    onAddBlock(linPRamotionBlock, dataPramotion1, dataPramotion2, isPromotionBlock1, isPromotionBlock2);
+                    call_rv_add_on_blocks(linPRamotionBlock, Promotion_Block_List);
                 }
             }
 
         }
-
-//        Edited by Varun for block and side-by-side
-
-      /*  else if (type.equals("newddition")) {
-            DataFrontModel dataNewAddition = ReturnDataFrontModel("New Additions");
-            DataFrontModel dataStaffPick = ReturnDataFrontModel("Staff Picks");
-            DataFrontModel dataPramotion1 = ReturnDataFrontModel("Items On Promotion");
-            if (itemListing != null && itemListing.size() > 0) {
-                isnewadditionBlock1 = true;
-            } else {
-                isnewadditionBlock1 = false;
-            }
-
-//            Checking if side and block is not coming then default side by side is shown
-            if (dataNewAddition.getHomeDisplayFormat().equals("") || dataNewAddition.getHomeDisplayFormat() == null) {
-                if (isnewadditionBlock1){
-                    Log.e("", "onGetViewallResult: 81" );
-                    setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
-                    isnewadditionBlock1 = false;
-                    Log.e("New Addition", "New Addition  Side : 1" + dataNewAddition.getHomeDisplayFormat());
-                }
-            } else {
-                if (templateModel.getStaffPick()) {
-                    if (!dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                        if (isnewadditionBlock1 || isstaffpickBlock2) {
-                            if (isAdded()) {
-                                Log.e("newaddition", "onGetViewallResultNew:" + dataNewAddition.getHomeDisplayFormat());
-                                if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                    if(isnewadditionBlock1) {
-                                        Log.e("", "onGetViewallResult: 82" );
-                                        setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
-                                        isnewadditionBlock1 = false;
-                                    }
-                                } else {
-                                    if (templateModel.getItemsOnPromotion()) {
-                                        if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                            isItemBlock1 = true;
-                                            onAddBlock(linTest3, dataNewAddition, dataPramotion1, isnewadditionBlock1, isItemBlock1);
-                                            Log.i("newAddition1", "block " + count);
-                                            count++;
-                                        }
-                                    } else {
-                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                        Log.i("newAddition2", "block " + count);
-                                        count++;
-                                    }
-                                    if (dataStaffPick.getIsStaffPickActive().equals("1") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block") &&
-                                            dataPramotion1.getIsItemsonpromotionsActive().equals("1") && !dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isfalse);
-                                        Log.i("newAddition3", "block " + count);
-                                        count++;
-                                    }
-                                }
-                            }
-                        }
-                    } else if (dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                        type = "Staff Picks";
-//                    callWSForBlockItemList(type);
-                    }
-                } else {
-                    if (isnewadditionBlock1 || isstaffpickBlock2) {
-                        if (isAdded()) {
-                            Log.e("newaddition", "onGetViewallResultNew:" + dataNewAddition.getHomeDisplayFormat());
-                            if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("BLock")) {
-                                if(isnewadditionBlock1) {
-                                    Log.e("", "onGetViewallResult: 83" );
-                                    setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
-                                    isnewadditionBlock1 = false;
-                                }
-                            } else {
-                                if (templateModel.getItemsOnPromotion()) {
-                                    if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                        isItemBlock1 = true;
-                                        onAddBlock(linPRamotion, dataNewAddition, dataPramotion1, isnewadditionBlock1, isItemBlock1);
-                                        Log.i("newAddition4", "block " + count);
-                                        count++;
-                                    } else {
-                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isfalse);
-                                        Log.i("newAddition5", "block " + count);
-                                        count++;
-                                    }
-                                } else {
-                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isfalse);
-                                    Log.i("newAddition6", "block " + count);
-                                    count++;
-                                }
-                                if (dataStaffPick.getIsStaffPickActive().equals("1") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block") &&
-                                        dataPramotion1.getIsItemsonpromotionsActive().equals("1") && !dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isfalse);
-                                    Log.i("newAddition7", "block " + count);
-                                    count++;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }else if (type.equals("staffpick")) {
-            DataFrontModel dataNewAddition = ReturnDataFrontModel("New Additions");
-            DataFrontModel dataStaffPick = ReturnDataFrontModel("Staff Picks");
-            DataFrontModel dataPramotion1 = ReturnDataFrontModel("Items On Promotion");
-            if (itemListing != null && itemListing.size() > 0) {
-                isstaffpickBlock2 = true;
-            } else {
-                isstaffpickBlock2 = false;
-            }
-
-//            Checking if side and block is not coming then default side by side is shown
-
-            if (dataStaffPick.getHomeDisplayFormat().isEmpty() || dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("")
-                || dataStaffPick.getHomeDisplayFormat()==null){
-                if (isstaffpickBlock2) {
-                    Log.e("", "onGetViewallResult: 84" );
-                    setcommonScrollView(itemListing, linStaffPick, dataStaffPick);
-                    isstaffpickBlock2 = false;
-                }
-            }else {
-
-                if (isstaffpickBlock2 || isnewadditionBlock1) {
-                    if (isAdded()) {
-                        Log.e("staffpick", "onGetViewallResultstaff: " + dataStaffPick.getHomeDisplayFormat());
-                        if (isnewadditionBlock1) {
-                            if (!dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                if (isstaffpickBlock2) {
-                                    Log.e("", "onGetViewallResult: 85" );
-                                    setcommonScrollView(itemListing, linStaffPick, dataStaffPick);
-                                    isstaffpickBlock2 = false;
-                                }
-                            } else {
-                                if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                    if (isnewadditionBlock1) {
-                                        Log.e("", "onGetViewallResult: 86" );
-                                        setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
-                                        isnewadditionBlock1 = false;
-                                    }
-                                    if (templateModel.getItemsOnPromotion()) {
-                                        if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                            isItemBlock1 = true;
-                                            onAddBlock(linTest3, dataStaffPick, dataPramotion1, isstaffpickBlock2, isItemBlock1);
-                                            Log.i("staffpick1", "block " + count);
-                                            count++;
-                                        } else {
-                                            onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                            Log.i("staffpick2", "block " + count);
-                                            count++;
-                                        }
-                                    } else {
-                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                        Log.i("staffpick3", "block " + count);
-                                        count++;
-                                    }
-                                } else if (dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block") && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                    Log.i("staffpick4", "block " + count);
-                                    count++;
-                                }
-                            }
-                        } else {
-                            if (!dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                if (isstaffpickBlock2) {
-                                    Log.e("", "onGetViewallResult: 87" );
-                                    setcommonScrollView(itemListing, linStaffPick, dataStaffPick);
-                                    isstaffpickBlock2 = false;
-                                }
-                            } else {
-                                if (!isnewadditionBlock1) {
-                                    if (templateModel.getItemsOnPromotion()) {
-                                        if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                            isItemBlock1 = true;
-                                            onAddBlock(linTest3, dataStaffPick, dataPramotion1, isstaffpickBlock2, isItemBlock1);
-                                            Log.i("staffpick5", "block " + count);
-                                            count++;
-                                        } else {
-                                            onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                            Log.i("staffpick6", "block " + count);
-                                            count++;
-                                        }
-                                    } else {
-                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                        Log.i("staffpick7", "block " + count);
-                                        count++;
-                                    }
-                                } else {
-                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                    Log.i("staffpick8", "block " + count);
-                                    count++;
-                                }
-//                        onAddBlock(linPRamotionBlock, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-        else if (type.equalsIgnoreCase("promotion")){
-            DataFrontModel dataNewAddition = ReturnDataFrontModel("New Additions");
-            DataFrontModel dataStaffPick = ReturnDataFrontModel("Staff Picks");
-            DataFrontModel dataPramotion1 = ReturnDataFrontModel("Items On Promotion");
-            if (itemListing != null && itemListing.size() > 0) {
-                isItemBlock1 = true;
-            } else {
-                isItemBlock1 = false;
-            }
-//            Checking if siode and block is not coming then default side by side is shown
-            if (dataPramotion1.getHomeDisplayFormat().equals("") || dataPramotion1.getHomeDisplayFormat() == null) {
-                if (!dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")){
-                    if (isItemBlock1){
-                        Log.e("", "onGetViewallResult: 88" );
-                        setcommonScrollView(itemListing, lin, dataPramotion1);
-                        isItemBlock1 = false;
-                    }
-                }
-            }else {
-                if (isItemBlock1 || isItemBlock2) {
-                    DataFrontModel dataPramotion2 = ReturnDataFrontModel("Items On Promotion");
-                    if (isAdded()) {
-                        if (!dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                            if(isItemBlock1) {
-                                Log.e("", "onGetViewallResult: 89" );
-                                setcommonScrollView(itemListing, linPRamotion, dataPramotion1);
-                                isItemBlock1 = false;
-                            }
-                        } else {
-                            if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
-                                    || !templateModel.getStaffPick() && !templateModel.getNewAddition()
-                                    || templateModel.getNewAddition() && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")
-                                    && templateModel.getStaffPick() && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
-                                    || !templateModel.getNewAddition() && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Side")
-                                    || !templateModel.getStaffPick() && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Side")) {
-                                onAddBlock(linTest3, dataPramotion1, dataPramotion2, isItemBlock1, isItemBlock2);
-                                Log.i("promotion", "block " + count);
-                                count++;
-                            }
-                        }
-                    }
-                }
-            }
-        }  */
-
-//        End
-
         else if (type.equals("SpecialOffer 1")) {
 
             if (itemListing != null && itemListing.size() > 0) {
@@ -2847,12 +2670,27 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                 if (isSpecialOfferBlock1 || isSpecialOfferBlock2) {
                     DataFrontModel dataSpecialOffer1 = ReturnDataFrontModel("SpecialOffer 1");
                     DataFrontModel dataSpecialOffer2 = ReturnDataFrontModel("SpecialOffer 2");
+
+                    if (!Discount_Block_List.isEmpty()){
+                        Discount_Block_List.clear();
+                    }
+                    if (isSpecialOfferBlock1){
+                        Discount_Block_List.add(dataSpecialOffer1);
+                    }
+                    if (isSpecialOfferBlock2){
+                        Discount_Block_List.add(dataSpecialOffer2);
+                    }
+
                     if (isAdded()) {
-                        onAddBlock(lindiscountBlock, dataSpecialOffer1, dataSpecialOffer2, isSpecialOfferBlock1, isSpecialOfferBlock2);
+
+                        call_rv_add_on_blocks(lindiscountBlock, Discount_Block_List);
+
+//                        onAddBlock(lindiscountBlock, dataSpecialOffer1, dataSpecialOffer2, isSpecialOfferBlock1, isSpecialOfferBlock2);
                     }
                 }
             }
-        } else if (type.equals("SpecialOffer 2")) {
+        }
+        else if (type.equals("SpecialOffer 2")) {
 
             if (itemListing != null && itemListing.size() > 0) {
                 isSpecialOfferBlock2 = true;
@@ -2863,11 +2701,27 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
             if (isSpecialOfferBlock1 || isSpecialOfferBlock2) {
                 DataFrontModel dataSpecialOffer1 = ReturnDataFrontModel("SpecialOffer 1");
                 DataFrontModel dataSpecialOffer2 = ReturnDataFrontModel("SpecialOffer 2");
+
+                if (!Discount_Block_List.isEmpty()){
+                    Discount_Block_List.clear();
+                }
+                if (isSpecialOfferBlock1){
+                    Discount_Block_List.add(dataSpecialOffer1);
+                }
+                if (isSpecialOfferBlock2){
+                    Discount_Block_List.add(dataSpecialOffer2);
+                }
                 if (isAdded()) {
-                    onAddBlock(lindiscountBlock, dataSpecialOffer1, dataSpecialOffer2, isSpecialOfferBlock1, isSpecialOfferBlock2);
+
+                    // Create and set up the adapter
+
+                    call_rv_add_on_blocks(lindiscountBlock, Discount_Block_List);
+
+//                    onAddBlock(lindiscountBlock, dataSpecialOffer1, dataSpecialOffer2, isSpecialOfferBlock1, isSpecialOfferBlock2);
                 }
             }
-        } else if (type.equals("Announcement 1")) {
+        }
+        else if (type.equals("Announcement 1")) {
 
             if (itemListing != null && itemListing.size() > 0) {
                 isAnnouncementBlock1 = true;
@@ -2891,12 +2745,27 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                 if (isAnnouncementBlock1 || isAnnouncementBlock2) {
                     DataFrontModel dataAnnouncement1 = ReturnDataFrontModel("Announcement 1");
                     DataFrontModel dataAnnouncement2 = ReturnDataFrontModel("Announcement 2");
+
+                    if (!Announcement_Block_List.isEmpty()){
+                        Announcement_Block_List.clear();
+                    }
+                    if (isAnnouncementBlock1){
+                        Announcement_Block_List.add(dataAnnouncement1);
+                    }
+                    if (isAnnouncementBlock2){
+                        Announcement_Block_List.add(dataAnnouncement2);
+                    }
+
                     if (isAdded()) {
-                        onAddBlock(linAnnouncemnetBlock, dataAnnouncement1, dataAnnouncement2, isAnnouncementBlock1, isAnnouncementBlock2);
+//                        onAddBlock(linAnnouncemnetBlock, dataAnnouncement1, dataAnnouncement2, isAnnouncementBlock1, isAnnouncementBlock2);
+
+                        call_rv_add_on_blocks(linAnnouncemnetBlock, Announcement_Block_List);
+
                     }
                 }
             }
-        } else if (type.equals("Announcement 2")) {
+        }
+        else if (type.equals("Announcement 2")) {
 
             if (itemListing != null && itemListing.size() > 0) {
                 isAnnouncementBlock2 = true;
@@ -2907,11 +2776,24 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
             if (isAnnouncementBlock1 || isAnnouncementBlock2) {
                 DataFrontModel dataAnnouncement1 = ReturnDataFrontModel("Announcement 1");
                 DataFrontModel dataAnnouncement2 = ReturnDataFrontModel("Announcement 2");
+
+                if (!Announcement_Block_List.isEmpty()){
+                    Announcement_Block_List.clear();
+                }
+                if (isAnnouncementBlock1){
+                    Announcement_Block_List.add(dataAnnouncement1);
+                }
+                if (isAnnouncementBlock2){
+                    Announcement_Block_List.add(dataAnnouncement2);
+                }
+
                 if (isAdded()) {
-                    onAddBlock(linAnnouncemnetBlock, dataAnnouncement1, dataAnnouncement2, isAnnouncementBlock1, isAnnouncementBlock2);
+//                    onAddBlock(linAnnouncemnetBlock, dataAnnouncement1, dataAnnouncement2, isAnnouncementBlock1, isAnnouncementBlock2);
+                    call_rv_add_on_blocks(linAnnouncemnetBlock, Announcement_Block_List);
                 }
             }
-        } else if (type.equals("SpecialOffer 3")) {
+        }
+        else if (type.equals("SpecialOffer 3")) {
 
             if (itemListing != null && itemListing.size() > 0) {
                 isSpecialOfferBlock3 = true;
@@ -2935,14 +2817,27 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                 if (isSpecialOfferBlock3 || isSpecialOfferBlock4) {
                     DataFrontModel dataSpecialOffer3 = ReturnDataFrontModel("SpecialOffer 3");
                     DataFrontModel dataSpecialOffer4 = ReturnDataFrontModel("SpecialOffer 4");
+
+                    if (!Discount_Block2_List.isEmpty()){
+                        Discount_Block2_List.clear();
+                    }
+                    if (isSpecialOfferBlock3){
+                        Discount_Block2_List.add(dataSpecialOffer3);
+                    }
+                    if (isSpecialOfferBlock4){
+                        Discount_Block2_List.add(dataSpecialOffer4);
+                    }
+
                     if (isAdded()) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            onAddBlock(lindiscountblock2, dataSpecialOffer3, dataSpecialOffer4, isSpecialOfferBlock3, isSpecialOfferBlock4);
-                        }
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                            onAddBlock(lindiscountblock2, dataSpecialOffer3, dataSpecialOffer4, isSpecialOfferBlock3, isSpecialOfferBlock4);
+//                        }
+                        call_rv_add_on_blocks(lindiscountblock2, Discount_Block2_List);
                     }
                 }
             }
-        } else if (type.equals("SpecialOffer 4")) {
+        }
+        else if (type.equals("SpecialOffer 4")) {
 
             if (itemListing != null && itemListing.size() > 0) {
                 isSpecialOfferBlock4 = true;
@@ -2953,12 +2848,23 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
             if (isSpecialOfferBlock3 || isSpecialOfferBlock4) {
                 DataFrontModel dataSpecialOffer3 = ReturnDataFrontModel("SpecialOffer 3");
                 DataFrontModel dataSpecialOffer4 = ReturnDataFrontModel("SpecialOffer 4");
+
+                if (!Discount_Block2_List.isEmpty()){
+                    Discount_Block2_List.clear();
+                }
+                if (isSpecialOfferBlock3){
+                    Discount_Block2_List.add(dataSpecialOffer3);
+                }
+                if (isSpecialOfferBlock4){
+                    Discount_Block2_List.add(dataSpecialOffer4);
+                }
+
                 if (isAdded()) {
-                    onAddBlock(lindiscountblock2, dataSpecialOffer3, dataSpecialOffer4, isSpecialOfferBlock3, isSpecialOfferBlock4);
+//                    onAddBlock(lindiscountblock2, dataSpecialOffer3, dataSpecialOffer4, isSpecialOfferBlock3, isSpecialOfferBlock4);
+                    call_rv_add_on_blocks(lindiscountblock2, Discount_Block2_List);
                 }
             }
         }
-
 
 //        if (templateModel.getAnnouncement1() || templateModel.getAnnouncement2()) {
 //            DataFrontModel dataPramotion1 = ReturnDataFrontModel("Announcement 1");
@@ -2978,256 +2884,436 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 
     }
 
+    private void call_rv_add_on_blocks(LinearLayout datalayout, List<DataFrontModel> dataFrontModel) {
+        datalayout.removeAllViews();
+        datalayout.setVisibility(View.VISIBLE);
+
+//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT
+//        );
+//        datalayout.setLayoutParams(layoutParams);
+
+        LayoutInflater inflater1 = getLayoutInflater();
+        View v1 = inflater1.inflate(R.layout.raw_home_recycleview, null);
+        RecyclerView rv_discountBlock = v1.findViewById(R.id.rec_home2);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        rv_discountBlock.setLayoutManager(layoutManager);
+
+        DiscountBlockAdapter adapter = new DiscountBlockAdapter(getContext(), dataFrontModel);
+        rv_discountBlock.setAdapter(adapter);
+        rv_discountBlock.invalidate();
+        rv_discountBlock.setNestedScrollingEnabled(false);
+        datalayout.addView(v1);
+
+        // Auto-scrolling logic with a delay of 5 seconds
+        final int scrollDelay = 5000; // 5 seconds
+        final Handler handler = new Handler();
+        final Runnable autoScrollRunnable = new Runnable() {
+            @Override
+            public void run() {
+                int currentItem = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
+                int nextItem = currentItem + 1;
+
+                if (nextItem >= adapter.getItemCount()) {
+                    nextItem = 0;
+                }
+
+                rv_discountBlock.smoothScrollToPosition(nextItem);
+                handler.postDelayed(this, scrollDelay);
+            }
+        };
+
+        handler.postDelayed(autoScrollRunnable, scrollDelay);
+    }
+
+
     private void CheckBlocks(List<HomeItemModel> itemListing, String type) {
         DataFrontModel dataNewAddition = ReturnDataFrontModel("New Additions");
         DataFrontModel dataStaffPick = ReturnDataFrontModel("Staff Picks");
         DataFrontModel dataPramotion1 = ReturnDataFrontModel("Items On Promotion");
 
-          if (type.equals("newddition")) {
+        isnewadditionBlock = dataNewAddition.getNewAdditionsInvCount() != 0;
+        isItemBlock1 = dataPramotion1.getItemsonPromoInvCount() != 0;
+        isstaffpickBlock = dataStaffPick.getStaffPickInvCount() != 0;
+        isstaffpickActive = dataStaffPick.getIsStaffPickActive().equals("1");
+        isnewadditionActive = dataNewAddition.getIsNewAdditionsActive().equals("1");
+        isitemonpromotionActive = dataPramotion1.getIsItemsonpromotionsActive().equals("1");
+        if (Block_List!=null || !Block_List.isEmpty()){
+            Block_List.clear();
+        }
 
-            if (itemListing != null && itemListing.size() > 0) {
-                isnewadditionBlock1 = true;
+        if (type.equals("newddition")) {
+            if (isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")
+                    && isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
+                    && isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")) {
+//                All Three are Blocks and Active NAd has item in all.
+
+            } else if(isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")
+                    && isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")){
+//               In this only Staff Pick is Active and Block and also have item in it.
+
+            } else if (isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
+                    && isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")) {
+//                In this only Item on Promotion is Active and Block and also have item in it.
+
             } else {
-                isnewadditionBlock1 = false;
-            }
-
-//            Checking if side and block is not coming then default side by side is shown
-            if (dataNewAddition.getHomeDisplayFormat().equals("") || dataNewAddition.getHomeDisplayFormat() == null) {
-                if (isnewadditionBlock1){
-                    Log.e("", "onGetViewallResult: 81" );
-                    setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
-                    isnewadditionBlock1 = false;
-                    Log.e("New Addition", "New Addition  Side : 1" + dataNewAddition.getHomeDisplayFormat());
+//                Only New Addition is Active and other staff pick and item on promotion
+                if (isnewadditionActive && isnewadditionBlock ){
+                    Block_List.add(dataNewAddition);
                 }
-            } else {
-                if (templateModel.getStaffPick()) {
-                    if (!dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                        if (isnewadditionBlock1 || isstaffpickBlock2) {
-                            if (isAdded()) {
-                                Log.e("newaddition", "onGetViewallResultNew:" + dataNewAddition.getHomeDisplayFormat());
-                                if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                    if(isnewadditionBlock1) {
-                                        Log.e("", "onGetViewallResult: 82" );
-                                        setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
-                                        isnewadditionBlock1 = false;
-                                    }
-                                } else {
-                                    if (templateModel.getItemsOnPromotion()) {
-                                        if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                            isItemBlock1 = true;
-                                            onAddBlock(linTest3, dataNewAddition, dataPramotion1, isnewadditionBlock1, isItemBlock1);
-                                            Log.i("newAddition1", "block " + count);
-                                            count++;
-                                        }
-                                    } else {
-                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                        Log.i("newAddition2", "block " + count);
-                                        count++;
-                                    }
-                                    if (dataStaffPick.getIsStaffPickActive().equals("1") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block") &&
-                                            dataPramotion1.getIsItemsonpromotionsActive().equals("1") && !dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isfalse);
-                                        Log.i("newAddition3", "block " + count);
-                                        count++;
-                                    }
-                                }
-                            }
-                        }
-                    } else if (dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                        type = "Staff Picks";
-//                    callWSForBlockItemList(type);
-                    }
-                } else {
-                    if (isnewadditionBlock1 || isstaffpickBlock2) {
-                        if (isAdded()) {
-                            Log.e("newaddition", "onGetViewallResultNew:" + dataNewAddition.getHomeDisplayFormat());
-                            if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("BLock")) {
-                                if(isnewadditionBlock1) {
-                                    Log.e("", "onGetViewallResult: 83" );
-                                    setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
-                                    isnewadditionBlock1 = false;
-                                }
-                            } else {
-                                if (templateModel.getItemsOnPromotion()) {
-                                    if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                        isItemBlock1 = true;
-                                        onAddBlock(linPRamotion, dataNewAddition, dataPramotion1, isnewadditionBlock1, isItemBlock1);
-                                        Log.i("newAddition4", "block " + count);
-                                        count++;
-                                    } else {
-                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isfalse);
-                                        Log.i("newAddition5", "block " + count);
-                                        count++;
-                                    }
-                                } else {
-                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isfalse);
-                                    Log.i("newAddition6", "block " + count);
-                                    count++;
-                                }
-                                if (dataStaffPick.getIsStaffPickActive().equals("1") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block") &&
-                                        dataPramotion1.getIsItemsonpromotionsActive().equals("1") && !dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isfalse);
-                                    Log.i("newAddition7", "block " + count);
-                                    count++;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }else if (type.equals("staffpick")) {
 
-            if (itemListing != null && itemListing.size() > 0) {
-                isstaffpickBlock2 = true;
-            } else {
-                isstaffpickBlock2 = false;
-            }
-
-//            Checking if side and block is not coming then default side by side is shown
-
-            if (dataStaffPick.getHomeDisplayFormat().isEmpty() || dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("")
-                    || dataStaffPick.getHomeDisplayFormat()==null){
-                if (isstaffpickBlock2) {
-                    Log.e("", "onGetViewallResult: 84" );
-                    setcommonScrollView(itemListing, linStaffPick, dataStaffPick);
-                    isstaffpickBlock2 = false;
-                }
-            }else {
-
-                if (isstaffpickBlock2 || isnewadditionBlock1) {
-                    if (isAdded()) {
-                        Log.e("staffpick", "onGetViewallResultstaff: " + dataStaffPick.getHomeDisplayFormat());
-                        if (isnewadditionBlock1) {
-                            if (!dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                if (isstaffpickBlock2) {
-                                    Log.e("", "onGetViewallResult: 85" );
-                                    setcommonScrollView(itemListing, linStaffPick, dataStaffPick);
-                                    isstaffpickBlock2 = false;
-                                }
-                            } else {
-                                if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                    if (isnewadditionBlock1) {
-                                        Log.e("", "onGetViewallResult: 86" );
-                                        setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
-                                        isnewadditionBlock1 = false;
-                                    }
-                                    if (templateModel.getItemsOnPromotion()) {
-                                        if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                            isItemBlock1 = true;
-                                            onAddBlock(linTest3, dataStaffPick, dataPramotion1, isstaffpickBlock2, isItemBlock1);
-                                            Log.i("staffpick1", "block " + count);
-                                            count++;
-                                        } else {
-                                            onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                            Log.i("staffpick2", "block " + count);
-                                            count++;
-                                        }
-                                    } else {
-                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                        Log.i("staffpick3", "block " + count);
-                                        count++;
-                                    }
-                                } else if (dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block") && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                    Log.i("staffpick4", "block " + count);
-                                    count++;
-                                }
-                            }
-                        } else {
-                            if (!dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                if (isstaffpickBlock2) {
-                                    Log.e("", "onGetViewallResult: 87" );
-                                    setcommonScrollView(itemListing, linStaffPick, dataStaffPick);
-                                    isstaffpickBlock2 = false;
-                                }
-                            } else {
-                                if (!isnewadditionBlock1) {
-                                    if (templateModel.getItemsOnPromotion()) {
-                                        if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                                            isItemBlock1 = true;
-                                            onAddBlock(linTest3, dataStaffPick, dataPramotion1, isstaffpickBlock2, isItemBlock1);
-                                            Log.i("staffpick5", "block " + count);
-                                            count++;
-                                        } else {
-                                            onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                            Log.i("staffpick6", "block " + count);
-                                            count++;
-                                        }
-                                    } else {
-                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                        Log.i("staffpick7", "block " + count);
-                                        count++;
-                                    }
-                                } else {
-                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                                    Log.i("staffpick8", "block " + count);
-                                    count++;
-                                }
-//                        onAddBlock(linPRamotionBlock, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-                            }
-                        }
-                    }
-                }
+                call_rv_add_on_blocks(linTest, Block_List);
 
             }
         }
-        else if (type.equalsIgnoreCase("promotion")){
+        else if (type.equals("staffpick")) {
+            if (isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")
+                    && isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
+                    && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")) {
+//                All Three are Blocks and Active NAd has item in all.
 
-            if (itemListing != null && itemListing.size() > 0) {
-                isItemBlock1 = true;
-            } else {
-                isItemBlock1 = false;
-            }
-//            Checking if siode and block is not coming then default side by side is shown
-            if (dataPramotion1.getHomeDisplayFormat().equals("") || dataPramotion1.getHomeDisplayFormat() == null) {
-                if (!dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")){
-                    if (isItemBlock1){
-                        Log.e("", "onGetViewallResult: 88" );
-                        setcommonScrollView(itemListing, lin, dataPramotion1);
-                        isItemBlock1 = false;
-                    }
+            } else if (isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")
+                    && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")){
+//                In this only New Addition is Active and Block and also have item in it.
+
+                if (isnewadditionActive && isnewadditionBlock ){
+                    Block_List.add(dataNewAddition);
                 }
+                if (isstaffpickActive && isstaffpickBlock){
+                    Block_List.add(dataStaffPick);
+                }
+                call_rv_add_on_blocks(linTest, Block_List);
+
+            } else if (isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
+                    && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")) {
+//                In this only Item on Promotion is Active and Block and also have item in it.
+
+
             }else {
-                if (isItemBlock1 || isItemBlock2) {
-                    DataFrontModel dataPramotion2 = ReturnDataFrontModel("Items On Promotion");
-                    if (isAdded()) {
-                        if (!dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-                            if(isItemBlock1) {
-                                Log.e("", "onGetViewallResult: 89" );
-                                setcommonScrollView(itemListing, linPRamotion, dataPramotion1);
-                                isItemBlock1 = false;
-                            }
-                        } else {
-                            if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
-                                    || !templateModel.getStaffPick() && !templateModel.getNewAddition()
-                                    || templateModel.getNewAddition() && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")
-                                    && templateModel.getStaffPick() && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
-                                    || !templateModel.getNewAddition() && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Side")
-                                    || !templateModel.getStaffPick() && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Side")) {
-                                onAddBlock(linTest3, dataPramotion1, dataPramotion2, isItemBlock1, isItemBlock2);
-                                Log.i("promotion", "block " + count);
-                                count++;
-                            }
-                        }
-                    }
+//                In this only Staff Pick is Active and Block and also have item in it.
+                if (isstaffpickActive && isstaffpickBlock){
+                    Block_List.add(dataStaffPick);
                 }
+                call_rv_add_on_blocks(linTest, Block_List);
             }
         }
+        else if (type.equals("promotion")) {
 
+            if (isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")
+                    && isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
+                    && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")) {
+//                All Three are Blocks and Active NAd has item in all.
+
+                if (isnewadditionActive && isnewadditionBlock ){
+                    Block_List.add(dataNewAddition);
+                }
+                if (isstaffpickActive && isstaffpickBlock){
+                    Block_List.add(dataStaffPick);
+                }
+                if (isitemonpromotionActive && isItemBlock1){
+                    Block_List.add(dataPramotion1);
+                }
+
+                call_rv_add_on_blocks(linTest3, Block_List);
+
+            } else if (isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")
+                    && isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")){
+//                In this only New Addition is Active and Block and also have item in it.
+
+                if (isnewadditionActive && isnewadditionBlock ){
+                    Block_List.add(dataNewAddition);
+                }
+                if (isitemonpromotionActive && isItemBlock1){
+                    Block_List.add(dataPramotion1);
+                }
+
+                call_rv_add_on_blocks(linTest3, Block_List);
+
+            } else if (isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
+                    && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")) {
+//                In this only Item on Promotion is Active and Block and also have item in it.
+
+                if (isstaffpickActive && isstaffpickBlock){
+                    Block_List.add(dataStaffPick);
+                }
+                if (isitemonpromotionActive && isItemBlock1){
+                    Block_List.add(dataPramotion1);
+                }
+
+                call_rv_add_on_blocks(linTest3, Block_List);
+
+            }else {
+//                In this only Staff Pick is Active and Block and also have item in it.
+                if (isitemonpromotionActive && isItemBlock1){
+                    Block_List.add(dataPramotion1);
+                }
+
+                call_rv_add_on_blocks(linTest3, Block_List);
+
+            }
+//            if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
+//                    || !isstaffpickActive && !isnewadditionActive
+//                    || !isnewadditionActive && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")
+//                    || isnewadditionActive && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Side")
+//                    ||!isnewadditionActive && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Side")
+//                    && isstaffpickActive && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
+//                    || !isstaffpickActive && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
+//                    || !isstaffpickActive && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Side")) {
+////                 In this only Item On Promotion is Active and Block and also have item in it.
+//            }
+        }
+
+//        if (type.equals("newddition")) {
+//
+////            if (itemListing != null && itemListing.size() > 0) {
+////                isnewadditionBlock1 = true;
+////            } else {
+////                isnewadditionBlock1 = false;
+////            }
+//
+////            Checking if side and block is not coming then default side by side is shown
+//            if (dataNewAddition.getHomeDisplayFormat().equals("") || dataNewAddition.getHomeDisplayFormat() == null) {
+//                if (isnewadditionBlock){
+//                    Log.e("", "onGetViewallResult: 81" );
+//                    setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
+//                    isnewadditionBlock = false;
+//                    Log.e("New Addition", "New Addition  Side : 1" + dataNewAddition.getHomeDisplayFormat());
+//                }
+//            } else {
+//                if (templateModel.getStaffPick()) {
+//                    if (!dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                        if (isnewadditionBlock || isstaffpickBlock) {
+//                            if (isAdded()) {
+//                                Log.e("newaddition", "onGetViewallResultNew:" + dataNewAddition.getHomeDisplayFormat());
+//                                if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                                    if(isnewadditionBlock) {
+//                                        Log.e("", "onGetViewallResult: 82" );
+//                                        setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
+//                                        isnewadditionBlock = false;
+//                                    }
+//                                } else {
+//                                    if (templateModel.getItemsOnPromotion() && isItemBlock1) {
+//                                        if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block") ) {
+//                                            isItemBlock1 = true;
+//                                            onAddBlock(linTest3, dataNewAddition, dataPramotion1, isnewadditionBlock, isItemBlock1);
+//                                            Log.i("newAddition1", "block " + count);
+//                                            count++;
+//                                        }
+//                                    } else {
+//                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isfalse);
+//                                        Log.i("newAddition2", "block " + count);
+//                                        count++;
+//                                    }
+//                                    if (dataStaffPick.getIsStaffPickActive().equals("1") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block") &&
+//                                            dataPramotion1.getIsItemsonpromotionsActive().equals("1") && !dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isfalse);
+//                                        Log.i("newAddition3", "block " + count);
+//                                        count++;
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    } else if (dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block") && dataStaffPick.getStaffPickInvCount()==0) {
+//                        type = "Staff Picks";
+////                    callWSForBlockItemList(type);
+//                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isfalse);
+//                    }
+//                } else {
+//                    if (isnewadditionBlock || isstaffpickBlock) {
+//                        if (isAdded()) {
+//                            Log.e("newaddition", "onGetViewallResultNew:" + dataNewAddition.getHomeDisplayFormat());
+//                            if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                                if(isnewadditionBlock) {
+//                                    Log.e("", "onGetViewallResult: 83" );
+//                                    setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
+//                                    isnewadditionBlock = false;
+//                                }
+//                            } else {
+//                                if (templateModel.getItemsOnPromotion()) {
+//                                    if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                                        isItemBlock1 = true;
+//                                        onAddBlock(linPRamotion, dataNewAddition, dataPramotion1, isnewadditionBlock, isItemBlock1);
+//                                        Log.i("newAddition4", "block " + count);
+//                                        count++;
+//                                    } else {
+//                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isfalse);
+//                                        Log.i("newAddition5", "block " + count);
+//                                        count++;
+//                                    }
+//                                } else {
+//                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isfalse);
+//                                    Log.i("newAddition6", "block " + count);
+//                                    count++;
+//                                }
+//                                if (dataStaffPick.getIsStaffPickActive().equals("1") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block") &&
+//                                        dataPramotion1.getIsItemsonpromotionsActive().equals("1") && !dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isfalse);
+//                                    Log.i("newAddition7", "block " + count);
+//                                    count++;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        else if (type.equals("staffpick")) {
+//
+////            if (itemListing != null && itemListing.size() > 0) {
+////                isstaffpickBlock2 = true;
+////            } else {
+////                isstaffpickBlock2 = false;
+////            }
+//
+////            Checking if side and block is not coming then default side by side is shown
+//
+//            if (dataStaffPick.getHomeDisplayFormat().isEmpty() || dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("")
+//                    || dataStaffPick.getHomeDisplayFormat()==null){
+//                if (isstaffpickBlock) {
+//                    Log.e("", "onGetViewallResult: 84" );
+//                    setcommonScrollView(itemListing, linStaffPick, dataStaffPick);
+//                    isstaffpickBlock = false;
+//                }
+//            }else {
+//
+//                if (isstaffpickBlock || isnewadditionBlock) {
+//                    if (isAdded()) {
+//                        Log.e("staffpick", "onGetViewallResultstaff: " + dataStaffPick.getHomeDisplayFormat());
+//                        if (isnewadditionBlock) {
+//                            if (!dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                                if (isstaffpickBlock) {
+//                                    Log.e("", "onGetViewallResult: 85" );
+//                                    setcommonScrollView(NewAdditionList, linStaffPick, dataStaffPick);
+//                                    isstaffpickBlock = false;
+//                                }
+//                            } else {
+//                                if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                                    if (isnewadditionBlock) {
+//                                        Log.e("", "onGetViewallResult: 86" );
+//                                        setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
+//                                        isnewadditionBlock = false;
+//                                    }
+//                                    if (templateModel.getItemsOnPromotion()) {
+//                                        if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                                            isItemBlock1 = true;
+//                                            onAddBlock(linTest3, dataStaffPick, dataPramotion1, isstaffpickBlock, isItemBlock1);
+//                                            Log.i("staffpick1", "block " + count);
+//                                            count++;
+//                                        } else {
+//                                            onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isstaffpickBlock);
+//                                            Log.i("staffpick2", "block " + count);
+//                                            count++;
+//                                        }
+//                                    } else {
+//                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isstaffpickBlock);
+//                                        Log.i("staffpick3", "block " + count);
+//                                        count++;
+//                                    }
+//                                } else if (dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block") && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isstaffpickBlock);
+//                                    Log.i("staffpick4", "block " + count);
+//                                    count++;
+//                                }
+//                            }
+//                        } else {
+//                            if (!dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                                if (isstaffpickBlock) {
+//                                    Log.e("", "onGetViewallResult: 87" );
+//                                    setcommonScrollView(itemListing, linStaffPick, dataStaffPick);
+//                                    isstaffpickBlock = false;
+//                                }
+//                            } else {
+//                                if (!isnewadditionBlock) {
+//                                    if (templateModel.getItemsOnPromotion()) {
+//                                        if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                                            isItemBlock1 = true;
+//                                            onAddBlock(linTest3, dataStaffPick, dataPramotion1, isstaffpickBlock, isItemBlock1);
+//                                            Log.i("staffpick5", "block " + count);
+//                                            count++;
+//                                        } else {
+//                                            onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isstaffpickBlock);
+//                                            Log.i("staffpick6", "block " + count);
+//                                            count++;
+//                                        }
+//                                    } else {
+//                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isstaffpickBlock);
+//                                        Log.i("staffpick7", "block " + count);
+//                                        count++;
+//                                    }
+//                                } else {
+//                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isstaffpickBlock);
+//                                    Log.i("staffpick8", "block " + count);
+//                                    count++;
+//                                }
+////                        onAddBlock(linPRamotionBlock, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
+//                            }
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
+//        else if (type.equalsIgnoreCase("promotion")){
+////            if (itemListing != null && itemListing.size() > 0) {
+////                isItemBlock1 = true;
+////            } else {
+////                isItemBlock1 = false;
+////            }
+////            Checking if siode and block is not coming then default side by side is shown
+//            if (dataPramotion1.getHomeDisplayFormat().equals("") || dataPramotion1.getHomeDisplayFormat() == null) {
+//                if (!dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")){
+//                    if (isItemBlock1){
+//                        Log.e("", "onGetViewallResult: 88" );
+//                        setcommonScrollView(itemListing, lin, dataPramotion1);
+//                        isItemBlock1 = false;
+//                    }
+//                }
+//            }else {
+//                if (isItemBlock1 || isItemBlock2) {
+//                    DataFrontModel dataPramotion2 = ReturnDataFrontModel("Items On Promotion");
+//                    if (isAdded()) {
+//                        if (!dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
+//                            if(isItemBlock1) {
+//                                Log.e("", "onGetViewallResult: 89" );
+//                                setcommonScrollView(itemListing, linPRamotion, dataPramotion1);
+//                                isItemBlock1 = false;
+//                            }
+//                        } else {
+//                            if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
+//                                    || !templateModel.getStaffPick() && !templateModel.getNewAddition()
+//                                    || templateModel.getNewAddition() && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")
+//                                    && templateModel.getStaffPick() && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
+//                                    || !templateModel.getNewAddition() && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Side")
+//                                    || !templateModel.getStaffPick() && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Side")) {
+//                                onAddBlock(linTest3, dataPramotion1, dataPramotion2, isItemBlock1, isItemBlock2);
+//                                Log.i("promotion", "block " + count);
+//                                count++;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
     }
 
 
-//     Edited by Varun for reward point show below the search bar
+
+    //     Edited by Varun for reward point show below the search bar
     public void loadRewardWSData() {
 
         if (UserModel.Cust_mst_ID != null) {
             String url = Constant.WS_BASE_URL + Constant.GET_LOYALTY_INFO + UserModel.Cust_mst_ID + "/" + Constant.STOREID;
             TaskLoyaltyInfo loyaltyInfo = new TaskLoyaltyInfo(getActivity(),this);
             Log.d("", "getLoyaltyReward: " + url);
-            loyaltyInfo.execute(url);
+//            Edited by Varun For Speed -up
+//            loyaltyInfo.execute(url);
+            loyaltyInfo.executeOnExecutor(TaskLoyaltyInfo.THREAD_POOL_EXECUTOR,url);
         }else {
-            ll_Reward_main.setVisibility(View.GONE);
+//            ll_Reward_main.setVisibility(View.GONE);
+            cvReward.setVisibility(View.GONE);
             Constant.isloyaltyreward=false;
         }
     }
@@ -3244,7 +3330,8 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 
                         if (!l.getLoyaltyCard().equalsIgnoreCase("") && l.getLoyaltyCard() != null) {
 
-                           ll_Reward_main.setVisibility(View.VISIBLE);
+//                           ll_Reward_main.setVisibility(View.VISIBLE);
+                            cvReward.setVisibility(View.VISIBLE);
                             Constant.isloyaltyreward=true;
 
                             if (l.getPoints() != null && !l.getPoints().equalsIgnoreCase("")) {
@@ -3265,15 +3352,18 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                                 tv_rebate_main.setVisibility(View.GONE);
                             }
                         } else {
-                           ll_Reward_main.setVisibility(View.GONE);
+//                           ll_Reward_main.setVisibility(View.GONE);
+                            cvReward.setVisibility(View.GONE);
                             Constant.isloyaltyreward=false;
                         }
                     } else {
-                       ll_Reward_main.setVisibility(View.GONE);
+//                       ll_Reward_main.setVisibility(View.GONE);
+                        cvReward.setVisibility(View.GONE);
                         Constant.isloyaltyreward=false;
                     }
                 }else{
-                    ll_Reward_main.setVisibility(View.GONE);
+//                    ll_Reward_main.setVisibility(View.GONE);
+                    cvReward.setVisibility(View.GONE);
                     Constant.isloyaltyreward=false;
                 }
             }
@@ -3284,7 +3374,8 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 
                         if (!l.getLoyaltyCard().equalsIgnoreCase("") && l.getLoyaltyCard() != null) {
 
-                            ll_Reward_main.setVisibility(View.VISIBLE);
+//                            ll_Reward_main.setVisibility(View.VISIBLE);
+                            cvReward.setVisibility(View.VISIBLE);
                             Constant.isloyaltyreward=true;
 
                             if (l.getPoints() != null && !l.getPoints().equalsIgnoreCase("")) {
@@ -3304,22 +3395,26 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                                tv_rebate_main.setVisibility(View.GONE);
                             }
                         } else {
-                            ll_Reward_main.setVisibility(View.GONE);
+//                            ll_Reward_main.setVisibility(View.GONE);
+                            cvReward.setVisibility(View.GONE);
                             Constant.isloyaltyreward=false;
                         }
                     } else {
-                        ll_Reward_main.setVisibility(View.GONE);
+//                        ll_Reward_main.setVisibility(View.GONE);
+                        cvReward.setVisibility(View.GONE);
                         Constant.isloyaltyreward=false;
                     }
                 }else{
-                    ll_Reward_main.setVisibility(View.GONE);
+//                    ll_Reward_main.setVisibility(View.GONE);
+                    cvReward.setVisibility(View.GONE);
                     Constant.isloyaltyreward=false;
                 }
             }
         }
 //        If webservice data is null then both will not seen
         else{
-           ll_Reward_main.setVisibility(View.GONE);
+//           ll_Reward_main.setVisibility(View.GONE);
+            cvReward.setVisibility(View.GONE);
 //            MainActivityDup.getInstance().ll_Reward_main.setVisibility(View.GONE);
             Constant.isloyaltyreward=false;
         }

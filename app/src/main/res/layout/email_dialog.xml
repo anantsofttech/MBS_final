@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nested_scroll_email"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Subject ie.Watch This Out"/>
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/TextInputet_PersonalMsg"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:layout_marginRight="@dimen/_15sdp"
@@ -261,4 +261,4 @@
     </RelativeLayout>
 
 
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>

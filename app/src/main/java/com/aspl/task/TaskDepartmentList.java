@@ -4,12 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.NetworkUtil;
-import com.aspl.fragment.FilterFragment;
 import com.aspl.mbs.R;
 import com.aspl.mbsmodel.DepartmentModel;
 import com.aspl.mbsmodel.JackDepartmentModel;
@@ -17,9 +15,6 @@ import com.aspl.mbsmodel.SubDepartmentModel;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.CollectionType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import org.json.JSONArray;
 import org.json.JSONException;

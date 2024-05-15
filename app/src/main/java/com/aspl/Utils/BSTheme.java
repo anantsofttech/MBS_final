@@ -1,7 +1,7 @@
 package com.aspl.Utils;
 
 import android.content.res.ColorStateList;
-import android.support.v4.widget.CompoundButtonCompat;
+import androidx.core.widget.CompoundButtonCompat;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 

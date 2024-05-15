@@ -47,7 +47,7 @@
             android:layout_marginBottom="@dimen/dimen_5"
             android:layout_marginLeft="@dimen/_5sdp"
             android:layout_marginRight="@dimen/_5sdp"
-            android:text="Yes, Delete My Accont"
+            android:text="Yes, Delete My Account"
             android:textSize="@dimen/dimen_ButtonTextSize"
             android:textAllCaps="false"
             android:textColor="@color/White" />

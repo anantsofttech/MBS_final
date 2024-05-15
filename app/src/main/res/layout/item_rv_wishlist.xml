@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +9,8 @@
     android:layout_marginRight="@dimen/_5sdp"
     android:layout_marginTop="@dimen/_5sdp"
     android:orientation="vertical"
-    tool:cardElevation="3dp"
+    tool:cardElevation="4dp"
+    tool:cardCornerRadius="@dimen/_5sdp"
     tools:ignore="UnusedAttribute">
 
     <RelativeLayout
@@ -322,7 +323,7 @@
                   android:visibility="gone" />-->
         </LinearLayout>
     </RelativeLayout>
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>
 
 
     <!--

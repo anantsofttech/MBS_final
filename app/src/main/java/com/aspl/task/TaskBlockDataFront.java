@@ -53,10 +53,6 @@ public class TaskBlockDataFront extends AsyncTask<String, Void, String> {
                 String response = responseStrBuilder.toString();
                 Log.i("web service--Cart", "Response : " + response);
                 ObjectMapper objectMapper = new ObjectMapper();
-                //cardModel = objectMapper.readValue(response, ShoppingCardModel.class);
-                /*ZipList= objectMapper.readValue(response, new TypeReference<Zipmodel>() {
-                });
-*/
                 TypeFactory typeFactory = objectMapper.getTypeFactory();
                 CollectionType collectionType = typeFactory.constructCollectionType(
                         List.class, DataFrontModel.class);

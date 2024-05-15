@@ -1,7 +1,6 @@
 package com.aspl.Adapter;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.aspl.Utils.Constant;
 import com.aspl.mbs.R;
 import com.aspl.mbsmodel.Zipmodel;
 

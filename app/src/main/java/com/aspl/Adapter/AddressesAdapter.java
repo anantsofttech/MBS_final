@@ -2,7 +2,7 @@ package com.aspl.Adapter;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,6 @@ import com.aspl.mbs.R;
 import com.aspl.mbsmodel.ShippingData;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by admin on 1/11/2018.

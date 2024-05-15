@@ -3,8 +3,8 @@ package com.aspl.fragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +16,8 @@ import android.widget.TextView;
 
 import com.aspl.Adapter.FooterAdapter;
 import com.aspl.Utils.Constant;
-import com.aspl.mbs.MainActivity;
 import com.aspl.mbs.MainActivityDup;
 import com.aspl.mbs.R;
-import com.aspl.mbsmodel.UserModel;
 import com.aspl.ws.Async_getCommonService;
 
 /**

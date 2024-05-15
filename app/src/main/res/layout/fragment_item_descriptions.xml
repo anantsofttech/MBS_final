@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/_3sdp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -165,7 +166,6 @@
                                         android:layout_centerVertical="true"
                                         android:layout_width="@dimen/dimen_12"
                                         android:layout_height="@dimen/dimen_12"
-                                        android:layout_margin="@dimen/_2sdp"
                                         android:src="@drawable/ic_minus_black"
                                         tools:ignore="DuplicateIds" />
                                 </RelativeLayout>
@@ -195,14 +195,13 @@
                                         android:layout_centerVertical="true"
                                         android:layout_width="@dimen/dimen_12"
                                         android:layout_height="@dimen/dimen_12"
-                                        android:layout_margin="@dimen/_2sdp"
                                         android:src="@drawable/ic_plus_black" />
                                 </RelativeLayout>
 
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="@dimen/_40sdp"
+                                android:layout_width="@dimen/_35sdp"
                                 android:layout_height="fill_parent"
                                 android:padding="@dimen/_7sdp"
                                 android:gravity="center">
@@ -264,7 +263,7 @@
     </LinearLayout>
 
 
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     xmlns:tools="http://schemas.android.com/tools"
@@ -303,7 +302,7 @@
         android:layout_marginTop="@dimen/_3sdp"
         android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cv_header1_itemDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -314,7 +313,8 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:orientation="vertical"
             android:visibility="gone"
-            app:cardElevation="4dp">
+            app:cardElevation="4dp"
+            app:cardCornerRadius="@dimen/_5sdp">
 
             <TextView
                 android:id="@+id/tv_header1_ItemDesc_fragment"
@@ -326,12 +326,12 @@
                 android:paddingTop="@dimen/_2sdp"
                 android:text=""
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_15sdp"
+                android:textSize="@dimen/_17sdp"
                 android:textStyle="bold" />
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/card1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -341,7 +341,8 @@
             android:layout_marginRight="@dimen/_7sdp"
             android:layout_marginTop="@dimen/_2sdp"
             android:orientation="vertical"
-            app:cardElevation="4dp">
+            app:cardElevation="4dp"
+            app:cardCornerRadius="@dimen/_5sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -374,8 +375,8 @@
                     android:textSize="@dimen/_13sdp" />
 
                 <LinearLayout
-                    android:layout_width="@dimen/_175sdp"
-                    android:layout_height="@dimen/_175sdp"
+                    android:layout_width="@dimen/_195sdp"
+                    android:layout_height="@dimen/_195sdp"
                     android:layout_gravity="center"
                     android:gravity="center">
 
@@ -385,8 +386,8 @@
 
                         <ImageView
                             android:id="@+id/img_item"
-                            android:layout_width="@dimen/_175sdp"
-                            android:layout_height="@dimen/_175sdp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
                             android:layout_gravity="center"
                             android:layout_marginBottom="@dimen/_10sdp"
                             android:layout_marginTop="@dimen/_2sdp"
@@ -526,7 +527,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <android.support.v7.widget.RecyclerView
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_multi_pack"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
@@ -562,8 +563,7 @@
                     android:layout_marginTop="@dimen/_8sdp"
                     android:focusedByDefault="true"
                     android:foregroundGravity="center"
-                    android:visibility="gone"
-                     />
+                    android:visibility="gone" />
 
 
                 <LinearLayout
@@ -598,6 +598,7 @@
                                 android:paddingLeft="@dimen/_10sdp"
                                 android:paddingRight="@dimen/_10sdp"
                                 android:text="-"
+                                android:textSize="@dimen/_18sdp"
                                 android:textColor="@android:color/black" />
 
                             <View
@@ -632,19 +633,20 @@
                                 android:minWidth="0dp"
                                 android:paddingLeft="@dimen/_10sdp"
                                 android:paddingRight="@dimen/_10sdp"
+                                android:textSize="@dimen/_18sdp"
                                 android:text="+"
                                 android:textColor="@android:color/black" />
 
                         </LinearLayout>
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/tvAddtoCart"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginEnd="@dimen/_5sdp"
                             android:layout_marginRight="@dimen/_5sdp"
                             android:clickable="true"
-                            android:drawableLeft="@drawable/ic_cart_white"
+                            android:src="@drawable/ic_cart_white"
                             android:gravity="center"
                             android:onClick="onClick"
                             android:padding="@dimen/_8sdp"
@@ -746,20 +748,21 @@
 
 
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cv_header2_itemDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/_7sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:layout_marginLeft="@dimen/_7sdp"
             android:layout_marginRight="@dimen/_7sdp"
             android:layout_marginTop="@dimen/_2sdp"
             android:orientation="vertical"
             android:visibility="gone"
-            app:cardElevation="4dp">
+            app:cardElevation="4dp"
+            app:cardCornerRadius="@dimen/_5sdp">
 
             <TextView
                 android:id="@+id/tv_header2_ItemDesc_fragment"
@@ -773,99 +776,111 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold" />
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_Buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:layout_marginLeft="@dimen/_7sdp"
+            android:layout_marginRight="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:orientation="vertical"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="@dimen/_5sdp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_7sdp"
-                android:layout_marginRight="@dimen/_7sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btnDesc"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="@dimen/_3sdp"
-                    android:maxLines="1"
-                    android:minHeight="0dp"
-                    android:minWidth="0dp"
-                    android:padding="@dimen/_8sdp"
-                    android:text="Description"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/_11sdp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnReturnPolicy"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="@dimen/_3sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/only_three_side_border_with_radius"
-                    android:minHeight="0dp"
-                    android:minWidth="0dp"
-                    android:padding="@dimen/_8sdp"
-                    android:text="Return Policy"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/_11sdp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                    <Button
+                        android:id="@+id/btnDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/_3sdp"
+                        android:maxLines="1"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:padding="@dimen/_6sdp"
+                        android:text="Description"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
 
-                <Button
-                    android:id="@+id/btnShippingDetails"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="@dimen/_3sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/only_three_side_border_with_radius"
-                    android:minHeight="0dp"
-                    android:minWidth="0dp"
-                    android:padding="@dimen/_8sdp"
-                    android:text="Shipping Details"
-                    android:textAllCaps="false"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_11sdp"
-                    android:visibility="gone" />
+                    <Button
+                        android:id="@+id/btnReturnPolicy"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/_3sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/only_three_side_border_with_radius"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:padding="@dimen/_6sdp"
+                        android:text="Return Policy"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
 
-                <Button
-                    android:id="@+id/btnDrinkRecipe"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/only_three_side_border_with_radius"
-                    android:minHeight="0dp"
-                    android:minWidth="0dp"
-                    android:padding="@dimen/_8sdp"
-                    android:text="Drink Recipe"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/_11sdp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                    <Button
+                        android:id="@+id/btnShippingDetails"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/_3sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/only_three_side_border_with_radius"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:padding="@dimen/_6sdp"
+                        android:text="Shipping Details"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_13sdp"
+                        android:visibility="gone"/>
+
+                    <Button
+                        android:id="@+id/btnDrinkRecipe"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/only_three_side_border_with_radius"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:padding="@dimen/_6sdp"
+                        android:text="Drink Recipe"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <!--<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
-            <!--xmlns:tool="http://schemas.android.com/apk/res-auto"-->
-            <!--xmlns:tools="http://schemas.android.com/tools"-->
-            <!--android:id="@+id/cvBtnDescView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="@dimen/_5sdp"-->
-            <!--android:layout_marginRight="@dimen/_5sdp"-->
-            <!--android:layout_marginBottom="@dimen/_5sdp"-->
-            <!--android:clickable="true"-->
-            <!--android:focusable="true"-->
-            <!--android:orientation="vertical"-->
-            <!--tool:cardElevation="5dp"-->
-            <!--tools:ignore="UnusedAttribute">-->
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvBtnDescView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:layout_marginLeft="@dimen/_7sdp"
+            android:layout_marginRight="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:orientation="vertical"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="@dimen/_5sdp">
 
 
             <TextView
@@ -875,7 +890,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/_7sdp"
                 android:layout_marginRight="@dimen/_7sdp"
-                android:background="@drawable/border_without_radius"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_marginBottom="@dimen/_7sdp"
                 android:paddingBottom="@dimen/_7sdp"
                 android:paddingEnd="@dimen/_2sdp"
                 android:paddingLeft="@dimen/_3sdp"
@@ -885,10 +901,10 @@
                 android:textColor="@android:color/black"
                 android:visibility="gone" />
 
-            <!--</android.support.v7.widget.CardView>-->
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tool="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/cusWhoBoughtAlsoView"
@@ -896,13 +912,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_7sdp"
             android:layout_marginRight="@dimen/_7sdp"
-            android:layout_marginTop="@dimen/_13sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:clickable="true"
             android:focusable="true"
             android:orientation="vertical"
             android:visibility="gone"
             tool:cardElevation="5dp"
-            tools:ignore="UnusedAttribute">
+            tool:cardCornerRadius="@dimen/_8sdp"
+            tools:ignore="UnusedAttribute"
+            tool:cardBackgroundColor="#ebeffb">
 
             <TextView
                 android:layout_width="match_parent"
@@ -913,7 +931,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_15sdp" />
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <!--<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
         <!--xmlns:tool="http://schemas.android.com/apk/res-auto"-->
@@ -931,7 +949,7 @@
         <!--tool:cardElevation="5dp"-->
         <!--tools:ignore="UnusedAttribute">-->
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -939,7 +957,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_7sdp"
             android:layout_marginRight="@dimen/_7sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_2sdp"
             android:orientation="horizontal" />
 
         <!--</android.support.v7.widget.CardView>-->
@@ -955,7 +973,7 @@
         <!--android:layout_gravity="center"-->
         <!--android:layout_centerHorizontal="true" />-->
 
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
 

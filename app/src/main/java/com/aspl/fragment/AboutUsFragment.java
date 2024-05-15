@@ -1,58 +1,28 @@
 package com.aspl.fragment;
 
 
-import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.NestedScrollView;
-import android.text.Html;
-import android.text.Spanned;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.core.widget.NestedScrollView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.ObservableWebView;
-import com.aspl.Utils.URLImageParser;
 import com.aspl.Utils.Utils;
 import com.aspl.mbs.MainActivity;
 import com.aspl.mbs.MainActivityDup;
 import com.aspl.mbs.R;
 import com.aspl.mbsmodel.AboutusModel;
-import com.aspl.mbsmodel.UserModel;
 import com.aspl.task.TaskAbout;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.Properties;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.

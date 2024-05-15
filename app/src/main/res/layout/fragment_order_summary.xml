@@ -42,7 +42,7 @@
 
         </LinearLayout>
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_scroll_order_summary_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -255,7 +255,7 @@
                     android:visibility="visible" />
 
                 <!-- pickup time -->
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tool="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/cv_pickup_time"
@@ -268,7 +268,8 @@
                     android:layout_marginTop="5dp"
                     android:orientation="vertical"
                     android:visibility="gone"
-                    tool:cardElevation="3dp"
+                    tool:cardElevation="4dp"
+                    tool:cardCornerRadius="5dp"
                     tools:ignore="UnusedAttribute"
                     tools:visibility="visible">
 
@@ -285,11 +286,11 @@
                         android:textStyle="italic"
                         tools:text="" />
 
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
 
                 <!-- Order detail paid via -->
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tool="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/cv_order_info_order_summary_fragment"
@@ -301,7 +302,8 @@
                     android:layout_marginRight="@dimen/dimen_5"
                     android:layout_marginTop="5dp"
                     android:orientation="vertical"
-                    tool:cardElevation="3dp"
+                    tool:cardElevation="4dp"
+                    tool:cardCornerRadius="5dp"
                     tools:ignore="UnusedAttribute"
                     tools:visibility="visible">
 
@@ -943,7 +945,7 @@
                             android:layout_marginTop="5dp"
                             android:background="@android:color/darker_gray" />
 
-                        <android.support.v7.widget.RecyclerView
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_order_summary_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -969,10 +971,10 @@
                             android:visibility="gone" />
 
                     </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!-- purchased at start-->
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tool="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/cv_purchased_at"
@@ -985,7 +987,8 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="3dp"
                     android:orientation="vertical"
-                    tool:cardElevation="3dp"
+                    tool:cardElevation="4dp"
+                    tool:cardCornerRadius="5dp"
                     tools:ignore="UnusedAttribute">
 
                     <RelativeLayout
@@ -1035,11 +1038,11 @@
                             android:textSize="@dimen/dimen_12" />
 
                     </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
                 <!--purchased end-->
 
                 <!-- Delivery method/paid via and payment mode -->
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tool="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/cv_orderdetail_paidvia"
@@ -1052,7 +1055,8 @@
                     android:layout_marginTop="3dp"
                     android:orientation="vertical"
                     android:visibility="visible"
-                    tool:cardElevation="3dp"
+                    tool:cardElevation="4dp"
+                    tool:cardCornerRadius="5dp"
                     tools:ignore="UnusedAttribute">
 
                     <LinearLayout
@@ -1153,10 +1157,10 @@
                         </LinearLayout>
 
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!-- Detail Card View delivery address-->
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tool="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/cv_payment_order_summary_fragment"
@@ -1168,7 +1172,8 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="3dp"
                     android:orientation="vertical"
-                    tool:cardElevation="3dp"
+                    tool:cardElevation="4dp"
+                    tool:cardCornerRadius="5dp"
                     tools:ignore="UnusedAttribute">
 
                     <!-- Billing Address -->
@@ -1263,10 +1268,10 @@
                             android:textSize="@dimen/dimen_12" />
 
                     </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!-- Detail Card View - delivery address -->
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tool="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/cv_delivery_address_order_summary_fragment"
@@ -1279,7 +1284,8 @@
                     android:layout_marginTop="3dp"
                     android:orientation="vertical"
                     android:visibility="gone"
-                    tool:cardElevation="3dp"
+                    tool:cardElevation="4dp"
+                    tool:cardCornerRadius="5dp"
                     tools:ignore="UnusedAttribute">
 
                     <!-- delivery Address -->
@@ -1374,10 +1380,10 @@
                             android:textSize="@dimen/dimen_12" />
 
                     </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!-- shipping address -->
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/cv_shipping_address_summary_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -1388,7 +1394,8 @@
                     android:layout_marginTop="3dp"
                     android:orientation="vertical"
                     android:visibility="gone"
-                    app:cardElevation="3dp"
+                    tools:cardElevation="4dp"
+                    tools:cardCornerRadius="5dp"
                     tools:ignore="UnusedAttribute"
                     tools:visibility="visible">
 
@@ -1484,10 +1491,10 @@
                             android:textSize="@dimen/dimen_12" />
 
                     </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!-- Payment option -->
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tool="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/cv_payment_option_order_summary_fragment"
@@ -1499,7 +1506,8 @@
                     android:layout_marginTop="3dp"
                     android:orientation="vertical"
                     android:visibility="visible"
-                    tool:cardElevation="3dp"
+                    tool:cardElevation="4dp"
+                    tool:cardCornerRadius="5dp"
                     tools:ignore="UnusedAttribute">
 
                     <!--  pay at store -->
@@ -1531,11 +1539,11 @@
                             android:textSize="@dimen/dimen_12" />
 
                     </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
 
                 <!-- delivery oprtion-->
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tool="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/cv_delivery_option_order_summary_fragment"
@@ -1546,7 +1554,8 @@
                     android:layout_marginRight="5dp"
                     android:orientation="vertical"
                     android:visibility="visible"
-                    tool:cardElevation="3dp"
+                    tool:cardElevation="4dp"
+                    tool:cardCornerRadius="5dp"
                     tools:ignore="UnusedAttribute">
 
                     <!-- Delivery option -->
@@ -1575,11 +1584,11 @@
                             android:textSize="@dimen/dimen_12" />
 
                     </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
 
                 <!--notes-->
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tool="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/cv_notes"
@@ -1592,7 +1601,8 @@
                     android:layout_marginTop="5dp"
                     android:orientation="vertical"
                     android:visibility="gone"
-                    tool:cardElevation="3dp"
+                    tool:cardElevation="4dp"
+                    tool:cardCornerRadius="5dp"
                     tools:ignore="UnusedAttribute">
 
                     <!-- note -->
@@ -1624,7 +1634,7 @@
                             android:textSize="@dimen/dimen_12" />
 
                     </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
 <!--                Pickup hours and location -->
 <!--                Edited by varun -->
@@ -1805,6 +1815,6 @@
 
             </RelativeLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </LinearLayout>

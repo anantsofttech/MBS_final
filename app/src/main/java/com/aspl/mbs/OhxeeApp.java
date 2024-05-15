@@ -1,9 +1,8 @@
 package com.aspl.mbs;
 
 import android.content.Context;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
-import android.util.Log;
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 public class OhxeeApp extends MultiDexApplication {
     @Override

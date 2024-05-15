@@ -2,12 +2,11 @@ package com.aspl.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 
 import com.aspl.Utils.NetworkUtil;
 import com.aspl.fragment.PaymentFragment;
-import com.aspl.mbsmodel.LoyaltyInfo;
 import com.aspl.mbsmodel.SignupLoyaltyInfo;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;

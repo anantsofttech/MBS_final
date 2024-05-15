@@ -9,7 +9,7 @@
     <!--<uses-feature android:name="android.hardware.camera" />-->
 
     <uses-sdk
-        android:minSdkVersion="17" />
+        android:minSdkVersion="19" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -91,140 +91,13 @@
         <activity
             android:exported="true"
             android:name="com.aspl.mbs.SplaceScreen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-<!--            <meta-data-->
-<!--                android:name="android.app.shortcuts"-->
-<!--                android:resource="@xml/shortcuts" />-->
-
-            <!--**********************************************-->
-            <!--test server-->
-
-            <!--<intent-filter android:autoVerify="true">-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-
-                <!--<data-->
-                    <!--android:host="ecomtest.lightningpos.com"-->
-                    <!--android:pathPrefix="/"-->
-                    <!--android:scheme="https" />-->
-            <!--</intent-filter>-->
-
-
-            <!--<intent-filter android:autoVerify="true">-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-
-                <!--<data-->
-                    <!--android:host="ecomtest.lightningpos.com"-->
-                    <!--android:pathPrefix="/"-->
-                    <!--android:scheme="http" />-->
-            <!--</intent-filter>-->
-
-            <!--**********************************************-->
-
-            <!--********************new ****************-->
-
-            <!--<intent-filter android:autoVerify="true">-->
-
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-                <!--<data android:scheme="http"-->
-                    <!--android:host="www.beastyfeast.com"-->
-                    <!--android:pathPrefix="/"/>-->
-            <!--</intent-filter>-->
-
-            <!--<intent-filter android:autoVerify="true">-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-                <!--<data android:scheme="https"-->
-                    <!--android:host="www.beastyfeast.com"-->
-                    <!--android:pathPrefix="/"/>-->
-            <!--</intent-filter>-->
-
-            <!--<intent-filter android:autoVerify="true">-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-                <!--<data android:scheme="mbs"-->
-                    <!--android:host="www.beastyfeast.com" />-->
-            <!--</intent-filter>-->
-
-            <!--*******************new end***************************-->
-
-            <!--Secure server-->
-
-            <!--<intent-filter android:autoVerify="true">-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-
-                <!--<data-->
-                    <!--android:host="hello"-->
-                    <!--android:scheme="https" />-->
-            <!--</intent-filter>-->
-
-
-            <!--<intent-filter android:autoVerify="true">-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-
-                <!--<data-->
-                    <!--android:host="hello"-->
-                    <!--android:scheme="http"-->
-                    <!--android:pathPrefix="/"/>-->
-            <!--</intent-filter>-->
-
-
-            <!--<intent-filter android:autoVerify="true">-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-
-                <!--<data-->
-                    <!--android:host="hello"-->
-                    <!--android:scheme="mbs"-->
-                    <!--android:pathPrefix="/"/>-->
-            <!--</intent-filter>-->
-
-            <!--<intent-filter android:autoVerify="true">-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-
-                <!--&lt;!&ndash;<data android:scheme="https" android:host="play.google.com" android:pathPrefix="/store/apps/details?id=com.aspl.mbs.store540"/>&ndash;&gt;-->
-                <!--<data android:scheme="market://" android:host="details?id=com.aspl.mbs.store540/"/>-->
-            <!--</intent-filter>-->
-
-            <!--<data-->
-                <!--android:host="ecomsecure.lightningpos.com"-->
-                <!--android:pathPrefix="/com.aspl.mbs.store540"-->
-                <!--android:scheme="http" />-->
-
-            <!--<intent-filter android:autoVerify="true">-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-
-                <!--<data android:scheme="https" android:host="play.google.com"-->
-                    <!--android:path="/store/apps/details?id=com.aspl.mbs.store540"/>-->
-                <!--&lt;!&ndash;<data android:scheme="https" android:host="launch" android:pathPrefix="/store/apps/details?id=com.aspl.mbs.store540"/>&ndash;&gt;-->
-            <!--</intent-filter>-->
-
-
-            <!--market.android.com/details?id=com.google.earth-->
-            <!--Secure **********************************************-->
 
         </activity>
 
@@ -236,10 +109,6 @@
             android:windowSoftInputMode="adjustPan">
 
         </activity>
-
-        <!--<meta-data-->
-        <!--android:name="com.google.android.gms.version"-->
-        <!--android:value="@integer/google_play_services_version" />-->
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -304,31 +173,6 @@
             android:windowSoftInputMode="adjustPan">
 
         </activity>
-
-        <!--<provider-->
-        <!--android:name="com.facebook.FacebookContentProvider"-->
-        <!--android:authorities="com.facebook.app.FacebookContentProvider${facebook_app_id}"-->
-        <!--android:exported="false" />-->
-        <!--<provider-->
-        <!--android:name="com.facebook.internal.FacebookInitProvider"-->
-        <!--android:authorities="com.aspl.mbs.store707.FacebookInitProvider"-->
-        <!--android:exported="false" />-->
-
-        <!--<provider android:authorities="com.facebook.app.FacebookContentProvider{com.aspl.mbs}"-->
-        <!--android:name="com.facebook.FacebookContentProvider"-->
-        <!--android:exported="false"/>-->
-
-
-        <!--<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>-->
-
-        <!--<provider android:authorities="com.facebook.app.FacebookContentProvider{com.aspl.mbs}"-->
-        <!--android:name="com.facebook.FacebookContentProvider"-->
-        <!--android:exported="true" />-->
-
-        <!--<activity android:name="com.facebook.FacebookActivity"-->
-        <!--android:configChanges=-->
-        <!--"keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->
-        <!--android:label="@string/app_name" />-->
 
     </application>
 

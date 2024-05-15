@@ -3,15 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tool="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_viewAll"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_25sdp"
+        android:layout_height="@dimen/_33sdp"
         android:layout_marginLeft="@dimen/_2sdp"
-        android:layout_marginTop="@dimen/_3sdp"
-        android:layout_marginRight="@dimen/_4sdp"
-        tool:cardElevation="4dp">
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -24,7 +28,8 @@
                 android:layout_height="fill_parent"
                 android:layout_alignParentLeft="true"
                 android:padding="@dimen/_5sdp"
-                android:textSize="@dimen/_10sdp"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"
                 android:text="Our Recommeded"
                 android:textColor="@color/black" />
 
@@ -34,24 +39,25 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:padding="@dimen/_5sdp"
-                android:textSize="@dimen/_10sdp"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"
                 android:text="View All" />
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:orientation="horizontal">
 
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
         <!--Edited by Janvi 19th sep *******************-->
 

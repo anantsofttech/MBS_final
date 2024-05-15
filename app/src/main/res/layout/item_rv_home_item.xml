@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/MainCardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_2sdp"
+    android:layout_margin="@dimen/_3sdp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackgroundBorderless"
     android:orientation="vertical"
-    tool:cardElevation="5dp"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="5dp"
     tools:ignore="NewApi,UnusedAttribute">
 
     <RelativeLayout
-        android:layout_width="@dimen/_130sdp"
+        android:layout_width="@dimen/_150sdp"
         android:layout_height="wrap_content"
         android:id="@+id/rl_wishlist"
         android:visibility="visible">
@@ -43,14 +45,14 @@
 
 
     <LinearLayout
-        android:layout_width="@dimen/_130sdp"
+        android:layout_width="@dimen/_150sdp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
+            android:layout_width="@dimen/_115sdp"
+            android:layout_height="@dimen/_115sdp"
             android:layout_gravity="center"
             android:layout_marginRight="@dimen/_5sdp"
             android:gravity="center"
@@ -185,7 +187,7 @@
             android:padding="@dimen/_2sdp"
             android:text=""
             android:textColor="@color/green"
-            android:textSize="@dimen/dimen_10"
+            android:textSize="@dimen/dimen_11"
             android:textStyle="bold" />
 
         <TextView
@@ -199,7 +201,7 @@
             android:padding="@dimen/_3sdp"
             android:text="test"
             android:textColor="@color/black"
-            android:textSize="@dimen/dimen_10" />
+            android:textSize="@dimen/dimen_12" />
 
         <LinearLayout
             android:id="@+id/ll_home_price"
@@ -215,7 +217,7 @@
                 android:paddingBottom="@dimen/_5sdp"
                 android:text="$15"
                 android:textColor="@color/black"
-                android:textSize="@dimen/dimen_10"
+                android:textSize="@dimen/dimen_12"
                 android:textStyle="bold" />
 
             <TextView
@@ -227,7 +229,7 @@
                 android:paddingBottom="@dimen/_5sdp"
                 android:text=""
                 android:textColor="@color/black"
-                android:textSize="@dimen/dimen_10"
+                android:textSize="@dimen/dimen_12"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -243,7 +245,7 @@
             android:padding="@dimen/_2sdp"
             android:text="Out of stock"
             android:textColor="@color/wallet_holo_blue_light"
-            android:textSize="@dimen/dimen_10"
+            android:textSize="@dimen/dimen_12"
             android:textStyle="italic|bold" />
 
         <LinearLayout
@@ -253,6 +255,7 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_marginStart="@dimen/_3sdp"
             android:layout_marginLeft="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginBottom="@dimen/_3sdp">
 
             <TextView
@@ -276,6 +279,7 @@
             android:layout_marginStart="@dimen/_3sdp"
             android:layout_marginLeft="@dimen/_3sdp"
             android:layout_marginBottom="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_3sdp"
             android:clickable="true"
             android:orientation="horizontal">
 
@@ -299,14 +303,14 @@
                 <!--android:src="@drawable/minus" />-->
                 <RelativeLayout
                     android:id="@+id/llMinus"
-                    android:layout_width="@dimen/dimen_20"
-                    android:layout_height="@dimen/dimen_25"
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_30"
                     android:clickable="true">
 
                     <ImageView
                         android:id="@+id/img_minus"
-                        android:layout_width="@dimen/dimen_12"
-                        android:layout_height="@dimen/dimen_12"
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/_23sdp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/_2sdp"
@@ -318,7 +322,7 @@
 
                 <TextView
                     android:id="@+id/tv_item_quantity"
-                    android:layout_width="@dimen/dimen_20"
+                    android:layout_width="@dimen/dimen_25"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/_2sdp"
@@ -327,7 +331,7 @@
                     android:maxLength="3"
                     android:text="1"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10sdp"
+                    android:textSize="@dimen/_13sdp"
                     android:textStyle="bold" />
 
                 <!--<RelativeLayout-->
@@ -347,14 +351,14 @@
 
                 <RelativeLayout
                     android:id="@+id/llplus"
-                    android:layout_width="@dimen/dimen_20"
-                    android:layout_height="@dimen/dimen_25"
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_30"
                     android:clickable="true">
 
                     <ImageView
                         android:id="@+id/img_plus"
-                        android:layout_width="@dimen/dimen_12"
-                        android:layout_height="@dimen/dimen_12"
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/_23sdp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:layout_margin="@dimen/_2sdp"
@@ -365,8 +369,8 @@
 
             <LinearLayout
                 android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:padding="@dimen/_6sdp">
+                android:layout_height="match_parent"
+                android:padding="@dimen/_5sdp">
 
                 <ImageView
                     android:id="@+id/ivAddtoCart"
@@ -385,4 +389,4 @@
 
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

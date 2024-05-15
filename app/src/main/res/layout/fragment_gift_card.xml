@@ -5,15 +5,15 @@
     android:id="@+id/llMainLayout"
     tools:context="com.aspl.fragment.GiftCardFragment">
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tool="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_12sdp"
         android:orientation="vertical"
-        tool:cardCornerRadius="@dimen/_3sdp"
-        tool:cardElevation="3dp"
+        tool:cardCornerRadius="@dimen/_5sdp"
+        tool:cardElevation="4dp"
         tools:ignore="UnusedAttribute">
 
         <LinearLayout
@@ -38,7 +38,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="Balance Check"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_14sdp"
                 android:textStyle="bold" />
 
             <EditText
@@ -46,12 +46,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/lightgrey_border"
-                android:textSize="@dimen/_11sdp"
+                android:textSize="@dimen/_13sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:padding="@dimen/_5sdp"
+                android:maxLength="16"
                 android:inputType="number" />
 
 
@@ -62,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_14sdp"
                 android:text="Gift Card Balance" />
 
 
@@ -83,6 +84,6 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

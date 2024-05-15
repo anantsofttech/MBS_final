@@ -25,12 +25,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.SpannableString;
@@ -972,7 +972,7 @@ public class Utils{
         if (orderSummaryTemp.getOrderStatus().equalsIgnoreCase("open")){
             tvDeliveryVal.setText("Will be shipped");
         }else if (orderSummaryTemp.getOrderStatus().equalsIgnoreCase("completed")){
-            tvDeliveryVal.setText("Shpped");
+            tvDeliveryVal.setText("Shipped");
         }
 
 //        ************************  END  ********************
@@ -2704,6 +2704,21 @@ public class Utils{
             // Vibrate for the predefined duration
             vibrator.vibrate(500);
         }
+    }
+
+    public static int darkenColor(int color, float factor) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[2] *= factor; // decrease brightness
+        return Color.HSVToColor(hsv);
+    }
+
+    // Method to lighten a color by a given factor
+    public static int lightenColor(int color, float factor) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[2] += (1 - hsv[2]) * factor; // increase brightness
+        return Color.HSVToColor(hsv);
     }
 
 }

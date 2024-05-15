@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_3sdp"
         android:layout_marginLeft="@dimen/_4sdp"
         android:layout_marginRight="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_2sdp">
+        android:layout_marginTop="@dimen/_3sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        android:elevation="4dp">
 
         <LinearLayout
             android:layout_marginBottom="@dimen/_6sdp"
@@ -35,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:text="Status:"
                 android:textStyle="bold"
-                android:textSize="@dimen/_9sdp"/>
+                android:textSize="@dimen/_11sdp"/>
 
             <TextView
                 android:textColor="@color/black"
@@ -44,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="Open"
-                android:textSize="@dimen/_9sdp"/>
+                android:textSize="@dimen/_11sdp"/>
 
         </LinearLayout>
 
@@ -62,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="Date:"
                 android:textStyle="bold"
-                android:textSize="@dimen/_9sdp"/>
+                android:textSize="@dimen/_11sdp"/>
 
             <TextView
                 android:textColor="@color/black"
@@ -71,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="date"
-                android:textSize="@dimen/_9sdp"/>
+                android:textSize="@dimen/_11sdp"/>
 
         </LinearLayout>
 
@@ -89,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textStyle="bold"
-                    android:textSize="@dimen/_9sdp"/>
+                    android:textSize="@dimen/_11sdp"/>
 
                 <TextView
                     android:textColor="@color/black"
@@ -98,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text=""
-                    android:textSize="@dimen/_9sdp"/>
+                    android:textSize="@dimen/_11sdp"/>
 
             </LinearLayout>
 
@@ -116,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:text="Amount:"
                     android:textStyle="bold"
-                    android:textSize="@dimen/_9sdp"/>
+                    android:textSize="@dimen/_11sdp"/>
 
                 <TextView
                     android:textColor="@color/black"
@@ -125,7 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="$11.23"
-                    android:textSize="@dimen/_9sdp"/>
+                    android:textSize="@dimen/_11sdp"/>
 
             </LinearLayout>
 
@@ -145,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:text="Status:"
                     android:textStyle="bold"
-                    android:textSize="@dimen/_9sdp"/>
+                    android:textSize="@dimen/_11sdp"/>
 
                 <TextView
                     android:textColor="@color/black"
@@ -154,13 +157,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text=""
-                    android:textSize="@dimen/_9sdp"/>
+                    android:textSize="@dimen/_11sdp"/>
 
             </LinearLayout>
 
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

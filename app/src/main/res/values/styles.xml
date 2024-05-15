@@ -17,6 +17,7 @@
         <!--<item name="android:popupMenuStyle">@style/MyApp.PopupMenu</item>-->
         <item name="android:itemBackground">@color/primary</item>
         <item name="cardViewStyle">@style/CardView</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="MyApp.PopupMenu" parent="android:Widget.Holo.Light.ListPopupWindow">

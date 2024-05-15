@@ -118,7 +118,8 @@ public class Async_getCommonService extends AsyncTask<String, Void, Void> implem
                 try {
                     JSONObject themObj = new JSONObject(response);
                     Constant.themeModel = new ThemeModel(themObj);
-                    SplaceScreen.getInstance().setTheme();
+//                    Edited by Varun For Speed -up
+//                    SplaceScreen.getInstance().setTheme();
                 } catch (JSONException e) {
                     e.printStackTrace();
 
@@ -127,29 +128,27 @@ public class Async_getCommonService extends AsyncTask<String, Void, Void> implem
                     }
                 }
 
-                String OtherUrl1 = Constant.WS_BASE_URL + Constant.GETPAGES_STATUS + Constant.STOREID;
-                Log.d("URl", "otherUrl::" + OtherUrl1);
-                new Async_getCommonService(mContext, OtherUrl1).execute();
 
-                String Url = Constant.WS_BASE_URL + Constant.GETPAGES_DETAIL_BLOG + Constant.STOREID;
-                new Async_getCommonService(mContext, Url).execute();
+//                Edited by Varun For Speed -up
 
                 String Url1 = Constant.WS_BASE_URL + Constant.GET_INVENTORYBLOCK_DATAFORFRONT + Constant.STOREID;
                 TaskBlockDataFront taskBlockDataFront = new TaskBlockDataFront(this);
-                taskBlockDataFront.execute(Url1);
+//                taskBlockDataFront.execute(Url1);
+                taskBlockDataFront.executeOnExecutor(TaskBlockDataFront.THREAD_POOL_EXECUTOR, Url1);
 
-//                 Testing for Blocks
-
-//                 String Urltest = Constant.WS_BASE_URL + Constant.GET_HOME_PAGE_BLOCK_DATA + Constant.STOREID;
-//                    TaskHomePageBlockData taskHomePageBlockData = new TaskHomePageBlockData(this);
-//                    taskHomePageBlockData.execute(Urltest);
-
+//                String OtherUrl1 = Constant.WS_BASE_URL + Constant.GETPAGES_STATUS + Constant.STOREID;
+//                Log.d("URl", "otherUrl::" + OtherUrl1);
+//                new Async_getCommonService(mContext, OtherUrl1).execute();
+//
+//                String Url = Constant.WS_BASE_URL + Constant.GETPAGES_DETAIL_BLOG + Constant.STOREID;
+//                new Async_getCommonService(mContext, Url).execute();
+//
+//                String Url1 = Constant.WS_BASE_URL + Constant.GET_INVENTORYBLOCK_DATAFORFRONT + Constant.STOREID;
 //                TaskBlockDataFront taskBlockDataFront = new TaskBlockDataFront(this);
 //                taskBlockDataFront.execute(Url1);
 
-//                 END
+//                END
 
-//            } else if (strURL.contains(Constant.GETPAGES)) {
             }
             else if (strURL.contains(Constant.GETPAGES_FOR_ANDROID))
                 try {
@@ -213,52 +212,10 @@ public class Async_getCommonService extends AsyncTask<String, Void, Void> implem
                     }
                 }
 
-//                    SplaceScreen.getInstance().gotoDeshboard();
-                    SplaceScreen.getInstance().callcontactinfo();
+//                    Edited by Varun For Speed -up
+//                    SplaceScreen.getInstance().callcontactinfo();
+//                    SplaceScreen.getInstance().UpdateApp();
 
-                        /*MbsDataModel mbs = new MbsDataModel(new JSONObject());
-                        mbs.ID = "Share App";
-                        mbs.PageName = "Share App";
-                        mbs.PageTitle = "Share App";
-                        mbs.PageContent = "Share App";
-                        mbs.status = false;
-                        mbs.position = Constant.FooterList.size() + 1;
-                        Constant.FooterList.add(mbs);
-
-                        MbsDataModel mbs1 = new MbsDataModel(new JSONObject());
-                        mbs1.ID = "Rate App";
-                        mbs1.PageName = "Rate App";
-                        mbs1.PageTitle = "Rate App";
-                        mbs1.PageContent = "Rate App";
-                        mbs1.status = true;
-                        mbs1.position = Constant.FooterList.size() + 1;
-                        Constant.FooterList.add(mbs1);*/
-
-                //                    if (Constant.URL.contains("192.168.172.211")) {
-                //                        MbsDataModel mbs2 = new MbsDataModel(new JSONObject());
-                //                        mbs2.ID = "Home test";
-                //                        mbs2.PageName = "Home test";
-                //                        mbs2.PageTitle = "Home test";
-                //                        mbs2.PageContent = "Home test";
-                //                        mbs2.status = false;
-                //                        mbs2.position = Constant.FooterList.size() + 1;
-                //                        //  Constant.FooterList.add(mbs2);
-                //                    }
-
-                //                    if (Constant.FooterList.size() > 0) {
-                //Constant.FooterList.get(0).PageName
-                //Constant.LHSLIDER_LIST.put("About", Constant.FooterList);
-                            /*for (int i = 0; i < Constant.FooterList.size(); i++) {
-                                Constant.LHSLIDER_LIST.put(Constant.FooterList.get(i).PageName, new ArrayList<MbsDataModel>());
-                            }*/
-                           /* FooterAdapter footerAdapter = new FooterAdapter(mContext, Constant.FooterList);
-                            MainActivity.getInstance().bottom_list.setAdapter(footerAdapter);*/
-                //                    }
-
-
-                //if (Constant.SCREEN_LAYOUT == 2) {
-                //                        //http://192.168.172.211:889/WebStoreRestService.svc/GetPageDetail/blog/707
-                // }
             } catch (JSONException e) {
                 e.printStackTrace();
                 if (mContext != null) {
@@ -276,9 +233,7 @@ public class Async_getCommonService extends AsyncTask<String, Void, Void> implem
                         MbsDataModel mbsDataModel = new MbsDataModel(footerArr.getJSONObject(i));
 
                         if (mbsDataModel.status) {
-//                            if (i != 0) {
                             Constant.Otherlist.add(mbsDataModel);
-//                            }
                         }
                     }
 
@@ -314,10 +269,6 @@ public class Async_getCommonService extends AsyncTask<String, Void, Void> implem
                         while (keys.hasNext()) {
                             String key = (String) keys.next();
                             MbsDataModel mbs3 = new MbsDataModel();
-//
-//                            mbs3.PageTitle = "DisplayEventCalender";
-//                            mbs3.PageContent = "DisplayEventCalender";
-//                            mbs3.status = dataObject.getBoolean("DisplayEventCalender");
 
                             if (key.equalsIgnoreCase("ShowEventCalender")) {
                                 mbs3.ID = "1";
@@ -339,11 +290,6 @@ public class Async_getCommonService extends AsyncTask<String, Void, Void> implem
                                     }
                                     mbs3.PageTitle = "DisplayStoreHours";
                                     mbs3.PageContent = "DisplayStoreHours";
-//                                    mbs3.status = dataObject.getBoolean("DisplayStoreHours");
-//                                    mbs3.position = Constant.TopHeaderMenuList.size() + 1;
-
-//                                        mbs3.PageTitle = "Status";
-//                                        mbs3.PageContent = "Status";
                                     mbs3.status = dataObject.getBoolean("Status");
                                     mbs3.position = Constant.TopHeaderMenuList.size() + 1;
 //
@@ -362,43 +308,11 @@ public class Async_getCommonService extends AsyncTask<String, Void, Void> implem
                 }
 //                String Url = Constant.WS_BASE_URL + Constant.GETPAGES + Constant.STOREID;
 
-                String Url = Constant.WS_BASE_URL + Constant.GETPAGES_FOR_ANDROID + Constant.STOREID;
-                Log.e("pages", "pages::" + Url);
-                new Async_getCommonService(mContext, Url).execute();
+
                 if (Constant.SCREEN_LAYOUT == 2) {
                     MainActivityDup.getInstance().onSetDrawerMenu();
                 }
             }
-//            else if (strURL.contains(Constant.GETDEPARTMENT)) {
-//                try {
-//                    JSONArray DepartmentArr = new JSONArray(response);
-//                        Constant.DepartmentList = new ArrayList<>();
-//                        for (int i = 0; i < DepartmentArr.length(); i++) {
-//                        JSONObject deptObj = DepartmentArr.getJSONObject(i);
-//                        DepartmentModel model = new DepartmentModel(deptObj);
-//                        Constant.DepartmentList.add(model);
-//
-////                        String Url = Constant.WS_BASE_URL + Constant.GET_STYLE + Constant.STOREID + "/" + model.dept_id;
-////                        new Async_SubDept(mContext, Url, model, i).execute();
-//                    }
-//
-//
-////                    String Url = Constant.WS_BASE_URL + Constant.GET_STYLE_DEPARTMENT_LIST + Constant.STOREID ;
-////                    new Async_getSubDept(mContext, Url).execute();
-//
-//                    /*if (MainActivity.getInstance().isActiveSearchDept) {
-//                        MainActivity.getInstance().displayDepartmentList();
-//                    } else {
-//                        FilterFragment.getInstance().dept_expList.setAdapter(new ExpandDeptAdapter(mContext, Constant.DepartmentList));
-//                    }*/
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                    if(mContext != null){
-//                        Toast.makeText(mContext, "Something went wrong..", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//            }
             else if (strURL.contains(Constant.GET_STYLE_DEPARTMENT_LIST)) {
                 try {
 
@@ -472,7 +386,7 @@ public class Async_getCommonService extends AsyncTask<String, Void, Void> implem
                                         CardFragment.getInstance().shoppinCartDetais();
                                     }
                                 } else {
-                                    MainActivity.getInstance().loadHomeWebPage();
+                                    MainActivity.getInstance().CallHomeFragment();
                                     MainActivity.moveSessionToCart();
 ////                                    ***************** Edited by Varun for wishlist on 29 july 2022  *****************
 ////                                    not to refresh when login
@@ -509,7 +423,7 @@ public class Async_getCommonService extends AsyncTask<String, Void, Void> implem
                                     .putString("password", sp[sp.length - 2]).apply();
                             if (Constant.SCREEN_LAYOUT == 1) {
                                 //MainActivity.getInstance().loadHomeWebPage();
-                                MainActivity.onGetCartData(/*UM*/"");
+//                                MainActivity.onGetCartData(/*UM*/"");
                             } else if (Constant.SCREEN_LAYOUT == 2) {
                                 //MainActivityDup.getInstance().loadHomeWebPage();
                                 MainActivityDup.onGetCartData(/*UM*/);

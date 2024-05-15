@@ -4,12 +4,12 @@ package com.aspl.fragment;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -460,7 +460,8 @@ public class ViewAllFragment extends Fragment implements
 
                     Log.e("","filterurl"+Url);
                     TaskViewAll taskViewAll = new TaskViewAll(this,getActivity(),type);
-                    taskViewAll.execute(Url);
+//                    taskViewAll.execute(Url);
+                    taskViewAll.executeOnExecutor(TaskViewAll.THREAD_POOL_EXECUTOR,Url);
 
 
 
@@ -518,7 +519,8 @@ public class ViewAllFragment extends Fragment implements
                         + "/" + MainActivityDup.specialOfferGroup + "/" + priceRangeInt + "/" + count + "/" + "12" + "/" + type + "/" + MainActivityDup.shortCall + "/" + MainActivityDup.shortDept + "/" + MainActivityDup.valueOne + "/" + MainActivityDup.valueTwo + "/" + MainActivityDup.onlyImage;
 //                + "/" +"0" ;
                 TaskViewAll taskViewAll = new TaskViewAll(this,getActivity(),type);
-                taskViewAll.execute(Url);
+//                taskViewAll.execute(Url);
+                taskViewAll.executeOnExecutor(TaskViewAll.THREAD_POOL_EXECUTOR,Url);
 
             }
 
@@ -535,7 +537,8 @@ public class ViewAllFragment extends Fragment implements
 
                     Log.e("", "filterurl" + Url);
                     TaskViewAll taskViewAll = new TaskViewAll(this, getActivity(), type);
-                    taskViewAll.execute(Url);
+                    taskViewAll.executeOnExecutor(TaskViewAll.THREAD_POOL_EXECUTOR,Url);
+//                    taskViewAll.execute(Url);
 
                     MainActivity.iscomfromSort = false;
 
@@ -549,7 +552,8 @@ public class ViewAllFragment extends Fragment implements
 
                     Log.e("", "filterurl" + Url);
                     TaskViewAll taskViewAll = new TaskViewAll(this, getActivity(), type);
-                    taskViewAll.execute(Url);
+                    taskViewAll.executeOnExecutor(TaskViewAll.THREAD_POOL_EXECUTOR,Url);
+//                    taskViewAll.execute(Url);
 
                     MainActivityDup.iscomfromSort = false;
 
@@ -563,7 +567,8 @@ public class ViewAllFragment extends Fragment implements
                     + "/" + blockdisountGroup + "/" + "0;0" + "/" + count + "/" + "12" + "/" + type + "/" + shortCall + "/" + shortDept + "/" + blockStratprice + "/" + blockEndprice + "/" + "0";
 //                + "/" +"0" ;
             TaskViewAll taskViewAll = new TaskViewAll(this,getActivity(),type);
-            taskViewAll.execute(Url);
+            taskViewAll.executeOnExecutor(TaskViewAll.THREAD_POOL_EXECUTOR,Url);
+//            taskViewAll.execute(Url);
         }
 
     }
@@ -760,7 +765,8 @@ public class ViewAllFragment extends Fragment implements
                         "/" + Constant.STOREID + "/" + "0" + "/" + "Updatemoreincart" + "/" + Constant.invType;
 
                 TaskUpdatetoCart taskUpdatetoCart = new TaskUpdatetoCart(this);
-                taskUpdatetoCart.execute(cartWSurl);
+                taskUpdatetoCart.executeOnExecutor(TaskUpdatetoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                taskUpdatetoCart.execute(cartWSurl);
             } else {
 
                 String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + noteCartId + "/" + "Cart" + "/" + "0" +
@@ -769,7 +775,8 @@ public class ViewAllFragment extends Fragment implements
 
 
                 TaskUpdatetoCart taskUpdatetoCart = new TaskUpdatetoCart(this);
-                taskUpdatetoCart.execute(cartWSurl);
+                taskUpdatetoCart.executeOnExecutor(TaskUpdatetoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                taskUpdatetoCart.execute(cartWSurl);
             }
         }
     }
@@ -791,13 +798,15 @@ public class ViewAllFragment extends Fragment implements
 //            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID;
             url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
             TaskCart taskCart = new TaskCart(this, "");
-            taskCart.execute(url);
+            taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
+//            taskCart.execute(url);
         } else {
             if (isAdded()) {
 //                url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + Constant.SESSION + Constant.STOREID;
                 url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + Constant.SESSION + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
                 TaskCart taskCart = new TaskCart(this, "");
-                taskCart.execute(url);
+                taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
+//                taskCart.execute(url);
             }
         }
 
@@ -932,14 +941,16 @@ public class ViewAllFragment extends Fragment implements
                         "/" + Constant.STOREID + "/" + "0" + "/" + "add" + "/" + Constant.invType;
 
                 TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
-                taskAddToCart.execute(cartWSurl);
+                taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                taskAddToCart.execute(cartWSurl);
             } else {
                 String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + "0" + "/" + "Cart" + "/" + "0" +
                         "/" + sku + "/" + resquantity +
                         "/" + Constant.STOREID + "/" + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + "add" + "/" + Constant.invType;;
 
                 TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
-                taskAddToCart.execute(cartWSurl);
+                taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                taskAddToCart.execute(cartWSurl);
             }
 
         }
@@ -1005,14 +1016,16 @@ public class ViewAllFragment extends Fragment implements
                     + "/" + "0" + "/" + "0;0" + "/" + count + "/" + "12" + "/" + "allitems" + "/" + "Price" + "/" + "Asc" + "/" + "0" + "/" + "0"
                     + "/" + "0" + "/" + searchText ;
             TaskViewAll taskViewAll = new TaskViewAll(this,getActivity(),type);
-            taskViewAll.execute(Url);
+            taskViewAll.executeOnExecutor(TaskViewAll.THREAD_POOL_EXECUTOR,Url);
+//            taskViewAll.execute(Url);
         }else{
 //            String Url = Constant.WS_BASE_URL + Constant.GET_INVENTORY_BY_FILTER + "/" +  Constant.STOREID + "/" + "0" + "/" + "0" + "/" + "0"
             String Url = Constant.WS_BASE_URL + Constant.GET_INVENTORY_BY_FILTER_NEW + "/" +  Constant.STOREID + "/" + "0" + "/" + "0" + "/" + "0"
                     + "/" + "0" + "/" + "0;0" + "/" + count + "/" + "12" + "/" + "allitems" + "/" + "Price" + "/" + "Asc" + "/" + "0" + "/" + "0"
                     + "/" + "0" + "/" + "0" ;
             TaskViewAll taskViewAll = new TaskViewAll(this,getActivity(),type);
-            taskViewAll.execute(Url);
+            taskViewAll.executeOnExecutor(TaskViewAll.THREAD_POOL_EXECUTOR,Url);
+//            taskViewAll.execute(Url);
         }
 
 //        storeno + "/" + deptid + "/" + styleid + "/" + sizeid + "/" +
@@ -1032,7 +1045,8 @@ public class ViewAllFragment extends Fragment implements
 
                 Log.e("", "filterurl" + Url);
                 TaskViewAll taskViewAll = new TaskViewAll(this, getActivity(), type);
-                taskViewAll.execute(Url);
+                taskViewAll.executeOnExecutor(TaskViewAll.THREAD_POOL_EXECUTOR,Url);
+//                taskViewAll.execute(Url);
 
         }else if (Constant.SCREEN_LAYOUT == 2) {
 
@@ -1042,7 +1056,8 @@ public class ViewAllFragment extends Fragment implements
 
                 Log.e("", "filterurl" + Url);
                 TaskViewAll taskViewAll = new TaskViewAll(this, getActivity(), type);
-                taskViewAll.execute(Url);
+                taskViewAll.executeOnExecutor(TaskViewAll.THREAD_POOL_EXECUTOR,Url);
+//                taskViewAll.execute(Url);
 
             }
 
@@ -1070,7 +1085,8 @@ public class ViewAllFragment extends Fragment implements
                         "/" + Constant.STOREID + "/" + "0" + "/" + "add" + "/" + Constant.invType;
 
                 TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
-                taskAddToCart.execute(cartWSurl);
+                taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                taskAddToCart.execute(cartWSurl);
             } else {
 
                 String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + "0" + "/" + "Cart" + "/" + "0" +
@@ -1078,7 +1094,8 @@ public class ViewAllFragment extends Fragment implements
                         "/" + Constant.STOREID + "/" + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + "add" + "/" + Constant.invType;;
 
                 TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
-                taskAddToCart.execute(cartWSurl);
+                taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                taskAddToCart.execute(cartWSurl);
             }
 
         }

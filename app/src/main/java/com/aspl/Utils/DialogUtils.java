@@ -12,11 +12,11 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.text.HtmlCompat;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.core.text.HtmlCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.Html;
 import android.text.SpannableString;
@@ -2220,7 +2220,7 @@ public class DialogUtils {
         String comment = "";
 //        String months[] = {"3 Months","6 Months","12 Months","All"};
         StartReturndialog.setContentView(R.layout.start_return_dialog);
-        Objects.requireNonNull(StartReturndialog.getWindow()).setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        Objects.requireNonNull(StartReturndialog.getWindow()).setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         LinearLayout llstartreturn_title = (LinearLayout) StartReturndialog.findViewById(R.id.llstartreturn_title);
         llstartreturn_title.setBackgroundColor(Color.parseColor(Constant.themeModel.ThemeColor));
@@ -3600,8 +3600,9 @@ public class DialogUtils {
         txt_delete_account_tittle.setGravity(Gravity.CENTER);
 
         txt_delete_account_msg.setText("We respect your decision to delete your online account.  \n" + "\n" +
-                "Data such as:  Name, address, contact details and credit card number (if appliciable) will be deleted from your e-commerce account.\n"+"\n" +
-                "NOTE:  The data at the "+UserModel.FirstName.trim()+","+UserModel.LastName.trim()+" retail location will not be deleted.");
+                "Data such as:  Name, address, contact details and credit card number (if applicable) will be deleted from your e-commerce account.\n"+"\n" +
+//                "NOTE:  The data at the "+UserModel.FirstName.trim()+","+UserModel.LastName.trim()+" retail location will not be deleted.");
+                "NOTE:  The data at the "+ themeModel.StoreName +" retail location will not be deleted.");
 
 
         Button btnOK = (Button) view.findViewById(R.id.btnOK);

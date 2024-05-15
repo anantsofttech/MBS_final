@@ -2,38 +2,30 @@ package com.aspl.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.util.Log;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aspl.Adapter.ExpandDeptAdapter;
-import com.aspl.Adapter.GridviewSubDeptAdapter;
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.Utils;
 import com.aspl.mbs.MainActivity;
 import com.aspl.mbs.MainActivityDup;
 import com.aspl.mbs.R;
 import com.aspl.mbsmodel.FilterInfoModel;
-import com.aspl.mbsmodel.JackDepartmentModel;
 import com.aspl.task.TaskDepartmentList;
-import com.aspl.task.TaskDepartments;
 import com.aspl.task.TaskFilterInfo;
-import com.aspl.ws.Async_Dept;
 import com.aspl.ws.Async_getCommonService;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**

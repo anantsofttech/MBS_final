@@ -17,6 +17,7 @@ import com.aspl.mbsmodel.FilterModel;
 import com.aspl.mbsmodel.HomeItemModel;
 import com.aspl.mbsmodel.InstorePurchaseDetailModel;
 import com.aspl.mbsmodel.ItemDescModel;
+import com.aspl.mbsmodel.JackDepartmentModel;
 import com.aspl.mbsmodel.MbsDataModel;
 import com.aspl.mbsmodel.NotificationModel;
 
@@ -378,6 +379,7 @@ public class Constant {
     public static ContatInfo contatInfo = new ContatInfo();
     /* public static ArrayList<FooterModel> FooterList=new ArrayList<>();*/
     public static ArrayList<DepartmentModel> DepartmentList = new ArrayList<>();
+    public static List<JackDepartmentModel> DepartmentList1;
     public static ArrayList<SubDepartmentModel> SubDepartmentList = new ArrayList<>();
     public static ArrayList<CardModel> cardArray = new ArrayList<>();
     public static List<StoreHour> liStoreHour = new ArrayList<>();
@@ -501,6 +503,7 @@ public class Constant {
     public static String TOKEN_ID = "Shapath2_706$@$";
     public static Float _lPoints = 0.0f;
     public static boolean filter_click = false;
+    public static boolean IsComeFromSplash = false;
 
     @SuppressLint("NewApi")
     static byte[] data = Constant.TOKEN_ID.getBytes(StandardCharsets.UTF_8);

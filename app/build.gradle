@@ -1,33 +1,17 @@
 apply plugin: 'com.android.application'
 android {
     signingConfigs {
-//        config {
-//            keyAlias 'boxsalt'
-//            keyPassword 'boxsaltapp123'
-//            storeFile file('E:/Janvi/Android Workspace/MBS/MBS 2_current/boxsalt327keystore.jks')
-//            storePassword 'boxsaltapp123'
-//        }
-
-        //need to uncomment above config when release on playstore and signingConfig signingConfigs.config - this line also in every places of this page
     }
-
-//    configurations.matching { it.name == '_internal_aapt2_binary' }.all { config ->
-//        config.resolutionStrategy.eachDependency { details ->
-//            details.useVersion("3.3.2-5309881")
-//        }
-//    }
-
-    compileSdkVersion 33
+    compileSdkVersion 34
     buildToolsVersion '28.0.3'
 //    buildToolsVersion '29.0.2'
     defaultConfig {
         applicationId "com.aspl.mbs"
-        minSdkVersion 17
-        targetSdkVersion 33
-        versionCode 15
-        versionName '1.15'
+        minSdkVersion 19
+        targetSdkVersion 34
+        versionCode 24
+        versionName '1.24'
         multiDexEnabled true
-//        signingConfig signingConfigs.config
     }
     dexOptions {
         javaMaxHeapSize "4g"
@@ -49,19 +33,13 @@ android {
     }
     buildTypes {
         release {
-//            shrinkResources true
-//            minifyEnabled true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
             buildConfigField "java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)"
             debuggable false
         }
         debug {
             buildConfigField "java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)"
-//            applicationIdSuffix ".debug"
-//            signingConfig signingConfigs.config
             minifyEnabled false
         }
         jnidebug {
@@ -77,8 +55,8 @@ android {
     flavorDimensions "store"
     productFlavors {
         store707 {
-            minSdkVersion 17
-            targetSdkVersion 33
+            minSdkVersion 19
+            targetSdkVersion 34
             versionCode 1
             versionName '1.0'
             dimension "store"
@@ -92,8 +70,8 @@ android {
             ]
         }
         store1000 {
-            minSdkVersion 17
-            targetSdkVersion 33
+            minSdkVersion 19
+            targetSdkVersion 34
             versionCode 1
             versionName '1.0'
             dimension "store"
@@ -106,10 +84,10 @@ android {
             ]
         }
         store327 {
-            minSdkVersion 17
-            targetSdkVersion 33
-            versionCode 16
-            versionName '1.16'
+            minSdkVersion 19
+            targetSdkVersion 34
+            versionCode 17
+            versionName '1.17'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store327"
@@ -120,11 +98,11 @@ android {
                     appIcon: "@drawable/ic_launcher"
             ]
 //            signingConfig signingConfigs.config
-            testInstrumentationRunner 'android.support.test.runner.AndroidJUnItRunner'
+            testInstrumentationRunner 'androidx.test.runner.AndroidJUnItRunner'
         }
         store315 {
-            minSdkVersion 17
-            targetSdkVersion 33
+            minSdkVersion 19
+            targetSdkVersion 34
             versionCode 7
             versionName '1.7'
             dimension "store"
@@ -137,10 +115,10 @@ android {
             ]
         }
         store57 {
-            minSdkVersion 17
-            targetSdkVersion 33
-            versionCode 21
-            versionName '1.21'
+            minSdkVersion 19
+            targetSdkVersion 34
+            versionCode 24
+            versionName '1.24'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store57" //Editde by Janvi *******
@@ -151,8 +129,8 @@ android {
             ]
         }
         store44 {
-            minSdkVersion 17
-            targetSdkVersion 33
+            minSdkVersion 19
+            targetSdkVersion 34
             versionCode 1
             versionName '1.0'
             dimension "store"
@@ -165,8 +143,8 @@ android {
             ]
         }
         store99 {
-            minSdkVersion 17
-            targetSdkVersion 33
+            minSdkVersion 19
+            targetSdkVersion 34
             versionCode 1
             versionName '1.0'
             dimension "store"
@@ -179,8 +157,8 @@ android {
             ]
         }
         store7365 {
-            minSdkVersion 17
-            targetSdkVersion 33
+            minSdkVersion 19
+            targetSdkVersion 34
             versionCode 1
             versionName '1.0'
             dimension "store"
@@ -193,8 +171,8 @@ android {
             ]
         }
         store105 {
-            minSdkVersion 17
-            targetSdkVersion 33
+            minSdkVersion 19
+            targetSdkVersion 34
             versionCode 1
             versionName '1.0'
             dimension "store"
@@ -208,8 +186,8 @@ android {
             ]
         }
         store90 {
-            minSdkVersion 17
-            targetSdkVersion 33
+            minSdkVersion 19
+            targetSdkVersion 34
             versionCode 12
             versionName '1.12'
             dimension "store"
@@ -223,10 +201,10 @@ android {
         }
 
         store3824 {
-            minSdkVersion 17
-            targetSdkVersion 33
-            versionCode 15
-            versionName '1.15'
+            minSdkVersion 19
+            targetSdkVersion 34
+            versionCode 16
+            versionName '1.16'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store3824"
@@ -238,10 +216,10 @@ android {
         }
 
         store96 {
-            minSdkVersion 17
-            targetSdkVersion 33
-            versionCode 10
-            versionName '1.10'
+            minSdkVersion 19
+            targetSdkVersion 34
+            versionCode 11
+            versionName '1.11'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store96"
@@ -254,10 +232,10 @@ android {
 
 
         store540 {
-            minSdkVersion 17
-            targetSdkVersion 33
-            versionCode 11
-            versionName '1.11'
+            minSdkVersion 19
+            targetSdkVersion 34
+            versionCode 12
+            versionName '1.12'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store540"
@@ -269,8 +247,8 @@ android {
         }
 
         store104 {
-            minSdkVersion 17
-            targetSdkVersion 33
+            minSdkVersion 19
+            targetSdkVersion 34
             versionCode 1
             versionName '1.0'
             dimension "store"
@@ -284,10 +262,10 @@ android {
         }
 
         store1802 {
-            minSdkVersion 17
-            targetSdkVersion 33
-            versionCode 5
-            versionName '1.5'
+            minSdkVersion 19
+            targetSdkVersion 34
+            versionCode 6
+            versionName '1.6'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store1802"
@@ -299,8 +277,8 @@ android {
         }
 
         store2105 {
-            minSdkVersion 17
-            targetSdkVersion 33
+            minSdkVersion 19
+            targetSdkVersion 34
             versionCode 1
             versionName '1.0'
             dimension "store"
@@ -314,8 +292,8 @@ android {
         }
 
         store224 {
-            minSdkVersion 17
-            targetSdkVersion 33
+            minSdkVersion 19
+            targetSdkVersion 34
             versionCode 1
             versionName '1.0'
             dimension "store"
@@ -329,10 +307,10 @@ android {
         }
 
         store4450 {
-            minSdkVersion 17
-            targetSdkVersion 33
-            versionCode 4
-            versionName '1.4'
+            minSdkVersion 19
+            targetSdkVersion 34
+            versionCode 6
+            versionName '1.6'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store4450"
@@ -344,8 +322,8 @@ android {
         }
 
         store2401 {
-            minSdkVersion 17
-            targetSdkVersion 33
+            minSdkVersion 19
+            targetSdkVersion 34
             versionCode 1
             versionName '1.0'
             dimension "store"
@@ -360,10 +338,10 @@ android {
 
 
         store4473 {
-            minSdkVersion 17
-            targetSdkVersion 33
-            versionCode 5
-            versionName '1.5'
+            minSdkVersion 19
+            targetSdkVersion 34
+            versionCode 6
+            versionName '1.6'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store4473"
@@ -393,37 +371,28 @@ ext {
 }
 
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    // testCompile 'junit:junit:4.12'
-    //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:cardview-v7:28.0.0'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.android.support:cardview-v7:28.0.0'
-    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'commons-logging:commons-logging-api:1.1'
     implementation 'org.jsoup:jsoup:1.10.2'
     /*  compile 'com.android.support:customtabs:23.0.0+'*/
     implementation 'com.github.bumptech.glide:glide:3.7.0'
-    //    annotationProcessor 'com.github.bumptech.glide:compiler:3.7.0'
-    //    implementation "com.google.firebase:firebase-core:$firebase_coreVersion"
-    //    implementation "com.google.firebase:firebase-messaging:$firebase_messagingVersion"
-    //
-    //    /*implementation "com.google.android.gms:play-services:$firebaseVersion"*/
-    //    implementation 'com.google.android.gms:play-services-location:17.0.0'
-    //    implementation 'com.google.android.gms:play-services-places:17.0.0'
-    //    implementation "com.google.firebase:firebase-crash:$firebasecrash"
-//    implementation 'com.google.android.gms:play-services-ads:12.0.1'
-    implementation 'com.google.firebase:firebase-core:12.0.1'
-    implementation 'com.google.firebase:firebase-messaging:12.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.0'
+    implementation 'com.google.firebase:firebase-messaging:17.0.0'
     implementation 'com.google.firebase:firebase-crash:12.0.1'
 
-//    implementation 'com.google.firebase:firebase-core:11.6.0'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.google.firebase:firebase-auth:16.0.1'
 
-//    implementation 'com.google.android.gms:play-services:11.6.0'
-//    implementation 'com.google.android.gms:play-services:12.0.1'
+
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'  // Replace with latest stable version
+
     //noinspection UseOfBundledGooglePlayServices
     implementation ('com.google.android.gms:play-services:12.0.1') {
         exclude group: 'com.google.android.gms', module: 'play-services-ads'
@@ -431,25 +400,16 @@ dependencies {
         // Add more exclusions for Ads-related modules if needed
     }
 
-//    implementation 'com.google.android.gms:play-services-vision:20.1.3'
-    implementation 'com.google.android.gms:play-services-vision:12.0.1'
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.google.android.gms:play-services-vision:18.0.0'
+    implementation 'androidx.multidex:multidex:2.0.0'
     implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
     implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
     implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
-    /* Google Vision API for Image scanning */
     implementation 'com.intuit.sdp:sdp-android:1.0.5'
     implementation 'com.mcxiaoke.volley:library:1.0.19'
-    /*compile ('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
-                                        exclude module: 'support-v4'
-                                    }*/
     implementation 'com.github.santalu:auto-viewpager:1.0.4'
     implementation 'com.google.code.gson:gson:2.8.5'
-    //    implementation 'com.facebook.android:facebook-share:[5,6)'
-
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
-//    implementation 'androidx.webkit:webkit:1.4.0'
-
     implementation 'com.google.android.play:core:1.8.0'
 
 }

@@ -67,7 +67,6 @@ public class TaskStoreLocationInfo extends AsyncTask<String, Void, String> {
                 String response = responseStrBuilder.toString();
                 Log.e("log", "Response  " + response);
                 ObjectMapper objectMapper = new ObjectMapper();
-//                storeLocationModel = objectMapper.readValue(response, TaskStoreLocationInfo.class);
                 storeLocationList = objectMapper.readValue(response, new TypeReference<List<StoreLocationModel>>() {
                 });
                 return response;

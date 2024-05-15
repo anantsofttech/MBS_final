@@ -7,8 +7,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -537,7 +537,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyCardViewHold
                     notifyDataSetChanged();
                 }
             } else {
-                DialogUtils.showDialog("Already in WishList!");
+                DialogUtils.showDialog("Already in Wish List!");
             }
         }
     }

@@ -1,9 +1,7 @@
 package com.aspl.mbs;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -11,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
+import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
@@ -18,13 +17,12 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,12 +32,12 @@ import com.aspl.Utils.Constant;
 import com.aspl.Utils.DialogUtils;
 import com.aspl.Utils.Utils;
 import com.aspl.mbsmodel.ContatInfo;
+import com.aspl.mbsmodel.DataFrontModel;
 import com.aspl.mbsmodel.StoreLocationModel;
-import com.aspl.mbsmodel.TwentyOneYear;
+import com.aspl.task.TaskBlockDataFront;
 import com.aspl.task.TaskContactInfo;
 import com.aspl.task.TaskFCMTokenRegister;
 import com.aspl.task.TaskStoreLocationInfo;
-import com.aspl.task.TaskTwentyOneYear;
 import com.aspl.ws.Async_getCommonService;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -52,13 +50,7 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.Task;
 import com.google.firebase.crash.FirebaseCrash;
-import com.intuit.sdp.BuildConfig;
 
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -69,12 +61,10 @@ import java.util.Date;
 import java.util.List;
 
 import static com.aspl.Utils.Constant.GET_CONTACT_INFO;
-import static com.aspl.Utils.Constant.GET_CORPORATE_STORE_SUBSTORELIST;
 import static com.aspl.Utils.Constant.GET_CORPORATE_STORE_SUBSTORELIST_V1;
 import static com.aspl.Utils.Constant.STOREID;
 import static com.aspl.Utils.Constant.WS_BASE_URL;
 import static com.aspl.Utils.Constant.contatInfo;
-import static com.aspl.Utils.DialogUtils.progressBar;
 
 /**
  * Created by new on 07/11/2017.
@@ -89,12 +79,6 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
     String URL;
     String CustomerId;
     TextView tvDate;
-    /////////////////////
-    public static View vPaymentProcessDialog;
-    public static Dialog paymentProcess;
-    int sCurrentVersion = 0;
-    int sLatestVersion = 0;
-    /////////////////////
     String latestVersionName;
 
     public static SplaceScreen getInstance() {
@@ -106,6 +90,21 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
         super.onCreate(savedInstanceState);
         splaceScreen = this;
         setContentView(R.layout.splace);
+
+        int color = Color.parseColor("#FFFFFF");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.setStatusBarColor(color);
+        }
+
+        Log.e("", "onCreate: Varun Start the Splash Screen On create Method");
+
+        fl_splace = (FrameLayout)findViewById(R.id.fl_splace);
+        splaceImage = (ImageView) findViewById(R.id.splaceImage);
+
+        //Edited by Janvi 19th Oct
+        tvDate = (TextView)findViewById(R.id.tvDate);
 
         Intent intent = getIntent();
         Uri data = intent.getData();
@@ -129,45 +128,6 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 
         System.out.println("ipv4: " + DialogUtils.getIpv4());
 
-////////////////////////////////////
-
-//            if(Constant.SCREEN_LAYOUT==1){
-//                paymentProcess = new Dialog(MainActivity.getInstance()/*, R.style.DialogSlideAnim_login*/);
-//                paymentProcess.setCanceledOnTouchOutside(false);
-//                vPaymentProcessDialog = LayoutInflater.from(MainActivity.getInstance()).inflate(R.layout.dialog_payment_process_new, null);
-//
-//            }else if(Constant.SCREEN_LAYOUT==2) {
-//                paymentProcess = new Dialog(MainActivityDup.getInstance()/*, R.style.DialogSlideAnim_login*/);
-//                paymentProcess.setCanceledOnTouchOutside(false);
-//                vPaymentProcessDialog = LayoutInflater.from(MainActivityDup.getInstance()).inflate(R.layout.dialog_payment_process_new, null);
-//
-//            }
-//
-//            WindowManager.LayoutParams params = paymentProcess.getWindow().getAttributes();
-//            params.width = WindowManager.LayoutParams.WRAP_CONTENT;
-//            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-//
-//            paymentProcess.setContentView(vPaymentProcessDialog);
-//            paymentProcess.getWindow().setGravity(Gravity.CENTER);
-//            WindowManager.LayoutParams layoutParam = paymentProcess.getWindow().getAttributes();
-//            paymentProcess.getWindow().setAttributes(layoutParam);
-//            paymentProcess.show();
-
-
-
-/////////////////////////////////////////
-
-        //Constant.STOREID
-
-        /*
-         *
-         *
-         * Code for Flavour store assign
-         *
-         *
-         *
-         *
-         * */
 
         if (StoreConstant.StoreNo.STORE707 == StoreConstant.storeNo){
             Constant.STOREID="707";
@@ -209,71 +169,15 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
             Constant.STOREID = "2401";
         }
 
-//        Edited by Varun for to check the playstore version code and mobile phone version code if less then playstore version code then pop up of update
-
-        Call_Update_App_Verification();
-
-//        END
-        //for main store id
         Constant.MainSTOREID = Constant.STOREID;
-
-        Constant.URL_PAGE_STORE_HOURS_DELIVERY_HOURS = Constant.URL + "pages/storehours?storeno=" + Constant.STOREID + "&type=delivery";
-        Log.e("Log","STOREID="+Constant.STOREID);
-        Log.e("Log", "Constant URL_PAGE_STORE_HOURS_DELIVERY_HOURS=" + Constant.URL_PAGE_STORE_HOURS_DELIVERY_HOURS);
-        if (getIntent().getExtras() != null) {
-            Constant.liCardModel.clear();
-            URL = getIntent().getExtras().getString("URL");
-            CustomerId = getIntent().getExtras().getString("CustomerId");
-            //if(MainActivity.get)
-        }
-        Calendar calendar = Calendar.getInstance();
-        Log.e("Log", "--**OrderID--" + URL);
-        Log.e("Log", "--**CustomerId--" + CustomerId);
-        Log.e("Log", "Timezone=" + calendar.getTimeZone().getDisplayName());
-        //onFCMTokenRegistration();
-        //FCMServerRegistration.onFCMTokenRegistration(this,"");
-
-        /*runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Log.e("fcm","fcm registration key : "+ FirebaseInstanceId.getInstance().getToken("357626466339", "FCM"));
-                } catch (IOException e) {
-                    Log.d("fcm", "fcm exception : "+ e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-        });*/
-
-
-        Constant.AppPref = getSharedPreferences(Constant.PrefName, MODE_PRIVATE);
-
-        //Edited by Janvi 19th Oct
-//        ll_splace = (LinearLayout) findViewById(R.id.ll_splace);
-        fl_splace = (FrameLayout)findViewById(R.id.fl_splace);
-        //end *****
-        splaceImage = (ImageView) findViewById(R.id.splaceImage);
-
-        //Edited by Janvi 19th Oct
-        tvDate = (TextView)findViewById(R.id.tvDate);
+        callgetThemeWS();
         Date buildDate = com.aspl.mbs.BuildConfig.BUILD_TIME;
-//        Date buildDate = BuildConfig.BUILD_TIME;
         SimpleDateFormat simple = new SimpleDateFormat("MM/dd/yyyy");
         tvDate.setText("Version Date: " + simple.format(buildDate));
-        //end
-
-//        callgetThemeWS();
-
-//        Edited by Varun for lockdown feature
-//        callcontactinfo();
-//        END
-
-        //String Url1 = Constant.WS_BASE_URL + Constant.GETDEPARTMENT + Constant.STOREID;
-        // new Async_getCommonService(this, Url1).execute();
 
 
-        // Start the initial runnable task by posting through the handler
-        //
+
+//        Constant.AppPref = getSharedPreferences(Constant.PrefName, MODE_PRIVATE);
 
         new Thread(() -> {
             try {
@@ -291,13 +195,10 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 
     public void callgetThemeWS() {
 
-//        setstorelogo(Constant.STOREID)
+//        callcontactinfo();
 
         if(!Constant.isFromChangeLocDialog) {
 
-            //to set fav store location with existing user
-            //when re open app from splash screen
-//            Constant.MainSTOREID = Constant.STOREID;
             Constant.AppPref = getSharedPreferences(Constant.PrefName, MODE_PRIVATE);
 
             if (!Constant.AppPref.getString("currentCustId", "").isEmpty()) {
@@ -311,78 +212,57 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
             }
             //end
         }
-//        else{
-//            Constant.isFromChangeLocDialog = false;
-//        }
 
+        if(Constant.STOREID.equals(Constant.MainSTOREID)){
+            setStorelogo(Constant.STOREID);
+        }else{
+            setStorelogo(Constant.MainSTOREID);
+        }
 
+//        Edited by Varun For Speed -up
 
-        String Url = Constant.WS_BASE_URL + Constant.GETTHEME + Constant.STOREID;
-        Log.i("web service", "Request Url : " + Url);
-        new Async_getCommonService(this, Url).execute();
+        String baseUrl = Constant.WS_BASE_URL;
+        String storeId = Constant.STOREID;
+
+        Constant.storeLocationList2.clear();
+        Constant.storeLocationList.clear();
+
+        String getContactInfoURL = WS_BASE_URL + GET_CONTACT_INFO + "/" + STOREID;
+        TaskContactInfo taskContactInfo = new TaskContactInfo(this, SplaceScreen.this);
+//        taskContactInfo.execute(getContactInfoURL);
+        taskContactInfo.executeOnExecutor(TaskContactInfo.THREAD_POOL_EXECUTOR, getContactInfoURL);
+
+        new Async_getCommonService(this, baseUrl + Constant.GETTHEME + storeId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new Async_getCommonService(this, baseUrl + Constant.GETPAGES_FOR_ANDROID + storeId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new Async_getCommonService(this, baseUrl + Constant.GETPAGES_STATUS + storeId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new Async_getCommonService(this, baseUrl + Constant.GETPAGES_DETAIL_BLOG + storeId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+//        String Url = Constant.WS_BASE_URL + Constant.GETTHEME + Constant.STOREID;
+//        new Async_getCommonService(this, Url).execute();
 
     }
 
-
-    /*public void onFCMTokenRegistration(){
-        Log.d("fcm", "fcm token : " + FirebaseInstanceId.getInstance().getToken());
-        String fcmToken = "";
-        fcmToken = FirebaseInstanceId.getInstance().getToken();
-
-        if (fcmToken != null && !fcmToken.isEmpty()) {
-            //http://192.168.172.211:888/Home/InsertDeviceDetails?storeno=707&DeviceID=etre&&TokenNo=0007&customerid=123
-            String url = "";
-            url = Constant.URL + Constant.INSERT_FCM_TOKEN + Constant.STOREID
-                    + "&DeviceID=" + DeviceInfo.getDeviceId(SplaceScreen.this)
-                    + "&TokenNo=" + fcmToken
-                    *//*+ "&customerid=" + ""*//*;
-
-            TaskFCMTokenRegister tokenRegister = new TaskFCMTokenRegister(this);
-            tokenRegister.execute(url);
-        }
-    }*/
 
     @Override
     public void onFCMTokenRegistrationResult(String response) {
         if (response.equals("Success")) {
-            //Toast.makeText(splaceScreen, "Token Registered Successfully", Toast.LENGTH_SHORT).show();
+
         } else {
-//            Toast.makeText(splaceScreen, "FCM failed", Toast.LENGTH_SHORT).show();
+
         }
     }
 
     public void setTheme() {
-//        ll_splace.setBackgroundColor(Color.parseColor(Constant.themeModel.Backgroundcolor));
-
-        //for set dynamic logo start
         try {
-//            fl_splace.setBackgroundColor(Color.parseColor(Constant.themeModel.Backgroundcolor));
-
             Log.e("background color:","" +Constant.themeModel.Backgroundcolor);
             //String url = Constant.IMG_BASEURL + Constant.LOGO + Constant.STOREID + "/" + Constant.themeModel.StoreLogo;
             String url = Constant.IMG_BASEURL + Constant.LOGO + Constant.STOREID + "/" + "AppLogo_"+Constant.STOREID+".jpg";
             Log.i("web service", "Request Url : " + url);
             Utils.setImageFromUrl(this, url, splaceImage);
-
         }
         catch (Exception e){
 
         }
-        //end above
-
-        //we have created setstorelogo method to provide main store's logo of their sub store
-        try {
-            if(Constant.STOREID.equals(Constant.MainSTOREID)){
-                setStorelogo(Constant.STOREID);
-                //        //temp *****************
-            }else{
-                setStorelogo(Constant.MainSTOREID);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void setStorelogo(String STOREID) {
@@ -534,91 +414,6 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                         .into(splaceImage);
             }
 
-//            if(Constant.STOREID.equals("3824")){
-//                splaceImage.setBackgroundColor(getResources().getColor(R.color.bg_colorBig_three));
-//            }else{
-//                splaceImage.setBackgroundColor(getResources().getColor(R.color.androidWhite));
-//            }
-
-//            if(Constant.STOREID.equals("57")){
-//                Glide.with(this)
-//                        .load(R.drawable.img_store57)
-//                        .fitCenter()
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .into(splaceImage);
-//            }else if(Constant.STOREID.equals("44")){
-//                Glide.with(this)
-//                        .load(R.drawable.store44_applogo)
-//                        .fitCenter()
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .into(splaceImage);
-//            }else if(Constant.STOREID.equals("99")){
-//                Glide.with(this)
-//                        .load(R.drawable.img_store99_default)
-//                        .fitCenter()
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .into(splaceImage);
-//            }else if(Constant.STOREID.equals("7365")){
-//                Glide.with(this)
-//                        .load(R.drawable.store7365_applogo)
-//                        .fitCenter()
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .into(splaceImage);
-//            }
-//            else if(Constant.STOREID.equals("105")){
-//                Glide.with(this)
-//                        .load(R.drawable.store105_applogo)
-//                        .fitCenter()
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .into(splaceImage);
-//            }
-//
-//            else if(Constant.STOREID.equals("90")){
-//                Glide.with(this)
-//                        .load(R.drawable.app_iconstore90_new)
-//                        .fitCenter()
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .into(splaceImage);
-//            }
-//            else if(Constant.STOREID.equals("3824")){
-//                Glide.with(this)
-//                        .load(R.drawable.applogo3824_big)
-//                        .fitCenter()
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .into(splaceImage);
-//            }else if(Constant.STOREID.equals("315")){
-//                Glide.with(this)
-//                        .load(R.drawable.pws_app_large_icon315)
-//                        .fitCenter()
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .into(splaceImage);
-//            }else if(Constant.STOREID.equals("96")){
-//                Glide.with(this)
-//                        .load(R.drawable.applogo_wineroom_fh_store96)
-//                        .fitCenter()
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .into(splaceImage);
-//            } else if(Constant.STOREID.equals("540")){
-//                Glide.with(this)
-//                        .load(R.drawable.applogo_store540)
-//                        .fitCenter()
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .into(splaceImage);
-//
-//            }
-//            else if(Constant.STOREID.equals("327")||(Constant.STOREID.equals("707"))){
-//
-//                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(500, 500);
-//                layoutParams.gravity = Gravity.CENTER;
-//                splaceImage.setLayoutParams(layoutParams);
-//
-//                Glide.with(this)
-//                        .load(R.drawable.applogo_store327)
-//                        .fitCenter()
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .into(splaceImage);
-//
-//            }
 
         }catch (Exception e){
             e.printStackTrace();
@@ -634,41 +429,18 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 
             String shortcutId = getIntent().getStringExtra("android.intent.extra.shortcut.ID");
 
-            // Handle the shortcut click based on the shortcutId
+
             if ("cart".equals(shortcutId)) {
-                // Handle the "cart" shortcut click
-                // For example, navigate to the Cart activity
                 Intent intent = new Intent(this, Constant.SCREEN_LAYOUT == 1 ? MainActivity.class : MainActivityDup.class);
                 intent.putExtra("openCartFragment", true);
                 startActivity(intent);
             } else if ("wishlist".equals(shortcutId)) {
-                // Handle the "wishlist" shortcut click
-                // For example, navigate to the Wishlist activity
+
                 Intent intent = new Intent(this, Constant.SCREEN_LAYOUT == 1 ? MainActivity.class : MainActivityDup.class);
                 intent.putExtra("openWishlistFragment", true);
                 startActivity(intent);
             }
-
-            // Clear the extra data to avoid triggering the same action again
             getIntent().removeExtra("android.intent.extra.shortcut.ID");
-//        }
-//
-//        if (getIntent().getAction() != null && getIntent().getAction().equals("android.intent.extra.shortcut.ID")) {
-//
-//            handleShortcut(getIntent());
-//            String shortcutDestination = getIntent().getStringExtra("shortcutDestination");
-//
-//            if ("cartFragment".equals(shortcutDestination)) {
-//                // Navigate to CartFragment in MainActivity
-//                Intent intent = new Intent(this, Constant.SCREEN_LAYOUT == 1 ? MainActivity.class : MainActivityDup.class);
-//                intent.putExtra("openCartFragment", true);
-//                startActivity(intent);
-//            } else if ("wishlistFragment".equals(shortcutDestination)) {
-//                // Navigate to WishlistFragment in MainActivity
-//                Intent intent = new Intent(this, Constant.SCREEN_LAYOUT == 1 ? MainActivity.class : MainActivityDup.class);
-//                intent.putExtra("openWishlistFragment", true);
-//                startActivity(intent);
-//            }
             finish();
         } else {
             createDynamicShortcuts();
@@ -680,20 +452,16 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                 ii = new Intent(SplaceScreen.this, MainActivityDup.class);
             }
 
-//        try{
+            Constant.IsComeFromSplash=true;
+
             if (ii != null) {
                 ii.putExtra("CustomerId", CustomerId);
                 ii.putExtra("URL", URL);
                 startActivity(ii);
                 finish();
+                Log.e("", "onCreateView: Varun going from Splash Screen to Main Activity" );
             }
-
-//        }catch (Exception e){
-//
-//        }
-//
         }
-
     }
 
     private void createDynamicShortcuts() {
@@ -756,94 +524,6 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 
     }
 
-//    Edited by Varun for lockdown feature
-
-    public void callcontactinfo() {
-
-        Constant.storeLocationList2.clear();
-        Constant.storeLocationList.clear();
-
-        String getContactInfoURL = WS_BASE_URL + GET_CONTACT_INFO + "/" + STOREID;
-        TaskContactInfo taskContactInfo = new TaskContactInfo(this, SplaceScreen.this);
-        taskContactInfo.execute(getContactInfoURL);
-
-    }
-
-    @Override
-    public void contactInfoEventResult(ContatInfo contatInfo) {
-
-        Constant.contatInfo = contatInfo;
-
-        loadStoreLocationWSdata();
-
-    }
-
-    public void loadStoreLocationWSdata() {
-
-        String zip = " ";
-
-        if (contatInfo.getZip() != null && !contatInfo.getZip().isEmpty()) {
-            zip = contatInfo.getZip();
-
-            String storeLocationURL = WS_BASE_URL + GET_CORPORATE_STORE_SUBSTORELIST_V1 + "/" + STOREID + "/" + zip;
-            TaskStoreLocationInfo taskStoreLocationInfo = new TaskStoreLocationInfo(this, SplaceScreen.this, false);
-            taskStoreLocationInfo.execute(storeLocationURL);
-        }
-    }
-
-    @Override
-    public void storeLocationInfoResult(List<StoreLocationModel> storeLocationList, Boolean isSearchLocation) {
-
-
-        Constant.LockStoreName = "" ;
-        Constant.LockStoreAddress = "" ;
-        Constant.LockCity = "" ;
-        Constant.LockState ="" ;
-        Constant.LockZip = "" ;
-
-        Constant.isSearchLocation = isSearchLocation;
-        Boolean B =true;
-
-        if (storeLocationList.size()!=0 && !storeLocationList.isEmpty() ) {
-
-            for (int i = 0; i < storeLocationList.size(); i++) {
-                if (!storeLocationList.get(i).getCoStoreno().equals("") && !storeLocationList.get(i).getStoreLock()) {
-                    Constant.storeLocationList2.add(storeLocationList.get(i));
-                    Constant.storeLocationList = Constant.storeLocationList2;
-                }
-            }
-
-            for (int i = 0; i < storeLocationList.size(); i++) {
-
-                if (STOREID.equals(storeLocationList.get(i).getStoreno())) {
-                    if (storeLocationList.get(i).getStoreLock()) {
-//                if (B){
-//                    Toast.makeText(splaceScreen, "Lockk", Toast.LENGTH_SHORT).show();
-
-                        Constant.LockStoreName = storeLocationList.get(i).getName();
-                        Constant.LockStoreAddress = storeLocationList.get(i).getAddress();
-                        Constant.LockCity = storeLocationList.get(i).getCity();
-                        Constant.LockState = storeLocationList.get(i).getSt();
-                        Constant.LockZip = storeLocationList.get(i).getZip();
-                        Constant.PhoneNumber = storeLocationList.get(i).getPhone();
-
-                        Utils.LockChangeLocation(splaceScreen, Constant.storeLocationList2);
-
-                    } else {
-//                    callgetThemeWS();
-                        gotoDeshboard();
-                    }
-                }
-//                else {
-//                    gotoDeshboard();
-//                }
-            }
-        }else{
-            gotoDeshboard();
-        }
-    }
-
-
     public void fromSavelocation() {
 
         if (Constant.SCREEN_LAYOUT == 1) {
@@ -864,14 +544,6 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 
 //    END
 
-
-    private void Call_Update_App_Verification() {
-
-//        new FetchLatestVersionCodeTask().execute();
-        UpdateApp();
-
-    }
-
     public void UpdateApp() {
 
         AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
@@ -885,114 +557,24 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                     showUpdateDialog();
                 } else {
                     // Handle the case when no update is available
-                   callgetThemeWS();
+                    gotoDeshboard();
                 }
             } catch (Exception e) {
                 // Log the exception for further investigation
                 Log.e("UpdateCheck", "Exception during update check", e);
                 // Handle the exception accordingly, e.g., show an error message
-                Toast.makeText(splaceScreen, "Exception during update check", Toast.LENGTH_SHORT).show();
-                callgetThemeWS();
+//                Toast.makeText(splaceScreen, "Exception during update check", Toast.LENGTH_SHORT).show();
+                gotoDeshboard();
             }
         }).addOnFailureListener(e -> {
             // Log the failure for further investigation
             Log.e("UpdateCheck", "Failure during update check", e);
             // Handle the failure accordingly, e.g., show an error message
-            Toast.makeText(splaceScreen, "Failure during update check", Toast.LENGTH_SHORT).show();
-            callgetThemeWS();
+//            Toast.makeText(splaceScreen, "Failure during update check", Toast.LENGTH_SHORT).show();
+            gotoDeshboard();
         });
 
     }
-
-
-//    public class FetchLatestVersionCodeTask extends AsyncTask<String,String,String> {
-//
-//        @Override
-//        protected String doInBackground(String... strings) {
-//            try {
-//                Document document = Jsoup.connect("https://play.google.com/store/apps/details?id=" + getPackageName() + "&hl=en")
-//                        .timeout(30000)
-//                        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
-//                        .referrer("http://www.google.com")
-//                        .ignoreHttpErrors(true)
-//                        .get();
-//
-//                Element versionElement = document.select("span.htlgb:nth-child(4) > .htlgb span").first();
-//                if (versionElement != null) {
-//                    String version = versionElement.ownText();
-//                    return version;
-//                } else {
-//                    return "0";
-//                }
-//
-//            } catch (Exception e) {
-//                return "";
-//            }
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String version) {
-//            super.onPostExecute(version);
-//            sLatestVersion = Integer.parseInt(version);
-//
-//
-//            if (sLatestVersion != 0 ) {
-//                int sCurrentVersion = BuildConfig.VERSION_CODE;
-//                if (sLatestVersion > sCurrentVersion) {
-//                    Toast.makeText(SplaceScreen.this, "Update Available", Toast.LENGTH_SHORT).show();
-//                    showUpdateDialog();
-//                } else {
-//                    Toast.makeText(SplaceScreen.this, "Update not Available", Toast.LENGTH_SHORT).show();
-//                    callgetThemeWS();
-//                }
-//            }else{
-//                Toast.makeText(SplaceScreen.this, "Failed to fetch version code", Toast.LENGTH_SHORT).show();
-//                callgetThemeWS();
-//            }
-//        }
-//    }
-
-//    private class FetchLatestVersionCodeTask extends AsyncTask<Void, Void, Integer> {
-//
-//        @Override
-//        protected Integer doInBackground(Void... voids) {
-//            try {
-//                sLatestVersion= Integer.parseInt(Jsoup
-//                        .connect("https://play.google.com//store/apps/details?id="
-//                                +getPackageName())
-//                        .timeout(30000)
-//                        .get()
-//                        .select("div.hAyfc:nth-child(4)>"+
-//                                "span:nth-child(2) > div:nth-child(1)"+
-//                                "> span:nth-child(1)")
-//                        .first()
-//                        .ownText());
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            return sLatestVersion;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Integer latestVersionCode) {
-//            if (latestVersionCode != null) {
-//
-//                int currentVersionCode = BuildConfig.VERSION_CODE;
-//                if (latestVersionCode > currentVersionCode) {
-//                    Toast.makeText(SplaceScreen.this, "Update Available", Toast.LENGTH_SHORT).show();
-//                    showUpdateDialog();
-//                } else {
-//                    Toast.makeText(SplaceScreen.this, "Up to Date", Toast.LENGTH_SHORT).show();
-//                    callgetThemeWS();
-//                }
-//            } else {
-//                Toast.makeText(SplaceScreen.this, "Failed to fetch version code", Toast.LENGTH_SHORT).show();
-//                callgetThemeWS();
-//            }
-//        }
-//    }
-
     private void showUpdateDialog() {
 
 
@@ -1035,7 +617,7 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                callgetThemeWS();
+                gotoDeshboard();
             }
         });
 
@@ -1046,5 +628,75 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
         dialog.show();
     }
 
+    //    Edited by Varun for lockdown feature
 
+    public void callcontactinfo() {
+
+
+
+    }
+
+    @Override
+    public void contactInfoEventResult(ContatInfo contatInfo) {
+        loadStoreLocationWSdata();
+    }
+
+    public void loadStoreLocationWSdata() {
+
+        String zip = " ";
+
+        if (contatInfo.getZip() != null && !contatInfo.getZip().isEmpty()) {
+            zip = contatInfo.getZip();
+
+            String storeLocationURL = WS_BASE_URL + GET_CORPORATE_STORE_SUBSTORELIST_V1 + "/" + STOREID + "/" + zip;
+            TaskStoreLocationInfo taskStoreLocationInfo = new TaskStoreLocationInfo(this, SplaceScreen.this, false);
+//            Edited by Varun For Speed -up
+//            taskStoreLocationInfo.execute(storeLocationURL);
+            taskStoreLocationInfo.executeOnExecutor(TaskStoreLocationInfo.THREAD_POOL_EXECUTOR, storeLocationURL);
+
+        }
+    }
+
+    @Override
+    public void storeLocationInfoResult(List<StoreLocationModel> storeLocationList, Boolean isSearchLocation) {
+
+
+        Constant.LockStoreName = "" ;
+        Constant.LockStoreAddress = "" ;
+        Constant.LockCity = "" ;
+        Constant.LockState ="" ;
+        Constant.LockZip = "" ;
+
+        Constant.isSearchLocation = isSearchLocation;
+
+        if (storeLocationList.size()!=0 && !storeLocationList.isEmpty() ) {
+
+            for (int i = 0; i < storeLocationList.size(); i++) {
+
+                if (!storeLocationList.get(i).getCoStoreno().equals("") && !storeLocationList.get(i).getStoreLock()) {
+                    Constant.storeLocationList2.add(storeLocationList.get(i));
+                    Constant.storeLocationList = Constant.storeLocationList2;
+                }
+
+                if (STOREID.equals(storeLocationList.get(i).getStoreno())) {
+                    if (storeLocationList.get(i).getStoreLock()) {
+
+                        Constant.LockStoreName = storeLocationList.get(i).getName();
+                        Constant.LockStoreAddress = storeLocationList.get(i).getAddress();
+                        Constant.LockCity = storeLocationList.get(i).getCity();
+                        Constant.LockState = storeLocationList.get(i).getSt();
+                        Constant.LockZip = storeLocationList.get(i).getZip();
+                        Constant.PhoneNumber = storeLocationList.get(i).getPhone();
+
+                        Utils.LockChangeLocation(splaceScreen, Constant.storeLocationList2);
+
+                    } else {
+                        UpdateApp();
+                    }
+                }
+            }
+        }else{
+            UpdateApp();
+        }
+    }
 }

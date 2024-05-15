@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.support.design.widget.TextInputLayout;
+import com.google.android.material.textfield.TextInputLayout;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputFilter;
@@ -32,7 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aspl.Adapter.ExpandAdapter;
-import com.aspl.Adapter.FooterAdapter;
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.DialogUtils;
 import com.aspl.Utils.Utils;

@@ -126,4 +126,68 @@ public class NetworkUtil {
         }
 
     }
+
+//    Edited by Varun For Speed -up
+//    public static void doNetworkProcessGet(String requestStr, StringBuilder responseStrBuilder)
+//            throws SocketTimeoutException, JsonGenerationException, IOException, JSONException {
+//
+//        HttpURLConnection connection = null;
+//        BufferedReader reader = null;
+//        try {
+//            // Replace spaces with %20 only once before creating URL
+//            String encodedUrl = requestStr.replace(" ", "%20");
+//            URL url = new URL(encodedUrl);
+//
+//            connection = (HttpURLConnection) url.openConnection();
+//            connection.setConnectTimeout(1000);
+//            connection.connect();
+//
+//            // Use InputStreamReader directly for efficiency
+//            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//
+//            int charRead;
+//            StringBuilder buffer = new StringBuilder();
+//            while ((charRead = reader.read()) != -1) {
+//                buffer.append((char) charRead);
+//            }
+//
+//            responseStrBuilder.append(buffer);
+//        } finally {
+//            if (connection != null) {
+//                connection.disconnect();
+//            }
+//        }
+//    }
+//
+//    public static void doNetworkProcessGet_WithTimeout(String requestStr, StringBuilder responseStrBuilder)
+//            throws SocketTimeoutException, JsonGenerationException, IOException, JSONException {
+//
+//        HttpURLConnection connection = null;
+//        BufferedReader reader = null;
+//        try {
+//            // Replace spaces with %20 only once before creating URL
+//            String encodedUrl = requestStr.replace(" ", "%20");
+//            URL url = new URL(encodedUrl);
+//
+//            connection = (HttpURLConnection) url.openConnection();
+//            connection.setConnectTimeout(5000); // Timeout in milliseconds
+//            connection.setReadTimeout(5000); // Timeout in milliseconds
+//            connection.connect();
+//
+//            // Use InputStreamReader directly for efficiency
+//            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//
+//            int charRead;
+//            StringBuilder buffer = new StringBuilder();
+//            while ((charRead = reader.read()) != -1) {
+//                buffer.append((char) charRead);
+//            }
+//
+//            responseStrBuilder.append(buffer);
+//        } finally {
+//            if (connection != null) {
+//                connection.disconnect();
+//            }
+//        }
+//    }
 }

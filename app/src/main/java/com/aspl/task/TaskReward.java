@@ -4,29 +4,20 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
-import com.aspl.Utils.Constant;
 import com.aspl.Utils.NetworkUtil;
-import com.aspl.fragment.RewardFragment;
 import com.aspl.mbs.R;
-import com.aspl.mbsmodel.HomeItemModel;
 import com.aspl.mbsmodel.RewardModel;
-import com.aspl.mbsmodel.ShoppingCardModel;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.CollectionType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import org.json.JSONException;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.util.List;
 
 public class TaskReward extends AsyncTask<String, Void, String> {
 

@@ -2,23 +2,19 @@ package com.aspl.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.aspl.Utils.Constant;
 import com.aspl.fragment.OrderHistoryFragment;
 import com.aspl.mbs.R;
 import com.aspl.mbsmodel.LightningOrderModel;
-import com.aspl.mbsmodel.OrderSummary;
 import com.aspl.mbsmodel.ReOrderItemModel;
-import com.aspl.task.TaskGetOrderSummary;
 
 import java.text.DecimalFormat;
 import java.util.List;

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 
@@ -21,7 +21,6 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.util.List;
 
 public class TaskUpdateShippingAddress extends AsyncTask<String, Void, String> {
 

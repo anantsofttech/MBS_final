@@ -3,10 +3,9 @@ package com.aspl.Adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.Gravity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aspl.Utils.Constant;
-import com.aspl.mbs.MainActivity;
 import com.aspl.mbs.R;
 import com.aspl.mbsmodel.GetSearchData;
 import com.bumptech.glide.Glide;

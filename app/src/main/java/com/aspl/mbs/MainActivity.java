@@ -20,6 +20,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.media.ToneGenerator;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,22 +28,22 @@ import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.MenuItemCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
@@ -147,14 +148,12 @@ import com.aspl.mbsmodel.FilterModel;
 import com.aspl.mbsmodel.FilterSelectedItems;
 import com.aspl.mbsmodel.GetSearchData;
 import com.aspl.mbsmodel.ItemDescModel;
-import com.aspl.mbsmodel.LoyaltyInfo;
 import com.aspl.mbsmodel.LstDepartment;
 import com.aspl.mbsmodel.LstSize;
 import com.aspl.mbsmodel.MbsDataModel;
 import com.aspl.mbsmodel.NotificationModel;
 import com.aspl.mbsmodel.ReOrderItemModel;
 import com.aspl.mbsmodel.ReOrderModel;
-import com.aspl.mbsmodel.RewardModel;
 import com.aspl.mbsmodel.ShippingData;
 import com.aspl.mbsmodel.ShoppingCardModel;
 import com.aspl.mbsmodel.StoreHour;
@@ -177,10 +176,8 @@ import com.aspl.task.TaskFilter;
 import com.aspl.task.TaskFilterHomePage;
 import com.aspl.task.TaskFilterInfo;
 import com.aspl.task.TaskItemDescription;
-import com.aspl.task.TaskLoyaltyInfo;
 import com.aspl.task.TaskNotificationList;
 import com.aspl.task.TaskReOrder;
-import com.aspl.task.TaskReward;
 import com.aspl.task.TaskSearch;
 import com.aspl.task.TaskSessionToCart;
 import com.aspl.task.TaskStoreDeliveryHours;
@@ -201,7 +198,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -407,17 +403,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
 //     Edited by Varun for faster Shopping Experience in item description
     LinearLayout ll_fast ;
-    ImageView iv_productimg , img_minus , img_plus , ivAddtoCart;
-    TextView tv_title , tv_item_quantity ;
+
     public int count = 1;
-    private int requestedQty;
-    boolean isComeFomAddTocartBtn = false;
+
 
 
     //      END
 
 //    // ************* Edited by Varun for backbutton ***********
-    ImageView image, image2 , image3 ;
+    ImageView image2  ;
 //
     public LinearLayout ll_backbutton;
 ////    ************* END ***************
@@ -431,22 +425,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.e("", "onCreate: Varun reach the MAin Activity On create method");
+
         setContentView(R.layout.activity_main);
 //     Edited by Varun for faster Shopping Experience in item description
 
         ll_fast = findViewById(R.id.ll_fast);
         ll_fast.setVisibility(View.GONE);
-//        iv_productimg = findViewById(R.id.iv_productimg);
-//        iv_productimg.setOnClickListener(this);
-//        img_minus =findViewById(R.id.img_minus);
-//        img_minus.setOnClickListener(this);
-//        img_plus = findViewById(R.id.img_plus);
-//        img_plus.setOnClickListener(this);
-//        ivAddtoCart = findViewById(R.id.ivAddtoCart);
-//        ivAddtoCart.setOnClickListener(this);
-//        tv_title = findViewById(R.id.tv_title);
-//        tv_item_quantity = findViewById(R.id.tv_item_quantity);
-
         fast2();
 //      END
 
@@ -461,10 +446,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
         mainActivity = this;
 
-//        Constant.userNameList = DialogUtils.getArrayList("userlist",this);
-
-        //we can take Audio permission using below function
-//        setAudio_Record_Permition();
 
         mManage_expList = findViewById(R.id.Manage_expList);
         ViewTreeObserver vto = mManage_expList.getViewTreeObserver();
@@ -515,61 +496,57 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         mContent = findViewById(R.id.mContent);
         llFilter = findViewById(R.id.llFilter);
         llsearch = findViewById(R.id.llsearch);
-////        Edited by Varun for backbutton
-////        mToolbar = findViewById(R.id.toolbar);
+
         ll_backbutton=findViewById(R.id.ll_main_top_bar);
-////        image=findViewById(R.id.image0);
+
         image2=findViewById(R.id.image2);
 
-//         END
+        llsortandfilter = findViewById(R.id.llsortandfilter);
+        btndept = findViewById(R.id.btndept);
+        mContainer = findViewById(R.id.Container);
 
-//        cardAdapter = new CardAdapter(MainActivity.getInstance(), this, liShoppingCard);
-//        this.myCardAdapterEvent = myCardAdapterEvent;
+        llcheckInternet = findViewById(R.id.llcheckInternet);
+        llSort = findViewById(R.id.llSort);
+//        ?edited by Varun for reward point show below the search bar
+        ll_Reward_main= findViewById(R.id.ll_Reward_main);
+        tv_points_main= findViewById(R.id.tv_points_main);
+        tv_rebate_main= findViewById(R.id.tv_rebate_main);
+        tv_rebate_point_main = findViewById(R.id.tv_rebate_point_main);
+        tv_Reward_point_main = findViewById(R.id.tv_Reward_point_main);
+//        END
+        mToolbar = findViewById(R.id.toolbar);
 
-        /*TextView tvShareApp = findViewById(R.id.tv_share_app);
-        tvShareApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shareApp();
+        mDrawer = findViewById(R.id.drawer_layout);
+        float width = (float) (getResources().getDisplayMetrics().widthPixels / 1.3);
+        lldrawer.getLayoutParams().width = (int) width;
+
+//        Edited by Varun For Speed -up
+        if (IsComeFromSplash){
+            AppPref = getSharedPreferences(PrefName, MODE_PRIVATE);
+            if (!BAR_IMG_DISP) {
+                Constant.ISguest = Constant.AppPref.getBoolean("ISguest",false);
+                if (!ISguest) {
+//                END
+                    if (!AppPref.getString("email", "").isEmpty() && !AppPref.getString("password", "").isEmpty()) {
+                        String Url = WS_BASE_URL + CHECK_PASSWORD + AppPref.getString("email", "") + "/" + AppPref.getString("password", "") + "/" + STOREID;
+//                   Edited by Varun For Speed -up
+//                    new Async_getCommonService(MainActivity.this, Url, "comefromLogin").execute();
+                        new Async_getCommonService(this, Url).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//                    END
+                    }else{
+                        loadHomeWebPage();
+                    }
+                } else {
+                    loadHomeWebPage();
+                }
+                BAR_IMG_DISP = false;
             }
-        });
-        TextView tvRateApp = findViewById(R.id.tv_rate_app);
-        tvRateApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchMarket();
-            }
-        });*/
-
-
-        //Set store/person logo on sidebar
-//        if (themeModel.StoreLogo != null && !themeModel.StoreLogo.isEmpty()) {
-//            String sturl = IMG_BASEURL + LOGO + STOREID + "/" + themeModel.StoreLogo;
-//            Log.e("Log", "STURL=" + sturl);
-//            Utils.setImageFromUrl(this, sturl, imgpersonlogo);
-//        } else {
-//            Glide.with(this).load(getResources().getIdentifier("welcome_default_image", "drawable", this.getPackageName()))
-//                    .into(imgpersonlogo);
-//        }
-        //end ********
-
-
-        loadOnlyStoreHoursWS();
+            onSetDrawerMenu();
+        }
         onCallGlobalSetup();
+//        loadOnlyStoreHoursWS();
 
-        //edited now
-//        try {
-////            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-////                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-////            }
-////        } catch (Exception e){
-////            e.printStackTrace();
-////        }
-        //end*********
-
-//        onCallContactInfoWS();
-//        takeLocationPermissionFromUser();
-
+//        END
 
         Drawable myDrawable = MainActivity.getInstance().getResources().getDrawable(R.drawable.places_ic_search);
 
@@ -590,30 +567,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
             imgHome.setVisibility(View.GONE);
         }
 
-//        else{
-////            Glide.with(this)
-////                    .load(getResources().getDrawable(R.drawable.welcome_default_image))
-////                    .fitCenter()
-////                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-////                    .into(imgHome);
-//
-//            Glide.with(this).load(getResources().getIdentifier("welcome_default_image", "drawable", this.getPackageName()))
-//                    .into(imgHome);
-//        }
-
-        llcheckInternet = findViewById(R.id.llcheckInternet);
-        llSort = findViewById(R.id.llSort);
-//        ?edited by Varun for reward point show below the search bar
-        ll_Reward_main= findViewById(R.id.ll_Reward_main);
-        tv_points_main= findViewById(R.id.tv_points_main);
-        tv_rebate_main= findViewById(R.id.tv_rebate_main);
-        tv_rebate_point_main = findViewById(R.id.tv_rebate_point_main);
-        tv_Reward_point_main = findViewById(R.id.tv_Reward_point_main);
-//        END
-
-        llsortandfilter = findViewById(R.id.llsortandfilter);
-        btndept = findViewById(R.id.btndept);
-        mContainer = findViewById(R.id.Container);
         cardFragment = new CardFragment();
 
 //        itemDescriptionsFragment = new ItemDescriptionsFragment();
@@ -622,57 +575,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
         mContainer.clearCache(true);
         mContainer.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-//        mContainer.getSettings().setAppCacheEnabled(false);
+
         mContainer.getSettings().setDomStorageEnabled(true);
 
-//        mContainer.setOnScrollChangeListener(new ObservableWebView.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(WebView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                Log.e("lOG", "debugii1=" + scrollY);
-//                Log.e("lOG", "debugii3=" + oldScrollY);
-//                Log.e("Log", "checkFilterURL=" + checkFilterURL);
-//                //http://192.168.172.211:888/Home/IndexApp?customerid=189055&storeno=707&sessionid=3g060e0oee1yj2lf1avacirts
-//                //
-//                /*if (checkFilterURL.contains("inventory") || innerFilterUrl.contains("InventoryAppList")) {
-//                    Log.e("log", "db=1");
-//                    if (scrollY > oldScrollY && scrollY > 0) {
-//                        Log.e("log", "db=2");
-//                        if (isExpand1) {
-//                            Utils.collapse(llsortandfilter, 500, 0);
-//                            isExpand1 = false;
-//                            Log.e("log", "db=3");
-//                        }
-//                    }
-//                    if (scrollY < oldScrollY) {
-//                        Log.e("log", "db=4");
-//                        if (!llsortandfilter.isShown()) {
-//                            isExpand1 = false;
-//                            Log.e("log", "db=5");
-//
-//                        }
-//                        if (!isExpand1) {
-//                            Log.e("log", "db=6");
-//                            Utils.expand(llsortandfilter, 500, height);
-//                            isExpand1 = true;
-//                        }
-//                    }
-//                } else {
-//                    llsortandfilter.setVisibility(View.INVISIBLE);
-//                }*/
-//                if (checkFilterURL.contains("inventory/inventoryapp") /*|| innerFilterUrl.contains("InventoryAppList")*/) {
-//                    if (scrollY > oldScrollY && llsortandfilter.isShown()) {
-////                        llsortandfilter.setVisibility(View.INVISIBLE); //working line commented beacuse client require that
-//                        llsortandfilter.setVisibility(View.VISIBLE);
-//                        //Utils.collapse(llsortandfilter, 500, 0);
-//                        // Utils.collapseWithAnimation(llsortandfilter);
-//                    } else if (scrollY < oldScrollY && !llsortandfilter.isShown()) {
-//                        //Utils.expandWithAnimation(llsortandfilter);
-//                        //Utils.expand(llsortandfilter, 500, height);
-//                        llsortandfilter.setVisibility(View.VISIBLE);
-//                    }
-//                }
-//            }
-//        });
         llsortandfilter.setVisibility(View.INVISIBLE);
         llsortandfilter.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -693,14 +598,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
 
         getSupportFragmentManager().addOnBackStackChangedListener(this);
-        mToolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
 
-        //mToolbar.setNavigationIcon(null);
-        //img_microphone = findViewById(R.id.img_microphone);
-        //  DrawableCompat.setTint(img_microphone.getDrawable(), Color.parseColor(Constant.themeModel.ThemeColor) /*Utils.getColor(this, *//*656565*//* *//*Color.parseColor(*//* Integer.parseInt(Constant.themeModel.ThemeColor) *//*)*//* *//*R.color.red*//*)*/);
-        //img_microphone.setOnClickListener(this);
+        int color = Color.parseColor(Constant.themeModel.ThemeColor);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.setStatusBarColor(color);
+        }
 
         searchClear = findViewById(R.id.search_clear);
         searchClear.setOnClickListener(this);
@@ -711,10 +617,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         searchCamera.setOnClickListener(this);
 
         mSearchedt = findViewById(R.id.searchedt);
-//        int maxLength = 12;
-//        InputFilter[] fArray = new InputFilter[1];
-//        fArray[0] = new InputFilter.LengthFilter(maxLength);
-//        mSearchedt.setFilters(fArray);
 
         mSearchedt.addTextChangedListener(/*searchWatcher */new TextWatcher() {
             @Override
@@ -726,12 +628,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
                     searchClear.setVisibility(View.VISIBLE);
-//                    searchCamera.setVisibility(View.GONE);
-                    // img_microphone.setVisibility(View.GONE);
                 } else {
                     searchClear.setVisibility(View.GONE);
-//                    searchCamera.setVisibility(View.VISIBLE);
-                    //img_microphone.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -769,9 +667,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
-        mDrawer = findViewById(R.id.drawer_layout);
-        float width = (float) (getResources().getDisplayMetrics().widthPixels / 1.3);
-        lldrawer.getLayoutParams().width = (int) width;
 
 ////        ********************* Edited by Varun for backbutton *********************
 //
@@ -812,12 +707,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 ////          ********************* END *******************
 
         mDrawer.setDrawerListener(actionBarDrawerToggle);
-        //actionBarDrawerToggle.syncState();
-
-        /*getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(false);
-        actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-        actionBarDrawerToggle.syncState();*/
 
         if (getSupportActionBar() != null)
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -835,60 +724,38 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         txtPersonEmail.setOnClickListener(this);
         btndept.setOnClickListener(this);
 
-        //loadHomeWebPage();
-        /*try {
-            JsonParsing();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
-
-//        onSetDrawerMenu();
-
-        //working code below
-//        CheckUserLogin();
-        //end
         Log.e("Log", "Order ID==" + URL);
         Log.e("Log", "customer ID==" + CustomerId);
 
         txtNotification.setVisibility(View.GONE);
     }
-    
+
 
     private void loadOnlyStoreHoursWS() {
         String Url = WS_BASE_URL + GET_DELIVERY_HOURS + "/" + STOREID + "/" + "store";
         TaskStoreDeliveryHours taskStoreDeliveryHours = new TaskStoreDeliveryHours(this, MainActivity.this, "");
-        taskStoreDeliveryHours.execute(Url);
+//        Edited by Varun For Speed -up
+//        taskStoreDeliveryHours.execute(Url);
+        taskStoreDeliveryHours.executeOnExecutor(TaskStoreDeliveryHours.THREAD_POOL_EXECUTOR, Url);
+//        END
     }
-
-//    private void onCallContactInfoWS() {
-//
-//        String getContactInfoURL = Constant.WS_BASE_URL + Constant.GET_CONTACT_INFO + "/" + Constant.STOREID;
-//        TaskContactInfo taskContactInfo = new TaskContactInfo(MainActivity.getInstance(),this);
-//        taskContactInfo.execute(getContactInfoURL);
-//    }
 
     public void CheckUserLogin() {
         AppPref = getSharedPreferences(PrefName, MODE_PRIVATE);
         if (!BAR_IMG_DISP) {
-            //Log.e("Log","email="+Constant.AppPref.getString("email", "")+"pass="+Constant.AppPref.getString("password", ""));
-
-//            Edited by Varun for guest login
-//            Here we check user email and password and if the email is guest is not
-//           if(Constant.isFromLogin){
             Constant.ISguest = Constant.AppPref.getBoolean("ISguest",false);
             if (!ISguest) {
 //                END
                 if (!AppPref.getString("email", "").isEmpty() && !AppPref.getString("password", "").isEmpty()) {
                     String Url = WS_BASE_URL + CHECK_PASSWORD + AppPref.getString("email", "") + "/" + AppPref.getString("password", "") + "/" + STOREID;
-                    new Async_getCommonService(MainActivity.this, Url, "comefromLogin").execute();
+//                   Edited by Varun For Speed -up
+//                    new Async_getCommonService(MainActivity.this, Url, "comefromLogin").execute();
+                    new Async_getCommonService(this, Url).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//                    END
                 }else{
                     loadHomeWebPage();
                 }
-            }
-//               Constant.isFromLogin = false;
-//           }
-            else {
-                //txtNotification.setVisibility(View.VISIBLE);
+            } else {
                 loadHomeWebPage();
             }
             BAR_IMG_DISP = false;
@@ -1053,7 +920,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         String url;
         url = WS_BASE_URL + GET_SEARCH_DATA + "/" + STOREID + "/" + search;
         taskSearch = new TaskSearch(this);
-        taskSearch.execute(url);
+//        Edited by Varun For Speed -up
+//        taskSearch.execute(url);
+        taskSearch.executeOnExecutor(TaskSearch.THREAD_POOL_EXECUTOR,url);
     }
 
     /**
@@ -1202,7 +1071,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         String filterUrl;
         filterUrl = WS_BASE_URL + FILTER_HOME_PAGE + STOREID;
         TaskFilterHomePage taskFilterHomePage = new TaskFilterHomePage(MainActivity.getInstance());
-        taskFilterHomePage.execute(filterUrl);
+//        Edited by Varun For Speed -up
+//        taskFilterHomePage.execute(filterUrl);
+        taskFilterHomePage.executeOnExecutor(TaskFilterHomePage.THREAD_POOL_EXECUTOR,filterUrl);
     }
 
     @Override
@@ -1263,7 +1134,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
         TaskFilter taskFilter = new TaskFilter(MainActivity.getInstance());
         Log.e("Filter", "callFilter: " + taskFilter);
-        taskFilter.execute(filterUrl);
+//        Edited by Varun For Speed -up
+//        taskFilter.execute(filterUrl);
+        taskFilter.executeOnExecutor(TaskFilter.THREAD_POOL_EXECUTOR,filterUrl);
     }
 
     /**
@@ -1345,7 +1218,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
         TaskFilter taskFilter = new TaskFilter(MainActivity.getInstance());
         Log.e("Filter", "callFilter: " + taskFilter);
-        taskFilter.execute(filterUrl);
+//        Edited by Varun For Speed -up
+//        taskFilter.execute(filterUrl);
+        taskFilter.executeOnExecutor(TaskFilter.THREAD_POOL_EXECUTOR,filterUrl);
     }
 
     /**
@@ -1366,7 +1241,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         MainActivity.specialOfferGroup = "0";
         valueTwo = "";
         valueOne = "";
-        taskFilter.execute(filterUrl);
+//        Edited by Varun For Speed -up
+//        taskFilter.execute(filterUrl);
+        taskFilter.executeOnExecutor(TaskFilter.THREAD_POOL_EXECUTOR,filterUrl);
     }
 
     /**
@@ -1382,7 +1259,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                 + "/" + STOREID;
 
         TaskFilterInfo taskFilterInfo = new TaskFilterInfo(this, this, "");
-        taskFilterInfo.execute(url);
+//        Edited by Varun For Speed -up
+//        taskFilterInfo.execute(url);
+        taskFilterInfo.executeOnExecutor(TaskFilterInfo.THREAD_POOL_EXECUTOR,url);
     }
 
     @Override
@@ -1934,8 +1813,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     public void callNotificationDialogWs() {
         String Url3 = WS_BASE_URL + GET_NOTIFICATION_CuSTERMER + STOREID + "/" + getUserId() + "/1/25";
         TaskNotificationList notificationList = new TaskNotificationList(this);
-        notificationList.execute(Url3);
-
+//        Edited by Varun For Speed -up
+//        notificationList.execute(Url3);
+        notificationList.executeOnExecutor(TaskNotificationList.THREAD_POOL_EXECUTOR,Url3);
     }
 
     @Override
@@ -2362,8 +2242,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         //Hide search filter if shows
 
         if (UserModel.Cust_mst_ID != null && !UserModel.Cust_mst_ID.equals("0")) {
-            //Manage Account
-
             getCustomerData();
             MainActivity.getInstance().isComeFromCartIconManageAccount = true;
         } else {
@@ -2376,7 +2254,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
             String url = WS_BASE_URL + GET_CUSTOMER_DATA + UserModel.Cust_mst_ID + "/" + STOREID;
             TaskCustomerData taskCustomerData = new TaskCustomerData(this, this, true);
             Log.d("", "Customer data : " + url);
-            taskCustomerData.execute(url);
+//            Edited by Varun For Speed -up
+            taskCustomerData.executeOnExecutor(TaskCustomerData.THREAD_POOL_EXECUTOR,url);
+//            taskCustomerData.execute(url);
         }
     }
 
@@ -2402,19 +2282,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onContinueShoppingCartClicked() {
         mContent.setVisibility(View.GONE);
-        //old commented on 21st Jan stars --------------
-//        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(CardFragment.TAG)).commit();
-//        getSupportFragmentManager().popBackStackImmediate();
-//
-//
-//        //Edited by Janvi 26th April *********
-//        MainActivity.showHomePage();
-//        MainActivity.getInstance().loadHomeWebPage();
-////        loadInventoryPage();
-//        // end *********
-//
-        //end ------------------
-
         CardFragment.getInstance().redirectToHome();
     }
 
@@ -2930,14 +2797,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                             "/" + STOREID + "/" + "0" + "/" + "add" + "/" + invType;
 
                     TaskDeleteWishList deleteWishList = new TaskDeleteWishList(this, "");
-                    deleteWishList.execute(wishlistWSurl);
+//                    Edited by Varun For Speed -up
+                    deleteWishList.executeOnExecutor(TaskDeleteWishList.THREAD_POOL_EXECUTOR,wishlistWSurl);
+//                    deleteWishList.execute(wishlistWSurl);
                 } else {
                     String wishlistWSurl = WS_BASE_URL + DELETE_CART + "0" + "/" + "Wishlist" + "/" + "0" +
                             "/" + itemId + "/" + "1" +
                             "/" + STOREID + "/" + "0" + "/" + "add" + "/" + invType;
 
                     TaskDeleteWishList deleteWishList = new TaskDeleteWishList(this, "");
-                    deleteWishList.execute(wishlistWSurl);
+//                    Edited by Varun For Speed -up
+                    deleteWishList.executeOnExecutor(TaskDeleteWishList.THREAD_POOL_EXECUTOR,wishlistWSurl);
+//                    deleteWishList.execute(wishlistWSurl);
                 }
 
             }
@@ -2951,7 +2822,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                         "/" + STOREID + "/" + "0" + "/" + "add" + "/" + invType;
 
                 TaskDeleteWishList deleteWishList = new TaskDeleteWishList(this, "");
-                deleteWishList.execute(wishlistWSurl);
+//                Edited by Varun For Speed -up
+                deleteWishList.executeOnExecutor(TaskDeleteWishList.THREAD_POOL_EXECUTOR,wishlistWSurl);
+//                deleteWishList.execute(wishlistWSurl);
 
             } else {
                 String wishlistWSurl = WS_BASE_URL + DELETE_CART + "0" + "/" + "Wishlist" + "/" + "0" +
@@ -2959,7 +2832,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                         "/" + STOREID + "/" + "0" + "/" + "add" + "/" + invType;
 
                 TaskDeleteWishList deleteWishList = new TaskDeleteWishList(this, "");
-                deleteWishList.execute(wishlistWSurl);
+//                Edited by Varun For Speed -up
+                deleteWishList.executeOnExecutor(TaskDeleteWishList.THREAD_POOL_EXECUTOR,wishlistWSurl);
+//                deleteWishList.execute(wishlistWSurl);
             }
         }
     }
@@ -3287,7 +3162,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                 + "/" + STOREID;
 
         TaskFilterInfo taskFilterInfo = new TaskFilterInfo(this, this, "isForDepartment");
-        taskFilterInfo.execute(url);
+//        Edited by Varun For Speed -up
+//        taskFilterInfo.execute(url);
+        taskFilterInfo.executeOnExecutor(TaskFilterInfo.THREAD_POOL_EXECUTOR,url);
     }
 
 
@@ -3379,6 +3256,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
             fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             fragmentTransaction.replace(R.id.mContent, homepageFragment, "fragment");
 
+            Log.e("", "onCreateView: Varun going from Main Activity to Home Fragment" );
             //fragmentTransaction.addToBackStack(FilterFragment.class.getSimpleName());
             //fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commitAllowingStateLoss();
@@ -3420,15 +3298,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 //            url = WS_BASE_URL + GET_CUSTOMER_CARD_DATA + UserModel.Cust_mst_ID + "/" + MY_CART + STOREID;
             url = WS_BASE_URL + GET_CUSTOMER_CARD_DATA_V1 + UserModel.Cust_mst_ID + "/" + MY_CART + STOREID + Constant.ENCODE_TOKEN_ID;
             TaskCart taskCart = new TaskCart(MainActivity.getInstance(), buyitagain);
-            taskCart.execute(url);
+//            Edited by Varun For Speed -up
+            taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
+//            taskCart.execute(url);
         } else {
 //            url = WS_BASE_URL + GET_CUSTOMER_CARD_DATA + DeviceInfo.getDeviceId(MainActivity.getInstance()) + "0011" + "/" + SESSION + STOREID;
             url = WS_BASE_URL + GET_CUSTOMER_CARD_DATA_V1 + DeviceInfo.getDeviceId(MainActivity.getInstance()) + "0011" + "/" + SESSION + STOREID + Constant.ENCODE_TOKEN_ID;
             TaskCart taskCart = new TaskCart(MainActivity.getInstance(), buyitagain);
-            taskCart.execute(url);
+//            Edited by Varun For Speed -up
+            taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
+//            taskCart.execute(url);
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     @Override
     public void onShoppingCardResult(List<ShoppingCardModel> liShoppingCard, String s) {
         int quantity = 0;
@@ -3456,7 +3339,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     public static void onCallGlobalSetup() {
         String twentyOneYearUrl = WS_BASE_URL + GET_GLOBALSETTING + STOREID;
         TaskTwentyOneYear taskTwentyOneYear = new TaskTwentyOneYear(MainActivity.getInstance());
-        taskTwentyOneYear.execute(twentyOneYearUrl);
+//        Edited by Varun For Speed -up
+//        taskTwentyOneYear.execute(twentyOneYearUrl);
+        taskTwentyOneYear.executeOnExecutor(TaskTwentyOneYear.THREAD_POOL_EXECUTOR, twentyOneYearUrl);
+//        END
+
     }
 
     @Override
@@ -3476,8 +3363,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
             callStorehoursWSForAllStores(MainActivity.this, Constant.isSearchLocation, Constant.storeSearchLocationList);
 
-        }
-        else {
+        } else {
+            if (!IsComeFromSplash) {
+                CheckUserLogin();
+            }
             if (storeLocationList != null && storeLocationList.size() > 0) {
                 for (int i = 0; i < Constant.storeLocationList.size(); i++) {
                     if (Constant.STOREID.equals(Constant.storeLocationList.get(i).getStoreno())) {
@@ -3494,8 +3383,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                 } else if (twentyOneYear.getCustAgeValidOption() == 2 ||
                         twentyOneYear.getCustAgeValidOption() == 0) {
 
-                    //get store location from resonse of this ws
-                    // check for location permission
                     if (co_storeno_value != null && !co_storeno_value.isEmpty()) {
                         takeLocationPermissionFromUser();
                     }
@@ -3504,57 +3391,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                     DialogUtils.on21YearFaster(MainActivity.this, twentyOneYear);
                 }
             }
-
-            CheckUserLogin();
         }
-
-//        END
-
-        /* old code working and commented by varun for lockdown feature on 9 may 2023 */
-
-//        String getContactInfoURL = WS_BASE_URL + GET_CONTACT_INFO + "/" + STOREID;
-//       TaskContactInfo taskContactInfo = new TaskContactInfo(MainActivity.getInstance(), this);
-//       taskContactInfo.execute(getContactInfoURL);
-
-
-        // faster method - 3
-        // age vlidate month year day - 1
-        // In cart - 2
-        //not apply - 0
-
-//        if (this.twentyOneYear != null) {
-//
-//            if (twentyOneYear.getCustAgeValidOption() == 1) {
-//                DialogUtils.on21YearHome(twentyOneYear);
-//
-//            } else if (twentyOneYear.getCustAgeValidOption() == 2 ||
-//                twentyOneYear.getCustAgeValidOption() == 0) {
-//
-//                //get store location from resonse of this ws
-//                // check for location permission
-//                takeLocationPermissionFromUser();
-//
-//            }
-//        }
-//        else if(twentyOneYear.getCustAgeValidOption() == 3){
-//            String getContactInfoURL = Constant.WS_BASE_URL + Constant.GET_CONTACT_INFO + "/" + Constant.STOREID;
-//            TaskContactInfo taskContactInfo = new TaskContactInfo(MainActivity.getInstance(),this);
-//            taskContactInfo.execute(getContactInfoURL);
-//        }
-
-
     }
 
 
     @Override
     public void contactInfoEventResult(ContatInfo contatInfo) {
         Constant.contatInfo = contatInfo;
-
-        // faster method - 3
-        // age vlidate month year day - 1
-        // In cart - 2
-        //not apply - 0
-
         loadStoreLocationWSdata();
 
     }
@@ -3569,7 +3412,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
             String storeLocationURL = WS_BASE_URL + GET_CORPORATE_STORE_SUBSTORELIST + "/" + STOREID + "/" + zip;
             TaskStoreLocationInfo taskStoreLocationInfo = new TaskStoreLocationInfo(this, MainActivity.this, false);
-            taskStoreLocationInfo.execute(storeLocationURL);
+//            Edited by Varun For Speed -up
+            taskStoreLocationInfo.executeOnExecutor(TaskStoreLocationInfo.THREAD_POOL_EXECUTOR,storeLocationURL);
+//            taskStoreLocationInfo.execute(storeLocationURL);
         }
     }
 
@@ -3590,6 +3435,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
         }
         else {
+            CheckUserLogin();
             if (storeLocationList != null && storeLocationList.size() > 0) {
                 Constant.storeLocationList = storeLocationList;
                 for (int i = 0; i < Constant.storeLocationList.size(); i++) {
@@ -3617,7 +3463,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                 }
             }
 
-            CheckUserLogin();
         }
     }
 
@@ -3629,7 +3474,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         if (UserModel.Cust_mst_ID != null && !seesion.isEmpty()) {
             seesionUrl = WS_BASE_URL + UPDATE_SESSION_TO_CART
                     + seesion + "/" + UserModel.Cust_mst_ID + "/" + STOREID;
-            sessionToCard.execute(seesionUrl);
+//            Edited by Varun For Speed -up
+//            sessionToCard.execute(seesionUrl);
+            sessionToCard.executeOnExecutor(TaskSessionToCart.THREAD_POOL_EXECUTOR,seesionUrl);
         }
     }
 
@@ -3665,7 +3512,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onStart() {
         super.onStart();
-        onGetCartData("");
+//        onGetCartData("");
     }
 
     /**
@@ -4420,7 +4267,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
         String url = WS_BASE_URL + RE_ORDER_DETAILS + orderid + "/" + STOREID;
         TaskReOrder taskCart = new TaskReOrder(this, orderid);
-        taskCart.execute(url);
+//        Edited by Varun For Speed -up
+        taskCart.executeOnExecutor(TaskReOrder.THREAD_POOL_EXECUTOR,url);
+//        taskCart.execute(url);
     }
 
     @Override
@@ -4454,7 +4303,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
         reorderDialog = new Dialog(this);
         reorderDialog.setContentView(R.layout.reorder_detail_dialog);
-        reorderDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        reorderDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
 //        RecyclerView rvReorder = dialog.findViewById(R.id.recyclerview);
         TextView tvTitle = (TextView) reorderDialog.findViewById(R.id.tvTitle);
@@ -4529,12 +4378,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     public void onWishListResult(WishList wishList, String string) {
 
         if (wishList.getResult().equals("success")) {
-            DialogUtils.showDialog("Added in WishList!");
+            DialogUtils.showDialog("Added in Wish List!");
 //            if(Constant.isclickedwishlistFromViewall){
 //                ViewAllFragment.getInstance().colorwishlistIcon();
 //            }
         } else {
-            DialogUtils.showDialog("Already in WishList!");
+            DialogUtils.showDialog("Already in Wish List!");
         }
     }
 
@@ -4862,7 +4711,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
             String url = WS_BASE_URL + GET_CUSTOMER_DATA + userModel.Cust_mst_ID + "/" + STOREID;
             TaskCustomerData taskCustomerData = new TaskCustomerData(MainActivity.this, this);
             Log.d("", "Customer data : " + url);
-            taskCustomerData.execute(url);
+//            Edited by Varun For Speed -up
+//            taskCustomerData.execute(url);
+            taskCustomerData.executeOnExecutor(TaskCustomerData.THREAD_POOL_EXECUTOR,url);
+//            END
         }
 
     }
@@ -5127,7 +4979,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                     }
                     String Url = WS_BASE_URL + GET_DELIVERY_HOURS + "/" + currentStoreNo + "/" + "store";
                     TaskAllStoreHours allStoreHours = new TaskAllStoreHours(this, context, currentStoreNo, isLastStore);
-                    allStoreHours.execute(Url);
+//                    Edited by Varun For Speed -up
+//                    allStoreHours.execute(Url);
+                    allStoreHours.executeOnExecutor(TaskAllStoreHours.THREAD_POOL_EXECUTOR, Url);
+//                    END
                 }
             }
         }
@@ -5163,7 +5018,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
         String storeLocationURL = WS_BASE_URL + GET_CORPORATE_STORE_SUBSTORELIST + "/" + STOREID + "/" + searchtext + "/" + "search";
         TaskStoreLocationInfo taskStoreLocationInfo = new TaskStoreLocationInfo(this, context, true);
-        taskStoreLocationInfo.execute(storeLocationURL);
+//        Edited by Varun For Speed -up
+//        taskStoreLocationInfo.execute(storeLocationURL);
+        taskStoreLocationInfo.executeOnExecutor(TaskStoreLocationInfo.THREAD_POOL_EXECUTOR,storeLocationURL);
     }
 
     public void callCusDefaultFavLocationWS(Context context, String storeno) {
@@ -5172,7 +5029,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
             String url = WS_BASE_URL + SAVE_CUS_DEFAULT_LOCATION + "/" + storeno + "/" + userModeltemp.Cust_mst_ID;
             TaskCustomerData taskCustomerData = new TaskCustomerData(context, this, true, true);
             Log.d("", "Customer data : " + url);
-            taskCustomerData.execute(url);
+//            Edited by Varun For Speed -up
+//            taskCustomerData.execute(url);
+            taskCustomerData.executeOnExecutor(TaskCustomerData.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -5181,7 +5040,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         String buyitAgainUrl;
         buyitAgainUrl = WS_BASE_URL + Constant.RE_BUYITAGAIN_DATA + orderId + "/" + itemid + "/" + STOREID;
         TaskReOrder taskCart = new TaskReOrder(MainActivity.this, this, "buyItAgain", requestdQty);
-        taskCart.execute(buyitAgainUrl);
+//        Edited by Varun For Speed -up
+        taskCart.executeOnExecutor(TaskReOrder.THREAD_POOL_EXECUTOR,buyitAgainUrl);
+//        taskCart.execute(buyitAgainUrl);
+//        END
     }
 
 
@@ -5200,7 +5062,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 //            String url = Constant.WS_BASE_URL + Constant.GET_INVERNTORY_BY_ID + "/" + itemIdSku + "/" + Constant.STOREID;
             String url = Constant.WS_BASE_URL + GET_INVERNTORY_BY_ID_NEW + "/" + itemIdSku + "/" + Constant.STOREID;
             TaskItemDescription taskItemDescription = new TaskItemDescription(this, MainActivity.this);
-            taskItemDescription.execute(url);
+//            Edited by Varun For Speed -up
+//            taskItemDescription.execute(url);
+            taskItemDescription.executeOnExecutor(TaskItemDescription.THREAD_POOL_EXECUTOR,url);
+//            END
         }
     }
 
@@ -5239,14 +5104,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                         "/" + Constant.STOREID + "/" + "0" + "/" + "add" + "/" + invType;
 
                 TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
-                taskAddToCart.execute(cartWSurl);
+//                Edited by Varun For Speed -up
+                taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                taskAddToCart.execute(cartWSurl);
             } else {
                 String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + "0" + "/" + "Cart" + "/" + "0" +
                         "/" + NewItemSku + "/" + resquantity +
                         "/" + Constant.STOREID + "/" + DeviceInfo.getDeviceId(MainActivity.this) + "0011" + "/" + "add" + "/" + invType;
 
                 TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
-                taskAddToCart.execute(cartWSurl);
+//                Edited by Varun For Speed -up
+                taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                taskAddToCart.execute(cartWSurl);
             }
 
 //            Toast.makeText(mainActivity, "MMMMMMMMMMM", Toast.LENGTH_SHORT).show();
@@ -5270,14 +5139,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                             "/" + Constant.STOREID + "/" + "0" + "/" + "add" + "/" + invType;
 
                     TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
-                    taskAddToCart.execute(cartWSurl);
+//                    Edited by Varun For Speed -up
+                    taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                    taskAddToCart.execute(cartWSurl);
                 } else {
                     String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + "0" + "/" + "Cart" + "/" + "0" +
                             "/" + sku + "/" + resquantity +
                             "/" + Constant.STOREID + "/" + DeviceInfo.getDeviceId(MainActivity.this) + "0011" + "/" + "add" + "/" + invType;
 
                     TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
-                    taskAddToCart.execute(cartWSurl);
+//                    Edited by Varun For Speed -up
+                    taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
+//                    taskAddToCart.execute(cartWSurl);
                 }
 
             }
@@ -5339,14 +5212,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                         "/" + Constant.STOREID + "/" + "0" + "/" + "Updatemoreincart" + "/" + Constant.invType;
 
                 TaskUpdatetoCart taskUpdatetoCart = new TaskUpdatetoCart(this);
-                taskUpdatetoCart.execute(cartWSurl);
+//                Edited by Varun For Speed -up
+//                taskUpdatetoCart.execute(cartWSurl);
+                taskUpdatetoCart.executeOnExecutor(TaskUpdatetoCart.THREAD_POOL_EXECUTOR,cartWSurl);
             } else {
 
                 String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + noteCartId + "/" + "Cart" + "/" + "0" +
                         "/" + sku + "/" + finalRequested_Quantity +
                         "/" + Constant.STOREID + "/" + "0" + "/" + "Updatemoreincart" + "/" + Constant.invType;
                 TaskUpdatetoCart taskUpdatetoCart = new TaskUpdatetoCart(this);
-                taskUpdatetoCart.execute(cartWSurl);
+//                Edited by Varun For Speed -up
+//                taskUpdatetoCart.execute(cartWSurl);
+                taskUpdatetoCart.executeOnExecutor(TaskUpdatetoCart.THREAD_POOL_EXECUTOR,cartWSurl);
             }
         }
     }
@@ -5371,7 +5248,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
             String url = Constant.WS_BASE_URL + Constant.GET_SHIPPING_ADDRESS_BY_ID + "/" + UserModel.Cust_mst_ID + "/" + Constant.STOREID + "/" + shippingId;
             TaskEditShipping taskCustomerData = new TaskEditShipping(this, this);
             Log.d("", "shipping data : " + url);
-            taskCustomerData.execute(url);
+//            Edited by Varun For Speed -up
+//            taskCustomerData.execute(url);
+            taskCustomerData.executeOnExecutor(TaskEditShipping.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -5396,10 +5275,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
 //    Edited by Varun for faster shopping in item description page
 
-    public void fast() {
-//          For Visible
-        ll_fast.setVisibility(View.GONE);
-    } public void fast2() {
+    public void fast2() {
 //          For Gone
         ll_fast.setVisibility(View.GONE);
     }
@@ -5429,8 +5305,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         String url = Constant.WS_BASE_URL + Constant.GET_DELETE_CUSTOMER_ACCOUNT_FROM_ECOM + "/" + Constant.STOREID+ "/" + UserModel.Cust_mst_ID  + "/" + ENCODE_TOKEN_ID;
         TaskDeleteAccount taskDeleteAccount = new TaskDeleteAccount((TaskDeleteAccount.TaskDeleteAccountEvent) this);
         Log.d("", "Delete Account : " + url);
-        taskDeleteAccount.execute(url);
-
+//        Edited by Varun For Speed -up
+//        taskDeleteAccount.execute(url);
+        taskDeleteAccount.executeOnExecutor(TaskDeleteAccount.THREAD_POOL_EXECUTOR,url);
     }
 
     @Override

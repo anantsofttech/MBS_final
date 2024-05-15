@@ -2,10 +2,10 @@ package com.aspl.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.core.widget.NestedScrollView;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -64,7 +64,7 @@ public class ManageAccountFragment extends Fragment implements View.OnFocusChang
     static EditText et_zip;
     static EditText et_address_two;
     public static AutoCompleteTextView et_address_one;
-    Button btnSave;
+    Button btnSave , btnCancel;
 
     public static boolean isdhowdropdown = true;
     Spinner spinner_mobile_option;
@@ -118,6 +118,7 @@ public class ManageAccountFragment extends Fragment implements View.OnFocusChang
         et_address_two.setOnFocusChangeListener(this);
         tv_email =  (TextView) view.findViewById(R.id.tv_email);
         btnSave = (Button)view.findViewById(R.id.btnSave);
+        btnCancel = (Button)view.findViewById(R.id.btnCancel);
 
         //Spinner
         spinner_mobile_option = (Spinner)view.findViewById(R.id.spinner_mobile_option);
@@ -220,6 +221,14 @@ public class ManageAccountFragment extends Fragment implements View.OnFocusChang
                 }
             }
         });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.getInstance().onBackPressed();
+            }
+        });
+
     }
 
     @Override

@@ -46,7 +46,7 @@
     <dimen name="dimen_CartTextSize">@dimen/_12sdp</dimen>
     <dimen name="dimen_ButtonTextSize">@dimen/_12sdp</dimen>
     <dimen name="dimen_ButtonPadding">@dimen/_7sdp</dimen>
-    <dimen name="dimen_DeliveryTextSize">@dimen/_14sdp</dimen>
+    <dimen name="dimen_DeliveryTextSize">@dimen/_15sdp</dimen>
 
     <dimen name="dimen_HeaderTextSize">@dimen/_15sdp</dimen>
     <!--<dimen name="activity_horizontal_margin">16dp</dimen>

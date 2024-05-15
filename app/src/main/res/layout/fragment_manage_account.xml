@@ -3,7 +3,7 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/nested_ManageAccount"
         android:layout_width="match_parent"
         android:fillViewport="true"
@@ -30,15 +30,15 @@
                 android:textSize="@dimen/_14sdp"
                 android:textStyle="bold" />
 
-            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tool="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_9sdp"
                 android:orientation="vertical"
-                tool:cardCornerRadius="@dimen/_3sdp"
-                tool:cardElevation="3dp"
+                tool:cardCornerRadius="@dimen/_5sdp"
+                tool:cardElevation="4dp"
                 tools:ignore="UnusedAttribute">
 
                 <RelativeLayout
@@ -56,7 +56,8 @@
                         android:layout_marginRight="@dimen/_2sdp"
                         android:layout_marginTop="@dimen/_7sdp"
                         android:text=""
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <EditText
@@ -83,7 +84,8 @@
                         android:layout_below="@+id/et_lastname"
                         android:layout_marginTop="@dimen/_7sdp"
                         android:text="@string/lbl_first_name"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <EditText
@@ -118,7 +120,8 @@
                         android:layout_below="@+id/et_firstname"
                         android:layout_marginTop="@dimen/_7sdp"
                         android:text="@string/lbl_company_name"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <EditText
@@ -143,7 +146,8 @@
                         android:layout_marginLeft="@dimen/_2sdp"
                         android:layout_below="@+id/et_company_name"
                         android:layout_marginTop="@dimen/dimen_5"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:textColor="@color/black"
                         android:text="@string/lbl_email_title" />
 
                     <TextView
@@ -153,7 +157,7 @@
                         android:layout_marginLeft="@dimen/_2sdp"
                         android:layout_below="@+id/tv_bs_title_email_delivery_option_fragment"
                         android:layout_marginTop="@dimen/dimen_5"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_13sdp"
                         android:text="" />
 
                     <!-- Phone Number -->
@@ -167,7 +171,8 @@
                         android:layout_below="@+id/tv_email"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/lbl_phone_number_simple"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -249,7 +254,8 @@
                         android:layout_below="@+id/rl_bs_phone_number_delivery_option_fragment"
                         android:layout_marginTop="@dimen/_7sdp"
                         android:text="@string/lbl_address1"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <AutoCompleteTextView
@@ -276,7 +282,8 @@
                         android:layout_below="@+id/et_address_one"
                         android:layout_marginTop="@dimen/_7sdp"
                         android:text="@string/lbl_address2"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <EditText
@@ -355,7 +362,8 @@
                             android:layout_marginLeft="@dimen/_2sdp"
                             android:layout_marginRight="@dimen/_2sdp"
                             android:text="@string/lbl_city_mendatory"
-                            android:textSize="@dimen/_12sdp"
+                            android:textSize="@dimen/_13sdp"
+                            android:textColor="@color/black"
                             android:textStyle="bold" />
 
                         <TextView
@@ -367,7 +375,8 @@
                             android:layout_marginLeft="@dimen/_4sdp"
                             android:layout_marginRight="@dimen/_2sdp"
                             android:text="@string/lbl_state_mendatory"
-                            android:textSize="@dimen/_12sdp"
+                            android:textSize="@dimen/_13sdp"
+                            android:textColor="@color/black"
                             android:textStyle="bold" />
 
                         <TextView
@@ -379,7 +388,8 @@
                             android:layout_marginLeft="@dimen/_4sdp"
                             android:layout_marginRight="@dimen/_2sdp"
                             android:text="@string/lbl_zip"
-                            android:textSize="@dimen/_12sdp"
+                            android:textSize="@dimen/_13sdp"
+                            android:textColor="@color/black"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -441,24 +451,52 @@
                             android:maxLength="5" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ll_citystateEdittxt"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
-                    <Button
-                        android:id="@+id/btnSave"
-                        android:layout_marginRight="@dimen/dimen_15"
-                        android:layout_marginLeft="@dimen/_2sdp"
-                        android:layout_marginTop="@dimen/_7sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:text="Save"
-                        android:layout_below="@+id/ll_citystateEdittxt"
-                        android:textSize="@dimen/dimen_ButtonTextSize"
-                        android:textColor="@color/White"
-                        android:padding="@dimen/dimen_ButtonPadding"
-                        android:background="@drawable/round_shap_red"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        <Button
+                            android:id="@+id/btnSave"
+                            android:layout_marginRight="@dimen/dimen_9"
+                            android:layout_marginLeft="@dimen/_2sdp"
+                            android:layout_marginTop="@dimen/_7sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:text="Save"
+                            android:layout_below="@+id/ll_citystateEdittxt"
+                            android:textSize="@dimen/dimen_ButtonTextSize"
+                            android:textColor="@color/White"
+                            android:padding="@dimen/dimen_ButtonPadding"
+                            android:background="@drawable/round_shap_red"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"/>
+
+                        <Button
+                            android:id="@+id/btnCancel"
+                            android:layout_marginRight="@dimen/_2sdp"
+                            android:layout_marginLeft="@dimen/dimen_9"
+                            android:layout_marginTop="@dimen/_7sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:text="Cancel"
+                            android:layout_below="@+id/ll_citystateEdittxt"
+                            android:textSize="@dimen/dimen_ButtonTextSize"
+                            android:textColor="@color/White"
+                            android:padding="@dimen/dimen_ButtonPadding"
+                            android:background="@drawable/round_shap_red"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"/>
+
+                    </LinearLayout>
+
+
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

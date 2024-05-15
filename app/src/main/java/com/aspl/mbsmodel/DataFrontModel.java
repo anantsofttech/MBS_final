@@ -41,6 +41,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class DataFrontModel {
 
+    @JsonProperty("NewAdditionsInvCount")
+    private int NewAdditionsInvCount;
+    @JsonProperty("StaffPickInvCount")
+    private int StaffPickInvCount;
+    @JsonProperty("ItemsonPromoInvCount")
+    private int ItemsonPromoInvCount;
     @JsonProperty("IsItemsonpromotionsActive")
     private String IsItemsonpromotionsActive;
     @JsonProperty("IsNewAdditionsActive")
@@ -248,5 +254,29 @@ public class DataFrontModel {
 
     public void setIsStaffPickActive(String isStaffPickActive) {
         IsStaffPickActive = isStaffPickActive;
+    }
+
+    public int getNewAdditionsInvCount() {
+        return NewAdditionsInvCount;
+    }
+
+    public void setNewAdditionsInvCount(int newAdditionsInvCount) {
+        NewAdditionsInvCount = newAdditionsInvCount;
+    }
+
+    public int getStaffPickInvCount() {
+        return StaffPickInvCount;
+    }
+
+    public void setStaffPickInvCount(int staffPickInvCount) {
+        StaffPickInvCount = staffPickInvCount;
+    }
+
+    public int getItemsonPromoInvCount() {
+        return ItemsonPromoInvCount;
+    }
+
+    public void setItemsonPromoInvCount(int itemsonPromoInvCount) {
+        ItemsonPromoInvCount = itemsonPromoInvCount;
     }
 }

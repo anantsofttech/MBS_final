@@ -25,26 +25,13 @@ import java.net.SocketTimeoutException;
 
 public class TaskContactInfo extends AsyncTask<String, Void, String> {
 
-//    private ContatInfo contatInfo;
-
     public TaskContactInfoEvent taskContactInfoEvent;
     public Context context;
-//    ProgressDialog loading = null;
-
-//    public TaskContactInfo(TaskContactInfoEvent taskContactInfoEvent) {
-//        this.taskContactInfoEvent = taskContactInfoEvent;
-//    }
 
     @SuppressLint("ResourceType")
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-//
-//        loading = new ProgressDialog(context, R.style.MyprogressDTheme);
-//        loading.setCancelable(false);
-////        loading.setMessage(Constant.Message.AuthenticatingUser);
-//        loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        loading.show();
     }
 
     public TaskContactInfo(TaskContactInfoEvent taskContactInfoEvent, Context context) {
@@ -71,8 +58,6 @@ public class TaskContactInfo extends AsyncTask<String, Void, String> {
                 Log.e("log", "Response  " + response);
                 ObjectMapper objectMapper = new ObjectMapper();
                 Constant.contatInfo = objectMapper.readValue(response, ContatInfo.class);
-                /*liCardModel = objectMapper.readValue(response, new TypeReference<List<ShoppingCardModel>>() {
-                });*/
                 return response;
 
             } catch (JsonParseException e) {
@@ -101,7 +86,6 @@ public class TaskContactInfo extends AsyncTask<String, Void, String> {
         if(taskContactInfoEvent != null){
             taskContactInfoEvent.contactInfoEventResult(Constant.contatInfo);
         }
-//        loading.dismiss();
     }
 
 }

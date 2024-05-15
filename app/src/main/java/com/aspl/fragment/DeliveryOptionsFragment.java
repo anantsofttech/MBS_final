@@ -5,27 +5,23 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.core.widget.NestedScrollView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputFilter;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -34,7 +30,6 @@ import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.StrikethroughSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -62,7 +57,6 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aspl.Adapter.AddressesAdapter;
 import com.aspl.Adapter.AdvancePaymentOptionAdapter;
@@ -223,6 +217,7 @@ public class DeliveryOptionsFragment extends Fragment
     TextView test_site_link;
     LinearLayout lin_test_site_link;
 
+    CardView cv_ship;
 
     /**
      * Interface
@@ -600,6 +595,7 @@ public class DeliveryOptionsFragment extends Fragment
 
         test_site_link = v.findViewById(R.id.test_site_link);
         lin_test_site_link= v.findViewById(R.id.lin_test_site_link);
+        cv_ship = v.findViewById(R.id.cv_ship);
 
 
 //                String vv= getResources().getString(R.string.lbl_ship)+ getResources().getString(R.string.lbl_ship_temporarily)+ liShippingData.get(0).getWebSiteURL();
@@ -740,19 +736,19 @@ public class DeliveryOptionsFragment extends Fragment
 //
 //                } else {
 //                    if (Constant.STOREID.equalsIgnoreCase("707") || Constant.STOREID.equalsIgnoreCase("7365")) {
-                        if (etBZIpDO.length() == 5) {
+                if (etBZIpDO.length() == 5) {
 ////                            Edited by Varun for when hand delivery is selected the Shipping WS will not call
-                            if (rbShip.isChecked()){
-                                callShippingWService();
-                                Log.e("callShippingWService", "callShippingWService: 3");
-                            }
+                    if (rbShip.isChecked()){
+                        callShippingWService();
+                        Log.e("callShippingWService", "callShippingWService: 3");
+                    }
 ////                            END
 //                            callShippingWService();
 //                            Log.e("callShippingWService", "callShippingWService: 3");
-                            etBZIpDO.clearFocus();
-                            etBAddressOneDO.dismissDropDown();
-                            etBAddressOneDO.clearFocus();
-                        }
+                    etBZIpDO.clearFocus();
+                    etBAddressOneDO.dismissDropDown();
+                    etBAddressOneDO.clearFocus();
+                }
 //                    }
 //                }
             }
@@ -762,19 +758,19 @@ public class DeliveryOptionsFragment extends Fragment
 //
 //                } else {
 //                    if (Constant.STOREID.equalsIgnoreCase("707") || Constant.STOREID.equalsIgnoreCase("7365")) {
-                        if (etZIpDO.length() == 5) {
+                if (etZIpDO.length() == 5) {
 ////                            Edited by Varun for when hand delivery is selected the Shipping WS will not call
-                            if (rbShip.isChecked()){
-                                callShippingWService();
-                                Log.e("callShippingWService", "callShippingWService: 3");
-                            }
+                    if (rbShip.isChecked()){
+                        callShippingWService();
+                        Log.e("callShippingWService", "callShippingWService: 3");
+                    }
 ////                            END
 //                            callShippingWService();
 //                            Log.e("callShippingWService", "callShippingWService: 3");
-                            etZIpDO.clearFocus();
-                            etAddressOneDO.dismissDropDown();
-                            etAddressOneDO.clearFocus();
-                        }
+                    etZIpDO.clearFocus();
+                    etAddressOneDO.dismissDropDown();
+                    etAddressOneDO.clearFocus();
+                }
 //                    }
 //                }
             }
@@ -1544,6 +1540,7 @@ public class DeliveryOptionsFragment extends Fragment
                         rbPayAtStore.setVisibility(View.VISIBLE);
                         rbPickUpAtStore.setChecked(true);
                         rbPayAtStore.setChecked(true);
+                        cv_ship.setVisibility(View.GONE);
 
                     }
 
@@ -1920,6 +1917,7 @@ public class DeliveryOptionsFragment extends Fragment
         }
 
         if (rbPickUpAtStore.isChecked()) {
+            cv_ship.setVisibility(View.GONE);
             if (!rbPayAtStore.isChecked() && !rbPayWithCart.isChecked()) {
                 DialogUtils.onWarningDialog(getActivity(), "", "Please select a payment option.");
                 valid = false;
@@ -2029,7 +2027,7 @@ public class DeliveryOptionsFragment extends Fragment
 
             etZIpDO.clearFocus();
             if (model._state.equalsIgnoreCase("") || model._state.isEmpty() &&
-                model._city.equalsIgnoreCase("") || model._city.isEmpty()){
+                    model._city.equalsIgnoreCase("") || model._city.isEmpty()){
 //                etStateDO.setText("");
 //                etZIpDO.setText("");
 //                etCityDo.setText("");
@@ -2160,6 +2158,7 @@ public class DeliveryOptionsFragment extends Fragment
 
         if (rbHandOnDelivery.isChecked()) {
             Constant.hand_delivery =true;
+            cv_ship.setVisibility(View.GONE);
             String Url1 = Constant.WS_BASE_URL + Constant.GET_DELI_ZIP_CODES + Constant.STOREID;
             TaskGetZipCode taskzipcode = new TaskGetZipCode(getActivity(), this);
             taskzipcode.execute(Url1);
@@ -2188,9 +2187,9 @@ public class DeliveryOptionsFragment extends Fragment
 
         if (rbShip.isChecked()&&cbxShip.isChecked()){
 //            if (Constant.STOREID.equalsIgnoreCase("707") || Constant.STOREID.equalsIgnoreCase("7365")) {
-                onUpdateDeliveryDetail(liShippingData);
-                callShippingWService();
-                Log.e("callShippingWService", "callShippingWService: 5" );
+            onUpdateDeliveryDetail(liShippingData);
+            callShippingWService();
+            Log.e("callShippingWService", "callShippingWService: 5" );
 //            }
         }
 
@@ -2463,6 +2462,7 @@ public class DeliveryOptionsFragment extends Fragment
         if (view.getId() == btnNext.getId()) {
             isNextCall = true;
             if (rbHandOnDelivery.isChecked()) {
+                cv_ship.setVisibility(View.GONE);
                 String Url1 = Constant.WS_BASE_URL + Constant.GET_DELI_ZIP_CODES + Constant.STOREID;
                 TaskGetZipCode taskzipcode = new TaskGetZipCode(getActivity(), this);
                 taskzipcode.execute(Url1);
@@ -2490,6 +2490,7 @@ public class DeliveryOptionsFragment extends Fragment
         }
 
         if (rbPickUpAtStore.isChecked()) {
+            cv_ship.setVisibility(View.GONE);
             isHandDelivery = 0;
             isPickUpAtStore = 1;
             if (rbPickUpAtStore.isChecked() && rbPayAtStore.isChecked()) {
@@ -2522,6 +2523,7 @@ public class DeliveryOptionsFragment extends Fragment
 //                }
             }
         } else if (rbUberRush.isChecked()) {
+            cv_ship.setVisibility(View.GONE);
             selectedRadioButton = 3;
             isUberRush = 1;
             isHandDelivery = 0;
@@ -2529,6 +2531,7 @@ public class DeliveryOptionsFragment extends Fragment
             Constant.pick_up=false;
             //insertEmptyTempOrder();
         } else if (rbHandOnDelivery.isChecked()) {
+            cv_ship.setVisibility(View.GONE);
             selectedRadioButton = 4;
             isHandDelivery = 1;
             isSame = 0;
@@ -3129,6 +3132,7 @@ public class DeliveryOptionsFragment extends Fragment
         df.setMaximumFractionDigits(2);
 
         if (rbPickUpAtStore.isChecked()) {
+            cv_ship.setVisibility(View.GONE);
 
             //add only below line to display default pay at store option
             int selectedId = radioGroup.getCheckedRadioButtonId();
@@ -3140,10 +3144,11 @@ public class DeliveryOptionsFragment extends Fragment
             if (liShippingData.get(0).getBSSetupPayAtStore()){
                 if(selectedId==R.id.rb_pick_up_at_store_delivery_option_fragment){
                     rbPayAtStore.setChecked(true);
+                    cv_ship.setVisibility(View.GONE);
                 }
             }else {
 //                if (selectedId == R.id.rb_pay_with_cart_delivery_option_fragment) {
-                    rbPayWithCart.setChecked(true);
+                rbPayWithCart.setChecked(true);
 //                }
             }
 //            END
@@ -3213,6 +3218,7 @@ public class DeliveryOptionsFragment extends Fragment
 
         } else if (rbHandOnDelivery.isChecked()) {
             cvRadioButton.setCardBackgroundColor(null);
+            cv_ship.setVisibility(View.GONE);
 
             if (_minimumHandDeliveryLimit > _total) {
 
@@ -3289,8 +3295,8 @@ public class DeliveryOptionsFragment extends Fragment
 //                }
 //            });
 //            if(Constant.STOREID.equalsIgnoreCase("707") || Constant.STOREID.equalsIgnoreCase("7365")) {
-                callShippingWService();
-                Log.e("callShippingWService", "callShippingWService: 6" );
+            callShippingWService();
+            Log.e("callShippingWService", "callShippingWService: 6" );
 //                ll_shipping_Service.setVisibility(View.VISIBLE); // comment when try to check shipping
 //            }
             cvRadioButton.setCardBackgroundColor(null);
@@ -3348,6 +3354,10 @@ public class DeliveryOptionsFragment extends Fragment
 
         etBZIpDO.clearFocus();
         etZIpDO.clearFocus();
+
+        if (rbShip.isChecked()){
+            cv_ship.setVisibility(View.VISIBLE);
+        }
 
         String url = Constant.WS_BASE_URL + Constant.GET_SHIPPING_SERVICE_BY_STORENO + Constant.STOREID ;
 
@@ -3694,7 +3704,7 @@ public class DeliveryOptionsFragment extends Fragment
             String formattedDate = Utils.getCurrentDate();
 
             String Url = Constant.WS_BASE_URL + Constant.CALCULATE_SHIPPING_RATES_USPS_V1 + "/" +  finalCustomerId +"/" + Constant.STOREID+ "/" + additionalCharges + "/" + finalZipval + "/" + contrycode + "/" + selectedID + "/"
-                  +formattedDate + "/" + finalToaddress.trim() + "/" + finalToCity.trim() + "/" + finalToState.trim();
+                    +formattedDate + "/" + finalToaddress.trim() + "/" + finalToCity.trim() + "/" + finalToState.trim();
 
             TaskShippingRates taskShippingRates = new TaskShippingRates(this,getActivity(),Constant.CALCULATE_SHIPPING_RATES_USPS,servicename);
             taskShippingRates.execute(Url);
@@ -3934,12 +3944,12 @@ public class DeliveryOptionsFragment extends Fragment
             @Override
             public void updateDrawState(TextPaint ds) {
                 super.updateDrawState(ds);
-                ds.setUnderlineText(false);
+                ds.setUnderlineText(true);
                 ds.setColor(getResources().getColor(R.color.red));
             }
         };
 
-        ss.setSpan(clickableSpan, shipping_charges_txt.length()-6, shipping_charges_txt.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(clickableSpan, shipping_charges_txt.length()-5, shipping_charges_txt.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_shipping_charges.setText(ss);
         tv_shipping_charges.setMovementMethod(LinkMovementMethod.getInstance());
     }
@@ -3977,7 +3987,7 @@ public class DeliveryOptionsFragment extends Fragment
                 if (rbShip.isChecked()) {
 
 //                if (Constant.STOREID.equalsIgnoreCase("707") || Constant.STOREID.equalsIgnoreCase("7365")) {
-                        callShippingWService();
+                    callShippingWService();
                     Log.e("callShippingWService", "callShippingWService: 7" );
 //                    }
 

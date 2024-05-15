@@ -1,7 +1,7 @@
 package com.aspl.mbs;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by admin on 6/29/2018.

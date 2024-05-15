@@ -1,16 +1,12 @@
 package com.aspl.fragment;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +26,8 @@ import com.aspl.mbsmodel.UserModel;
 import com.aspl.task.TaskShippingData;
 import com.aspl.task.TaskUpdateBillingAddressPOS;
 import com.aspl.task.TaskUpdateShippingAddress;
-import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ShippingAddressFragment extends Fragment implements TaskShippingData.TaskShippingEvent, TaskUpdateShippingAddress.UpdateShippingAddressEvent, TaskUpdateBillingAddressPOS.UpdateBillingAddressPOSEvent {
 

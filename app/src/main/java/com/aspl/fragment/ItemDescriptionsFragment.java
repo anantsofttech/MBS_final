@@ -3,7 +3,6 @@ package com.aspl.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -15,16 +14,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.ShareCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.Display;
@@ -40,10 +38,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aspl.Adapter.MultiPackAdapter;
-import com.aspl.Adapter.RealTimeInvAdpater;
 import com.aspl.Adapter.RecommandedItemAdapter;
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.DeviceInfo;
@@ -60,7 +56,6 @@ import com.aspl.mbsmodel.ShoppingCardModel;
 import com.aspl.mbsmodel.SiteInfoModel;
 import com.aspl.mbsmodel.UpdateCartQuantity;
 import com.aspl.mbsmodel.UserModel;
-import com.aspl.mbsmodel.lstInventoryModel;
 import com.aspl.task.TaskAddtoCart;
 import com.aspl.task.TaskCart;
 import com.aspl.task.TaskDomain;
@@ -106,7 +101,9 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 
     RecyclerView rec_home;
     LinearLayout llPrice,llQty , llprice_multi, llselect_item;
-    TextView tvWishlist, tvAddtoCart, tvShare, tvItemTitleDesc1, tvPrice, tvPromoPrice, tvHeader1, tvHeader2, tvDiscountName, tvItemSku, tvDetailsView;
+    TextView tvWishlist, tvShare, tvItemTitleDesc1, tvPrice, tvPromoPrice, tvHeader1, tvHeader2, tvDiscountName, tvItemSku, tvDetailsView;
+
+    ImageView tvAddtoCart;
     public NestedScrollView nestedScrollView;
     String itemIdSku;
     ImageView img_item;
@@ -368,6 +365,15 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
         rec_home.setLayoutManager(layoutManager);
         rec_home.setHasFixedSize(true);
 
+//        // Convert the color string to an integer representation
+//        int originalColor = Color.parseColor(Constant.themeModel.ThemeColor);
+//
+//// Generate a lighter shade of the original color
+//        int lighterShade = Utils.lightenColor(originalColor, 0.7f); // Adjust factor as needed
+//
+//// Generate a darker shade of the original color
+//        int darkerShade = Utils.darkenColor(originalColor, 0.5f); // Adjust factor as needed
+
         Drawable roundDrawable = getResources().getDrawable(R.drawable.rounded_corner_all);
         roundDrawable.setColorFilter(Color.parseColor(Constant.themeModel.ThemeColor), PorterDuff.Mode.SRC_ATOP);
         tvAddtoCart.setBackground(roundDrawable);
@@ -440,6 +446,12 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
                              .error(R.drawable.no_image_new)
                              .diskCacheStrategy(DiskCacheStrategy.NONE)
                              .skipMemoryCache(true).into(img_item);
+
+                     Glide.with(context).load(itemDescModel.getInvLargeImageFullPath())
+                             .placeholder(R.drawable.noimage)
+                             .error(R.drawable.no_image_new)
+                             .diskCacheStrategy(DiskCacheStrategy.NONE)
+                             .skipMemoryCache(true).into(iv_productimg);
 
 
                  }

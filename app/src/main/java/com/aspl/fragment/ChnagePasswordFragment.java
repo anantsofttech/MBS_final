@@ -2,10 +2,10 @@ package com.aspl.fragment;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.core.widget.NestedScrollView;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.method.HideReturnsTransformationMethod;
@@ -38,7 +38,7 @@ public class ChnagePasswordFragment extends Fragment {
     EditText edCurrentPwd, edNewPwd, edConfirmPwd;
     TextView tv_email,tv_ChangePasseword_title;
     NestedScrollView nested_ChangePwd;
-    Button btnSend;
+    Button btnSend, btnCancel;
     LinearLayout ll_root_chnagePasswordlayout;
     boolean isHiddenCurrent = false;
     boolean isHiddenNew = false;
@@ -318,6 +318,7 @@ public class ChnagePasswordFragment extends Fragment {
 //        passwordVisibility(edConfirmPwd,true,"confirmPassword");
 
         btnSend = (Button)view.findViewById(R.id.btnSend);
+        btnCancel = (Button)view.findViewById(R.id.btnCancel);
 
         tv_ChangePasseword_title = (TextView) view.findViewById(R.id.tv_ChangePasseword_title);
         tv_ChangePasseword_title.setTextColor(Color.parseColor(Constant.themeModel.ThemeColor));
@@ -332,6 +333,14 @@ public class ChnagePasswordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 saveCheckPasswordValidation();
+            }
+        });
+
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.getInstance().onBackPressed();
             }
         });
     }

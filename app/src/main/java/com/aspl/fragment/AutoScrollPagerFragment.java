@@ -1,19 +1,16 @@
 package com.aspl.fragment;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.aspl.Utils.Constant;
-import com.aspl.Utils.Utils;
 import com.aspl.mbs.R;
 import com.aspl.mbsmodel.BannerModel;
 import com.bumptech.glide.Glide;
@@ -25,6 +22,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class AutoScrollPagerFragment extends Fragment {
 
+    TextView txt_banner;
     ImageView imgbanner;
     public static BannerModel model1;
     private String imgUrl = Constant.IMG_BASE + Constant.IMG_BANNER_URL+Constant.STOREID+"/";
@@ -42,14 +40,20 @@ public class AutoScrollPagerFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.rawpager, container, false);
         imgbanner=view.findViewById(R.id.imgbanner);
+        txt_banner=view.findViewById(R.id.txt_banner);
         if(model1 != null){
             Log.e("Log","IMG URL="+imgUrl + model1.getImage());
             // Bitmap bitmap = Utils.textAsBitmap("Technical Problem", 28);
             //Drawable d = new BitmapDrawable(getActivity().getResources(), bitmap);
-            Glide.with(getActivity()).load(imgUrl + model1.getImage())
+            Glide.with(getContext()).load(imgUrl + model1.getImage())
                     /* .placeholder(R.drawable.progress_bar)*/
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true).into(imgbanner);
+
+            if (model1.getCaption()!=null && !model1.getCaption().isEmpty()){
+                txt_banner.setVisibility(View.VISIBLE);
+                txt_banner.setText(model1.getCaption());
+            }
         }
         return view;
     }

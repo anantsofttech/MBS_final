@@ -2,10 +2,9 @@ package com.aspl.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Rect;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -27,7 +25,6 @@ import com.aspl.Utils.DialogUtils;
 import com.aspl.fragment.CardFragment;
 import com.aspl.mbs.R;
 import com.aspl.mbsmodel.ReOrderItemModel;
-import com.aspl.mbsmodel.ReOrderModel;
 
 import java.util.List;
 

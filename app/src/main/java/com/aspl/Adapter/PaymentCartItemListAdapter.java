@@ -1,34 +1,24 @@
 package com.aspl.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.aspl.Utils.BSTheme;
 import com.aspl.Utils.Constant;
-import com.aspl.Utils.Utils;
-import com.aspl.fragment.OrderSummaryFragment;
 import com.aspl.mbs.MainActivity;
 import com.aspl.mbs.MainActivityDup;
 import com.aspl.mbs.R;
 import com.aspl.mbsmodel.ShoppingCardModel;
-import com.bumptech.glide.Glide;
 
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.List;
 

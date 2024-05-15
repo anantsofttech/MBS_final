@@ -2,18 +2,12 @@ package com.aspl.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.aspl.Utils.NetworkUtil;
-import com.aspl.mbs.MainActivity;
-import com.aspl.mbs.R;
 import com.aspl.mbsmodel.LoyaltyInfo;
-import com.aspl.mbsmodel.ShippingData;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -1,12 +1,9 @@
 package com.aspl.task;
 
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.aspl.Utils.NetworkUtil;
-import com.aspl.fragment.ViewAllFragment;
-import com.aspl.mbsmodel.Filter;
 import com.aspl.mbsmodel.FilterHomePage;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
