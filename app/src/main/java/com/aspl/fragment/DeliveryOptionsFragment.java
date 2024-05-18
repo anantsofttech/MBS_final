@@ -200,7 +200,8 @@ public class DeliveryOptionsFragment extends Fragment
     public static View vAddressesDialog, vAD, vAlternativeAD, vTipDialog, vTD;
     public static TextView tvTitleAD, tvAlternativeTextAD, tvTitleTD, tvTitleSubTotalTD, tvSubTotalTD, tvTipApplyTD;
     public static RecyclerView rvAD;
-    public static ImageView imgCancel, iv_close;
+    public static ImageView imgCancel, iv_close , img_last_name, img_first_name, img_address_two, img_address_one, img_company_name, img_city, img_zip;
+    public static ImageView img_dd_last_name, img_dd_first_name, img_dd_company_name, img_dd_phone_no,img_dd_address_one, img_dd_address_two, img_dd_city, img_dd_zip;
     public static RadioGroup rgTipTD;
     public static RadioButton rbTipFifteenTD, rbTipEighteenTD, rbTipTwentyTD, rbCustomTipTD, rbCashTipTD, rbNoTipTD;
     public static Button btnContinueTD, btn_submit_tip_dialog , btnBackTD , btnBackTD2;
@@ -501,31 +502,40 @@ public class DeliveryOptionsFragment extends Fragment
 
         //EditText
         etLastNameDO = v.findViewById(R.id.et_dd_last_name_delivery_option_fragment);
+        etLastNameDO.setOnFocusChangeListener(this);
         etFirstNameDo = v.findViewById(R.id.et_dd_first_name_delivery_option_fragment);
+        etFirstNameDo.setOnFocusChangeListener(this);
         etCompanyDO = v.findViewById(R.id.et_dd_company_name_delivery_option_fragment);
+        etCompanyDO.setOnFocusChangeListener(this);
         etPhoneNoDO = v.findViewById(R.id.et_dd_phone_number_delivery_option_fragment);
+        etPhoneNoDO.setOnFocusChangeListener(this);
         etAddressOneDO = v.findViewById(R.id.et_dd_address_one_delivery_option_fragment);
         etAddressOneDO.setOnFocusChangeListener(this);
         etAddressTwoDO = v.findViewById(R.id.et_dd_address_two_delivery_option_fragment);
+        etAddressTwoDO.setOnFocusChangeListener(this);
         etZIpDO = v.findViewById(R.id.et_dd_zip_delivery_option_fragment);
         etZIpDO.setOnFocusChangeListener(this);
 
         etCityDo = v.findViewById(R.id.et_dd_city_delivery_option_fragment);
+        etCityDo.setOnFocusChangeListener(this);
         etStateDO = v.findViewById(R.id.et_dd_state_delivery_option_fragment);
-        //etPhoneNoDO.setText(Html.fromHtml(getString(R.string.str_mobile_hint)));
-        etPhoneNoDO.setOnFocusChangeListener(this);
 
         etBLastNameDO = v.findViewById(R.id.et_bs_last_name_delivery_option_fragment);
+        etBLastNameDO.setOnFocusChangeListener(this);
         etBFirstNameDo = v.findViewById(R.id.et_bs_first_name_delivery_option_fragment);
+        etBFirstNameDo.setOnFocusChangeListener(this);
         etBCompanyDO = v.findViewById(R.id.et_bs_company_name_delivery_option_fragment);
+        etBCompanyDO.setOnFocusChangeListener(this);
         etBPhoneNoDO = v.findViewById(R.id.et_bs_phone_number_delivery_option_fragment);
         etBAddressOneDO = v.findViewById(R.id.et_bs_address_one_delivery_option_fragment);
         etBAddressOneDO.setOnFocusChangeListener(this);
 
         etBAddressTwoDO = v.findViewById(R.id.et_bs_address_two_delivery_option_fragment);
+        etBAddressTwoDO.setOnFocusChangeListener(this);
         etBZIpDO = v.findViewById(R.id.et_bs_zip_delivery_option_fragment);
         etBZIpDO.setOnFocusChangeListener(this);
         etBCityDo = v.findViewById(R.id.et_bs_city_delivery_option_fragment);
+        etBCityDo.setOnFocusChangeListener(this);
         etBStateDO = v.findViewById(R.id.et_bs_state_delivery_option_fragment);
         //etBsPhoneNoDO.setText(Html.fromHtml(getString(R.string.str_mobile_hint)));
 //        etBsPhoneNoDO.setOnFocusChangeListener(this);
@@ -660,6 +670,37 @@ public class DeliveryOptionsFragment extends Fragment
 
         spinnerShippingService = v.findViewById(R.id.spinnerShippingService);
         tv_shipping_charges = v.findViewById(R.id.tv_shipping_charges);
+        img_last_name = v.findViewById(R.id.img_last_name);
+        img_last_name.setOnClickListener(this);
+        img_first_name = v.findViewById(R.id.img_first_name);
+        img_first_name.setOnClickListener(this);
+        img_company_name = v.findViewById(R.id.img_company_name);
+        img_company_name.setOnClickListener(this);
+        img_address_one = v.findViewById(R.id.img_address_one);
+        img_address_one.setOnClickListener(this);
+        img_address_two = v.findViewById(R.id.img_address_two);
+        img_address_two.setOnClickListener(this);
+        img_zip = v.findViewById(R.id.img_zip);
+        img_zip.setOnClickListener(this);
+        img_city = v.findViewById(R.id.img_city);
+        img_city.setOnClickListener(this);
+
+        img_dd_last_name = v.findViewById(R.id.img_dd_last_name);
+        img_dd_last_name.setOnClickListener(this);
+        img_dd_first_name = v.findViewById(R.id.img_dd_first_name);
+        img_dd_first_name.setOnClickListener(this);
+        img_dd_company_name = v.findViewById(R.id.img_dd_company_name);
+        img_dd_company_name.setOnClickListener(this);
+        img_dd_phone_no = v.findViewById(R.id.img_dd_phone_no);
+        img_dd_phone_no.setOnClickListener(this);
+        img_dd_address_one = v.findViewById(R.id.img_dd_address_one);
+        img_dd_address_one.setOnClickListener(this);
+        img_dd_address_two = v.findViewById(R.id.img_dd_address_two);
+        img_dd_address_two.setOnClickListener(this);
+        img_dd_city = v.findViewById(R.id.img_dd_city);
+        img_dd_city.setOnClickListener(this);
+        img_dd_zip = v.findViewById(R.id.img_dd_zip);
+        img_dd_zip.setOnClickListener(this);
 
         //Image
         imgSpinnerIcon = v.findViewById(R.id.img_mobile_option_delivery_option_fragment);
@@ -730,8 +771,102 @@ public class DeliveryOptionsFragment extends Fragment
      **/
     @Override
     public void onFocusChange(View view, boolean b) {
+
+//        Delivery Address
+        if (view.getId() == etLastNameDO.getId()){
+            if (b){
+                img_dd_last_name.setVisibility(View.VISIBLE);
+            }else{
+                img_dd_last_name.setVisibility(View.GONE);
+            }
+        }
+
+        if (view.getId() == etFirstNameDo.getId()){
+            if (b){
+                img_dd_first_name.setVisibility(View.VISIBLE);
+            }else{
+                img_dd_first_name.setVisibility(View.GONE);
+            }
+        }
+
+        if (view.getId() == etCompanyDO.getId()){
+            if (b){
+                img_dd_company_name.setVisibility(View.VISIBLE);
+            }else{
+                img_dd_company_name.setVisibility(View.GONE);
+            }
+        }
+
+        if (view.getId() == etAddressTwoDO.getId()){
+            if (b){
+                img_dd_address_two.setVisibility(View.VISIBLE);
+            }else{
+                img_dd_address_two.setVisibility(View.GONE);
+            }
+        }
+
+        if (view.getId() == etCityDo.getId()){
+            if (b){
+                img_dd_city.setVisibility(View.VISIBLE);
+            }else{
+                img_dd_city.setVisibility(View.GONE);
+            }
+        }
+
+        if (view.getId() == etPhoneNoDO.getId()){
+            if (b){
+                img_dd_phone_no.setVisibility(View.VISIBLE);
+            }else{
+                img_dd_phone_no.setVisibility(View.GONE);
+            }
+        }
+
+
+//       Shipping and Billing Address
+        if (view.getId() == etBLastNameDO.getId()){
+            if (b){
+                img_last_name.setVisibility(View.VISIBLE);
+            }else{
+                img_last_name.setVisibility(View.GONE);
+            }
+        }
+
+        if (view.getId() == etBFirstNameDo.getId()){
+            if (b){
+                img_first_name.setVisibility(View.VISIBLE);
+            }else{
+                img_first_name.setVisibility(View.GONE);
+            }
+        }
+
+        if (view.getId() == etBCompanyDO.getId()){
+            if (b){
+                img_company_name.setVisibility(View.VISIBLE);
+            }else{
+                img_company_name.setVisibility(View.GONE);
+            }
+        }
+
+        if (view.getId() == etBAddressTwoDO.getId()){
+            if (b){
+                img_address_two.setVisibility(View.VISIBLE);
+            }else{
+                img_address_two.setVisibility(View.GONE);
+            }
+        }
+
+        if (view.getId() == etBCityDo.getId()){
+            if (b){
+                img_city.setVisibility(View.VISIBLE);
+            }else{
+                img_city.setVisibility(View.GONE);
+            }
+        }
+
+
         if (view.getId() == etBZIpDO.getId()) {
             if (!b) {
+                img_zip.setVisibility(View.GONE);
 //                if (Constant.BZip.equals(etBZIpDO.getText().toString()) && Constant.BAddressOne.equals(etBAddressOneDO.getText().toString())) {
 //
 //                } else {
@@ -751,9 +886,13 @@ public class DeliveryOptionsFragment extends Fragment
                 }
 //                    }
 //                }
+            }else{
+                img_zip.setVisibility(View.VISIBLE);
             }
-        } else if (view.getId() == etZIpDO.getId()){
+        }
+        else if (view.getId() == etZIpDO.getId()){
             if (!b) {
+                img_dd_zip.setVisibility(View.GONE);
 //                if (Constant.Zip.equals(etZIpDO.getText().toString()) && Constant.AddressOne.equals(etAddressOneDO.getText().toString())) {
 //
 //                } else {
@@ -773,6 +912,8 @@ public class DeliveryOptionsFragment extends Fragment
                 }
 //                    }
 //                }
+            }else{
+                img_dd_zip.setVisibility(View.VISIBLE);
             }
         }
 
@@ -812,7 +953,8 @@ public class DeliveryOptionsFragment extends Fragment
                 }
             });
 
-        } else if (view.getId() == etBZIpDO.getId() && etBZIpDO.isFocused()) {
+        }
+        else if (view.getId() == etBZIpDO.getId() && etBZIpDO.isFocused()) {
 
             etBZIpDO.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -855,7 +997,8 @@ public class DeliveryOptionsFragment extends Fragment
                 }
             });
 
-        } else if (view.getId() == etPhoneNoDO.getId() && etPhoneNoDO.isFocused()) {
+        }
+        else if (view.getId() == etPhoneNoDO.getId() && etPhoneNoDO.isFocused()) {
 
             etPhoneNoDO.addTextChangedListener(new TextWatcher() {
                 int length_before = 0;
@@ -941,6 +1084,7 @@ public class DeliveryOptionsFragment extends Fragment
 //        }
         else if (view.getId() == etAddressOneDO.getId() && etAddressOneDO.isFocused()) {
             status = 1;
+            img_dd_address_one.setVisibility(View.VISIBLE);
             etAddressOneDO.addTextChangedListener(myWatcher /*new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -967,8 +1111,10 @@ public class DeliveryOptionsFragment extends Fragment
                 }
             }*/);
 
-        } else if (view.getId() == etBAddressOneDO.getId() && etBAddressOneDO.isFocused()) {
+        }
+        else if (view.getId() == etBAddressOneDO.getId() && etBAddressOneDO.isFocused()) {
             status = 2;
+            img_address_one.setVisibility(View.VISIBLE);
             etBAddressOneDO.addTextChangedListener(myWatcher /*new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -998,10 +1144,19 @@ public class DeliveryOptionsFragment extends Fragment
                 }
             }*/);
 
-        }else if (view.getId() == etBAddressOneDO.getId()){
+        }
+        else if (view.getId() == etBAddressOneDO.getId()){
             if (!b){
                 etBAddressOneDO.dismissDropDown();
                 etBAddressOneDO.clearFocus();
+                img_address_one.setVisibility(View.GONE);
+            }
+        }
+        else if (view.getId() ==  etAddressOneDO.getId()){
+            if (!b){
+                etAddressOneDO.dismissDropDown();
+                etAddressOneDO.clearFocus();
+                img_dd_address_one.setVisibility(View.GONE);
             }
         }
     }
@@ -2451,6 +2606,57 @@ public class DeliveryOptionsFragment extends Fragment
 
     @Override
     public void onClick(View view) {
+
+//        Delivery Address layoout onclick
+        if (view.getId() == img_dd_last_name.getId()){
+            etLastNameDO.getText().clear();
+        }
+        if (view.getId() == img_dd_first_name.getId()){
+            etFirstNameDo.getText().clear();
+        }
+        if (view.getId() == img_dd_company_name.getId()){
+            etCompanyDO.getText().clear();
+        }
+        if (view.getId() == img_dd_address_one.getId()){
+            etAddressOneDO.getText().clear();
+        }
+        if (view.getId() == img_dd_address_two.getId()){
+            etAddressTwoDO.getText().clear();
+        }
+        if (view.getId() == img_dd_city.getId()){
+            etCityDo.getText().clear();
+        }
+        if (view.getId() == img_dd_zip.getId()){
+            etZIpDO.getText().clear();
+        }
+        if (view.getId() == img_dd_phone_no.getId()){
+            etPhoneNoDO.getText().clear();
+        }
+
+//        Billing and Shipping Address Layout onclick
+
+        if (view.getId() == img_last_name.getId()){
+            etBLastNameDO.getText().clear();
+        }
+        if (view.getId() == img_first_name.getId()){
+            etBFirstNameDo.getText().clear();
+        }
+        if (view.getId() == img_company_name.getId()){
+            etBCompanyDO.getText().clear();
+        }
+        if (view.getId() == img_address_one.getId()){
+            etBAddressOneDO.getText().clear();
+        }
+        if (view.getId() == img_address_two.getId()){
+            etBAddressTwoDO.getText().clear();
+        }
+        if (view.getId() == img_city.getId()){
+            etBCityDo.getText().clear();
+        }
+        if (view.getId() == img_zip.getId()){
+            etBZIpDO.getText().clear();
+        }
+
         if (view.getId() == txtAddressLists.getId()) {
             onOtherAddresses(liShippingData);
         }

@@ -640,37 +640,35 @@ public class ViewAllFragment extends Fragment implements
             recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
+                    // Handle scroll state changes if needed
                 }
 
                 @Override
                 public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-
                     if (isneedtoloadAgain) {
-                        int lastVisiblePosition = manager.findLastVisibleItemPosition();
-                        if (lastVisiblePosition == 11 && loadmore) {/*viewalllist.size-1 */
-//                            if (loadmore) {
+                        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                        int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+                        int totalItemCount = recyclerView.getAdapter().getItemCount();
+
+                        // Check if the last visible item position is close to the total item count
+                        if (lastVisiblePosition >= totalItemCount - 4 && loadmore) {
                             count = count + 1;
                             loadmore = false;
-                            if(isComeforSortFilter){
-                                loadItemListingWS(type,true);
-                            }else {
-
-                                if(!searchtext.isEmpty()){
+                            if (isComeforSortFilter) {
+                                loadItemListingWS(type, true);
+                            } else {
+                                if (!searchtext.isEmpty()) {
                                     callSearchIconWS(searchtext);
-                                }else{
-                                    loadItemListingWS(type,false);
+                                } else {
+                                    loadItemListingWS(type, false);
                                 }
                             }
-//                            }
-                        }else{
-                            if(isComeforSortFilter){
+                        } else {
+                            if (isComeforSortFilter) {
                                 isComeforSortFilter = false;
                             }
                         }
                     }
-
                 }
             });
         }else {

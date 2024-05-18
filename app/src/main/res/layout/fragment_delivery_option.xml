@@ -76,6 +76,8 @@
                             android:layout_marginTop="@dimen/dimen_10"
                             android:layout_marginBottom="@dimen/dimen_10">
 
+
+
                             <RadioButton
                                 android:id="@+id/rb_pick_up_at_store_delivery_option_fragment"
                                 android:layout_width="wrap_content"
@@ -475,56 +477,112 @@
                             android:text="@string/lbl_last_name"
                             android:textSize="@dimen/dimen_DeliveryTextSize"
                             android:visibility="gone" />
+                        <FrameLayout
+                            android:id="@+id/fl_last_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_bs_title_last_name_delivery_option_fragment">
 
-                        <EditText
-                            android:id="@+id/et_bs_last_name_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/tv_bs_title_last_name_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapWords"
-                            android:maxLength="25" />
+                            <EditText
+                                android:id="@+id/et_bs_last_name_delivery_option_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords"
+                                android:maxLength="25" />
+
+                            <ImageView
+                                android:id="@+id/img_last_name"
+                                android:src="@drawable/twotone_clear_24"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginRight="@dimen/_3sdp"
+                                android:layout_gravity="end|center_vertical"
+                                android:visibility="gone"/>
+
+                        </FrameLayout>
 
                         <!-- First Name -->
                         <TextView
                             android:id="@+id/tv_bs_title_first_name_delivery_option_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_below="@+id/et_bs_last_name_delivery_option_fragment"
+                            android:layout_below="@+id/fl_last_name"
                             android:layout_marginTop="@dimen/dimen_10"
                             android:text="@string/lbl_first_name"
                             android:visibility="gone" />
 
-                        <EditText
-                            android:id="@+id/et_bs_first_name_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/tv_bs_title_first_name_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapWords"
-                            android:maxLength="25" />
+                        <FrameLayout
+                            android:id="@+id/fl_first_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_bs_title_first_name_delivery_option_fragment">
+
+                            <EditText
+                                android:id="@+id/et_bs_first_name_delivery_option_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords"
+                                android:maxLength="25" />
+
+                            <ImageView
+                                android:id="@+id/img_first_name"
+                                android:src="@drawable/twotone_clear_24"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginRight="@dimen/_3sdp"
+                                android:layout_gravity="end|center_vertical"
+                                android:visibility="gone"/>
+
+                        </FrameLayout>
+
 
                         <!-- Company Name -->
                         <TextView
                             android:id="@+id/tv_bs_title_company_name_delivery_option_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_below="@+id/et_bs_first_name_delivery_option_fragment"
+                            android:layout_below="@+id/fl_first_name"
                             android:layout_marginTop="@dimen/dimen_10"
                             android:text="@string/lbl_company_name"
                             android:visibility="gone" />
 
-                        <EditText
-                            android:id="@+id/et_bs_company_name_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/tv_bs_title_company_name_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapWords"
-                            android:maxLength="50" />
+
+                        <FrameLayout
+                            android:id="@+id/fl_company_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_bs_title_company_name_delivery_option_fragment">
+
+                            <EditText
+                                android:id="@+id/et_bs_company_name_delivery_option_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords"
+                                android:maxLength="50" />
+
+                            <ImageView
+                                android:id="@+id/img_company_name"
+                                android:src="@drawable/twotone_clear_24"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginRight="@dimen/_3sdp"
+                                android:layout_gravity="end|center_vertical"
+                                android:visibility="gone"/>
+
+                        </FrameLayout>
+
 
                         <LinearLayout
-                            android:layout_below="@+id/et_bs_company_name_delivery_option_fragment"
+                            android:layout_below="@+id/fl_company_name"
                             android:id="@+id/ll_temp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -617,8 +675,6 @@
 
                         </LinearLayout>
 
-
-
                         <!-- Address 1 -->
                         <TextView
                             android:id="@+id/tv_bs_title_address_one_delivery_option_fragment"
@@ -629,40 +685,78 @@
                             android:text="@string/lbl_address1"
                             android:visibility="gone" />
 
-                        <AutoCompleteTextView
-                            android:id="@+id/et_bs_address_one_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/tv_bs_title_address_one_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_7"
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapWords"
-                            android:maxLength="50" />
+                        <FrameLayout
+                            android:id="@+id/fl_address_one"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_bs_title_address_one_delivery_option_fragment">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/et_bs_address_one_delivery_option_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_below="@+id/tv_bs_title_address_one_delivery_option_fragment"
+                                android:layout_marginTop="@dimen/dimen_7"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords"
+                                android:maxLength="50" />
+
+                            <ImageView
+                                android:id="@+id/img_address_one"
+                                android:src="@drawable/twotone_clear_24"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginRight="@dimen/_3sdp"
+                                android:layout_gravity="end|center_vertical"
+                                android:visibility="gone"/>
+
+                        </FrameLayout>
 
                         <!-- Address 2 -->
                         <TextView
                             android:id="@+id/tv_bs_title_address_two_delivery_option_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_below="@+id/et_bs_address_one_delivery_option_fragment"
+                            android:layout_below="@+id/fl_address_one"
                             android:layout_marginTop="@dimen/dimen_10"
                             android:text="@string/lbl_address2"
                             android:visibility="gone" />
 
-                        <EditText
-                            android:id="@+id/et_bs_address_two_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/tv_bs_title_address_two_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapWords"
-                            android:maxLength="50" />
+                        <FrameLayout
+                            android:id="@+id/fl_address_two"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_bs_title_address_two_delivery_option_fragment">
+
+                            <EditText
+                                android:id="@+id/et_bs_address_two_delivery_option_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_below="@+id/tv_bs_title_address_two_delivery_option_fragment"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords"
+                                android:maxLength="50" />
+
+                            <ImageView
+                                android:id="@+id/img_address_two"
+                                android:src="@drawable/twotone_clear_24"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginRight="@dimen/_3sdp"
+                                android:layout_gravity="end|center_vertical"
+                                android:visibility="gone"/>
+
+                        </FrameLayout>
 
                         <!-- Zip -->
                         <TextView
                             android:id="@+id/tv_bs_title_zip_delivery_option_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_below="@+id/et_bs_address_two_delivery_option_fragment"
+                            android:layout_below="@+id/fl_address_two"
                             android:layout_marginTop="@dimen/dimen_10"
                             android:text="@string/lbl_zip"
                             android:visibility="gone" />
@@ -715,46 +809,91 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/et_bs_address_two_delivery_option_fragment"
+                            android:layout_below="@id/fl_address_two"
                             android:orientation="horizontal"
                             android:weightSum="100">
 
-                            <EditText
-                                android:id="@+id/et_bs_city_delivery_option_fragment"
-                                style="@style/Edittext_style1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="@dimen/dimen_5"
-                                android:layout_weight="60"
-                                android:hint="@string/lbl_city"
-                                android:imeOptions="actionNext"
-                                android:inputType="textCapWords"
-                                android:maxLength="25" />
 
-                            <EditText
-                                android:id="@+id/et_bs_state_delivery_option_fragment"
-                                style="@style/Edittext_style1"
+                            <FrameLayout
+                                android:id="@+id/fl_city_name"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_marginStart="@dimen/dimen_5"
                                 android:layout_marginTop="@dimen/dimen_5"
+                                android:layout_weight="60">
+
+                                <EditText
+                                    android:id="@+id/et_bs_city_delivery_option_fragment"
+                                    style="@style/Edittext_style1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:hint="@string/lbl_city"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="textCapWords"
+                                    android:maxLength="25" />
+
+                                <ImageView
+                                    android:id="@+id/img_city"
+                                    android:src="@drawable/twotone_clear_24"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:padding="@dimen/_3sdp"
+                                    android:layout_marginTop="@dimen/_3sdp"
+                                    android:layout_marginRight="@dimen/_3sdp"
+                                    android:layout_gravity="end|center_vertical"
+                                    android:visibility="gone"/>
+
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:id="@+id/fl_state_name"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
                                 android:layout_weight="14"
-                                android:hint="@string/lbl_state"
-                                android:imeOptions="actionNext"
-                                android:inputType="textCapCharacters"
-                                android:maxLength="2" />
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_marginTop="@dimen/dimen_5">
 
-                            <EditText
-                                android:id="@+id/et_bs_zip_delivery_option_fragment"
-                                style="@style/Edittext_style1"
+                                <EditText
+                                    android:id="@+id/et_bs_state_delivery_option_fragment"
+                                    style="@style/Edittext_style1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:hint="@string/lbl_state"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="textCapCharacters"
+                                    android:maxLength="2" />
+
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:id="@+id/fl_zip_name"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_marginStart="@dimen/dimen_5"
-                                android:layout_marginTop="@dimen/dimen_5"
                                 android:layout_weight="26"
-                                android:hint="@string/lbl_zip_postal"
-                                android:inputType="number"
-                                android:maxLength="5" />
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_marginTop="@dimen/dimen_5">
+
+                                <EditText
+                                    android:id="@+id/et_bs_zip_delivery_option_fragment"
+                                    style="@style/Edittext_style1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:hint="@string/lbl_zip_postal"
+                                    android:inputType="number"
+                                    android:maxLength="5" />
+
+                                <ImageView
+                                    android:id="@+id/img_zip"
+                                    android:src="@drawable/twotone_clear_24"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:padding="@dimen/_3sdp"
+                                    android:layout_marginTop="@dimen/_3sdp"
+                                    android:layout_marginRight="@dimen/_3sdp"
+                                    android:layout_gravity="end|center_vertical"
+                                    android:visibility="gone"/>
+
+                            </FrameLayout>
+
                         </LinearLayout>
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -847,59 +986,115 @@
                             android:text="@string/lbl_last_name"
                             android:visibility="gone" />
 
-                        <EditText
-                            android:id="@+id/et_dd_last_name_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/tv_dd_title_last_name_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapWords"
-                            android:maxLength="25" />
+                        <FrameLayout
+                            android:id="@+id/fl_dd_last_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_dd_title_last_name_delivery_option_fragment">
+
+                            <EditText
+                                android:id="@+id/et_dd_last_name_delivery_option_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_below="@+id/tv_dd_title_last_name_delivery_option_fragment"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords"
+                                android:maxLength="25" />
+
+                            <ImageView
+                                android:id="@+id/img_dd_last_name"
+                                android:src="@drawable/twotone_clear_24"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginRight="@dimen/_3sdp"
+                                android:layout_gravity="end|center_vertical"
+                                android:visibility="gone"/>
+
+                        </FrameLayout>
+
 
                         <!-- First Name -->
                         <TextView
                             android:id="@+id/tv_dd_title_first_name_delivery_option_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_below="@+id/et_dd_last_name_delivery_option_fragment"
+                            android:layout_below="@+id/fl_dd_last_name"
                             android:layout_marginTop="@dimen/dimen_10"
                             android:text="@string/lbl_first_name"
                             android:visibility="gone" />
 
-                        <EditText
-                            android:id="@+id/et_dd_first_name_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/tv_dd_title_first_name_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapWords"
-                            android:maxLength="25" />
+                        <FrameLayout
+                            android:id="@+id/fl_dd_first_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_dd_title_first_name_delivery_option_fragment">
+
+                            <EditText
+                                android:id="@+id/et_dd_first_name_delivery_option_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords"
+                                android:maxLength="25" />
+
+                            <ImageView
+                                android:id="@+id/img_dd_first_name"
+                                android:src="@drawable/twotone_clear_24"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginRight="@dimen/_3sdp"
+                                android:layout_gravity="end|center_vertical"
+                                android:visibility="gone"/>
+
+                        </FrameLayout>
 
                         <!-- Company Name -->
                         <TextView
                             android:id="@+id/tv_dd_title_company_name_delivery_option_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_below="@+id/et_dd_first_name_delivery_option_fragment"
+                            android:layout_below="@+id/fl_dd_first_name"
                             android:layout_marginTop="@dimen/dimen_10"
                             android:text="@string/lbl_company_name"
                             android:visibility="gone" />
 
-                        <EditText
-                            android:id="@+id/et_dd_company_name_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/tv_dd_title_company_name_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapWords"
-                            android:maxLength="50" />
+                        <FrameLayout
+                            android:id="@+id/fl_dd_company_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_dd_title_company_name_delivery_option_fragment">
+
+                            <EditText
+                                android:id="@+id/et_dd_company_name_delivery_option_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords"
+                                android:maxLength="50" />
+
+                            <ImageView
+                                android:id="@+id/img_dd_company_name"
+                                android:src="@drawable/twotone_clear_24"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginRight="@dimen/_3sdp"
+                                android:layout_gravity="end|center_vertical"
+                                android:visibility="gone"/>
+
+                        </FrameLayout>
 
                         <!-- Phone Number -->
                         <TextView
                             android:id="@+id/tv_dd_title_phone_number_delivery_option_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_below="@+id/et_dd_company_name_delivery_option_fragment"
+                            android:layout_below="@+id/fl_dd_company_name"
                             android:layout_marginTop="@dimen/dimen_10"
                             android:text="@string/lbl_phone_number"
                             android:visibility="gone" />
@@ -912,46 +1107,74 @@
                             android:orientation="horizontal"
                             android:weightSum="100">
 
-                            <EditText
-                                android:id="@+id/et_dd_phone_number_delivery_option_fragment"
-                                style="@style/Edittext_style1"
-                                android:layout_width="0dp"
-                                android:layout_marginTop="@dimen/dimen_5"
-                                android:layout_weight="70"
-                                android:hint="@string/str_mobile_hint"
-                                android:imeOptions="actionNext"
-                                android:inputType="number"
-                                android:maxLength="14"
-                                tools:ignore="TextFields" />
-
-                            <RelativeLayout
+                            <FrameLayout
+                                android:id="@+id/fl_dd_phone_no_name"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:layout_weight="70">
+
+                                <EditText
+                                    android:id="@+id/et_dd_phone_number_delivery_option_fragment"
+                                    style="@style/Edittext_style1"
+                                    android:layout_width="match_parent"
+                                    android:layout_marginTop="@dimen/dimen_5"
+                                    android:hint="@string/str_mobile_hint"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="number"
+                                    android:maxLength="14"
+                                    tools:ignore="TextFields" />
+
+                                <ImageView
+                                    android:id="@+id/img_dd_phone_no"
+                                    android:src="@drawable/twotone_clear_24"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:padding="@dimen/_3sdp"
+                                    android:layout_marginTop="@dimen/_3sdp"
+                                    android:layout_marginRight="@dimen/_3sdp"
+                                    android:layout_gravity="end|center_vertical"
+                                    android:visibility="gone"/>
+
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:layout_weight="30">
 
-                                <Spinner
-                                    android:id="@+id/spinner_mobile_option_delivery_option_fragment"
+                                <RelativeLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:background="@drawable/border_edittext_simple"
-                                    android:focusableInTouchMode="true"
-                                    android:spinnerMode="dropdown" />
+                                    android:layout_marginStart="@dimen/dimen_5"
+                                    android:layout_marginTop="@dimen/dimen_5"
+                                    android:layout_weight="30">
 
-                                <ImageView
-                                    android:id="@+id/img_mobile_option_delivery_option_fragment"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="30dp"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginRight="5dp"
-                                    android:src="@drawable/ic_arrow_down" />
+                                    <Spinner
+                                        android:id="@+id/spinner_mobile_option_delivery_option_fragment"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@drawable/border_edittext_simple"
+                                        android:focusableInTouchMode="true"
+                                        android:spinnerMode="dropdown" />
 
-                            </RelativeLayout>
+                                    <ImageView
+                                        android:id="@+id/img_mobile_option_delivery_option_fragment"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="30dp"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerInParent="true"
+                                        android:layout_marginStart="5dp"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginEnd="5dp"
+                                        android:layout_marginRight="5dp"
+                                        android:src="@drawable/ic_arrow_down" />
+
+                                </RelativeLayout>
+
+                            </FrameLayout>
+
                         </LinearLayout>
                         <!-- Address 1 -->
                         <TextView
@@ -963,135 +1186,172 @@
                             android:text="@string/lbl_address1"
                             android:visibility="gone" />
 
-                        <AutoCompleteTextView
-                            android:id="@+id/et_dd_address_one_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/tv_dd_title_address_one_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapWords"
-                            android:maxLength="50" />
+                        <FrameLayout
+                            android:id="@+id/fl_dd_address_one"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_dd_title_address_one_delivery_option_fragment">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/et_dd_address_one_delivery_option_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords"
+                                android:maxLength="50" />
+
+                            <ImageView
+                                android:id="@+id/img_dd_address_one"
+                                android:src="@drawable/twotone_clear_24"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginRight="@dimen/_3sdp"
+                                android:layout_gravity="end|center_vertical"
+                                android:visibility="gone"/>
+
+                        </FrameLayout>
 
                         <!-- Address 2 -->
                         <TextView
                             android:id="@+id/tv_dd_title_address_two_delivery_option_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_below="@+id/et_dd_address_one_delivery_option_fragment"
+                            android:layout_below="@+id/fl_dd_address_one"
                             android:layout_marginTop="@dimen/dimen_10"
                             android:text="@string/lbl_address2"
                             android:visibility="gone" />
 
-                        <EditText
-                            android:id="@+id/et_dd_address_two_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/et_dd_address_one_delivery_option_fragment"
-                            android:layout_alignParentStart="true"
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapWords"
-                            android:maxLength="50" />
+                        <FrameLayout
+                            android:id="@+id/fl_dd_address_two"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_dd_title_address_two_delivery_option_fragment">
 
+                            <EditText
+                                android:id="@+id/et_dd_address_two_delivery_option_fragment"
+                                style="@style/Edittext_style1"
+                                android:layout_below="@+id/fl_dd_address_one"
+                                android:layout_alignParentStart="true"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords"
+                                android:maxLength="50" />
+
+                            <ImageView
+                                android:id="@+id/img_dd_address_two"
+                                android:src="@drawable/twotone_clear_24"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_marginRight="@dimen/_3sdp"
+                                android:layout_gravity="end|center_vertical"
+                                android:visibility="gone"/>
+
+                        </FrameLayout>
 
                         <!-- Zip -->
                         <TextView
                             android:id="@+id/tv_dd_title_zip_delivery_option_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_below="@+id/et_dd_address_two_delivery_option_fragment"
+                            android:layout_below="@+id/fl_dd_address_two"
                             android:layout_marginTop="@dimen/dimen_10"
                             android:text="@string/lbl_zip"
                             android:visibility="gone" />
 
-                        <!--<EditText
-                            android:imeOptions="actionNext"
-                            android:inputType="number"
-                            android:id="@+id/et_dd_zip_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/tv_dd_title_zip_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:maxLength="5" />-->
-
-                        <!-- City -->
-                        <!--  <TextView
-                              android:visibility="gone"
-                              android:id="@+id/tv_dd_title_city_delivery_option_fragment"
-                              android:layout_width="match_parent"
-                              android:layout_height="match_parent"
-                              android:layout_below="@+id/et_dd_zip_delivery_option_fragment"
-                              android:layout_marginTop="@dimen/dimen_10"
-                              android:text="@string/lbl_city" />-->
-
-                        <!--<EditText
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapWords"
-                            android:id="@+id/et_dd_city_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/tv_dd_title_city_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:maxLength="25" />-->
-
-                        <!-- State -->
-                        <!--<TextView
-                            android:visibility="gone"
-                            android:id="@+id/tv_dd_title_state_delivery_option_fragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_below="@+id/et_dd_city_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_10"
-                            android:text="@string/lbl_state" />-->
-
-                        <!--<EditText
-                            android:nextFocusUp="@id/btn_next_delivery_option_fragment"
-                            android:inputType="textCapCharacters"
-                            android:id="@+id/et_dd_state_delivery_option_fragment"
-                            style="@style/Edittext_style1"
-                            android:layout_below="@+id/tv_dd_title_state_delivery_option_fragment"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            android:maxLength="2" />-->
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/et_dd_address_two_delivery_option_fragment"
+                            android:layout_below="@id/fl_dd_address_two"
                             android:orientation="horizontal"
                             android:weightSum="100">
 
-                            <EditText
-                                android:id="@+id/et_dd_city_delivery_option_fragment"
-                                style="@style/Edittext_style1"
+                            <FrameLayout
+                                android:id="@+id/fl_dd_city_name"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="@dimen/dimen_5"
-                                android:layout_weight="60"
-                                android:hint="@string/lbl_city"
-                                android:imeOptions="actionNext"
-                                android:inputType="textCapWords"
-                                android:maxLength="25" />
+                                android:layout_weight="60">
 
-                            <EditText
-                                android:id="@+id/et_dd_state_delivery_option_fragment"
-                                style="@style/Edittext_style1"
+                                <EditText
+                                    android:id="@+id/et_dd_city_delivery_option_fragment"
+                                    style="@style/Edittext_style1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:hint="@string/lbl_city"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="textCapWords"
+                                    android:maxLength="25" />
+
+                                <ImageView
+                                    android:id="@+id/img_dd_city"
+                                    android:src="@drawable/twotone_clear_24"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:padding="@dimen/_3sdp"
+                                    android:layout_marginTop="@dimen/_3sdp"
+                                    android:layout_marginRight="@dimen/_3sdp"
+                                    android:layout_gravity="end|center_vertical"
+                                    android:visibility="gone"/>
+
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:id="@+id/fl_dd_state_name"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_marginStart="@dimen/dimen_5"
-                                android:layout_marginTop="@dimen/dimen_5"
                                 android:layout_weight="14"
-                                android:hint="@string/lbl_state"
-                                android:imeOptions="actionNext"
-                                android:inputType="textCapCharacters"
-                                android:maxLength="2" />
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_marginTop="@dimen/dimen_5">
 
-                            <EditText
-                                android:id="@+id/et_dd_zip_delivery_option_fragment"
-                                style="@style/Edittext_style1"
+                                <EditText
+                                    android:id="@+id/et_dd_state_delivery_option_fragment"
+                                    style="@style/Edittext_style1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="@dimen/dimen_5"
+                                    android:layout_marginTop="@dimen/dimen_5"
+                                    android:hint="@string/lbl_state"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="textCapCharacters"
+                                    android:maxLength="2" />
+
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:id="@+id/fl_dd_zip_name"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_marginStart="@dimen/dimen_5"
-                                android:layout_marginTop="@dimen/dimen_5"
                                 android:layout_weight="26"
-                                android:hint="@string/lbl_zip_postal"
-                                android:inputType="number"
-                                android:maxLength="5" />
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_marginTop="@dimen/dimen_5">
+
+                                <EditText
+                                    android:id="@+id/et_dd_zip_delivery_option_fragment"
+                                    style="@style/Edittext_style1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="@dimen/dimen_5"
+                                    android:layout_marginTop="@dimen/dimen_5"
+                                    android:hint="@string/lbl_zip_postal"
+                                    android:inputType="number"
+                                    android:maxLength="5" />
+
+                                <ImageView
+                                    android:id="@+id/img_dd_zip"
+                                    android:src="@drawable/twotone_clear_24"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:padding="@dimen/_3sdp"
+                                    android:layout_marginTop="@dimen/_3sdp"
+                                    android:layout_marginRight="@dimen/_3sdp"
+                                    android:layout_gravity="end|center_vertical"
+                                    android:visibility="gone"/>
+
+                            </FrameLayout>
+
                         </LinearLayout>
 
                     </RelativeLayout>
