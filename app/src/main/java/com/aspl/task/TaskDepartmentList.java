@@ -15,6 +15,9 @@ import com.aspl.mbsmodel.SubDepartmentModel;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,6 +76,13 @@ public class TaskDepartmentList extends AsyncTask<String, Void, String> {
                 String response = responseStrBuilder.toString();
 
                     Log.e("Log","response="+response);
+
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    TypeFactory typeFactory = objectMapper.getTypeFactory();
+                    CollectionType collectionType = typeFactory.constructCollectionType(
+                            List.class, JackDepartmentModel.class);
+
+                     Constant.DepartmentList1=objectMapper.readValue(response, collectionType);
 
                     JSONArray DepartmentArr = new JSONArray(response);
                     Constant.DepartmentList = new ArrayList<>();

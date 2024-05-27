@@ -46,67 +46,57 @@
                     android:textSize="@dimen/dimen_DeliveryTextSize"
                     android:textStyle="bold" />
 
-                <!--  Radio button View  -->
-                <androidx.cardview.widget.CardView
+                <LinearLayout
                     android:id="@+id/cv_radio_button_delivery_option_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_main_title_delivery_option_fragment"
-                    android:layout_marginLeft="@dimen/dimen_10"
-                    android:layout_marginRight="@dimen/dimen_10"
-                    android:layout_marginTop="@dimen/dimen_15"
-                    android:visibility="visible"
-                    android:clickable="true"
-                    android:focusableInTouchMode="true"
-                    tool:cardElevation="7dp"
-                    tool:cardCornerRadius="@dimen/_8sdp">
+                    android:layout_marginBottom="@dimen/dimen_10"
+                    android:padding="@dimen/_3sdp"
+                    android:orientation="vertical">
 
-                    <RelativeLayout
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_radio_button_pick_up"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1dp"
-                        android:background="@color/White"
-                        android:padding="-3dp">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginBottom="@dimen/_3sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:visibility="gone"
+                        android:clickable="true"
+                        android:focusableInTouchMode="true"
+                        tool:cardElevation="7dp"
+                        tool:cardCornerRadius="@dimen/_8sdp">
 
-                        <RadioGroup
-                            android:id="@+id/rbg_delivery_option_fragment"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dimen_3"
-                            android:layout_marginTop="@dimen/dimen_10"
-                            android:layout_marginBottom="@dimen/dimen_10">
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
-
-
-                            <RadioButton
-                                android:id="@+id/rb_pick_up_at_store_delivery_option_fragment"
-                                android:layout_width="wrap_content"
+                            <RadioGroup
+                                android:id="@+id/rbg_delivery_option_fragment"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:buttonTint="@android:color/tab_indicator_text"
-                                android:text="@string/lbl_pick_up_at_store"
-                                android:textColor="@android:color/tab_indicator_text"
-                                android:textSize="@dimen/dimen_DeliveryTextSize"
-                                tools:ignore="UnusedAttribute">
-                                <!--<RadioGroup android:id="@+id/rbg_pick_up_at_store_delivery_option_fragment"
+                                android:layout_marginStart="@dimen/dimen_3"
+                                android:layout_marginTop="@dimen/dimen_10"
+                                android:layout_marginBottom="@dimen/_3sdp">
+
+                                <RadioButton
+                                    android:id="@+id/rb_pick_up_at_store_delivery_option_fragment"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" >-->
+                                    android:layout_height="wrap_content"
+                                    android:buttonTint="@android:color/tab_indicator_text"
+                                    android:text="@string/lbl_pick_up_at_store"
+                                    android:textColor="@android:color/tab_indicator_text"
+                                    android:textSize="@dimen/dimen_DeliveryTextSize"
+                                    tools:ignore="UnusedAttribute">
 
+                                </RadioButton>
 
-                                <!--</RadioGroup>-->
-                            </RadioButton>
+                            </RadioGroup>
 
-                            <!--<TextView-->
-                            <!--android:id="@+id/tv_minimum_amount_rg_hand_delivery_delivery_option_fragment"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginStart="32dp"-->
-                            <!--android:layout_marginTop="@dimen/_3sdp"-->
-                            <!--android:maxLines="2"-->
-                            <!--android:text="Delivery Minimum of $ XX.XX not met"-->
-                            <!--android:textColor="@android:color/tab_indicator_text"-->
-                            <!--android:textSize="@dimen/dimen_DeliveryTextSize"-->
-                            <!--android:visibility="gone"-->
-                            <!--tools:visibility="visible" />-->
 
                             <LinearLayout
                                 android:id="@+id/ll_rg_pick_up_at_store_delivery_option_fragment"
@@ -188,6 +178,33 @@
                                 </LinearLayout>
                             </LinearLayout>
 
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_radio_button_ubber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cv_radio_button_pick_up"
+                        android:padding="@dimen/_3sdp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="@dimen/_3sdp"
+                        android:visibility="gone"
+                        android:clickable="true"
+                        android:focusableInTouchMode="true"
+                        tool:cardElevation="7dp"
+                        tool:cardCornerRadius="@dimen/_8sdp">
+
+                        <RadioGroup
+                            android:id="@+id/rbg_delivery_option_ubber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_3"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:layout_marginBottom="@dimen/_3sdp">
+
                             <RadioButton
                                 android:id="@+id/rb_uber_rush_delivery_option_fragment"
                                 android:layout_width="wrap_content"
@@ -198,15 +215,50 @@
                                 android:textSize="@dimen/dimen_DeliveryTextSize"
                                 tools:ignore="UnusedAttribute" />
 
-                            <RadioButton
-                                android:id="@+id/rb_hand_on_delivery_delivery_option_fragment"
-                                android:layout_width="wrap_content"
+                        </RadioGroup>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_radio_button_hand_delivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cv_radio_button_ubber"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="@dimen/_3sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:visibility="gone"
+                        android:clickable="true"
+                        android:focusableInTouchMode="true"
+                        tool:cardElevation="7dp"
+                        tool:cardCornerRadius="@dimen/_8sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <RadioGroup
+                                android:id="@+id/rbg_delivery_option_hand"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:buttonTint="@android:color/tab_indicator_text"
-                                android:text="@string/lbl_hand_delivery"
-                                android:textColor="@android:color/tab_indicator_text"
-                                android:textSize="@dimen/dimen_DeliveryTextSize"
-                                tools:ignore="UnusedAttribute" />
+                                android:layout_marginStart="@dimen/dimen_3"
+                                android:layout_marginTop="@dimen/dimen_10"
+                                android:layout_marginBottom="@dimen/_3sdp">
+
+
+                                <RadioButton
+                                    android:id="@+id/rb_hand_on_delivery_delivery_option_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:buttonTint="@android:color/tab_indicator_text"
+                                    android:text="@string/lbl_hand_delivery"
+                                    android:textColor="@android:color/tab_indicator_text"
+                                    android:textSize="@dimen/dimen_DeliveryTextSize"
+                                    tools:ignore="UnusedAttribute" />
+
+                            </RadioGroup>
 
                             <TextView
                                 android:id="@+id/tv_store_personally_deliver"
@@ -219,6 +271,7 @@
                                 android:textStyle="italic"
                                 android:textColor="@android:color/tab_indicator_text"
                                 android:textSize="@dimen/_13sdp"
+                                android:layout_marginBottom="@dimen/_1sdp"
                                 android:visibility="gone"
                                 tools:visibility="visible" />
 
@@ -292,6 +345,33 @@
                                 android:textSize="@dimen/dimen_DeliveryTextSize"
                                 android:visibility="gone" />
 
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_radio_button_ship"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cv_radio_button_hand_delivery"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:padding="@dimen/_3sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:visibility="gone"
+                        android:clickable="true"
+                        android:focusableInTouchMode="true"
+                        tool:cardElevation="7dp"
+                        tool:cardCornerRadius="@dimen/_8sdp">
+
+                        <RadioGroup
+                            android:id="@+id/rbg_delivery_option_ship"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_3"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:layout_marginBottom="@dimen/_8sdp">
+
 
                             <RadioButton
                                 android:id="@+id/rb_ship_delivery_option_fragment"
@@ -304,126 +384,128 @@
                                 android:textSize="@dimen/dimen_DeliveryTextSize"
                                 tools:ignore="UnusedAttribute" />
 
-
-                            <LinearLayout
-                                android:layout_marginTop="-3dp"
-                                android:id="@+id/lin_test_site_link"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:id="@+id/test_site_link"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="end"
-                                    android:paddingRight="@dimen/_3sdp"
-                                    android:textSize="@dimen/_10sdp" />
-                            </LinearLayout>
-
                         </RadioGroup>
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_ship"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/cv_radio_button_delivery_option_fragment"
-                    android:layout_marginLeft="@dimen/dimen_10"
-                    android:layout_marginRight="@dimen/dimen_10"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:visibility="gone"
-                    android:clickable="true"
-                    android:focusableInTouchMode="true"
-                    tool:cardElevation="7dp"
-                    tool:cardCornerRadius="@dimen/_8sdp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:orientation="vertical">
-
-                        <CheckBox
-                            android:id="@+id/cbx_ship_delivery_option_fragment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dimen_10"
-                            android:buttonTint="@android:color/tab_indicator_text"
-                            android:text="@string/lbl_ship_to_different_address"
-                            android:textColor="@android:color/tab_indicator_text"
-                            android:textSize="@dimen/dimen_DeliveryTextSize"
-                            android:visibility="gone"
-                            tools:ignore="UnusedAttribute" />
 
                         <LinearLayout
-                            android:id="@+id/ll_shipping_Service"
+                            android:layout_marginTop="-3dp"
+                            android:id="@+id/lin_test_site_link"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="17dp"
-                            android:layout_marginEnd="@dimen/_7sdp"
-                            android:layout_marginBottom="@dimen/_10sdp"
-                            android:orientation="vertical"
-                            android:visibility="gone">
-
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical">
                             <TextView
-                                android:id="@+id/tv_Shpping_service"
+                                android:id="@+id/test_site_link"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_7sdp"
-                                android:text="@string/lbl_shipping_service"
-                                android:textColor="@android:color/tab_indicator_text"
-                                android:textSize="@dimen/dimen_DeliveryTextSize"
-                                tools:visibility="visible" />
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dimen_5">
-
-                                <Spinner
-                                    android:id="@+id/spinnerShippingService"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/border_edittext_simple"
-                                    android:focusableInTouchMode="true"
-                                    android:spinnerMode="dropdown" />
-
-                                <ImageView
-                                    android:id="@+id/img_bs_mobile_option_delivery_option_fragment"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="30dp"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:layout_marginRight="10dp"
-                                    android:src="@drawable/ic_arrow_down" />
-                            </RelativeLayout>
-
-                            <TextView
-                                android:id="@+id/tv_shipping_charges"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:text=""
-                                android:textColor="@color/red"
-                                android:textSize="@dimen/_13sdp" />
-
+                                android:gravity="end"
+                                android:paddingRight="@dimen/_3sdp"
+                                android:textSize="@dimen/_10sdp" />
                         </LinearLayout>
 
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_ship"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cv_radio_button_ship"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_3sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:visibility="gone"
+                        android:clickable="true"
+                        android:focusableInTouchMode="true"
+                        tool:cardElevation="7dp"
+                        tool:cardCornerRadius="@dimen/_8sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:orientation="vertical">
+
+                            <CheckBox
+                                android:id="@+id/cbx_ship_delivery_option_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_10"
+                                android:buttonTint="@android:color/tab_indicator_text"
+                                android:text="@string/lbl_ship_to_different_address"
+                                android:textColor="@android:color/tab_indicator_text"
+                                android:textSize="@dimen/dimen_DeliveryTextSize"
+                                android:visibility="gone"
+                                tools:ignore="UnusedAttribute" />
+
+                            <LinearLayout
+                                android:id="@+id/ll_shipping_Service"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="17dp"
+                                android:layout_marginEnd="@dimen/_7sdp"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:id="@+id/tv_Shpping_service"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_7sdp"
+                                    android:text="@string/lbl_shipping_service"
+                                    android:textColor="@android:color/tab_indicator_text"
+                                    android:textSize="@dimen/dimen_DeliveryTextSize"
+                                    tools:visibility="visible" />
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dimen_5">
+
+                                    <Spinner
+                                        android:id="@+id/spinnerShippingService"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/border_edittext_simple"
+                                        android:focusableInTouchMode="true"
+                                        android:spinnerMode="dropdown" />
+
+                                    <ImageView
+                                        android:id="@+id/img_bs_mobile_option_delivery_option_fragment"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="30dp"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerInParent="true"
+                                        android:layout_marginStart="5dp"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_marginRight="10dp"
+                                        android:src="@drawable/ic_arrow_down" />
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:id="@+id/tv_shipping_charges"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:text=""
+                                    android:textColor="@color/red"
+                                    android:textSize="@dimen/dimen_DeliveryTextSize" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_main_billing_and_shipping_delivery_option_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cv_ship"
+                    android:layout_below="@+id/cv_radio_button_delivery_option_fragment"
                     android:layout_marginLeft="@dimen/dimen_10"
                     android:layout_marginRight="@dimen/dimen_10"
                     android:layout_marginTop="@dimen/dimen_5"
@@ -588,50 +670,64 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical">
 
-                            <!-- Email -->
-                            <TextView
-                                android:id="@+id/tv_bs_title_email_delivery_option_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_below="@+id/et_bs_company_name_delivery_option_fragment"
-                                android:layout_marginTop="@dimen/dimen_7"
-                                android:text="@string/lbl_email_title"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_10sdp" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/tv_bs_email_delivery_option_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_below="@+id/et_bs_company_name_delivery_option_fragment"
-                                android:layout_marginStart="@dimen/dimen_5"
-                                android:layout_marginTop="@dimen/dimen_7"
-                                android:layout_toRightOf="@+id/tv_bs_title_email_delivery_option_fragment"
-                                android:text="mehul@gmail.com"
-                                android:textSize="@dimen/_10sdp" />
+                                <!-- Email -->
+                                <TextView
+                                    android:id="@+id/tv_bs_title_email_delivery_option_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_below="@+id/et_bs_company_name_delivery_option_fragment"
+                                    android:layout_marginTop="@dimen/dimen_7"
+                                    android:text="@string/lbl_email_title"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_10sdp" />
 
-                            <!-- Phone Number -->
+                                <TextView
+                                    android:id="@+id/tv_bs_email_delivery_option_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_below="@+id/et_bs_company_name_delivery_option_fragment"
+                                    android:layout_marginStart="@dimen/dimen_5"
+                                    android:layout_marginTop="@dimen/dimen_7"
+                                    android:layout_toRightOf="@+id/tv_bs_title_email_delivery_option_fragment"
+                                    android:text="mehul@gmail.com"
+                                    android:textSize="@dimen/_10sdp" />
 
-                            <TextView
-                                android:id="@+id/tv_bs_title_phone_number_delivery_option_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_below="@+id/tv_bs_title_email_delivery_option_fragment"
-                                android:layout_marginTop="@dimen/dimen_7"
-                                android:text="@string/lbl_phone_number_simple"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_10sdp" />
+                            </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/et_bs_phone_number_delivery_option_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_below="@+id/tv_bs_title_email_delivery_option_fragment"
-                                android:layout_marginStart="@dimen/dimen_5"
-                                android:layout_marginTop="@dimen/dimen_7"
-                                android:layout_toRightOf="@+id/tv_bs_title_phone_number_delivery_option_fragment"
-                                android:text=""
-                                android:textSize="@dimen/_10sdp" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <!-- Phone Number -->
+                                <TextView
+                                    android:id="@+id/tv_bs_title_phone_number_delivery_option_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_below="@+id/tv_bs_title_email_delivery_option_fragment"
+                                    android:layout_marginTop="@dimen/dimen_7"
+                                    android:text="@string/lbl_phone_number_simple"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_10sdp" />
+
+                                <TextView
+                                    android:id="@+id/et_bs_phone_number_delivery_option_fragment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_below="@+id/tv_bs_title_email_delivery_option_fragment"
+                                    android:layout_marginStart="@dimen/dimen_5"
+                                    android:layout_marginTop="@dimen/dimen_7"
+                                    android:layout_toRightOf="@+id/tv_bs_title_phone_number_delivery_option_fragment"
+                                    android:text=""
+                                    android:textSize="@dimen/_10sdp" />
+
+
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:id="@+id/rl_bs_phone_number_delivery_option_fragment"
@@ -1118,6 +1214,7 @@
                                     android:id="@+id/et_dd_phone_number_delivery_option_fragment"
                                     style="@style/Edittext_style1"
                                     android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/dimen_5"
                                     android:hint="@string/str_mobile_hint"
                                     android:imeOptions="actionNext"
@@ -1154,7 +1251,7 @@
                                     <Spinner
                                         android:id="@+id/spinner_mobile_option_delivery_option_fragment"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
+                                        android:layout_height="44dp"
                                         android:background="@drawable/border_edittext_simple"
                                         android:focusableInTouchMode="true"
                                         android:spinnerMode="dropdown" />

@@ -10,11 +10,13 @@
         android:id="@+id/txtDepartmentTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:visibility="gone"
-        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_5"
+        android:layout_marginTop="@dimen/dimen_10"
         android:text="Departments"
-        android:textSize="@dimen/dimen_18" />
+        android:textSize="@dimen/_13sdp"
+        android:textStyle="bold"  />
 
     <View
         android:visibility="gone"
@@ -28,5 +30,17 @@
         android:groupIndicator="@null"
         android:layout_width="match_parent"
         android:divider="@null"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rec_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/_5sdp"
+        android:orientation="horizontal">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
 </LinearLayout>

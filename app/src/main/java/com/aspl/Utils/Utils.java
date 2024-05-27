@@ -2123,6 +2123,9 @@ public class Utils{
                     dialog.dismiss();
                     Constant.dialog_Delete_My_Online_Account.dismiss();
                 }
+                else if (s.equalsIgnoreCase("splash")){
+                    Login.onLogOff();
+                }
             }
         });
 

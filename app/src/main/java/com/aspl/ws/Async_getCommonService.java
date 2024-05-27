@@ -468,7 +468,7 @@ public class Async_getCommonService extends AsyncTask<String, Void, Void> implem
                                 Login.onLogOff();
                                 comefrom = "";
                             } else {
-                                Utils.showValidationDialog(mContext, UM.Result, "");
+                                Utils.showValidationDialog(mContext, UM.Result, "splash");
                             }
                         }
 

@@ -1,9 +1,13 @@
 package com.aspl.fragment;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -14,6 +18,7 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aspl.Adapter.DepartmentListAdapter;
 import com.aspl.Adapter.ExpandDeptAdapter;
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.Utils;
@@ -31,7 +36,7 @@ import java.util.ArrayList;
 /**
  * Created by new on 07/12/2017.
  */
-public class FilterFragment extends Fragment implements TaskFilterInfo.TaskFilterInfoEvent,TaskDepartmentList.TaskDepartmentListEvent {
+public class FilterFragment extends Fragment implements TaskFilterInfo.TaskFilterInfoEvent,TaskDepartmentList.TaskDepartmentListEvent,DepartmentListAdapter.DepartmentListAdapterEvent {
     public FilterFragment() {}
     public FilterInfoModel filterInfoModel;
     public static ArrayList<String> finalSubDeptModelList = new ArrayList<>();
@@ -46,10 +51,13 @@ public class FilterFragment extends Fragment implements TaskFilterInfo.TaskFilte
 
     private static ExpandDeptAdapter adapter;
     public ExpandableListView dept_expList;
+
+    public RecyclerView recyclerView;
     TextView txtdepartment;
     LinearLayout llMain;
     public static FilterFragment filterFragment;
     public static String Tag="FilterFragment";
+    LinearLayoutManager manager;
     public static FilterFragment getInstance() {
         return filterFragment;
     }
@@ -65,6 +73,7 @@ public class FilterFragment extends Fragment implements TaskFilterInfo.TaskFilte
 //    }
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         filterFragment = this;
@@ -72,6 +81,7 @@ public class FilterFragment extends Fragment implements TaskFilterInfo.TaskFilte
 
         callWSForFilterDetails();
 
+        recyclerView =rootView.findViewById(R.id.rec_home);
         dept_expList = (ExpandableListView) rootView.findViewById(R.id.dept_expList);
         dept_expList.setGroupIndicator(null);
 
@@ -269,10 +279,15 @@ public class FilterFragment extends Fragment implements TaskFilterInfo.TaskFilte
 //        Log.e("Log", "Department Size=" + Constant.DEPARTMENTLIST.size());
 //        dept_expList.setAdapter(new ExpandDeptAdapter(getActivity(), Constant.DepartmentList));
 
-        adapter = new ExpandDeptAdapter(getActivity(), Constant.DepartmentList);
-        dept_expList.setAdapter(adapter);
+//        adapter = new ExpandDeptAdapter(getActivity(), Constant.DepartmentList);
+//        dept_expList.setAdapter(adapter);
 
-        setListener();
+        DepartmentListAdapter departmentListAdapter = new DepartmentListAdapter(getActivity(), this, Constant.DepartmentList1);
+        manager = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(departmentListAdapter);
+
+//        setListener();
 
 //        for(int i=0;i<Constant.DepartmentList.size();i++){
 //            FilterFragment.getInstance().dept_expList.expandGroup(i);
