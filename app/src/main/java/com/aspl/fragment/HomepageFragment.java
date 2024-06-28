@@ -37,6 +37,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aspl.Adapter.DepartmentListAdapter;
 import com.aspl.Adapter.DiscountBlockAdapter;
@@ -119,6 +120,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
     private CardView block2;
     private int count =0;
 
+    private boolean blocksChecked = false;
     public HomepageFragment() {
     }
 
@@ -2285,50 +2287,58 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
     @Override
     public void addToCartEventResult(UpdateCartQuantity addToCart) {
 
-        if (addToCart != null) {
+        try{
 
-            if (addToCart.getResult().equalsIgnoreCase("success")) {
-                DialogUtils.showDialog("Added to cart!");
-                Utils.vibrateDevice(getContext());
-                onGetCartData("", addToCart);
-                if(isFromadpter_whenclickedonaddtocart){
-                    isFromadpter_whenclickedonaddtocart = false;
+            if (addToCart != null) {
+
+                if (addToCart.getResult().equalsIgnoreCase("success")) {
+                    DialogUtils.showDialog("Added to cart!");
+                    Utils.vibrateDevice(getContext());
+                    onGetCartData("", addToCart);
+                    if (isFromadpter_whenclickedonaddtocart) {
+                        isFromadpter_whenclickedonaddtocart = false;
+                    }
+
+                } else if (addToCart.getResult().equalsIgnoreCase("Already added")) {
+
+                    if (isFromadpter_whenclickedonaddtocart) {
+
+                        onGetCartData("Already added", addToCart);
+
+                    }
+
+    //                if (isComeFomAddTocartBtn) {
+    //                    if (cartQtyOfItem.isEmpty()) {
+    //
+    //                        DialogUtils.notEnoughQuantityDialog(getActivity(), addToCart, requestedQty, "viewall", addToCart.getQty());
+    //                    } else {
+    //                        DialogUtils.notEnoughQuantityDialog(getActivity(), addToCart, requestedQty, "viewall", cartQtyOfItem);
+    //                    }
+    //                    isComeFomAddTocartBtn = false;
+    //                } else {
+    //                }
+
+                } else if (addToCart.getResult().equalsIgnoreCase(
+                        "Not enough Stock")) {
+    //                DialogUtils.notEnoughQuantityDialog(getActivity(), addToCart, requestedQty, "NotenoughStock", cartQtyOfItem);
+
+    //                DialogUtils.notEnoughQuantityNewDialog(getActivity(), addToCart, requestedQty, "NotenoughStock", cartQtyOfItem);
+
+
+                    if (isFromadpter_whenclickedonaddtocart) {
+
+                        onGetCartData("Not enough Stock", addToCart);
+                    }
+
+                } else {
+    //                Toast.makeText(getActivity(), getString(R.string.str_network_message), Toast.LENGTH_SHORT).show();
                 }
-
-            } else if (addToCart.getResult().equalsIgnoreCase("Already added")) {
-
-                if(isFromadpter_whenclickedonaddtocart){
-
-                    onGetCartData("Already added",addToCart);
-
-                }
-
-//                if (isComeFomAddTocartBtn) {
-//                    if (cartQtyOfItem.isEmpty()) {
-//
-//                        DialogUtils.notEnoughQuantityDialog(getActivity(), addToCart, requestedQty, "viewall", addToCart.getQty());
-//                    } else {
-//                        DialogUtils.notEnoughQuantityDialog(getActivity(), addToCart, requestedQty, "viewall", cartQtyOfItem);
-//                    }
-//                    isComeFomAddTocartBtn = false;
-//                } else {
-//                }
-
-            } else if (addToCart.getResult().equalsIgnoreCase(
-                    "Not enough Stock")) {
-//                DialogUtils.notEnoughQuantityDialog(getActivity(), addToCart, requestedQty, "NotenoughStock", cartQtyOfItem);
-
-//                DialogUtils.notEnoughQuantityNewDialog(getActivity(), addToCart, requestedQty, "NotenoughStock", cartQtyOfItem);
-
-
-                if(isFromadpter_whenclickedonaddtocart){
-
-                    onGetCartData("Not enough Stock",addToCart);
-                }
-
-            } else {
-//                Toast.makeText(getActivity(), getString(R.string.str_network_message), Toast.LENGTH_SHORT).show();
             }
+            else {
+                Toast.makeText(getContext(), "Please try again later.", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(getContext(), "Please try again later.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -2888,12 +2898,6 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         datalayout.removeAllViews();
         datalayout.setVisibility(View.VISIBLE);
 
-//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.WRAP_CONTENT
-//        );
-//        datalayout.setLayoutParams(layoutParams);
-
         LayoutInflater inflater1 = getLayoutInflater();
         View v1 = inflater1.inflate(R.layout.raw_home_recycleview, null);
         RecyclerView rv_discountBlock = v1.findViewById(R.id.rec_home2);
@@ -2930,6 +2934,15 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 
 
     private void CheckBlocks(List<HomeItemModel> itemListing, String type) {
+        // Check if blocksChecked is true, meaning CheckBlocks has already been called
+        if (blocksChecked) {
+            return; // Exit the function early
+        }
+
+        // Set blocksChecked to true to indicate that CheckBlocks has been called
+        blocksChecked = true;
+
+        // Existing CheckBlocks logic...
         DataFrontModel dataNewAddition = ReturnDataFrontModel("New Additions");
         DataFrontModel dataStaffPick = ReturnDataFrontModel("Staff Picks");
         DataFrontModel dataPramotion1 = ReturnDataFrontModel("Items On Promotion");
@@ -2940,363 +2953,56 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         isstaffpickActive = dataStaffPick.getIsStaffPickActive().equals("1");
         isnewadditionActive = dataNewAddition.getIsNewAdditionsActive().equals("1");
         isitemonpromotionActive = dataPramotion1.getIsItemsonpromotionsActive().equals("1");
-        if (Block_List!=null || !Block_List.isEmpty()){
+        if (Block_List != null || !Block_List.isEmpty()) {
             Block_List.clear();
+        } else {
+            Block_List = new ArrayList<>(); // Initialize if null
         }
 
-        if (type.equals("newddition")) {
-            if (isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")
-                    && isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
-                    && isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")) {
+
+        if (isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")
+                && isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
+                && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")) {
 //                All Three are Blocks and Active NAd has item in all.
+            Block_List.add(dataNewAddition);
+            Block_List.add(dataStaffPick);
+            Block_List.add(dataPramotion1);
+            call_rv_add_on_blocks(linTest3, Block_List);
 
-            } else if(isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")
-                    && isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")){
-//               In this only Staff Pick is Active and Block and also have item in it.
-
-            } else if (isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
-                    && isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")) {
-//                In this only Item on Promotion is Active and Block and also have item in it.
-
-            } else {
-//                Only New Addition is Active and other staff pick and item on promotion
-                if (isnewadditionActive && isnewadditionBlock ){
-                    Block_List.add(dataNewAddition);
-                }
-
-                call_rv_add_on_blocks(linTest, Block_List);
-
-            }
         }
-        else if (type.equals("staffpick")) {
-            if (isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")
-                    && isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
-                    && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")) {
-//                All Three are Blocks and Active NAd has item in all.
+        else if (isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")
+                && isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")){
 
-            } else if (isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")
-                    && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")){
-//                In this only New Addition is Active and Block and also have item in it.
+            Block_List.add(dataNewAddition);
+            Block_List.add(dataPramotion1);
+            call_rv_add_on_blocks(linTest3, Block_List);
 
-                if (isnewadditionActive && isnewadditionBlock ){
-                    Block_List.add(dataNewAddition);
-                }
-                if (isstaffpickActive && isstaffpickBlock){
-                    Block_List.add(dataStaffPick);
-                }
-                call_rv_add_on_blocks(linTest, Block_List);
-
-            } else if (isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
-                    && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")) {
-//                In this only Item on Promotion is Active and Block and also have item in it.
-
-
-            }else {
-//                In this only Staff Pick is Active and Block and also have item in it.
-                if (isstaffpickActive && isstaffpickBlock){
-                    Block_List.add(dataStaffPick);
-                }
-                call_rv_add_on_blocks(linTest, Block_List);
-            }
         }
-        else if (type.equals("promotion")) {
+        else if (isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
+                && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")) {
+            Block_List.add(dataStaffPick);
+            Block_List.add(dataPramotion1);
+            call_rv_add_on_blocks(linTest3, Block_List);
 
-            if (isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")
-                    && isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
-                    && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")) {
-//                All Three are Blocks and Active NAd has item in all.
-
-                if (isnewadditionActive && isnewadditionBlock ){
-                    Block_List.add(dataNewAddition);
-                }
-                if (isstaffpickActive && isstaffpickBlock){
-                    Block_List.add(dataStaffPick);
-                }
-                if (isitemonpromotionActive && isItemBlock1){
-                    Block_List.add(dataPramotion1);
-                }
-
-                call_rv_add_on_blocks(linTest3, Block_List);
-
-            } else if (isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")
-                    && isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")){
-//                In this only New Addition is Active and Block and also have item in it.
-
-                if (isnewadditionActive && isnewadditionBlock ){
-                    Block_List.add(dataNewAddition);
-                }
-                if (isitemonpromotionActive && isItemBlock1){
-                    Block_List.add(dataPramotion1);
-                }
-
-                call_rv_add_on_blocks(linTest3, Block_List);
-
-            } else if (isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")
-                    && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")) {
-//                In this only Item on Promotion is Active and Block and also have item in it.
-
-                if (isstaffpickActive && isstaffpickBlock){
-                    Block_List.add(dataStaffPick);
-                }
-                if (isitemonpromotionActive && isItemBlock1){
-                    Block_List.add(dataPramotion1);
-                }
-
-                call_rv_add_on_blocks(linTest3, Block_List);
-
-            }else {
-//                In this only Staff Pick is Active and Block and also have item in it.
-                if (isitemonpromotionActive && isItemBlock1){
-                    Block_List.add(dataPramotion1);
-                }
-
-                call_rv_add_on_blocks(linTest3, Block_List);
-
-            }
-//            if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
-//                    || !isstaffpickActive && !isnewadditionActive
-//                    || !isnewadditionActive && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")
-//                    || isnewadditionActive && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Side")
-//                    ||!isnewadditionActive && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Side")
-//                    && isstaffpickActive && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
-//                    || !isstaffpickActive && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
-//                    || !isstaffpickActive && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Side")) {
-////                 In this only Item On Promotion is Active and Block and also have item in it.
-//            }
         }
-
-//        if (type.equals("newddition")) {
-//
-////            if (itemListing != null && itemListing.size() > 0) {
-////                isnewadditionBlock1 = true;
-////            } else {
-////                isnewadditionBlock1 = false;
-////            }
-//
-////            Checking if side and block is not coming then default side by side is shown
-//            if (dataNewAddition.getHomeDisplayFormat().equals("") || dataNewAddition.getHomeDisplayFormat() == null) {
-//                if (isnewadditionBlock){
-//                    Log.e("", "onGetViewallResult: 81" );
-//                    setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
-//                    isnewadditionBlock = false;
-//                    Log.e("New Addition", "New Addition  Side : 1" + dataNewAddition.getHomeDisplayFormat());
-//                }
-//            } else {
-//                if (templateModel.getStaffPick()) {
-//                    if (!dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                        if (isnewadditionBlock || isstaffpickBlock) {
-//                            if (isAdded()) {
-//                                Log.e("newaddition", "onGetViewallResultNew:" + dataNewAddition.getHomeDisplayFormat());
-//                                if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                                    if(isnewadditionBlock) {
-//                                        Log.e("", "onGetViewallResult: 82" );
-//                                        setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
-//                                        isnewadditionBlock = false;
-//                                    }
-//                                } else {
-//                                    if (templateModel.getItemsOnPromotion() && isItemBlock1) {
-//                                        if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block") ) {
-//                                            isItemBlock1 = true;
-//                                            onAddBlock(linTest3, dataNewAddition, dataPramotion1, isnewadditionBlock, isItemBlock1);
-//                                            Log.i("newAddition1", "block " + count);
-//                                            count++;
-//                                        }
-//                                    } else {
-//                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isfalse);
-//                                        Log.i("newAddition2", "block " + count);
-//                                        count++;
-//                                    }
-//                                    if (dataStaffPick.getIsStaffPickActive().equals("1") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block") &&
-//                                            dataPramotion1.getIsItemsonpromotionsActive().equals("1") && !dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isfalse);
-//                                        Log.i("newAddition3", "block " + count);
-//                                        count++;
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    } else if (dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block") && dataStaffPick.getStaffPickInvCount()==0) {
-//                        type = "Staff Picks";
-////                    callWSForBlockItemList(type);
-//                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isfalse);
-//                    }
-//                } else {
-//                    if (isnewadditionBlock || isstaffpickBlock) {
-//                        if (isAdded()) {
-//                            Log.e("newaddition", "onGetViewallResultNew:" + dataNewAddition.getHomeDisplayFormat());
-//                            if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                                if(isnewadditionBlock) {
-//                                    Log.e("", "onGetViewallResult: 83" );
-//                                    setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
-//                                    isnewadditionBlock = false;
-//                                }
-//                            } else {
-//                                if (templateModel.getItemsOnPromotion()) {
-//                                    if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                                        isItemBlock1 = true;
-//                                        onAddBlock(linPRamotion, dataNewAddition, dataPramotion1, isnewadditionBlock, isItemBlock1);
-//                                        Log.i("newAddition4", "block " + count);
-//                                        count++;
-//                                    } else {
-//                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isfalse);
-//                                        Log.i("newAddition5", "block " + count);
-//                                        count++;
-//                                    }
-//                                } else {
-//                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isfalse);
-//                                    Log.i("newAddition6", "block " + count);
-//                                    count++;
-//                                }
-//                                if (dataStaffPick.getIsStaffPickActive().equals("1") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block") &&
-//                                        dataPramotion1.getIsItemsonpromotionsActive().equals("1") && !dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isfalse);
-//                                    Log.i("newAddition7", "block " + count);
-//                                    count++;
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        else if (type.equals("staffpick")) {
-//
-////            if (itemListing != null && itemListing.size() > 0) {
-////                isstaffpickBlock2 = true;
-////            } else {
-////                isstaffpickBlock2 = false;
-////            }
-//
-////            Checking if side and block is not coming then default side by side is shown
-//
-//            if (dataStaffPick.getHomeDisplayFormat().isEmpty() || dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("")
-//                    || dataStaffPick.getHomeDisplayFormat()==null){
-//                if (isstaffpickBlock) {
-//                    Log.e("", "onGetViewallResult: 84" );
-//                    setcommonScrollView(itemListing, linStaffPick, dataStaffPick);
-//                    isstaffpickBlock = false;
-//                }
-//            }else {
-//
-//                if (isstaffpickBlock || isnewadditionBlock) {
-//                    if (isAdded()) {
-//                        Log.e("staffpick", "onGetViewallResultstaff: " + dataStaffPick.getHomeDisplayFormat());
-//                        if (isnewadditionBlock) {
-//                            if (!dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                                if (isstaffpickBlock) {
-//                                    Log.e("", "onGetViewallResult: 85" );
-//                                    setcommonScrollView(NewAdditionList, linStaffPick, dataStaffPick);
-//                                    isstaffpickBlock = false;
-//                                }
-//                            } else {
-//                                if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                                    if (isnewadditionBlock) {
-//                                        Log.e("", "onGetViewallResult: 86" );
-//                                        setcommonScrollView(itemListing, linNewAddition, dataNewAddition);
-//                                        isnewadditionBlock = false;
-//                                    }
-//                                    if (templateModel.getItemsOnPromotion()) {
-//                                        if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                                            isItemBlock1 = true;
-//                                            onAddBlock(linTest3, dataStaffPick, dataPramotion1, isstaffpickBlock, isItemBlock1);
-//                                            Log.i("staffpick1", "block " + count);
-//                                            count++;
-//                                        } else {
-//                                            onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isstaffpickBlock);
-//                                            Log.i("staffpick2", "block " + count);
-//                                            count++;
-//                                        }
-//                                    } else {
-//                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isstaffpickBlock);
-//                                        Log.i("staffpick3", "block " + count);
-//                                        count++;
-//                                    }
-//                                } else if (dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block") && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isstaffpickBlock);
-//                                    Log.i("staffpick4", "block " + count);
-//                                    count++;
-//                                }
-//                            }
-//                        } else {
-//                            if (!dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                                if (isstaffpickBlock) {
-//                                    Log.e("", "onGetViewallResult: 87" );
-//                                    setcommonScrollView(itemListing, linStaffPick, dataStaffPick);
-//                                    isstaffpickBlock = false;
-//                                }
-//                            } else {
-//                                if (!isnewadditionBlock) {
-//                                    if (templateModel.getItemsOnPromotion()) {
-//                                        if (dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                                            isItemBlock1 = true;
-//                                            onAddBlock(linTest3, dataStaffPick, dataPramotion1, isstaffpickBlock, isItemBlock1);
-//                                            Log.i("staffpick5", "block " + count);
-//                                            count++;
-//                                        } else {
-//                                            onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isstaffpickBlock);
-//                                            Log.i("staffpick6", "block " + count);
-//                                            count++;
-//                                        }
-//                                    } else {
-//                                        onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isstaffpickBlock);
-//                                        Log.i("staffpick7", "block " + count);
-//                                        count++;
-//                                    }
-//                                } else {
-//                                    onAddBlock(linTest, dataNewAddition, dataStaffPick, isnewadditionBlock, isstaffpickBlock);
-//                                    Log.i("staffpick8", "block " + count);
-//                                    count++;
-//                                }
-////                        onAddBlock(linPRamotionBlock, dataNewAddition, dataStaffPick, isnewadditionBlock1, isstaffpickBlock2);
-//                            }
-//                        }
-//                    }
-//                }
-//
-//            }
-//        }
-//        else if (type.equalsIgnoreCase("promotion")){
-////            if (itemListing != null && itemListing.size() > 0) {
-////                isItemBlock1 = true;
-////            } else {
-////                isItemBlock1 = false;
-////            }
-////            Checking if siode and block is not coming then default side by side is shown
-//            if (dataPramotion1.getHomeDisplayFormat().equals("") || dataPramotion1.getHomeDisplayFormat() == null) {
-//                if (!dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")){
-//                    if (isItemBlock1){
-//                        Log.e("", "onGetViewallResult: 88" );
-//                        setcommonScrollView(itemListing, lin, dataPramotion1);
-//                        isItemBlock1 = false;
-//                    }
-//                }
-//            }else {
-//                if (isItemBlock1 || isItemBlock2) {
-//                    DataFrontModel dataPramotion2 = ReturnDataFrontModel("Items On Promotion");
-//                    if (isAdded()) {
-//                        if (!dataPramotion1.getHomeDisplayFormat().equalsIgnoreCase("Block")) {
-//                            if(isItemBlock1) {
-//                                Log.e("", "onGetViewallResult: 89" );
-//                                setcommonScrollView(itemListing, linPRamotion, dataPramotion1);
-//                                isItemBlock1 = false;
-//                            }
-//                        } else {
-//                            if (!dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block") && !dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
-//                                    || !templateModel.getStaffPick() && !templateModel.getNewAddition()
-//                                    || templateModel.getNewAddition() && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Block")
-//                                    && templateModel.getStaffPick() && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Block")
-//                                    || !templateModel.getNewAddition() && dataStaffPick.getHomeDisplayFormat().equalsIgnoreCase("Side")
-//                                    || !templateModel.getStaffPick() && dataNewAddition.getHomeDisplayFormat().equalsIgnoreCase("Side")) {
-//                                onAddBlock(linTest3, dataPramotion1, dataPramotion2, isItemBlock1, isItemBlock2);
-//                                Log.i("promotion", "block " + count);
-//                                count++;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
+        else if (isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")
+                && isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")){
+            Block_List.add(dataNewAddition);
+            Block_List.add(dataStaffPick);
+            call_rv_add_on_blocks(linTest,Block_List);
+        }
+        else if (isnewadditionActive && isnewadditionBlock && dataNewAddition.getHomeDisplayFormat().equals("Block")){
+            Block_List.add(dataNewAddition);
+            call_rv_add_on_blocks(linTest,Block_List);
+        }
+        else if (isstaffpickActive && isstaffpickBlock && dataStaffPick.getHomeDisplayFormat().equals("Block")){
+            Block_List.add(dataStaffPick);
+            call_rv_add_on_blocks(linTest2,Block_List);
+        }
+        else if (isitemonpromotionActive && isItemBlock1 && dataPramotion1.getHomeDisplayFormat().equals("Block")){
+            Block_List.add(dataPramotion1);
+            call_rv_add_on_blocks(linTest3, Block_List);
+        }
     }
 
 

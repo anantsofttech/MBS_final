@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.DialogUtils;
@@ -386,93 +387,98 @@ public class ViewallAdapter extends RecyclerView.Adapter<ViewallAdapter.ViewallH
         @Override
         public void onClick(View view) {
 
-            resquantity = Integer.parseInt(tv_item_quantity.getText().toString());
+            try {
 
-            if (view.getId() == img_plus.getId()) {
-
-                if (count < 999) {
-                    count++;
-                }
-                tv_item_quantity.setText("" + count);
                 resquantity = Integer.parseInt(tv_item_quantity.getText().toString());
+
+                if (view.getId() == img_plus.getId()) {
+
+                    if (count < 999) {
+                        count++;
+                    }
+                    tv_item_quantity.setText("" + count);
+                    resquantity = Integer.parseInt(tv_item_quantity.getText().toString());
 
 //                if (myCardAdapterEvent != null) {
 //                    HomeItemModel homeItemModel = listHomrItem.get(getAdapterPosition());
 //                    myCardAdapterEvent.onCardItemPlus(getAdapterPosition(), quantity, homeItemModel);
 //
 //                }
-            }
-
-            if (view.getId() == img_minus.getId()) {
-
-                if (count > 1) {
-                    count--;
                 }
 
-                tv_item_quantity.setText("" + count);
-                resquantity = Integer.parseInt(tv_item_quantity.getText().toString());
+                if (view.getId() == img_minus.getId()) {
+
+                    if (count > 1) {
+                        count--;
+                    }
+
+                    tv_item_quantity.setText("" + count);
+                    resquantity = Integer.parseInt(tv_item_quantity.getText().toString());
 
 //                if (myCardAdapterEvent != null){
 //                    HomeItemModel homeItemModel = listHomrItem.get(getAdapterPosition());
 //                    myCardAdapterEvent.onCardItemMinus(getAdapterPosition(), quantity, homeItemModel);
 //                }
 
-            }
-
-            if(view.getId() == ivAddtoCart.getId()){
-
-                HomeItemModel homeItemModel = listHomrItem.get(getAdapterPosition());
-//                Edited by Varun for INVtype to pass to the add to cart
-                Constant.invType = (String) homeItemModel.getInvType().toString();
-//                END
-                ViewAllFragment.getInstance().isFromadpter_whenclickedonaddtocart = true;
-                ViewAllFragment.getInstance().addTocartData(homeItemModel,true,resquantity);
-            }
-
-            if (view.getId() == tvWishlist.getId()) {
-
-                HomeItemModel homeItemModel = listHomrItem.get(getAdapterPosition());
-
-                Constant.invType = (String) homeItemModel.getInvType().toString();
-
-                if (homeItemModel != null && !homeItemModel.getItemMstId().isEmpty()) {
-
-                    String sku = null;
-                    try {
-                        sku = URLEncoder.encode(homeItemModel.getItemMstId().trim(), "utf-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    if(Constant.SCREEN_LAYOUT == 1){
-                        if (UserModel.Cust_mst_ID == null || UserModel.Cust_mst_ID.isEmpty()) {
-                            Login.StartLoginDialog("wishlist", context);
-                        }else {
-                            if (Constant.ISguest){
-                                DialogUtils.showDialog("Option not valid for guest account");
-                            }else {
-                                Constant.isclickedwishlistFromViewall = true;
-                                MainActivity.getInstance().callAddToWishlistWS(sku);
-                            }
-                        }
-                    }else{
-
-                        if (UserModel.Cust_mst_ID == null || UserModel.Cust_mst_ID.isEmpty()) {
-                            Login.StartLoginDialog("wishlist", context);
-                        }else {
-                            if (Constant.ISguest){
-                                DialogUtils.showDialog("Option not valid for guest account");
-                            }else {
-                                MainActivityDup.getInstance().callAddToWishlistWS(sku);
-                            }
-                        }
-                    }
-
                 }
-                //Toast.makeText(context, "Move to wishlist : Under Process", Toast.LENGTH_SHORT).show();
-            }
 
+                if (view.getId() == ivAddtoCart.getId()) {
+
+                    HomeItemModel homeItemModel = listHomrItem.get(getAdapterPosition());
+//                Edited by Varun for INVtype to pass to the add to cart
+                    Constant.invType = (String) homeItemModel.getInvType().toString();
+//                END
+                    ViewAllFragment.getInstance().isFromadpter_whenclickedonaddtocart = true;
+                    ViewAllFragment.getInstance().addTocartData(homeItemModel, true, resquantity);
+                }
+
+                if (view.getId() == tvWishlist.getId()) {
+
+                    HomeItemModel homeItemModel = listHomrItem.get(getAdapterPosition());
+
+                    Constant.invType = (String) homeItemModel.getInvType().toString();
+
+                    if (homeItemModel != null && !homeItemModel.getItemMstId().isEmpty()) {
+
+                        String sku = null;
+                        try {
+                            sku = URLEncoder.encode(homeItemModel.getItemMstId().trim(), "utf-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        if (Constant.SCREEN_LAYOUT == 1) {
+                            if (UserModel.Cust_mst_ID == null || UserModel.Cust_mst_ID.isEmpty()) {
+                                Login.StartLoginDialog("wishlist", context);
+                            } else {
+                                if (Constant.ISguest) {
+                                    DialogUtils.showDialog("Option not valid for guest account");
+                                } else {
+                                    Constant.isclickedwishlistFromViewall = true;
+                                    MainActivity.getInstance().callAddToWishlistWS(sku);
+                                }
+                            }
+                        } else {
+
+                            if (UserModel.Cust_mst_ID == null || UserModel.Cust_mst_ID.isEmpty()) {
+                                Login.StartLoginDialog("wishlist", context);
+                            } else {
+                                if (Constant.ISguest) {
+                                    DialogUtils.showDialog("Option not valid for guest account");
+                                } else {
+                                    MainActivityDup.getInstance().callAddToWishlistWS(sku);
+                                }
+                            }
+                        }
+
+                    }
+                    //Toast.makeText(context, "Move to wishlist : Under Process", Toast.LENGTH_SHORT).show();
+                }
+
+            }catch (Exception e){
+                Toast.makeText(context, "Please try again later.", Toast.LENGTH_SHORT).show();
+            }
         }
 
 //        int pos = 0;

@@ -159,11 +159,11 @@ public class FooterAdapter extends BaseAdapter {
                     MainActivity.getInstance().mDrawer.closeDrawers();
                     MainActivity.getInstance().llsortandfilter.setVisibility(View.GONE);
                     //MainActivity.getInstance().mContainer.removeAllViews();
-                    if (Build.VERSION.SDK_INT < 18) {
-                        MainActivity.getInstance().mContainer.clearView();
-                    } else {
-                        MainActivity.getInstance().mContainer.loadUrl("about:blank");
-                    }
+//                    if (Build.VERSION.SDK_INT < 18) {
+//                        MainActivity.getInstance().mContainer.clearView();
+//                    } else {
+//                        MainActivity.getInstance().mContainer.loadUrl("about:blank");
+//                    }
 
                     String page = footerModel.PageTitle;
                     String slideURL = null;

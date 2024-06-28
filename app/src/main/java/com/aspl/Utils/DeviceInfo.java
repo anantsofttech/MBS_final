@@ -159,7 +159,15 @@ public class DeviceInfo {
     }
 
     public static String getDeviceId(Context context) {
-        String device_uuid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        String device_uuid;
+
+        if (context == null){
+            device_uuid = "12356789";
+            return device_uuid;
+        }
+
+        device_uuid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         Log.d("device_uuid","device_uuid::" +device_uuid);
         if (device_uuid == null) {
             device_uuid = "12356789"; // for emulator testing

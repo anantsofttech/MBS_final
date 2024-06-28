@@ -531,7 +531,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                         String Url = WS_BASE_URL + CHECK_PASSWORD + AppPref.getString("email", "") + "/" + AppPref.getString("password", "") + "/" + STOREID;
 //                   Edited by Varun For Speed -up
 //                    new Async_getCommonService(MainActivity.this, Url, "comefromLogin").execute();
-                        new Async_getCommonService(this, Url).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        new Async_getCommonService(this, Url,"comefromLogin").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 //                    END
                     }else{
                         loadHomeWebPage();
@@ -548,7 +548,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
 //        END
 
-        Drawable myDrawable = MainActivity.getInstance().getResources().getDrawable(R.drawable.places_ic_search);
+        Drawable myDrawable = MainActivity.getInstance().getResources().getDrawable(R.drawable.ic_search_home);
 
         if (themeModel.ThemeColor.isEmpty()) {
             themeModel.ThemeColor = "#000000";
@@ -750,7 +750,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                     String Url = WS_BASE_URL + CHECK_PASSWORD + AppPref.getString("email", "") + "/" + AppPref.getString("password", "") + "/" + STOREID;
 //                   Edited by Varun For Speed -up
 //                    new Async_getCommonService(MainActivity.this, Url, "comefromLogin").execute();
-                    new Async_getCommonService(this, Url).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    new Async_getCommonService(this, Url,"comefromLogin").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 //                    END
                 }else{
                     loadHomeWebPage();
@@ -5160,28 +5160,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void addToCartEventResult(UpdateCartQuantity addToCart) {
 
-        if (addToCart != null) {
+        try {
+            if (addToCart != null) {
 
-            if (addToCart.getResult().equalsIgnoreCase("success")) {
-                DialogUtils.showDialog("Added to cart!");
-                onGetCartData("buyitagain");
+                if (addToCart.getResult().equalsIgnoreCase("success")) {
+                    DialogUtils.showDialog("Added to cart!");
+                    onGetCartData("buyitagain");
 
-            } else if (addToCart.getResult().equalsIgnoreCase("Already added")) {
+                } else if (addToCart.getResult().equalsIgnoreCase("Already added")) {
 
 //                if (isComeFomAddTocartBtn) {
-                if (cartQtyOfItem.isEmpty()) {
-                    DialogUtils.notEnoughQuantityDialog(MainActivity.this, addToCart, tempReqQty, "Mainactivity_buyItgain", addToCart.getQty());
-                } else {
-                    DialogUtils.notEnoughQuantityDialog(MainActivity.this, addToCart, tempReqQty, "Mainactivity_buyItgain", cartQtyOfItem);
-                }
+                    if (cartQtyOfItem.isEmpty()) {
+                        DialogUtils.notEnoughQuantityDialog(MainActivity.this, addToCart, tempReqQty, "Mainactivity_buyItgain", addToCart.getQty());
+                    } else {
+                        DialogUtils.notEnoughQuantityDialog(MainActivity.this, addToCart, tempReqQty, "Mainactivity_buyItgain", cartQtyOfItem);
+                    }
 //                    isComeFomAddTocartBtn = false;/
-            } else if (addToCart.getResult().equalsIgnoreCase(
-                    "Not enough Stock")) {
-                DialogUtils.notEnoughQuantityDialog(MainActivity.this, addToCart, tempReqQty, "NotenoughStock", cartQtyOfItem);
+                } else if (addToCart.getResult().equalsIgnoreCase(
+                        "Not enough Stock")) {
+                    DialogUtils.notEnoughQuantityDialog(MainActivity.this, addToCart, tempReqQty, "NotenoughStock", cartQtyOfItem);
 //                tvQty.setText(addToCart.getQty());
+                }
             }
+            else {
+              Toast.makeText(getApplicationContext(), "Please try again later.", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "Please try again later.", Toast.LENGTH_SHORT).show();
         }
-
     }
 
 

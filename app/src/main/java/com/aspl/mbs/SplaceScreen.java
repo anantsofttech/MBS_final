@@ -1,7 +1,6 @@
 package com.aspl.mbs;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -21,20 +20,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.DialogUtils;
 import com.aspl.Utils.Utils;
 import com.aspl.mbsmodel.ContatInfo;
-import com.aspl.mbsmodel.DataFrontModel;
 import com.aspl.mbsmodel.StoreLocationModel;
-import com.aspl.task.TaskBlockDataFront;
 import com.aspl.task.TaskContactInfo;
 import com.aspl.task.TaskFCMTokenRegister;
 import com.aspl.task.TaskStoreLocationInfo;
@@ -44,11 +39,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
 import com.google.android.play.core.install.model.UpdateAvailability;
-import com.google.android.play.core.tasks.Task;
 import com.google.firebase.crash.FirebaseCrash;
 
 
@@ -56,7 +51,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -167,6 +161,12 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
             Constant.STOREID = "4473";
         }else if (StoreConstant.StoreNo.STORE2401 == StoreConstant.storeNo) {
             Constant.STOREID = "2401";
+        }else if (StoreConstant.StoreNo.STORE400 == StoreConstant.storeNo) {
+            Constant.STOREID = "400";
+        }else if (StoreConstant.StoreNo.STORE1040 == StoreConstant.storeNo) {
+            Constant.STOREID = "1040";
+        }else if (StoreConstant.StoreNo.STORE3310 == StoreConstant.storeNo) {
+            Constant.STOREID = "3310";
         }
 
         Constant.MainSTOREID = Constant.STOREID;
@@ -406,7 +406,25 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
-            }else if(STOREID.equals("2401")){
+            }else if(STOREID.equals("400")){
+                Glide.with(this)
+                        .load(R.drawable.splash_cheers_400)
+                        .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(splaceImage);
+            }else if(STOREID.equals("1040")){
+                Glide.with(this)
+                        .load(R.drawable.splash_liquor_land_1040)
+                        .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(splaceImage);
+            } else if(STOREID.equals("3310")){
+                Glide.with(this)
+                        .load(R.drawable.splash_westside_beverage_3310)
+                        .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(splaceImage);
+            } else if(STOREID.equals("2401")){
                 Glide.with(this)
                         .load(R.drawable.splash_2401)
                         .fitCenter()

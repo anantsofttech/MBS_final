@@ -3,8 +3,6 @@ package com.aspl.task;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.aspl.Utils.NetworkUtil;
-import com.aspl.mbs.MainActivity;
 import com.aspl.mbsmodel.UpdateCartQuantity;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -13,8 +11,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONException;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
+import java.net.URL;
 
 public class TaskAddtoCart extends AsyncTask<String, Void, String> {
 
@@ -41,7 +44,7 @@ public class TaskAddtoCart extends AsyncTask<String, Void, String> {
         do {
             retry = false;
             try {
-                NetworkUtil.doNetworkProcessGet(strings[0], responseStrBuilder);
+                doNetworkProcessGet(strings[0], responseStrBuilder);
                 String response = responseStrBuilder.toString();
                 Log.e("log", "Response  " + response);
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -77,4 +80,52 @@ public class TaskAddtoCart extends AsyncTask<String, Void, String> {
             taskAddToCartEvent.addToCartEventResult(addtocart);
         }
     }
+
+    public static String doNetworkProcessGet(String request_str, StringBuilder responseStrBuilder)
+            throws SocketTimeoutException, JsonGenerationException, IOException, JSONException {
+
+        HttpURLConnection connection = null;
+        BufferedReader reader = null;
+        try {
+            // Handle spaces in URL
+            if (request_str.contains(" ")) {
+                request_str = request_str.replace(" ", "%20");
+            }
+
+            URL url = new URL(request_str);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(6000); // Set connection timeout
+
+            // Connect and check response code
+            connection.connect();
+            int responseCode = connection.getResponseCode();
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // Successful response, proceed with reading data
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    responseStrBuilder.append(line);
+                }
+
+                return responseStrBuilder.toString(); // Return the response
+            } else {
+                // Handle non-successful response codes (e.g., log error)
+                System.err.println("Error: Web service response code " + responseCode);
+                return null;
+            }
+        } catch (SocketTimeoutException e) {
+            // Handle timeout exception
+            System.err.println("Error: Connection timed out.");
+            return null; // Return null for timeout
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+    }
+
+
 }

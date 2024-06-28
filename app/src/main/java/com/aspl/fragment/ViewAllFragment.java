@@ -21,6 +21,7 @@ import com.aspl.Utils.Constant;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.aspl.Utils.DeviceInfo;
 import com.aspl.Utils.DialogUtils;
@@ -944,7 +945,7 @@ public class ViewAllFragment extends Fragment implements
             } else {
                 String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + "0" + "/" + "Cart" + "/" + "0" +
                         "/" + sku + "/" + resquantity +
-                        "/" + Constant.STOREID + "/" + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + "add" + "/" + Constant.invType;;
+                        "/" + Constant.STOREID + "/" + DeviceInfo.getDeviceId(viewAllFragment.getContext()) + "0011" + "/" + "add" + "/" + Constant.invType;;
 
                 TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
                 taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
@@ -957,23 +958,24 @@ public class ViewAllFragment extends Fragment implements
     @Override
     public void addToCartEventResult(UpdateCartQuantity addToCart) {
 
-        if (addToCart != null) {
+        try {
+            if (addToCart != null) {
 
-            if (addToCart.getResult().equalsIgnoreCase("success")) {
-                DialogUtils.showDialog("Added to cart!");
-                Utils.vibrateDevice(getContext());
-                onGetCartData("", addToCart);
-                if(isFromadpter_whenclickedonaddtocart){
-                    isFromadpter_whenclickedonaddtocart = false;
-                }
+                if (addToCart.getResult().equalsIgnoreCase("success")) {
+                    DialogUtils.showDialog("Added to cart!");
+                    Utils.vibrateDevice(getContext());
+                    onGetCartData("", addToCart);
+                    if (isFromadpter_whenclickedonaddtocart) {
+                        isFromadpter_whenclickedonaddtocart = false;
+                    }
 
-            } else if (addToCart.getResult().equalsIgnoreCase("Already added")) {
+                } else if (addToCart.getResult().equalsIgnoreCase("Already added")) {
 
-                if(isFromadpter_whenclickedonaddtocart){
+                    if (isFromadpter_whenclickedonaddtocart) {
 
-                    onGetCartData("Already added",addToCart);
+                        onGetCartData("Already added", addToCart);
 
-                }
+                    }
 
 //                if (isComeFomAddTocartBtn) {
 //                    if (cartQtyOfItem.isEmpty()) {
@@ -986,21 +988,26 @@ public class ViewAllFragment extends Fragment implements
 //                } else {
 //                }
 
-            } else if (addToCart.getResult().equalsIgnoreCase(
-                    "Not enough Stock")) {
+                } else if (addToCart.getResult().equalsIgnoreCase(
+                        "Not enough Stock")) {
 //                DialogUtils.notEnoughQuantityDialog(getActivity(), addToCart, requestedQty, "NotenoughStock", cartQtyOfItem);
 
 //                DialogUtils.notEnoughQuantityNewDialog(getActivity(), addToCart, requestedQty, "NotenoughStock", cartQtyOfItem);
 
 
-                if(isFromadpter_whenclickedonaddtocart){
+                    if (isFromadpter_whenclickedonaddtocart) {
 
-                    onGetCartData("Not enough Stock",addToCart);
+                        onGetCartData("Not enough Stock", addToCart);
+                    }
+
+                } else {
+//                     Toast.makeText(getContext(), getString(R.string.str_network_message), Toast.LENGTH_SHORT).show();
                 }
-
             } else {
-//                Toast.makeText(getActivity(), getString(R.string.str_network_message), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please try again later.", Toast.LENGTH_SHORT).show();
             }
+        }catch (Exception e){
+            Toast.makeText(getContext(), "Please try again later.", Toast.LENGTH_SHORT).show();
         }
     }
 

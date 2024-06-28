@@ -38,6 +38,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aspl.Adapter.MultiPackAdapter;
 import com.aspl.Adapter.RecommandedItemAdapter;
@@ -1537,33 +1538,41 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
     @Override
     public void addToCartEventResult(UpdateCartQuantity addToCart) {
 
-        if (addToCart != null) {
+        try {
 
-            if (addToCart.getResult().equalsIgnoreCase("success")) {
-                DialogUtils.showDialog("Added to cart!");
-                Utils.vibrateDevice(context);
-                onGetCartData();
+            if (addToCart != null) {
 
-            } else if (addToCart.getResult().equalsIgnoreCase("Already added")) {
+                if (addToCart.getResult().equalsIgnoreCase("success")) {
+                    DialogUtils.showDialog("Added to cart!");
+                    Utils.vibrateDevice(context);
+                    onGetCartData();
 
-                if (isComeFomAddTocartBtn) {
-                    if (cartQtyOfItem.isEmpty()) {
-                        DialogUtils.notEnoughQuantityDialog(context, addToCart, Integer.parseInt(requestedQty), "itemDesc", addToCart.getQty());
+                } else if (addToCart.getResult().equalsIgnoreCase("Already added")) {
+
+                    if (isComeFomAddTocartBtn) {
+                        if (cartQtyOfItem.isEmpty()) {
+                            DialogUtils.notEnoughQuantityDialog(context, addToCart, Integer.parseInt(requestedQty), "itemDesc", addToCart.getQty());
+                        } else {
+                            DialogUtils.notEnoughQuantityDialog(context, addToCart, Integer.parseInt(requestedQty), "itemDesc", cartQtyOfItem);
+                        }
+                        isComeFomAddTocartBtn = false;
                     } else {
-                        DialogUtils.notEnoughQuantityDialog(context, addToCart, Integer.parseInt(requestedQty), "itemDesc", cartQtyOfItem);
                     }
-                    isComeFomAddTocartBtn = false;
-                } else {
-                }
 
-            } else if (addToCart.getResult().equalsIgnoreCase("Not enough Stock")) {
+                } else if (addToCart.getResult().equalsIgnoreCase("Not enough Stock")) {
 //                DialogUtils.notEnoughQuantityDialog(context, addToCart, Integer.parseInt(requestedQty), "NotenoughStock", cartQtyOfItem);
-                DialogUtils.notEnoughQuantityNewDialog(context, addToCart, Integer.parseInt(requestedQty), "NotenoughStock", cartQtyOfItem, "fromItemDesc");
+                    DialogUtils.notEnoughQuantityNewDialog(context, addToCart, Integer.parseInt(requestedQty), "NotenoughStock", cartQtyOfItem, "fromItemDesc");
 
 //                tvQty.setText(addToCart.getQty());
-            } else {
+                } else {
 //                Toast.makeText(context, getString(R.string.str_network_message), Toast.LENGTH_SHORT).show();
+                }
             }
+            else {
+                Toast.makeText(getContext(), "Please try again later.", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(getContext(), "Please try again later.", Toast.LENGTH_SHORT).show();
         }
     }
 

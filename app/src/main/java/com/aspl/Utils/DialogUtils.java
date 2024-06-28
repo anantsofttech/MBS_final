@@ -1082,7 +1082,7 @@ public class DialogUtils {
             public void run() {
                 try {
 //                    sleep(3000);
-                    sleep(1500); //cut off half time
+                    sleep(750); //cut off half time
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
