@@ -63,40 +63,16 @@ public class DepartmentListAdapter extends RecyclerView.Adapter<DepartmentListAd
 
     @Override
     public void onBindViewHolder(HomeListHolder holder, int position) {
-        Bitmap bitmap = Utils.textAsBitmap("Technical Problem", 18);
-        Drawable d = new BitmapDrawable(context.getResources(), bitmap);
+
 
         if (!DepartmentList.get(position).getDeptImg().isEmpty()) {
-            if (DepartmentList.get(position).getDeptImg().contains("noimage")) {
-                Log.i("image", "no Image Url: " + imgNoImageUrl + DepartmentList.get(position)
-                        .getDeptImg());
-                Glide.with(context).load(imgNoImageUrl + DepartmentList.get(position)
+                Glide.with(context).load(imgUrl + DepartmentList.get(position)
                         .getDeptImg()).placeholder(R.drawable.noimage)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true).into(holder.img_item);
 
-                // loadImage(imgNoImageUrl + DepartmentList.get(position).getInvLargeImage(), holder.img);
-            } else {
-                Log.i("image", "Image Url : " + imgUrl + DepartmentList.get(position).getDeptImg());
-               Glide.with(context).load(imgUrl + DepartmentList.get(position).getDeptImg())
-                        .placeholder(R.drawable.progress_bar).placeholder(d)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .skipMemoryCache(true).into(holder.img_item);
-               // holder.img_item.setImageDrawable(d);
-               /* Glide.with(context.getApplicationContext())
-                        .asBitmap()
-                        .load(iconUrl)
-                        .into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                    override fun onResourceReady(resource: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
-                        callback.onReady(createMarkerIcon(resource, iconId))
-                    }
-                })*/
-                // loadImage(imgUrl + DepartmentList.get(position).getInvLargeImage(), holder.img);
-            }
-        }/*else{
-            holder.img.setImageBitmap(bitmap);
-        }*/
 
+        }
         holder.tvDiscountName.setVisibility(View.INVISIBLE);
         holder.txtitemtitle.setVisibility(View.GONE);
         holder.txtitemtitle.setText(DepartmentList.get(position).getDeptDesc());
