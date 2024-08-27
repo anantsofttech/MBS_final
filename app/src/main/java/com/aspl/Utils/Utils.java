@@ -1411,7 +1411,7 @@ public class Utils{
         TextView tv_store_Phone_number = (TextView)LockDialog.findViewById(R.id.tv_store_Phone_number);
 
         Button btnCloseApp = (Button)LockDialog.findViewById(R.id.btnCloseApp);
-        bgShape.setColor(Color.parseColor(Constant.themeModel.ThemeColor));
+        btnCloseApp.setBackground(bgShape);
 
         tv_single_store_tittle.setText(Constant.LockStoreName + " " + "is experiencing a technical issue on their end.  No further information is available.");
         tv_store_Phone_number.setText(Constant.PhoneNumber);
@@ -2124,7 +2124,9 @@ public class Utils{
                     Constant.dialog_Delete_My_Online_Account.dismiss();
                 }
                 else if (s.equalsIgnoreCase("splash")){
-                    Login.onLogOff();
+                    dialog.dismiss();
+                    Login.sign_edtEmailID.setText("");
+//                    Login.onLogOff();
                 }
             }
         });
@@ -2148,7 +2150,12 @@ public class Utils{
         //dialog.setTitle("Title...");
         // set the custom dialog components - text, image and button
         TextView txtTitle = (TextView) dialog.findViewById(R.id.txtTitle);
-        txtTitle.setText(Validate_instruct);
+
+        if (Validate_instruct.equalsIgnoreCase("APPROVED")){
+            txtTitle.setText(Validate_instruct);
+        }else{
+            txtTitle.setText(Validate_instruct);
+        }
 
         LinearLayout llmainCard = (LinearLayout) dialog.findViewById(R.id.llmainCard);
 //        LinearLayout llCardApproval = (LinearLayout) dialog.findViewById(R.id.llCardApproval);
@@ -2178,22 +2185,38 @@ public class Utils{
             txtApprovalNumber.setVisibility(View.GONE);
         }
 
-        if (Validate_instruct.equalsIgnoreCase("DECLINED")) {
-            llmainCard.setVisibility(View.GONE);
-            txtTemp.setVisibility(View.INVISIBLE);
-            txtTitle.setTextColor(context.getResources().getColor(R.color.red));
-            txtTitle.setGravity(Gravity.CENTER);
-            btncancelOrder.setVisibility(View.VISIBLE);
-            btnOK.setText("BACK");
-
-        } else {
+        if (Validate_instruct.equalsIgnoreCase("APPROVED")){
             llmainCard.setVisibility(View.VISIBLE);
             txtTemp.setVisibility(View.GONE);
             txtTitle.setTextColor(context.getResources().getColor(R.color.black));
             txtTitle.setGravity(Gravity.CENTER);
             btnOK.setText("OK");
             btncancelOrder.setVisibility(View.GONE);
+        }else{
+            llmainCard.setVisibility(View.GONE);
+            txtTemp.setVisibility(View.INVISIBLE);
+            txtTitle.setTextColor(context.getResources().getColor(R.color.red));
+            txtTitle.setGravity(Gravity.CENTER);
+            btncancelOrder.setVisibility(View.VISIBLE);
+            btnOK.setText("BACK");
         }
+
+//        if (Validate_instruct.equalsIgnoreCase("DECLINED")) {
+//            llmainCard.setVisibility(View.GONE);
+//            txtTemp.setVisibility(View.INVISIBLE);
+//            txtTitle.setTextColor(context.getResources().getColor(R.color.red));
+//            txtTitle.setGravity(Gravity.CENTER);
+//            btncancelOrder.setVisibility(View.VISIBLE);
+//            btnOK.setText("BACK");
+//
+//        } else {
+//            llmainCard.setVisibility(View.VISIBLE);
+//            txtTemp.setVisibility(View.GONE);
+//            txtTitle.setTextColor(context.getResources().getColor(R.color.black));
+//            txtTitle.setGravity(Gravity.CENTER);
+//            btnOK.setText("OK");
+//            btncancelOrder.setVisibility(View.GONE);
+//        }
 
         GradientDrawable bgShape = (GradientDrawable) btnOK.getBackground();
         bgShape.setColor(Color.parseColor(Constant.themeModel.ThemeColor));
@@ -2205,11 +2228,11 @@ public class Utils{
             @Override
             public void onClick(View v) {
 
+                dialog.dismiss();
                 if(Validate_instruct.equalsIgnoreCase("APPROVED")){
                     PaymentFragment.getInstance().loadOrderSummary();
-                    dialog.dismiss();
-                }else{
-                    dialog.dismiss();
+                }else if (txtTitle.getText().equals("APPROVED")){
+                    PaymentFragment.getInstance().loadOrderSummary();
                 }
 
             }

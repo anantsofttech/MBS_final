@@ -47,7 +47,7 @@ public class AutoScrollPagerFragment extends Fragment {
             //Drawable d = new BitmapDrawable(getActivity().getResources(), bitmap);
             Glide.with(getContext()).load(imgUrl + model1.getImage())
                     /* .placeholder(R.drawable.progress_bar)*/
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .skipMemoryCache(true).into(imgbanner);
 
             if (model1.getCaption()!=null && !model1.getCaption().isEmpty()){

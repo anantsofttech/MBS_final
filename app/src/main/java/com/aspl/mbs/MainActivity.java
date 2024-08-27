@@ -4510,39 +4510,42 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 //        }
 
 //        llsortandfilter.setVisibility(View.VISIBLE);
-        llsearch.setVisibility(View.GONE);
-        mContainer.setVisibility(View.GONE);
-        llcheckInternet.setVisibility(View.GONE);
-        mContent.setVisibility(View.VISIBLE);
-        isviewall_page = true;
+        try {
+            llsearch.setVisibility(View.GONE);
+            mContainer.setVisibility(View.GONE);
+            llcheckInternet.setVisibility(View.GONE);
+            mContent.setVisibility(View.VISIBLE);
+            isviewall_page = true;
 
-        Bundle bundle = new Bundle();
-        bundle.putString("type", type);
-        bundle.putString("deptId", String.valueOf(deptid));
-        bundle.putString("SubId", String.valueOf(styleId));
-        bundle.putString("blockStratprice", blockStratprice);
-        bundle.putString("blockEndprice", blockEndprice);
-        bundle.putString("blockdisountGroup", blockdisountGroup);
-        bundle.putString("blockDisplayedText", blockDisplayedText);
-        bundle.putString("shortcall", shortCall);
-        bundle.putString("shortdept", shortDept);
-        bundle.putString("searchtext", searchText);
-        bundle.putBoolean("iscomefromSearchIcon", isSearchicon);
-        bundle.putString("OnlyDepartment", departmentVal);
+            Bundle bundle = new Bundle();
+            bundle.putString("type", type);
+            bundle.putString("deptId", String.valueOf(deptid));
+            bundle.putString("SubId", String.valueOf(styleId));
+            bundle.putString("blockStratprice", blockStratprice);
+            bundle.putString("blockEndprice", blockEndprice);
+            bundle.putString("blockdisountGroup", blockdisountGroup);
+            bundle.putString("blockDisplayedText", blockDisplayedText);
+            bundle.putString("shortcall", shortCall);
+            bundle.putString("shortdept", shortDept);
+            bundle.putString("searchtext", searchText);
+            bundle.putBoolean("iscomefromSearchIcon", isSearchicon);
+            bundle.putString("OnlyDepartment", departmentVal);
 
-        viewAllFragment = new ViewAllFragment();
-        viewAllFragment.setArguments(bundle);
+            viewAllFragment = new ViewAllFragment();
+            viewAllFragment.setArguments(bundle);
 
 //        String name = getSupportFragmentManager().getBackStackEntryAt(0).getName();
 //        getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-        fragmentTransaction.replace(R.id.mContent, viewAllFragment, ViewAllFragment.TAG);
-        fragmentTransaction.addToBackStack(null);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+            fragmentTransaction.replace(R.id.mContent, viewAllFragment, ViewAllFragment.TAG);
+            fragmentTransaction.addToBackStack(null);
 //        fragmentTransaction.addToBackStack("viewallTag");
-        fragmentTransaction.commitAllowingStateLoss();
-
+            fragmentTransaction.commitAllowingStateLoss();
+        }catch(Exception e){
+            Toast.makeText(getApplicationContext(), "Please try again later.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 //    private void loadViewAllFragmentForSearchIcon(String searchText) {

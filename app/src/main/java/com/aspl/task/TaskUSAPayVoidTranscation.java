@@ -93,10 +93,7 @@ public class TaskUSAPayVoidTranscation extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-
-        if (taskUSAPayVoidTranscationEvent != null) {
-            taskUSAPayVoidTranscationEvent.onTaskUSAePAYVoidTranscationResult(payWareModel,orderID);
-        }
+        taskUSAPayVoidTranscationEvent.onTaskUSAePAYVoidTranscationResult(payWareModel,orderID);
 
         if(loading != null){
             loading.dismiss();

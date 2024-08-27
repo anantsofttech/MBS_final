@@ -244,7 +244,7 @@ public class ItemDetailAdapter extends RecyclerView.Adapter<ItemDetailAdapter.My
             }
         }
 
-        if(lstOrderTemsList.get(position).getReturnDate() != null && !lstOrderTemsList.get(position).getOrderItemStatus().equalsIgnoreCase("open")){
+        if(lstOrderTemsList.get(position).getReturnDate() != null && lstOrderTemsList.get(position).getOrderItemStatus().equalsIgnoreCase("completed")){
 
             String sourceString = "<b>" + "Return Eligibility:" + "</b> " + lstOrderTemsList.get(position).getReturnDate();
             holder.tv_ReturnEligibilityValue.setText(Html.fromHtml(sourceString));
@@ -264,7 +264,7 @@ public class ItemDetailAdapter extends RecyclerView.Adapter<ItemDetailAdapter.My
              Glide.with(context).load(lstOrderTemsList.get(position).getInvLargeImageFullPath())
                      .placeholder(R.drawable.noimage)
                      .error(R.drawable.no_image_new)
-                     .diskCacheStrategy(DiskCacheStrategy.NONE)
+                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                      .skipMemoryCache(true).into(holder.iv_orderImg);
          }
 
@@ -334,7 +334,7 @@ public class ItemDetailAdapter extends RecyclerView.Adapter<ItemDetailAdapter.My
         Glide.with(imageView.getContext())
                 .load(url)
                 .placeholder(placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true)
                 .fitCenter()
                 .into(new GlideDrawableImageViewTarget(imageView) {

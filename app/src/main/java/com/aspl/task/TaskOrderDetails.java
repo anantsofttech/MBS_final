@@ -93,10 +93,7 @@ public class TaskOrderDetails extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-
-        if (taskOrderDetailsEvent != null) {
-            taskOrderDetailsEvent.onGetOrderDetailsResult(payWareModel,orderID);
-        }
+        taskOrderDetailsEvent.onGetOrderDetailsResult(payWareModel,orderID);
 
         if(loading != null && loading.isShowing()){
             loading.dismiss();

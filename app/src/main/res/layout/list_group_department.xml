@@ -14,28 +14,40 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <ImageView
+            android:id="@+id/img_department"
+            android:layout_width="@dimen/_65sdp"
+            android:layout_height="@dimen/_65sdp"
+            android:padding="@dimen/_3sdp"
+            android:src="@drawable/noimage"
+            android:gravity="center_vertical"
+            android:scaleType="fitXY"
+            />
+
         <TextView
             android:textColor="@color/Header"
             android:id="@+id/listTitleDepartment"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_12sdp"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/_15sdp"
             android:padding="@dimen/_10sdp"
             android:textStyle="bold"
             android:text=""
+            android:gravity="center_vertical"
             android:layout_alignParentLeft="true"
             />
-        <!--android:textSize="@dimen/slider_text_size"-->
+
         <ImageView
             android:layout_gravity="center_vertical"
             android:id="@+id/iv_subDept"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
             />
 
     </LinearLayout>

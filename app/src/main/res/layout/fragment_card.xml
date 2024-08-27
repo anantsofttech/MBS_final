@@ -33,11 +33,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dimen_10"
-                    android:layout_marginLeft="@dimen/dimen_5"
-                    android:layout_marginRight="@dimen/dimen_5"
-                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:layout_marginRight="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_15"
                     android:text="Shopping Cart"
-                    android:textSize="@dimen/_13sdp"
+                    android:textSize="@dimen/dimen_DeliveryTextSize"
                     android:textColor="@color/accent"
                     android:textStyle="bold" />
 
@@ -46,7 +46,6 @@
                     android:id="@+id/card_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_5"
                     android:nestedScrollingEnabled="false"
                     tools:ignore="UnusedAttribute" />
 
@@ -54,7 +53,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dimen_5">
+                    android:layout_marginEnd="@dimen/dimen_5"
+                    android:layout_marginBottom="@dimen/_5sdp">
 
                     <TextView
                         android:id="@+id/tv_title_total_saving_card_fragment"
@@ -83,7 +83,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dimen_5">
+                    android:layout_marginEnd="@dimen/dimen_5"
+                    android:layout_marginBottom="@dimen/_5sdp">
 
                     <TextView
                         android:id="@+id/tv_title_loyalty_reward_card_fragment"
@@ -112,7 +113,7 @@
                     android:id="@+id/card_total_rv_shopping_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_5"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginLeft="@dimen/_3sdp"
                     android:layout_marginRight="@dimen/_3sdp"
                     android:orientation="vertical"

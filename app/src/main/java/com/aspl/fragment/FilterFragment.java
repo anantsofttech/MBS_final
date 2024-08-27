@@ -279,14 +279,14 @@ public class FilterFragment extends Fragment implements TaskFilterInfo.TaskFilte
 //        Log.e("Log", "Department Size=" + Constant.DEPARTMENTLIST.size());
 //        dept_expList.setAdapter(new ExpandDeptAdapter(getActivity(), Constant.DepartmentList));
 
-//        adapter = new ExpandDeptAdapter(getActivity(), Constant.DepartmentList);
-//        dept_expList.setAdapter(adapter);
-
-        DepartmentListAdapter departmentListAdapter = new DepartmentListAdapter(getActivity(), this, Constant.DepartmentList1);
-        manager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(departmentListAdapter);
-
+        adapter = new ExpandDeptAdapter(getActivity(), Constant.DepartmentList);
+        dept_expList.setAdapter(adapter);
+//
+//        DepartmentListAdapter departmentListAdapter = new DepartmentListAdapter(getActivity(), this, Constant.DepartmentList1);
+//        manager = new GridLayoutManager(getActivity(), 2);
+//        recyclerView.setLayoutManager(manager);
+//        recyclerView.setAdapter(departmentListAdapter);
+//
 //        setListener();
 
 //        for(int i=0;i<Constant.DepartmentList.size();i++){

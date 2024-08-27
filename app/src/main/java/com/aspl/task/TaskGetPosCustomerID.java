@@ -71,7 +71,6 @@ public class TaskGetPosCustomerID extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if (taskGetPosCustomerIDEvent!=null)
-            taskGetPosCustomerIDEvent.onGetPosCustomerId(shippingData,showProgressbar);
+        taskGetPosCustomerIDEvent.onGetPosCustomerId(shippingData,showProgressbar);
     }
 }

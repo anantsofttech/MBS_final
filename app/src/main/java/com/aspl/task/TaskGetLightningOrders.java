@@ -96,9 +96,7 @@ public class TaskGetLightningOrders extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if (taskGetLightningOrdersEvent!=null && lightningOrderList != null) {
-            taskGetLightningOrdersEvent.onTaskGetLightningOrdersResult(lightningOrderList);
-        }
+        taskGetLightningOrdersEvent.onTaskGetLightningOrdersResult(lightningOrderList);
 
         if(loading != null && loading.isShowing()){
             loading.dismiss();

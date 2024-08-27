@@ -24,6 +24,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -251,7 +253,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 //            String url = Constant.WS_BASE_URL + Constant.GET_INVERNTORY_BY_ID + "/" + itemIdSku + "/" + Constant.STOREID;
             String url = Constant.WS_BASE_URL + Constant.GET_INVERNTORY_BY_ID_NEW + "/" + itemIdSku + "/" + Constant.STOREID;
             TaskItemDescription taskItemDescription = new TaskItemDescription(this, getActivity());
-            taskItemDescription.execute(url);
+//            taskItemDescription.execute(url);
+            taskItemDescription.executeOnExecutor(TaskItemDescription.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -445,13 +448,13 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
                      Glide.with(context).load(itemDescModel.getInvLargeImageFullPath())
                              .placeholder(R.drawable.noimage)
                              .error(R.drawable.no_image_new)
-                             .diskCacheStrategy(DiskCacheStrategy.NONE)
+                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                              .skipMemoryCache(true).into(img_item);
 
                      Glide.with(context).load(itemDescModel.getInvLargeImageFullPath())
                              .placeholder(R.drawable.noimage)
                              .error(R.drawable.no_image_new)
-                             .diskCacheStrategy(DiskCacheStrategy.NONE)
+                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                              .skipMemoryCache(true).into(iv_productimg);
 
 
@@ -508,7 +511,7 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
         Glide.with(imageView.getContext())
                 .load(url)
                 .placeholder(placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true)
                 .fitCenter()
                 .into(new GlideDrawableImageViewTarget(imageView) {
@@ -525,11 +528,13 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
         if(UserModel.Cust_mst_ID != null){
             String url = Constant.WS_BASE_URL + Constant.GET_SHIPPING_DATA + UserModel.Cust_mst_ID + "/" + Constant.STOREID;
             TaskShippingData taskShippingData = new TaskShippingData(this, false, getActivity());
-            taskShippingData.execute(url);
+//            taskShippingData.execute(url);
+            taskShippingData.executeOnExecutor(TaskShippingData.THREAD_POOL_EXECUTOR,url);
         }else{
             String url = Constant.WS_BASE_URL + Constant.GET_SHIPPING_DATA + 0 + "/" + Constant.STOREID;
             TaskShippingData taskShippingData = new TaskShippingData(this, false, getActivity());
-            taskShippingData.execute(url);
+//            taskShippingData.execute(url);
+            taskShippingData.executeOnExecutor(TaskShippingData.THREAD_POOL_EXECUTOR,url);
         }
 
     }
@@ -635,7 +640,13 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 
 
         if (!itemIdSku.isEmpty()) {
-            tvItemSku.setText("SKU: " + itemIdSku.trim());
+            String url = itemDescModel.getInvLargeImageFullPath();
+            if (url.contains("Inventory/99999")) {
+                tvItemSku.setText("SKU: " + itemIdSku.trim() + " - CFA");
+            } else {
+                tvItemSku.setText("SKU: " + itemIdSku.trim() + " - LF");
+            }
+
         }
 
         if (itemDescModel.getDesc1() != null && !itemDescModel.getDesc1().isEmpty()) {
@@ -671,11 +682,20 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 
         if (itemDescModel.getGrpcomment() != null && !itemDescModel.getGrpcomment().isEmpty()) {
             tvDiscountName.setVisibility(View.VISIBLE);
-            tvDiscountName.setText(itemDescModel.getGrpcomment());
+            String text = itemDescModel.getGrpcomment();
+            SpannableString content = new SpannableString(text);
+            content.setSpan(new UnderlineSpan(), 0, text.length(), 0);
+            tvDiscountName.setText(content);
+
+//            tvDiscountName.setText(itemDescModel.getGrpcomment());
         } else {
             if (itemDescModel.getDiscountName() != null && !itemDescModel.getDiscountName().isEmpty()) {
                 tvDiscountName.setVisibility(View.VISIBLE);
-                tvDiscountName.setText(itemDescModel.getDiscountName());
+                String text = itemDescModel.getDiscountName();
+                SpannableString content = new SpannableString(text);
+                content.setSpan(new UnderlineSpan(), 0, text.length(), 0);
+                tvDiscountName.setText(content);
+//                tvDiscountName.setText(itemDescModel.getDiscountName());
             }else{
                 tvDiscountName.setVisibility(View.GONE);
             }
@@ -694,9 +714,16 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
         tvDiscountName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
 
-                if(itemDescModel.getGrpMemo()!= null && !itemDescModel.getGrpMemo().equals("null") && !itemDescModel.getGrpMemo().isEmpty()){
-                    Utils.showDiscountgroupDialog(context,itemDescModel.getDesc1(),itemDescModel.getGrpMemo(), "", null);
+                    if (itemDescModel.getGrpMemo() != null && !itemDescModel.getGrpMemo().equals("null") && !itemDescModel.getGrpMemo().isEmpty()) {
+                        Utils.showDiscountgroupDialog(context, itemDescModel.getDesc1(), itemDescModel.getGrpMemo(), "", null);
+                    }
+                    else{
+                        Utils.showDiscountgroupDialog(context, itemDescModel.getDesc1(), "No additional details have been entered by the business", "", null);
+                    }
+                }catch(Exception e){
+                    Toast.makeText(context, "Please try again later.", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -780,7 +807,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 
             String url = Constant.WS_BASE_URL + Constant.GET_DRINK_RECIPES + "/" + sku + "/" + Constant.STOREID;
             TaskDrinkReceipe taskDrinkReceipe = new TaskDrinkReceipe(this);
-            taskDrinkReceipe.execute(url);
+//            taskDrinkReceipe.execute(url);
+            taskDrinkReceipe.executeOnExecutor(TaskDrinkReceipe.THREAD_POOL_EXECUTOR,url);
         }else{
                 CallWSForDisplayedRecommandedItems();
         }
@@ -801,7 +829,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 
             String url = Constant.WS_BASE_URL + Constant.GET_RECOMMANDEDITEMS + "/" + sku + "/" + Constant.STOREID;
             TaskRecommandedItems taskRecommandedItems = new TaskRecommandedItems(this);
-            taskRecommandedItems.execute(url);
+//            taskRecommandedItems.execute(url);
+            taskRecommandedItems.executeOnExecutor(TaskRecommandedItems.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -882,62 +911,63 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()) {
-            case R.id.tvPlus:
-                if (count < 999) {
-                    count++;
-                }
-                tvQty.setText("" + count);
-//                onUpdateQuantityTask(count);
-                break;
-
-            case R.id.tvMinus:
-                if (count > 1) {
-                    count--;
-                }
-                tvQty.setText("" + count);
-//                onUpdateQuantityTask(count);
-                break;
-
-            case R.id.btnDesc:
-                buttonpressed = 1;
-                displayeThemeColorOnButtonOnclick();
-                break;
-
-            case R.id.btnReturnPolicy:
-                buttonpressed = 2;
-                displayeThemeColorOnButtonOnclick();
-                break;
-
-            case R.id.btnShippingDetails:
-                buttonpressed = 3;
-                displayeThemeColorOnButtonOnclick();
-                break;
-
-            case R.id.btnDrinkRecipe:
-                buttonpressed = 4;
-                displayeThemeColorOnButtonOnclick();
-
-                if(drinkReceipeList != null && drinkReceipeList.size() > 0){
-                    DialogUtils.showDrinkReceipeDialog(getActivity(), drinkReceipeList,itemDescModel);
-                }
-                break;
-
-            case R.id.tvAddtoCart:
-                requestedQty = tvQty.getText().toString();
-                addTocartData(requestedQty);
-                isComeFomAddTocartBtn = true;
-                break;
-
-            case R.id.tvWishlist:
-                if (itemDescModel != null && !itemDescModel.getItemMstId().isEmpty()) {
-
-                    String sku = null;
-                    try {
-                        sku = URLEncoder.encode(itemDescModel.getItemMstId().trim(), "utf-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+        try {
+            switch (view.getId()) {
+                case R.id.tvPlus:
+                    if (count < 999) {
+                        count++;
                     }
+                    tvQty.setText("" + count);
+//                onUpdateQuantityTask(count);
+                    break;
+
+                case R.id.tvMinus:
+                    if (count > 1) {
+                        count--;
+                    }
+                    tvQty.setText("" + count);
+//                onUpdateQuantityTask(count);
+                    break;
+
+                case R.id.btnDesc:
+                    buttonpressed = 1;
+                    displayeThemeColorOnButtonOnclick();
+                    break;
+
+                case R.id.btnReturnPolicy:
+                    buttonpressed = 2;
+                    displayeThemeColorOnButtonOnclick();
+                    break;
+
+                case R.id.btnShippingDetails:
+                    buttonpressed = 3;
+                    displayeThemeColorOnButtonOnclick();
+                    break;
+
+                case R.id.btnDrinkRecipe:
+                    buttonpressed = 4;
+                    displayeThemeColorOnButtonOnclick();
+
+                    if (drinkReceipeList != null && drinkReceipeList.size() > 0) {
+                        DialogUtils.showDrinkReceipeDialog(getActivity(), drinkReceipeList, itemDescModel);
+                    }
+                    break;
+
+                case R.id.tvAddtoCart:
+                    requestedQty = tvQty.getText().toString();
+                    addTocartData(requestedQty);
+                    isComeFomAddTocartBtn = true;
+                    break;
+
+                case R.id.tvWishlist:
+                    if (itemDescModel != null && !itemDescModel.getItemMstId().isEmpty()) {
+
+                        String sku = null;
+                        try {
+                            sku = URLEncoder.encode(itemDescModel.getItemMstId().trim(), "utf-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
 
 //                    if(Constant.SCREEN_LAYOUT == 1){
 //                        MainActivity.getInstance().callAddToWishlistWS(itemDescModel.getItemMstId());
@@ -946,71 +976,73 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 //                    }
 
 //                     Edited by Varun for guest login
-                    if(Constant.SCREEN_LAYOUT == 1) {
-                        if (UserModel.Cust_mst_ID == null || UserModel.Cust_mst_ID.isEmpty()) {
-                            Login.StartLoginDialog("wishlist", context);
-                        } else {
-                            if (Constant.ISguest) {
-                                DialogUtils.showDialog("Option not valid for guest account");
+                        if (Constant.SCREEN_LAYOUT == 1) {
+                            if (UserModel.Cust_mst_ID == null || UserModel.Cust_mst_ID.isEmpty()) {
+                                Login.StartLoginDialog("wishlist", context);
                             } else {
-                                if (itemDescModel.getInvType().equalsIgnoreCase("M")){
-                                    MainActivity.getInstance().callAddToWishlistWS(Constant.Test_SKU);
-                                }else {
-                                    MainActivity.getInstance().callAddToWishlistWS(sku);
+                                if (Constant.ISguest) {
+                                    DialogUtils.showDialog("Option not valid for guest account");
+                                } else {
+                                    if (itemDescModel.getInvType().equalsIgnoreCase("M")) {
+                                        MainActivity.getInstance().callAddToWishlistWS(Constant.Test_SKU);
+                                    } else {
+                                        MainActivity.getInstance().callAddToWishlistWS(sku);
+                                    }
+                                }
+                            }
+                        } else {
+                            if (UserModel.Cust_mst_ID == null || UserModel.Cust_mst_ID.isEmpty()) {
+                                Login.StartLoginDialog("wishlist", context);
+                            } else {
+                                if (Constant.ISguest) {
+                                    DialogUtils.showDialog("Option not valid for guest account");
+                                } else {
+                                    MainActivityDup.getInstance().callAddToWishlistWS(sku);
                                 }
                             }
                         }
-                    }else {
-                        if (UserModel.Cust_mst_ID == null || UserModel.Cust_mst_ID.isEmpty() ) {
-                            Login.StartLoginDialog("wishlist", context);
-                        } else {
-                            if (Constant.ISguest) {
-                                DialogUtils.showDialog("Option not valid for guest account");
-                            } else {
-                                MainActivityDup.getInstance().callAddToWishlistWS(sku);
-                            }
-                        }
-                    }
 
 //                    /END
 
-                }
-                break;
+                    }
+                    break;
 
 
+                case R.id.tvShare:
 
-            case R.id.tvShare:
-
-                DialogUtils.onShareDialogOptions(context);
+                    DialogUtils.onShareDialogOptions(context);
 
 //                showSharePopup(view);
-                break;
+                    break;
 
 //                Testing
-            case R.id.img_plus:
-                if (count < 999) {
-                    count++;
-                }
-                tv_item_quantity.setText("" + count);
-                requestedQty = String.valueOf(Integer.parseInt(tv_item_quantity.getText().toString()));
-                break;
+                case R.id.img_plus:
+                    if (count < 999) {
+                        count++;
+                    }
+                    tv_item_quantity.setText("" + count);
+                    requestedQty = String.valueOf(Integer.parseInt(tv_item_quantity.getText().toString()));
+                    break;
 
-            case R.id.img_minus:
-                if (count > 1) {
-                    count--;
-                }
-                tv_item_quantity.setText("" + count);
-                requestedQty = String.valueOf(Integer.parseInt(tv_item_quantity.getText().toString()));
-                break;
+                case R.id.img_minus:
+                    if (count > 1) {
+                        count--;
+                    }
+                    tv_item_quantity.setText("" + count);
+                    requestedQty = String.valueOf(Integer.parseInt(tv_item_quantity.getText().toString()));
+                    break;
 
-            case R.id.ivAddtoCart_up:
-                requestedQty = String.valueOf(Integer.parseInt(tv_item_quantity.getText().toString()));
-                ItemDescriptionsFragment.getInstance().addTocartData(requestedQty);
-                ItemDescriptionsFragment.getInstance().isComeFomAddTocartBtn = true;
-                break;
+                case R.id.ivAddtoCart_up:
+                    requestedQty = String.valueOf(Integer.parseInt(tv_item_quantity.getText().toString()));
+                    ItemDescriptionsFragment.getInstance().addTocartData(requestedQty);
+                    ItemDescriptionsFragment.getInstance().isComeFomAddTocartBtn = true;
+                    break;
 
 //                 END
 
+            }
+        }catch (Exception e){
+            Toast.makeText(context, "Please try again later.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1044,9 +1076,12 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
         email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                popupWindow.dismiss();
-                DialogUtils.showEmailDialog(getActivity(), itemDescModel,"ItemDesc");
+                try {
+                    popupWindow.dismiss();
+                    DialogUtils.showEmailDialog(getActivity(), itemDescModel, "ItemDesc");
+                }catch(Exception e){
+                    Toast.makeText(context, "Please try again later.", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -1432,7 +1467,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
                             "/" + Constant.STOREID + "/" + "0" + "/" + "add" + "/" + Constant.invType;
 
                     TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
-                    taskAddToCart.execute(cartWSurl);
+//                    taskAddToCart.execute(cartWSurl);
+                    taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
                 } else {
 //                String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + "0" + "/" + "Cart" + "/" + "0" +
 //                        "/" + sku + "/" + this.requestedQty +
@@ -1444,7 +1480,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
                     ;
 
                     TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
-                    taskAddToCart.execute(cartWSurl);
+//                    taskAddToCart.execute(cartWSurl);
+                    taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
                 }
 
             }
@@ -1471,7 +1508,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
                             "/" + Constant.STOREID + "/" + "0" + "/" + "add" + "/" + Constant.invType;
 
                     TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
-                    taskAddToCart.execute(cartWSurl);
+//                    taskAddToCart.execute(cartWSurl);
+                    taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
                 } else {
 //                String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + "0" + "/" + "Cart" + "/" + "0" +
 //                        "/" + sku + "/" + this.requestedQty +
@@ -1483,7 +1521,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
                     ;
 
                     TaskAddtoCart taskAddToCart = new TaskAddtoCart(this);
-                    taskAddToCart.execute(cartWSurl);
+//                    taskAddToCart.execute(cartWSurl);
+                    taskAddToCart.executeOnExecutor(TaskAddtoCart.THREAD_POOL_EXECUTOR,cartWSurl);
                 }
 
             }
@@ -1521,7 +1560,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
                         "/" + Constant.STOREID + "/" + "0" + "/" + "Updatemoreincart" + "/" + Constant.invType; ;
 
                 TaskUpdatetoCart taskUpdatetoCart = new TaskUpdatetoCart(this);
-                taskUpdatetoCart.execute(cartWSurl);
+//                taskUpdatetoCart.execute(cartWSurl);
+                taskUpdatetoCart.executeOnExecutor(TaskUpdatetoCart.THREAD_POOL_EXECUTOR,cartWSurl);
             }else{
 
                 String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + noteCartId + "/" + "Cart" + "/" + "0" +
@@ -1529,7 +1569,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
                         "/" + Constant.STOREID + "/" + "0" + "/" + "Updatemoreincart" + "/" + Constant.invType;;
 
                 TaskUpdatetoCart taskUpdatetoCart = new TaskUpdatetoCart(this);
-                taskUpdatetoCart.execute(cartWSurl);
+//                taskUpdatetoCart.execute(cartWSurl);
+                taskUpdatetoCart.executeOnExecutor(TaskUpdatetoCart.THREAD_POOL_EXECUTOR,cartWSurl);
             }
         }
     }
@@ -1583,13 +1624,15 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 //            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID;
             url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID + Constant.ENCODE_TOKEN_ID ;
             TaskCart taskCart = new TaskCart(this, "");
-            taskCart.execute(url);
+//            taskCart.execute(url);
+            taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
         } else {
             if (isAdded()) {
 //                url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + DeviceInfo.getDeviceId(context) + "0011" + "/" + Constant.SESSION + Constant.STOREID;
                 url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + DeviceInfo.getDeviceId(context) + "0011" + "/" + Constant.SESSION + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
                 TaskCart taskCart = new TaskCart(this, "");
-                taskCart.execute(url);
+//                taskCart.execute(url);
+                taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
             }
         }
     }
@@ -1662,6 +1705,7 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 
         if (updateCart.getResult().equalsIgnoreCase("success")) {
             Utils.vibrateDevice(context);
+            DialogUtils.showDialog("Added to cart!");
             onGetCartData();
         }
     }
@@ -1801,7 +1845,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
                         + cust_ID + "/" + baseStr;
 
                 TaskSendEmail taskSendEmail = new TaskSendEmail(this);
-                taskSendEmail.execute(sendEmailurl);
+//                taskSendEmail.execute(sendEmailurl);
+                taskSendEmail.executeOnExecutor(TaskSendEmail.THREAD_POOL_EXECUTOR,sendEmailurl);
             }
         }
     }
@@ -1865,7 +1910,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
                     + baseStr;
 
             TaskEmailDrinkReceipe taskEmailDrinkReceipe = new TaskEmailDrinkReceipe(this);
-            taskEmailDrinkReceipe.execute(sendEmailurl);
+//            taskEmailDrinkReceipe.execute(sendEmailurl);
+            taskEmailDrinkReceipe.executeOnExecutor(TaskEmailDrinkReceipe.THREAD_POOL_EXECUTOR,sendEmailurl);
 
         }else{
 
@@ -1879,7 +1925,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
                     + baseStr;
 
             TaskEmailDrinkReceipe taskEmailDrinkReceipe = new TaskEmailDrinkReceipe(this);
-            taskEmailDrinkReceipe.execute(sendEmailurl);
+//            taskEmailDrinkReceipe.execute(sendEmailurl);
+            taskEmailDrinkReceipe.executeOnExecutor(TaskEmailDrinkReceipe.THREAD_POOL_EXECUTOR,sendEmailurl);
         }
     }
 
@@ -1911,7 +1958,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
     public void CallSiteInfoWSForDomain() {
         String url = Constant.WS_BASE_URL + Constant.GET_SITE_INFO + "/" + Constant.STOREID;
         TaskDomain taskDomain = new TaskDomain(this,getActivity());
-        taskDomain.execute(url);
+//        taskDomain.execute(url);
+        taskDomain.executeOnExecutor(TaskDomain.THREAD_POOL_EXECUTOR,url);
     }
 
     @Override
@@ -2005,7 +2053,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
                         "/" + Constant.STOREID + "/" + "0" + "/" + "Updatemoreincart" + "/" + Constant.invType;
 
                 TaskUpdatetoCart taskUpdatetoCart = new TaskUpdatetoCart(this);
-                taskUpdatetoCart.execute(cartWSurl);
+//                taskUpdatetoCart.execute(cartWSurl);
+                taskUpdatetoCart.executeOnExecutor(TaskUpdatetoCart.THREAD_POOL_EXECUTOR,cartWSurl);
             } else {
 
                 String cartWSurl = Constant.WS_BASE_URL + Constant.DELETE_CART + noteCartId + "/" + "Cart" + "/" + "0" +
@@ -2014,7 +2063,8 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 
 
                 TaskUpdatetoCart taskUpdatetoCart = new TaskUpdatetoCart(this);
-                taskUpdatetoCart.execute(cartWSurl);
+//                taskUpdatetoCart.execute(cartWSurl);
+                taskUpdatetoCart.executeOnExecutor(TaskUpdatetoCart.THREAD_POOL_EXECUTOR,cartWSurl);
             }
         }
     }

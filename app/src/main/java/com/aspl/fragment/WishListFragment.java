@@ -179,7 +179,8 @@ public class WishListFragment extends Fragment
 //            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + UserModel.Cust_mst_ID + "/" + Constant.WISH_LIST + Constant.STOREID;
             url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + UserModel.Cust_mst_ID + "/" + Constant.WISH_LIST + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
             TaskCart taskCart = new TaskCart(WishListFragment.this,"");
-            taskCart.execute(url);
+//            taskCart.execute(url);
+            taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
         } /*else {
             url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + DeviceInfo.getDeviceId(MainActivity.getInstance()) + "0011" + "/" + Constant.SESSION + Constant.STOREID;
             TaskCart taskCart = new TaskCart(cardFragment);
@@ -239,7 +240,8 @@ public class WishListFragment extends Fragment
                 "/" + Constant.STOREID + "/" + "0" + "/" + "remove" +"/" +invType;
 
         TaskDeleteWishList deleteWishList = new TaskDeleteWishList(this,"Remove Wishlist");
-        deleteWishList.execute(url);
+//        deleteWishList.execute(url);
+        deleteWishList.executeOnExecutor(TaskDeleteWishList.THREAD_POOL_EXECUTOR,url);
 
         //liShoppingCart.remove(position);
         /*if (liShoppingCart.size() == 0) {
@@ -281,7 +283,8 @@ public class WishListFragment extends Fragment
                     "/" + Constant.STOREID + "/" + "0" + "/" + "movetocart" + "/"+invType;
 
             TaskDeleteWishList deleteWishList = new TaskDeleteWishList(this, "MovetoCart Wishlist");
-            deleteWishList.execute(url);
+//            deleteWishList.execute(url);
+            deleteWishList.executeOnExecutor(TaskDeleteWishList.THREAD_POOL_EXECUTOR,url);
             //liShoppingCard.remove(position);
         }
     }
@@ -292,22 +295,21 @@ public class WishListFragment extends Fragment
 
 //            Edited By Varun for pop-up of Added
 
-//            if (string!=null && !string.isEmpty()){
-//                if (string.equalsIgnoreCase("MovetoCart WishList")){
-//                    DialogUtils.showDialog("Added in Cart!");
-//                }
-//                if (string.equalsIgnoreCase("Remove Wishlist")){
-//                    DialogUtils.showDialog("Removed from WishList!");
-//                }
-//            }
+            if (string!=null && !string.isEmpty()){
+                if (string.equalsIgnoreCase("MovetoCart WishList")){
+                    Utils.vibrateDevice(getContext());
+                    DialogUtils.showDialog("Added in Cart!");
+                }
+                if (string.equalsIgnoreCase("Remove Wishlist")){
+                    DialogUtils.showDialog("Removed from WishList!");
+                }
+            }
 
 //            END
 
             if(Constant.SCREEN_LAYOUT==1){
-                Utils.vibrateDevice(getContext());
                 MainActivity.onGetCartData("");
             }else if(Constant.SCREEN_LAYOUT==2) {
-                Utils.vibrateDevice(getContext());
                 MainActivityDup.onGetCartData();
             }
             liShoppingCard.remove(position);

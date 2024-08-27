@@ -111,6 +111,9 @@ public class MultiPackAdapter extends RecyclerView.Adapter<MultiPackAdapter.MyVi
                 if(itemDescModel.getLstInventoryModel().get(i).getGrpMemo()!= null && !itemDescModel.getLstInventoryModel().get(i).getGrpMemo().equals("null") && !itemDescModel.getLstInventoryModel().get(i).getGrpMemo().isEmpty()){
                     Utils.showDiscountgroupDialog(context,itemDescModel.getLstInventoryModel().get(i).getDesc1(),itemDescModel.getLstInventoryModel().get(i).getGrpMemo(), "", null);
                 }
+                else{
+                    Utils.showDiscountgroupDialog(context,itemDescModel.getLstInventoryModel().get(i).getDesc1(),"No additional details have been entered by the business", "", null);
+                }
 
             }
         });

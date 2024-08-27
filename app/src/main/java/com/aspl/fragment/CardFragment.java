@@ -284,7 +284,8 @@ public class CardFragment extends Fragment implements View.OnClickListener
             String url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_DATA + UserModel.Cust_mst_ID + "/" + Constant.STOREID;
             TaskCustomerData taskCustomerData = new TaskCustomerData(getActivity(),this);
             Log.d(TAG, "Customer data : " + url);
-            taskCustomerData.execute(url);
+//            taskCustomerData.execute(url);
+            taskCustomerData.executeOnExecutor(TaskCustomerData.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -302,12 +303,14 @@ public class CardFragment extends Fragment implements View.OnClickListener
 //            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID;
             url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
             TaskCart taskCart = new TaskCart(cardFragment, "");
-            taskCart.execute(url);
+//            taskCart.execute(url);
+            taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
         } else {
 //            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + Constant.SESSION + Constant.STOREID;
             url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + Constant.SESSION + Constant.STOREID  + Constant.ENCODE_TOKEN_ID;
             TaskCart taskCart = new TaskCart(cardFragment, "");
-            taskCart.execute(url);
+//            taskCart.execute(url);
+            taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -827,7 +830,8 @@ public class CardFragment extends Fragment implements View.OnClickListener
 
 
         TaskDeleteCartItem deleteCartItem = new TaskDeleteCartItem();
-        deleteCartItem.execute(url);
+//        deleteCartItem.execute(url);
+        deleteCartItem.executeOnExecutor(TaskDeleteCartItem.THREAD_POOL_EXECUTOR,url);
     }
 
     @Override
@@ -868,12 +872,14 @@ public class CardFragment extends Fragment implements View.OnClickListener
                 + "updatecart" + "/" +invType                                                  /*  updatecart/I  */
         ;
         TaskUpdateCartQuantity updateCartQuantity = new TaskUpdateCartQuantity(this);
-        updateCartQuantity.execute(updateQuantityUrl);
+//        updateCartQuantity.execute(updateQuantityUrl);
+        updateCartQuantity.executeOnExecutor(TaskUpdateCartQuantity.THREAD_POOL_EXECUTOR,updateQuantityUrl);
     }
 
     @Override
     public void onUpdateQuantityResult(UpdateCartQuantity updateCartQuantity) {
         if (updateCartQuantity.getResult().equalsIgnoreCase("success")) {
+            Utils.vibrateDevice(getContext());
             onGetCartData();
         } else if(updateCartQuantity.getResult().equalsIgnoreCase("Not enough Stock")){
             //updateCartQuantity.
@@ -1084,7 +1090,8 @@ public class CardFragment extends Fragment implements View.OnClickListener
         if (UserModel.Cust_mst_ID != null) {
             String url = Constant.WS_BASE_URL + Constant.GET_SHIPPING_DATA + UserModel.Cust_mst_ID + "/" + Constant.STOREID;
             TaskShippingData taskShippingData = new TaskShippingData(this, false, getActivity());
-            taskShippingData.execute(url);
+//            taskShippingData.execute(url);
+            taskShippingData.executeOnExecutor(TaskShippingData.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -1247,7 +1254,8 @@ public class CardFragment extends Fragment implements View.OnClickListener
         String Url = Constant.WS_BASE_URL + Constant.GET_DELIVERY_HOURS + "/" +  Constant.STOREID + "/" + "store";
 
         TaskStoreDeliveryHours taskStoreDeliveryHours = new TaskStoreDeliveryHours(this,getActivity(),"deliveryOption");
-        taskStoreDeliveryHours.execute(Url);
+//        taskStoreDeliveryHours.execute(Url);
+        taskStoreDeliveryHours.executeOnExecutor(TaskStoreDeliveryHours.THREAD_POOL_EXECUTOR,Url);
     }
 
     @Override
@@ -1593,12 +1601,14 @@ public class CardFragment extends Fragment implements View.OnClickListener
         if(Constant.SCREEN_LAYOUT==1){
             String twentyOneYearUrl = Constant.WS_BASE_URL + Constant.GET_GLOBALSETTING + Constant.STOREID;
             TaskTwentyOneYear taskTwentyOneYear = new TaskTwentyOneYear(this);
-            taskTwentyOneYear.execute(twentyOneYearUrl);
+//            taskTwentyOneYear.execute(twentyOneYearUrl);
+            taskTwentyOneYear.executeOnExecutor(TaskTwentyOneYear.THREAD_POOL_EXECUTOR,twentyOneYearUrl);
 
         }else if(Constant.SCREEN_LAYOUT==2) {
             String twentyOneYearUrl = Constant.WS_BASE_URL + Constant.GET_GLOBALSETTING + Constant.STOREID;
             TaskTwentyOneYear taskTwentyOneYear = new TaskTwentyOneYear(this);
-            taskTwentyOneYear.execute(twentyOneYearUrl);
+//            taskTwentyOneYear.execute(twentyOneYearUrl);
+            taskTwentyOneYear.executeOnExecutor(TaskTwentyOneYear.THREAD_POOL_EXECUTOR,twentyOneYearUrl);
         }
     }
 

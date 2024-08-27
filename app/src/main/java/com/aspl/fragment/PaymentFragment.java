@@ -1,5 +1,6 @@
 package com.aspl.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -96,6 +97,8 @@ import com.aspl.task.TaskSign_Up_For_Loyalty;
 import com.aspl.task.TaskUpdateBillingAddress;
 import com.aspl.task.TaskUpdatePOSBillingAddress;
 import com.aspl.ws.Async_getAddress;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -228,6 +231,10 @@ public class PaymentFragment extends Fragment
             Constant.check = true;
             //Hide dialog when order completed...
             //hideDialog();
+        }else{
+            myPaymentEvent = (PaymentEvent) getActivity();
+            myPaymentEvent.loadOrderSummaryFragment(i, "", "", "ReturnProcessing");
+            Constant.check = true;
         }
     }
 
@@ -243,7 +250,8 @@ public class PaymentFragment extends Fragment
 //            String url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + UserModel.Cust_mst_ID + "/" + "Delete" + "/" + Constant.STOREID;
             String url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + UserModel.Cust_mst_ID + "/" + "Delete" + "/" + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
             TaskCart taskCart = new TaskCart(this, "delete");
-            taskCart.execute(url);
+//            taskCart.execute(url);
+            taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -252,7 +260,8 @@ public class PaymentFragment extends Fragment
         if (UserModel.Cust_mst_ID != null) {
             String url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_PAYMENT + UserModel.Cust_mst_ID + "/" + "Cart" + "/" + Constant.STOREID;
             TaskCartPayment taskCartPayment = new TaskCartPayment(getActivity(), this);
-            taskCartPayment.execute(url);
+//            taskCartPayment.execute(url);
+            taskCartPayment.executeOnExecutor(TaskCartPayment.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -379,7 +388,8 @@ public class PaymentFragment extends Fragment
 //        String Url7 = Constant.WS_BASE_URL + Constant.GET_CUSTOMERCARTDATA + UserModel.Cust_mst_ID + "/QtyHandling/" + Constant.STOREID;
         String Url7 = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + UserModel.Cust_mst_ID + "/QtyHandling/" + Constant.STOREID +Constant.ENCODE_TOKEN_ID;
         TaskCartListItem taskCartListItem = new TaskCartListItem(this);
-        taskCartListItem.execute(Url7);
+//        taskCartListItem.execute(Url7);
+        taskCartListItem.executeOnExecutor(TaskCartListItem.THREAD_POOL_EXECUTOR,Url7);
     }
 
     @Override
@@ -409,12 +419,14 @@ public class PaymentFragment extends Fragment
 //            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID;
             url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
             TaskCart taskCart = new TaskCart(paymentFragment, "realtime");
-            taskCart.execute(url);
+//            taskCart.execute(url);
+            taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
         } else {
 //            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + Constant.SESSION + Constant.STOREID;
             url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + Constant.SESSION + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
             TaskCart taskCart = new TaskCart(paymentFragment, "realtime");
-            taskCart.execute(url);
+//            taskCart.execute(url);
+            taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -1351,7 +1363,8 @@ public class PaymentFragment extends Fragment
         URL = Constant.WS_BASE_URL + Constant.GET_USAEPAY_ACTIVE_STATUS + Constant.STOREID + "/" + Constant.ENCODE_TOKEN_ID;
 
         TaskCheckUSAePAYStatus taskCheckUSAePAYStatus = new TaskCheckUSAePAYStatus(this,getContext());
-        taskCheckUSAePAYStatus.execute(URL);
+//        taskCheckUSAePAYStatus.execute(URL);
+        taskCheckUSAePAYStatus.executeOnExecutor(TaskCheckUSAePAYStatus.THREAD_POOL_EXECUTOR,URL);
 
     }
 
@@ -1371,7 +1384,8 @@ public class PaymentFragment extends Fragment
     private void onCallpaymentOptions() {
         String url = Constant.WS_BASE_URL + Constant.GET_ADVANCE_PAYMENT_OPTIONS + "/" + Constant.STOREID;
         TaskAdvancePaymentOptions taskpaymentOptions = new TaskAdvancePaymentOptions(this);
-        taskpaymentOptions.execute(url);
+//        taskpaymentOptions.execute(url);
+        taskpaymentOptions.executeOnExecutor(TaskAdvancePaymentOptions.THREAD_POOL_EXECUTOR,url);
     }
 
 
@@ -1535,7 +1549,8 @@ public class PaymentFragment extends Fragment
             if (UserModel.Cust_mst_ID != null) {
                 deleteOrderForDemoStore = Constant.WS_BASE_URL + Constant.DELETE_ORDER_FOR_BOXSALT_FOR_DEMO_STORE + Constant.STOREID + "/" + UserModel.Cust_mst_ID;
                 TaskDeleteOrderForDemoStore taskDeleteOrderForDemoStore = new TaskDeleteOrderForDemoStore();
-                taskDeleteOrderForDemoStore.execute(deleteOrderForDemoStore);
+//                taskDeleteOrderForDemoStore.execute(deleteOrderForDemoStore);
+                taskDeleteOrderForDemoStore.executeOnExecutor(TaskDeleteOrderForDemoStore.THREAD_POOL_EXECUTOR,deleteOrderForDemoStore);
             }
         }
     }
@@ -1845,7 +1860,8 @@ public class PaymentFragment extends Fragment
             cardRequestUrl = Constant.WS_BASE_URL + Constant.GET_EXPIRE_CARD_DETAIL + Constant.STOREID + "/" + UserModel.Cust_mst_ID;
             taskCardExpireCheck = new TaskCardExpireCheck(this);
             Log.d(TAG, "Credit card detail : " + cardRequestUrl);
-            taskCardExpireCheck.execute(cardRequestUrl);
+//            taskCardExpireCheck.execute(cardRequestUrl);
+            taskCardExpireCheck.executeOnExecutor(TaskCardExpireCheck.THREAD_POOL_EXECUTOR,cardRequestUrl);
         }
     }
 
@@ -1897,7 +1913,8 @@ public class PaymentFragment extends Fragment
 //                END
                 customerCard = new TaskCustomerCard(getActivity(), this, false);
                 Log.d(TAG, "Credit card detail : " + cardRequestUrl);
-                customerCard.execute(cardRequestUrl);
+//                customerCard.execute(cardRequestUrl);
+                customerCard.executeOnExecutor(TaskCustomerCard.THREAD_POOL_EXECUTOR,cardRequestUrl);
             }
 //            merchantCode = creditCartSetting.getMerchantCode();
 //            merchantCustomerId = creditCartSetting.getMerchantCustID();
@@ -1908,7 +1925,8 @@ public class PaymentFragment extends Fragment
                 cardRequestUrl = Constant.WS_BASE_URL + Constant.GET_CARD_DETAIL + Constant.STOREID + "/" + UserModel.Cust_mst_ID;
                 customerCard = new TaskCustomerCard(getActivity(), this, false);
                 Log.d(TAG, "Credit card detail : " + cardRequestUrl);
-                customerCard.execute(cardRequestUrl);
+//                customerCard.execute(cardRequestUrl);
+                customerCard.executeOnExecutor(TaskCustomerCard.THREAD_POOL_EXECUTOR,cardRequestUrl);
             }
         }
 
@@ -2026,7 +2044,8 @@ public class PaymentFragment extends Fragment
             String url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_DATA + UserModel.Cust_mst_ID + "/" + Constant.STOREID;
             TaskCustomerData taskCustomerData = new TaskCustomerData(getActivity(), this);
             Log.d(TAG, "Customer data : " + url);
-            taskCustomerData.execute(url);
+//            taskCustomerData.execute(url);
+            taskCustomerData.executeOnExecutor(TaskCustomerData.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -2114,7 +2133,8 @@ public class PaymentFragment extends Fragment
             creditCardUrl = Constant.WS_BASE_URL + Constant.GET_CREDIT_CARD_SETTING + Constant.STOREID + "/" + UserModel.Cust_mst_ID;
             TaskGetCreditCardSetting cardSetting = new TaskGetCreditCardSetting(this);
             Log.d(TAG, "getCreditCardSetting: " + creditCardUrl);
-            cardSetting.execute(creditCardUrl);
+//            cardSetting.execute(creditCardUrl);
+            cardSetting.executeOnExecutor(TaskGetCreditCardSetting.THREAD_POOL_EXECUTOR,creditCardUrl);
         }
     }
 
@@ -2141,7 +2161,8 @@ public class PaymentFragment extends Fragment
             String url = Constant.WS_BASE_URL + Constant.GET_LOYALTY_INFO + UserModel.Cust_mst_ID + "/" + Constant.STOREID;
             TaskLoyaltyInfo loyaltyInfo = new TaskLoyaltyInfo(getActivity(),this);
             Log.d(TAG, "getLoyaltyReward: " + url);
-            loyaltyInfo.execute(url);
+//            loyaltyInfo.execute(url);
+            loyaltyInfo.executeOnExecutor(TaskLoyaltyInfo.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -2267,7 +2288,8 @@ public class PaymentFragment extends Fragment
         String url = Constant.WS_BASE_URL + Constant.SIGN_UP_CUSTOMER_FOR_LOYALTY_REWARD_FROM_ECOM + Constant.STOREID +"/" + UserModel.Cust_mst_ID +"/" + Constant.ENCODE_TOKEN_ID;
         TaskSign_Up_For_Loyalty sign_up_for_loyalty = new TaskSign_Up_For_Loyalty(getActivity(),this);
         Log.d("", "getSign_up_Loyalty: " + url);
-        sign_up_for_loyalty.execute(url);
+//        sign_up_for_loyalty.execute(url);
+        sign_up_for_loyalty.executeOnExecutor(TaskSign_Up_For_Loyalty.THREAD_POOL_EXECUTOR,url);
 
     }
 
@@ -2292,7 +2314,8 @@ public class PaymentFragment extends Fragment
         int giftWrap = liShoppingCart.get(position).getGiftWrap() ? 1 : 0;
         String url = Constant.WS_BASE_URL + Constant.UPDATE_CART_DATA_OF_GIFT_WRAP + liShoppingCart.get(position).getCartID() + "/" + giftWrap + "/" + Constant.STOREID;
         TaskGiftWrap loyaltyInfo = new TaskGiftWrap(this);
-        loyaltyInfo.execute(url);
+//        loyaltyInfo.execute(url);
+        loyaltyInfo.executeOnExecutor(TaskGiftWrap.THREAD_POOL_EXECUTOR,url);
         Log.e("Log", "URL=" + url);
     }
 
@@ -2749,7 +2772,8 @@ public class PaymentFragment extends Fragment
 
         TaskInsertOrderDetail orderDetail = new TaskInsertOrderDetail(getActivity(), this);
         Log.e(TAG, "url" + orderUrl);
-        orderDetail.execute(orderUrl);
+//        orderDetail.execute(orderUrl);
+        orderDetail.executeOnExecutor(TaskInsertOrderDetail.THREAD_POOL_EXECUTOR,orderUrl);
     }
 
 
@@ -2827,7 +2851,8 @@ public class PaymentFragment extends Fragment
 //                END
 
                 TaskSaveCard taskSaveCard = new TaskSaveCard(this);
-                taskSaveCard.execute(saveCardUrl);
+//                taskSaveCard.execute(saveCardUrl);
+                taskSaveCard.executeOnExecutor(TaskSaveCard.THREAD_POOL_EXECUTOR,saveCardUrl);
             }
 
         }else {
@@ -2839,7 +2864,8 @@ public class PaymentFragment extends Fragment
                         + companyName + "/" + firstName + "/" + lastName + "/" + address + "/" + city + "/" + state + "/"
                         + zip + "/" + primaryPhone + "/" + email + "/" + cartNo + "/" + expMonth + "/" + expYear;
                 TaskSaveCard taskSaveCard = new TaskSaveCard(this);
-                taskSaveCard.execute(saveCardUrl);
+//                taskSaveCard.execute(saveCardUrl);
+                taskSaveCard.executeOnExecutor(TaskSaveCard.THREAD_POOL_EXECUTOR,saveCardUrl);
             }
         }
     }
@@ -2908,6 +2934,7 @@ public class PaymentFragment extends Fragment
         String spnReward = tvRewardCashAvailable.getText().toString();
         String spnRewardUse = tvMyReward.getText().toString().replace("$", "").trim();
         String total = tvTotal.getText().toString().replace("$", "").trim();
+        String pick_up_time = pickupTime +" "+ pickupDay;
 
         loyaltyPoint = (loyaltyPoint.equals("0.00")) ? "0" : loyaltyPoint;
         total = (total.isEmpty()) ? "0" : total;
@@ -2933,14 +2960,14 @@ public class PaymentFragment extends Fragment
                         + spnReward /*spnRewards*/ + "/" + spnRewardUse /*rewardDollarUse*/ + "/"
                         + pointUsed /*point Use*/ + "/" + "0" /*Card No*/ + "/" + "0" /*expiration*/ + "/" + "0" /*cardHolderName*/ + "/"
                         + "null" /*ctroutd*/ + "/" + "null" /*troutd*/ + "/" + "null" /*authCode*/ + "/" + "null" /*paymentMedia*/ + "/"
-                        + "0.00" /*Tip value */ + "/" + "0"  + "/" + deliveryFeeSurchargeVal + "/" + "Android App" + "/" + customernote;
+                        + "0.00" /*Tip value */ + "/" + "0"  + "/" + deliveryFeeSurchargeVal + "/" + "Android App" + "/" + customernote + "/" + pick_up_time;
             }else{
                 orderUrl = rootUrl + "null" /*orderId*/ + "/" + _subTotal + "/" + _totalSaving + "/" + total + "/"
                         + _paymentOption + "/" + loyaltyPoint /*loyalty point*/ + "/" + "mobile" /*#Browser*/ + "/"
                         + spnReward /*spnRewards*/ + "/" + "0" /*spnRewardUse*/ /*rewardDollarUse*/ + "/"
                         + "0" /*point Use*/ + "/" + "0" /*Card No*/ + "/" + "0" /*expiration*/ + "/" + "0" /*cardHolderName*/ + "/"
                         + "null" /*ctroutd*/ + "/" + "null" /*troutd*/ + "/" + "null" /*authCode*/ + "/" + "null" /*paymentMedia*/ + "/"
-                        + "0.00" /*Tip value */ + "/" + "0" + "/" + deliveryFeeSurchargeVal + "/" + "Android App" + "/" + customernote;
+                        + "0.00" /*Tip value */ + "/" + "0" + "/" + deliveryFeeSurchargeVal + "/" + "Android App" + "/" + customernote + "/" + pick_up_time;
             }
            /* orderUrl = rootUrl + "null" + "/" + _subTotal + "/" + _totalSaving + "/" + _total + "/"
                     + _paymentOption + "/" + "0" *//*loyalty point*//* + "/" + "mobile" *//*#Browser*//* + "/"
@@ -2955,21 +2982,22 @@ public class PaymentFragment extends Fragment
                     + _paymentOption + "/" + /*"0"*/ loyaltyPoint /*loyalty point*/ + "/" + "mobile" /*#Browser*/ + "/" + /*"0.00"*/ spnReward /*spnRewards*/ + "/"
                     + /*"0" */ spnRewardUse /*rewardDollarUse*/ + "/" + /*"0"*/ pointUsed + "/" + card
                     + "/" + expiration + "/" + cardHolderName + "/" + ctroutd + "/" + troutd + "/"
-                    + authCode + "/" + paymentMedia + "/" + _tipValue /*Tip value */ + "/" + _tipCCValue + "/" + deliveryFeeSurchargeVal + "/" + "Android App" + "/" + savednoteStatus;;
+                    + authCode + "/" + paymentMedia + "/" + _tipValue /*Tip value */ + "/" + _tipCCValue + "/" + deliveryFeeSurchargeVal + "/" + "Android App" + "/" + savednoteStatus + "/" + pick_up_time;;
         } else {
 
             orderUrl = rootUrl + orderId + "/" + _subTotal + "/" + _totalSaving + "/" + total + "/"
                     + _paymentOption + "/" + loyaltyPoint /*loyalty point*/ + "/" + "mobile" /*#Browser*/ + "/" + spnReward /*spnRewards*/ + "/"
                     + "0" /*rewardDollarUse*/ + "/" + "0" /*pointUsed*/ + "/" + card /*etCardNumber.getText().toString().trim().replace(" ", "")*/
                     + "/" + expiration /*etExpiration.getText().toString().replace(" / ", "")*/ /*Expiration*/ + "/" + cardHolderName /*etCardHolderName.getText().toString().trim()*/ + "/" + ctroutd + "/" + troutd + "/"
-                    + authCode + "/" + paymentMedia + "/" + _tipValue /*Tip value */ + "/" + _tipCCValue + "/" + deliveryFeeSurchargeVal + "/" + "Android App" + "/" + savednoteStatus;;
+                    + authCode + "/" + paymentMedia + "/" + _tipValue /*Tip value */ + "/" + _tipCCValue + "/" + deliveryFeeSurchargeVal + "/" + "Android App" + "/" + savednoteStatus + "/" + pick_up_time;;
         }
 
         //end *********************
 
         TaskInsertOrderDetail orderDetail = new TaskInsertOrderDetail(getActivity(),this);
         Log.e(TAG, "url" + orderUrl);
-        orderDetail.execute(orderUrl);
+//        orderDetail.execute(orderUrl);
+        orderDetail.executeOnExecutor(TaskInsertOrderDetail.THREAD_POOL_EXECUTOR,orderUrl);
 
     }
 
@@ -3178,11 +3206,11 @@ public class PaymentFragment extends Fragment
             Log.e(TAG, "merchantContractId: " +merchantContractId );
 
             if (etCardNumber.isFocusable()){
-                if (!merchantContractId.isEmpty() || merchantContractId != null) {
+                if (merchantContractId != null  || !merchantContractId.isEmpty() ) {
                     merchantContractId = "2";
                 }
             }else{
-                if (!merchantContractId.isEmpty() || merchantContractId != null) {
+                if ( merchantContractId != null || !merchantContractId.isEmpty()) {
                     merchantContractId = "0";
                 }
             }
@@ -3194,13 +3222,13 @@ public class PaymentFragment extends Fragment
             if (cardType.equals("New Card")) {
 
                 url = Constant.WS_BASE_URL + Constant.WS_USAPAY_PAYMENT_TRANSACTION_DETAILS + Constant.STOREID + "/"
-                        + cardNo + "/" + cvv + "/" + "0" + "/" + "0" + "/" + address.trim() + "/" + zip + "/" + Amount + "/"
+                        + cardNo + "/" + cvv + "/" + expMonth + "/" + expYear + "/" + address.trim() + "/" + zip + "/" + Amount + "/"
                         + merchantCustomerId + "/" + merchantContractId + "/" + orderId + "/" + cvvByPassval + "/"
                         + UserModel.Cust_mst_ID + "/" + address2 + "/" + city + "/" + state;
 
             } else if (cardType.equals("Existing Card")) {
                 url = Constant.WS_BASE_URL + Constant.WS_USAPAY_PAYMENT_TRANSACTION_DETAILS + Constant.STOREID + "/"
-                        + cardNo + "/" + cvv + "/" + expMonth + "/" + expYear + "/" + address + "/" + zip + "/" + Amount + "/"
+                        + cardNo + "/" + cvv + "/" + expMonth + "/" + expYear + "/" + address.trim() + "/" + zip + "/" + Amount + "/"
                         + "0" + "/" + merchantContractId + "/" + orderId + "/" + cvvByPassval + "/"
                         + UserModel.Cust_mst_ID + "/" + address2 + "/" + city + "/" + state;
             }
@@ -3210,7 +3238,8 @@ public class PaymentFragment extends Fragment
 
             showPaymentProcessDialog(fourdigitcardnumber, Amount);
             Log.d("dialog ", "Showing dialog during competed transaction ");
-            taskPayWare.execute(url);
+//            taskPayWare.execute(url);
+            taskPayWare.executeOnExecutor(TaskPayWare.THREAD_POOL_EXECUTOR,url);
 
         }else {
 
@@ -3224,13 +3253,13 @@ public class PaymentFragment extends Fragment
                 //end ********
 
                 url = Constant.WS_BASE_URL + Constant.WS_PAYWARE_PAYMENT_TRANSACTION_DETAILS + Constant.STOREID + "/"
-                        + cardNo + "/" + cvv + "/" + "0" + "/" + "0" + "/" + address.trim() + "/" + zip + "/" + Amount + "/"
+                        + cardNo + "/" + cvv + "/" + expMonth + "/" + expYear + "/" + address.trim() + "/" + zip + "/" + Amount + "/"
                         + merchantCustomerId + "/" + merchantContractId + "/" + orderId + "/" + cvvByPassval + "/"
                         + UserModel.Cust_mst_ID + "/" + address2 + "/" + city + "/" + state;
 
             } else if (cardType.equals("Existing Card")) {
                 url = Constant.WS_BASE_URL + Constant.WS_PAYWARE_PAYMENT_TRANSACTION_DETAILS + Constant.STOREID + "/"
-                        + cardNo + "/" + cvv + "/" + expMonth + "/" + expYear + "/" + address + "/" + zip + "/" + Amount + "/"
+                        + cardNo + "/" + cvv + "/" + expMonth + "/" + expYear + "/" + address.trim() + "/" + zip + "/" + Amount + "/"
                         + "0" + "/" + "0" + "/" + orderId + "/" + cvvByPassval + "/"
                         + UserModel.Cust_mst_ID + "/" + address2 + "/" + city + "/" + state;
             }
@@ -3242,7 +3271,8 @@ public class PaymentFragment extends Fragment
             //janvi
 
             Log.d("dialog ", "Showing dialog during competed transaction ");
-            taskPayWare.execute(url);
+//            taskPayWare.execute(url);
+            taskPayWare.executeOnExecutor(TaskPayWare.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -3272,162 +3302,190 @@ public class PaymentFragment extends Fragment
         Log.e("cardnumber_CardNoValue",":" +fourDigitCardNoValue);
         Log.e("cardnumber_CardNumber",":" +fourDigitCardNumber);
 
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        // Convert payWareModel to JSON string including null values
+        String responseBodyString = gson.toJson(payWareModel);
+
         if (payWareModel != null) {
 
             if(Constant.isUSAePAY){
 
                 for (int i = 0; i < payWareModel.size(); i++) {
-                    if (payWareModel.get(i).getRESULTCODE().equals("A")) {
+                    if (payWareModel.get(i).getRESULTCODE()!=null && !payWareModel.get(i).getRESULTCODE().equalsIgnoreCase("null")
+                            && !payWareModel.get(i).getRESULTCODE().equals("") && !payWareModel.get(i).getRESULTCODE().isEmpty()) {
 
-                        _orderId = String.valueOf(payWareModel.get(i).getINVOICE());
-                        _ctroutd = String.valueOf(payWareModel.get(i).getCTROUTD());
-                        _troutd = String.valueOf(payWareModel.get(i).getTROUTD());
-                        _paymentMedia = String.valueOf(payWareModel.get(i).getPAYMENTMEDIA());
-                        _authCode = String.valueOf(payWareModel.get(i).getAUTHCODE());
-                        if (rbPayAtStore && rbPickUpAtStore)
-                            _paymentOption = "1";
-                        else
-                            _paymentOption = "2";
+                        if (payWareModel.get(i).getRESULTCODE().equals("A")) {
 
-                        Log.d(TAG, "Card Type : " + tvNewCard.getText().toString());
-                        Log.d(TAG, "Card Checkbox  : " + isSaveCard);
+                            _orderId = String.valueOf(payWareModel.get(i).getINVOICE());
+                            _ctroutd = String.valueOf(payWareModel.get(i).getCTROUTD());
+                            _troutd = String.valueOf(payWareModel.get(i).getTROUTD());
+                            _paymentMedia = String.valueOf(payWareModel.get(i).getPAYMENTMEDIA());
+                            _authCode = String.valueOf(payWareModel.get(i).getAUTHCODE());
 
-                        if (isSaveCard && tvNewCard.getText().toString().equals("Existing Card")) {
+                            if (rbPayAtStore && rbPickUpAtStore) {
+                                _paymentOption = "1";
+                            }else {
+                                _paymentOption = "2";
+                            }
 
-                            callSaveCard("0", "0", "0", etAddressOne.getText().toString().trim(), etCity.getText().toString().trim(),
-                                    etState.getText().toString().trim(), etZip.getText().toString().trim(), "0", "0"
-                                    , etCardNumber.getText().toString().replace(" ", "").trim(), expMonth, expYear);
+                            Log.d(TAG, "Card Type : " + tvNewCard.getText().toString());
+                            Log.d(TAG, "Card Checkbox  : " + isSaveCard);
+
+                            updateBillingAddress();
+
+                            if (isSaveCard && tvNewCard.getText().toString().equals("Existing Card")) {
+
+                                callSaveCard("0", "0", "0", etAddressOne.getText().toString().trim(), etCity.getText().toString().trim(),
+                                        etState.getText().toString().trim(), etZip.getText().toString().trim(), "0", "0"
+                                        , etCardNumber.getText().toString().replace(" ", "").trim(), expMonth, expYear);
+
+                            }
+                        } else {
+                            //cvv
+
+                            if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('N')
+                                    && payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals('N')) {
+
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Invalid CVV Code.");
+//
+                            }
+                            else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('N')) {
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Declined - CVV Failed");
+
+                            }
+                            else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('P')) {
+
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Not processed");
+
+                            }
+                            else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('S')) {
+
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Declined - CVV Failed");
+
+                            }
+                            else if (payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals("NYZ")) {
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Declined - Address not verified");
+
+                            }
+                            else if (payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals("YNA")) {
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Declined - Address format error");
+                            }
+                            else if (payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals("NNN")) {
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Declined - Invalid");
+                            }
+                            else if (payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals("XXU")) {
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Address unavailable");
+                            }
+                            else {
+                                hidePaymentProcessDialog();
+                                Utils.showCardValidationDialog(getActivity(), getResources().getString(R.string.str_Declined), fourDigitCardNumber, _authCode);
+//                                Utils.showCardValidationDialog(getActivity(), "The result code of the USAePAY response is : "+ payWareModel.get(i).getRESULTCODE()+ "\n\n"+ "This Response is coming from USAePAY: \n\n" + responseBodyString, fourDigitCardNumber, _authCode);
+//                                Utils.showCardValidationDialog(getActivity(), "This Response is coming from USAePAY:: \n\n" + responseBodyString, fourDigitCardNumber, _authCode);
+                            }
 
                         }
-
-                        updateBillingAddress();
 
                     } else {
-                        //cvv
-
-                        if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('N') && payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals('N')) {
-
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Invalid CVV Code.");
-//
-                        }else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('N')) {
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Declined - CVV Failed");
-
-                        } else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('P')) {
-
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Not processed");
-
-                        } else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('S')) {
-
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Declined - CVV Failed");
-
-                        } else if (payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals("NYZ")) {
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Declined - Address not verified");
-
-                        }  else if (payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals("YNA")) {
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Declined - Address format error");
-                        }
-                        else if (payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals("NNN")) {
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Declined - Invalid");
-                        }
-                        else if (payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals("XXU")) {
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Address unavailable");
-                        }
-                        else {
-                            hidePaymentProcessDialog();
-                            Utils.showCardValidationDialog(getActivity(), getResources().getString(R.string.str_Declined),fourDigitCardNumber,_authCode);
-                        }
-
+                        hidePaymentProcessDialog();
+                        Utils.showCardValidationDialog(getActivity(), getResources().getString(R.string.str_Declined), fourDigitCardNumber, _authCode);
+//                        Utils.showCardValidationDialog(getActivity(),"The result code of the USAePAY response is null or empty.\n\n" + "This Response is coming from USAePAY: \n\n" + responseBodyString, fourDigitCardNumber, _authCode);
+//                        Utils.showCardValidationDialog(getActivity(),"This Response is coming from USAePAY: \n\n" + responseBodyString, fourDigitCardNumber, _authCode);
                     }
                 }
 
-            }else{
+            } else{
                 for (int i = 0; i < payWareModel.size(); i++) {
-                    if (payWareModel.get(i).getRESULTCODE().equals("4") || payWareModel.get(i).getRESULTCODE().equals("5")) {
+                    if (payWareModel.get(i).getRESULTCODE()!=null && !payWareModel.get(i).getRESULTCODE().equalsIgnoreCase("null")
+                            && !payWareModel.get(i).getRESULTCODE().equals("") && !payWareModel.get(i).getRESULTCODE().isEmpty()) {
 
-                        _orderId = String.valueOf(payWareModel.get(i).getINVOICE());
-                        _ctroutd = String.valueOf(payWareModel.get(i).getCTROUTD());
-                        _troutd = String.valueOf(payWareModel.get(i).getTROUTD());
-                        _paymentMedia = String.valueOf(payWareModel.get(i).getPAYMENTMEDIA());
-                        _authCode = String.valueOf(payWareModel.get(i).getAUTHCODE());
-                        if (rbPayAtStore && rbPickUpAtStore)
-                            _paymentOption = "1";
-                        else
-                            _paymentOption = "2";
+                        if (payWareModel.get(i).getRESULTCODE().equals("4") || payWareModel.get(i).getRESULTCODE().equals("5")) {
+
+                            _orderId = String.valueOf(payWareModel.get(i).getINVOICE());
+                            _ctroutd = String.valueOf(payWareModel.get(i).getCTROUTD());
+                            _troutd = String.valueOf(payWareModel.get(i).getTROUTD());
+                            _paymentMedia = String.valueOf(payWareModel.get(i).getPAYMENTMEDIA());
+                            _authCode = String.valueOf(payWareModel.get(i).getAUTHCODE());
+                            if (rbPayAtStore && rbPickUpAtStore) {
+                                _paymentOption = "1";
+                            }else {
+                                _paymentOption = "2";
+                            }
 
 //                    callInsertOrderDetailed(_orderId, _ctroutd, _troutd, _paymentMedia, _authCode);
 
-                        Log.d(TAG, "Card Type : " + tvNewCard.getText().toString());
-                        Log.d(TAG, "Card Checkbox  : " + isSaveCard);
+                            Log.d(TAG, "Card Type : " + tvNewCard.getText().toString());
+                            Log.d(TAG, "Card Checkbox  : " + isSaveCard);
 
-                        if (isSaveCard && tvNewCard.getText().toString().equals("Existing Card")) {
+                            updateBillingAddress();
 
-                            callSaveCard("0", "0", "0", etAddressOne.getText().toString().trim(), etCity.getText().toString().trim(),
-                                    etState.getText().toString().trim(), etZip.getText().toString().trim(), "0", "0"
-                                    , etCardNumber.getText().toString().replace(" ", "").trim(), expMonth, expYear);
+                            if (isSaveCard && tvNewCard.getText().toString().equals("Existing Card")) {
 
-                        }
+                                callSaveCard("0", "0", "0", etAddressOne.getText().toString().trim(), etCity.getText().toString().trim(),
+                                        etState.getText().toString().trim(), etZip.getText().toString().trim(), "0", "0"
+                                        , etCardNumber.getText().toString().replace(" ", "").trim(), expMonth, expYear);
 
-                        updateBillingAddress();
+                            }
 
-                        //Utils.showValidationDialog(getActivity(), payWareModel.get(i).getRequestParameter() + "\n\n" + payWareModel.get(i).getResponseParameter());
+                            //Utils.showValidationDialog(getActivity(), payWareModel.get(i).getRequestParameter() + "\n\n" + payWareModel.get(i).getResponseParameter());
 //                    if(!_tempCardNumber.equals("") && _tempCardNumber.length() > 4){
 
 //                    Utils.showCardValidationDialog(getActivity(), "APPROVED",fourDigitCardNumber,_authCode);
 
 //                    Utils.showCardValidationDialog(getActivity(), "APPROVED" /*payWareModel.get(i).getRESPONSETEXT()*/);
 
-                    } else {
-                        //cvv
+                        } else {
+                            //cvv
 
-                        if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('N') && payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals('N')) {
+                            if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('N')
+                                    && payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals('N')) {
 //                        ("Invalid CVV Code." + '\n' + "Address doesn't match billing address." + '\n' + "ZIP doesn't match billing address.");
 
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Invalid CVV Code.");
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Invalid CVV Code.");
 //                        DialogUtils.onCommonDialog(getActivity(),"","Invalid CVV Code.");
 //
-                        }else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('N')) {
-                            hidePaymentProcessDialog();
-                            etCvv.setError("CVV not Matched");
+                            } else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('N')) {
+                                hidePaymentProcessDialog();
+                                etCvv.setError("CVV not Matched");
 
-                        } else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('P')) {
+                            } else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('P')) {
 
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Not processed");
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Not processed");
 
-                        } else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('S')) {
+                            } else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('S')) {
 
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Merchant indicated that CVV2 was not present on card");
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Merchant indicated that CVV2 was not present on card");
 
-                        } else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('I')) {
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Int’l – address not verified (Visa)");
+                            } else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('I')) {
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Int’l – address not verified (Visa)");
 
-                        } else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('P')) {
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Int’l – postal match, address format error");
+                            } else if (payWareModel.get(i).getCVV2CODE() != null && payWareModel.get(i).getCVV2CODE().equals('P')) {
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Int’l – postal match, address format error");
 
-                        } else if (payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals('N')) {
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Address and/or ZIP don't match billing address.");
-                        }
-                        else if (payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals('U')) {
-                            hidePaymentProcessDialog();
-                            etCvv.setError("Address unavailable");
-                        }
-                        else {
-                            hidePaymentProcessDialog();
-                            Utils.showCardValidationDialog(getActivity(), getResources().getString(R.string.str_Declined),fourDigitCardNumber,_authCode);
-                        }
+                            } else if (payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals('N')) {
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Address and/or ZIP don't match billing address.");
+                            } else if (payWareModel.get(i).getAVSCODE() != null && payWareModel.get(i).getAVSCODE().equals('U')) {
+                                hidePaymentProcessDialog();
+                                etCvv.setError("Address unavailable");
+                            } else {
+                                hidePaymentProcessDialog();
+                                Utils.showCardValidationDialog(getActivity(), getResources().getString(R.string.str_Declined), fourDigitCardNumber, _authCode);
+//                                Utils.showCardValidationDialog(getActivity(),"The result code of the payware response is : "+ payWareModel.get(i).getRESULTCODE()+ "\n\n"+ " This Response is coming from payware: \n\n" + responseBodyString, fourDigitCardNumber, _authCode);
+//                                Utils.showCardValidationDialog(getActivity(),"This Response is coming from payware:: \n\n" + responseBodyString, fourDigitCardNumber, _authCode);
+                            }
 
 //                    hidePaymentProcessDialog();
 //                    //hideDialog();
@@ -3439,6 +3497,12 @@ public class PaymentFragment extends Fragment
 //
 //                    Utils.showCardValidationDialog(getActivity(), getResources().getString(R.string.str_Declined),fourDigitCardNumber,_authCode);
 //                    //************
+                        }
+                    }else{
+                        hidePaymentProcessDialog();
+                        Utils.showCardValidationDialog(getActivity(), getResources().getString(R.string.str_Declined), fourDigitCardNumber, _authCode);
+//                        Utils.showCardValidationDialog(getActivity(),"The result code of the payware response is null or empty.\n\n" + "This Response is coming from payware: \n\n"+ responseBodyString, fourDigitCardNumber, _authCode);
+//                        Utils.showCardValidationDialog(getActivity(),"This Response is coming from payware: \n\n"+ responseBodyString, fourDigitCardNumber, _authCode);
                     }
                 }
 
@@ -3448,6 +3512,8 @@ public class PaymentFragment extends Fragment
             hidePaymentProcessDialog();
 
             Utils.showCardValidationDialog(getActivity(), getResources().getString(R.string.str_Declined),fourDigitCardNumber,_authCode);
+//            Utils.showCardValidationDialog(getActivity(), "The USAePAY websevice return the null response. \n\n" + "This Response is coming from Webservice: \n\n" + responseBodyString,fourDigitCardNumber,_authCode);
+//            Utils.showCardValidationDialog(getActivity(), "The websevice return the null response. \n\n" + "This Response is coming from Webservice: \n\n" + responseBodyString,fourDigitCardNumber,_authCode);
 
         }
     }
@@ -3481,7 +3547,8 @@ public class PaymentFragment extends Fragment
 
         TaskUpdateBillingAddress billingAddress = new TaskUpdateBillingAddress(getActivity(),this);
         Log.d(TAG, "billing address call : " + billingAddressUrl);
-        billingAddress.execute(billingAddressUrl);
+//        billingAddress.execute(billingAddressUrl);
+        billingAddress.executeOnExecutor(TaskUpdateBillingAddress.THREAD_POOL_EXECUTOR,billingAddressUrl);
     }
 
 
@@ -3498,23 +3565,7 @@ public class PaymentFragment extends Fragment
             String[] arrexp = strexp.split("-");
 
             id = arrexp[1].trim();
-        /*if (arrexp.length == 2) {
-        }*/
             String shippingAddress;
-
-            //http://192.168.172.211:140/CsCode/WebStoreOnlineService.asmx/UpdateBillingAddress?
-            // custID=188731
-            // &fName=Nidhi
-            // &lName=Modi
-            // &companyName=Anant
-            // &address1=7853%20Princes%20Highway%20City
-            // &address2=
-            // &city=Narrawong
-            // &state=VI
-            // &zip=7853%20Princes%20Highway%20City
-            // &phoneNo=
-            // &phoneType=M
-            // &storeNo=707
 
             id = (id.equals("0")) ? UserModel.Cust_mst_ID : id;
             shippingAddress = Constant.WS_BASE_POS_URL + Constant.POS_UPDATE_BILLING_ADDRESS
@@ -3533,19 +3584,20 @@ public class PaymentFragment extends Fragment
 
             TaskUpdatePOSBillingAddress posBillingAddress = new TaskUpdatePOSBillingAddress(this);
             Log.d("Address", "URL :  " + shippingAddress);
-            posBillingAddress.execute(shippingAddress);
+//            posBillingAddress.execute(shippingAddress);
+            posBillingAddress.executeOnExecutor(TaskUpdatePOSBillingAddress.THREAD_POOL_EXECUTOR,shippingAddress);
         }else{
             hidePaymentProcessDialog();
+            Utils.showCardValidationDialog(getActivity(), "APPROVED", fourDigitCardNoValue, _authCode);
         }
-
-        /*if (myDeliveryOptionsEvent != null)
-            myDeliveryOptionsEvent.nextFromDeliveryOption(addDataIntoBundle());*/
     }
 
 
+    @SuppressLint("SuspiciousIndentation")
     @Override
     public void onPOSBillingAddressResult(UpdatePOSBillingAddress updatePOSBillingAddress) {
 
+        hidePaymentProcessDialog();
         if(rbPayAtStore && rbPickUpAtStore){
             if (myPaymentEvent != null) {
                 myPaymentEvent.loadOrderSummaryFragment(i, "", "", "ReturnProcessing");
@@ -3554,24 +3606,20 @@ public class PaymentFragment extends Fragment
                 //hideDialog();
             }
 
-        }else if(!rbPayAtStore ){
-
-            hidePaymentProcessDialog();
-
+        }else {
             Log.d("Address", "Result : " + updatePOSBillingAddress.getResult());
             if (updatePOSBillingAddress != null && !updatePOSBillingAddress.getResult().isEmpty() && updatePOSBillingAddress.getResult().equals("success")) {
 
-                Utils.showCardValidationDialog(getActivity(), "APPROVED",fourDigitCardNoValue,_authCode);
+                Utils.showCardValidationDialog(getActivity(), "APPROVED", fourDigitCardNoValue, _authCode);
 // if (myPaymentEvent != null) {
 //                myPaymentEvent.loadOrderSummaryFragment(i);
 //                //Hide dialog when order completed...
 //                //hideDialog();
 //            }
-            }else{
-                Utils.showCardValidationDialog(getActivity(), getResources().getString(R.string.str_Declined),fourDigitCardNoValue,_authCode);
+            } else {
+                Utils.showCardValidationDialog(getActivity(), "APPROVED", fourDigitCardNoValue, _authCode);
             }
         }
-
     }
 
 
@@ -3599,7 +3647,8 @@ public class PaymentFragment extends Fragment
         String settingUrl;
         settingUrl = Constant.WS_BASE_URL + Constant.GET_VALUE_INFO_SETTING + Constant.STOREID;
         TaskGetValueInfoSetting setting = new TaskGetValueInfoSetting();
-        setting.execute(settingUrl);
+//        setting.execute(settingUrl);
+        setting.executeOnExecutor(TaskGetValueInfoSetting.THREAD_POOL_EXECUTOR,settingUrl);
     }
 
     /**
@@ -3609,7 +3658,8 @@ public class PaymentFragment extends Fragment
         String scoopUrl;
         scoopUrl = Constant.WS_BASE_URL + Constant.GET_SKOOP_SETTING + Constant.STOREID;
         TaskGetScoopSetting scoopSetting = new TaskGetScoopSetting();
-        scoopSetting.execute(scoopUrl);
+//        scoopSetting.execute(scoopUrl);
+        scoopSetting.executeOnExecutor(TaskGetScoopSetting.THREAD_POOL_EXECUTOR,scoopUrl);
     }
 
 
@@ -3989,7 +4039,8 @@ public class PaymentFragment extends Fragment
     }
 
     private void hidePaymentProcessDialog(){
-        if (paymentProcess.isShowing())
+        if (paymentProcess != null && paymentProcess.isShowing()) {
             paymentProcess.dismiss();
+        }
     }
 }

@@ -71,14 +71,14 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                         .getNotificationImage());
                 Glide.with(context).load(imgNoImageUrl + NotificationList.get(position)
                         .getNotificationImage()).placeholder(R.drawable.noimage)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .skipMemoryCache(true).into(holder.imgnotif);
 
             } else {
                 Log.i("image", "Image Url : " + imgUrl + NotificationList.get(position).getNotificationImage());
                 Glide.with(context).load(imgUrl + NotificationList.get(position).getNotificationImage())
                         .placeholder(R.drawable.progress_bar).placeholder(d)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .skipMemoryCache(true).into(holder.imgnotif);
 
             }

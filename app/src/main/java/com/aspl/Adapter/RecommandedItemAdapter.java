@@ -92,7 +92,7 @@ public class RecommandedItemAdapter extends RecyclerView.Adapter<RecommandedItem
             if (recommandedItemList.get(position).getInvLargeImageFullPath()!=null || !recommandedItemList.get(position).getInvLargeImageFullPath().isEmpty()) {
                 Glide.with(context).load( recommandedItemList.get(position).getInvLargeImageFullPath())
                         .placeholder(R.drawable.progress_bar)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .skipMemoryCache(true).into(holder.img_item);
 
             }
@@ -176,6 +176,9 @@ public class RecommandedItemAdapter extends RecyclerView.Adapter<RecommandedItem
 
                         Utils.showDiscountgroupDialog(context, recommandedItemList.get(position).getDesc1(), recommandedItemList.get(position).getGrpMemo(), "", null);
                     }
+                    else{
+                        Utils.showDiscountgroupDialog(context, recommandedItemList.get(position).getDesc1(), "No additional details have been entered by the business", "", null);
+                    }
                 }
             });
 
@@ -197,7 +200,7 @@ public class RecommandedItemAdapter extends RecyclerView.Adapter<RecommandedItem
         Glide.with(imageView.getContext())
                 .load(url)
                 .placeholder(placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true)
                 .fitCenter()
                 .into(new GlideDrawableImageViewTarget(imageView) {

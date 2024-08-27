@@ -96,7 +96,7 @@ public class HomePageListAdapter extends RecyclerView.Adapter<HomePageListAdapte
             if (listHomrItem.get(position).getInvLargeImageFullPath()!=null || !listHomrItem.get(position).getInvLargeImageFullPath().isEmpty()) {
                 Glide.with(context).load(listHomrItem.get(position).getInvLargeImageFullPath())
                         .placeholder(R.drawable.noimage)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .skipMemoryCache(true).into(holder.img_item);
         }
 //            ********************* END ***********************
@@ -283,6 +283,9 @@ public class HomePageListAdapter extends RecyclerView.Adapter<HomePageListAdapte
 
                         Utils.showDiscountgroupDialog(context, listHomrItem.get(position).getDesc1(), listHomrItem.get(position).getGrpMemo(), "", null);
                     }
+                    else{
+                        Utils.showDiscountgroupDialog(context, listHomrItem.get(position).getDesc1(), "No additional details have been entered by the business", "", null);
+                    }
                 }
             });
         }
@@ -344,7 +347,7 @@ public class HomePageListAdapter extends RecyclerView.Adapter<HomePageListAdapte
         Glide.with(imageView.getContext())
                 .load(url)
                 .placeholder(placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true)
                 .fitCenter()
                 .into(new GlideDrawableImageViewTarget(imageView) {

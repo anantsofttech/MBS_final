@@ -104,13 +104,7 @@ public class TaskGetOrderSummary extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        /*if (Constant.liCardModel != null){
-            MainActivity.onUpdateCartItem(Constant.liCardModel);
-        }*/
-
-        if (myTaskOrderSummaryEvent != null && orderSummary != null) {
-            myTaskOrderSummaryEvent.onOrderSummaryResult(orderSummary,fromwhere);
-        }
+        myTaskOrderSummaryEvent.onOrderSummaryResult(orderSummary,fromwhere);
 
         if(loading != null){
             loading.dismiss();

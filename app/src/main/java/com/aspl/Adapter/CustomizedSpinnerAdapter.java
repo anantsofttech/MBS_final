@@ -95,7 +95,7 @@ public class CustomizedSpinnerAdapter extends ArrayAdapter<GetSearchData> {
         if (result.get(position).getInvLargeImageFullPath()!=null || !result.get(position).getInvLargeImageFullPath().isEmpty()) {
             Glide.with(context).load(result.get(position).getInvLargeImageFullPath())
                     .placeholder(R.drawable.noimage)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .skipMemoryCache(true).into(iv_productimg);
         }
 //

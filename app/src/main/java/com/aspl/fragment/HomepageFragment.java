@@ -1555,7 +1555,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 
             if (dataPramotion1.getImage()!=""){
                 Glide.with(getActivity()).load(imgUrl + dataPramotion1.getImage())
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .skipMemoryCache(true).into(img1);
 //                 For text size
 //                textoffername1.setTextSize(Float.parseFloat(dataPramotion1.getFontSize()));
@@ -1571,7 +1571,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
             }
             if (dataPramotion2.getImage()!=""){
                 Glide.with(getActivity()).load(imgUrl + dataPramotion2.getImage())
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .skipMemoryCache(true).into(img2);
 //                For text size
 
@@ -2503,6 +2503,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
     public void updateCartResult(UpdateCartQuantity updateCart) {
         if (updateCart.getResult().equalsIgnoreCase("success")) {
             Utils.vibrateDevice(getContext());
+            DialogUtils.showDialog("Added to cart!");
             onGetCartData("buyitagain",updateCart);
         }
     }

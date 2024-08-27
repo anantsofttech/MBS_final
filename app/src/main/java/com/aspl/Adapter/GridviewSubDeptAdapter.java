@@ -9,11 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
+import com.aspl.Utils.BSTheme;
 import com.aspl.Utils.Constant;
-import com.aspl.fragment.FilterFragment;
+import com.aspl.mbs.MainActivity;
+import com.aspl.mbs.MainActivityDup;
 import com.aspl.mbs.R;
 import com.aspl.mbsmodel.SubDepartmentModel;
 
@@ -23,13 +29,8 @@ public class GridviewSubDeptAdapter extends BaseAdapter {
     private Context context;
     private SubDepartmentModel subDeptModel;
     ArrayList<SubDepartmentModel> subDeptModelList;
-    TextView expandedListTextView;
-    //    ArrayList<String> finalSubDeptModelList = new ArrayList<>();
-//    ArrayList<String> finalDeptModelList = new ArrayList<>();
     String deptId;
-    LinearLayout llmain;
     int expandedListPosition;
-
 
     public GridviewSubDeptAdapter(Context context, SubDepartmentModel subDeptModel, ArrayList<SubDepartmentModel> subDeptModelList, String dept_id, int expandedListPosition) {
         this.context = context;
@@ -55,117 +56,66 @@ public class GridviewSubDeptAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.row_gridview_subdepartment, null);
+        }
 
-        View gridViewRow;
+        CheckBox expandedListItemCheckbox = convertView.findViewById(R.id.expandedListItemCheckbox);
+        TextView expandedListItemTextView = convertView.findViewById(R.id.expandedListItem);
+        LinearLayout llmain = convertView.findViewById(R.id.llmain);
 
-//        if (convertView == null) {
-
-//            gridView = new View(context);
-        // get layout from mobile.xml
-        LayoutInflater layoutInflater = (LayoutInflater) this.context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        gridViewRow = layoutInflater.inflate(R.layout.row_gridview_subdepartment, null);
-
-//            SubDepartmentModel subDepartmentModel = subDeptModelist.get(position);
-
-        // set image based on selected text
-//            TextView imageView = (TextView) gridView
-//                    .findViewById(R.id.expandedListItem);
-
-        expandedListTextView = gridViewRow
-                .findViewById(R.id.expandedListItem);
-
-        llmain = gridViewRow.findViewById(R.id.llmain);
-
-        Log.e("Log", "BC COLOR=" + Constant.themeModel.Backgroundcolor);
         StateListDrawable sld = new StateListDrawable();
         sld.addState(new int[]{android.R.attr.state_pressed}, new ColorDrawable(Color.GRAY));
         sld.addState(new int[]{}, new ColorDrawable(Color.parseColor(Constant.themeModel.Backgroundcolor)));
-        //llmain.setBackground(sld);
-//        llmain.setBackgroundColor(Color.WHITE);
+
         llmain.setBackgroundColor(Color.parseColor(Constant.themeModel.Backgroundcolor));
 
-//            expandedListTextView.setVisibility(View.VISIBLE);
-//            expandedListTextView.setText(subDeptModelList.get(position).getStyle());
-//            Constant.finalSubDeptModelList.add(subDeptModelList.get(position).getStyle());
+        expandedListItemCheckbox.setText(subDeptModelList.get(position).getStyle());
+        BSTheme.setCheckBoxColor(expandedListItemCheckbox, Color.parseColor(Constant.themeModel.ThemeColor), Color.GRAY);
+        expandedListItemCheckbox.setTextColor(Color.parseColor(Constant.themeModel.ThemeColor));
 
+        expandedListItemTextView.setText(subDeptModelList.get(position).getStyle());
+        expandedListItemTextView.setTextColor(Color.parseColor(Constant.themeModel.ThemeColor));
 
+        expandedListItemCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Pass the checkbox value
+                    String checkboxValue = subDeptModelList.get(position).getStyle();
+                    // Handle the checkbox value
+                    Log.d("Checkbox Value", checkboxValue);
 
-        /*expandedListTextView.setVisibility(View.VISIBLE);
-        expandedListTextView.setText(subDeptModel.getStyle());
+                    Constant.isBackFromDeparment = true;
+                    if (Constant.SCREEN_LAYOUT == 1) {
+                        MainActivity.getInstance().loadViewAllFragment("department", String.valueOf(subDeptModelList.get(position).getDeptid()), String.valueOf(subDeptModelList.get(position).getStyleId()), "0", "0", "0", MainActivity.blockDisplayedText, "", "");
+                    } else if (Constant.SCREEN_LAYOUT == 2) {
+                        MainActivityDup.getInstance().loadViewAllFragment("department", String.valueOf(subDeptModelList.get(position).getDeptid()), String.valueOf(subDeptModelList.get(position).getStyleId()), "0", "0", "0", MainActivityDup.blockDisplayedText, "", "OnlyDepartment");
+                    }
 
-*/
+                }
+            }
+        });
 
-//        for(int i=0;i<subDeptModelList.size();i++){
-//            if(!Constant.finalSubDeptModelList.contains(subDeptModelList.get(i).getStyle())) {
-//                Constant.finalSubDeptModelList.add(subDeptModelList.get(i).getStyle());
-//                expandedListTextView.setVisibility(View.VISIBLE);
-//                expandedListTextView.setText(subDeptModelList.get(position).getStyle());
-//            }
-//        }
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Pass the checkbox value
+                String checkboxValue = subDeptModelList.get(position).getStyle();
+                // Handle the checkbox value
+                Log.d("Checkbox Value", checkboxValue);
 
-        expandedListTextView.setVisibility(View.VISIBLE);
-        expandedListTextView.setText(subDeptModelList.get(position).getStyle());
-        expandedListTextView.setTextColor(Color.BLACK);
+                Constant.isBackFromDeparment = true;
+                if (Constant.SCREEN_LAYOUT == 1) {
+                    MainActivity.getInstance().loadViewAllFragment("department", String.valueOf(subDeptModelList.get(position).getDeptid()), String.valueOf(subDeptModelList.get(position).getStyleId()), "0", "0", "0", MainActivity.blockDisplayedText, "", "");
+                } else if (Constant.SCREEN_LAYOUT == 2) {
+                    MainActivityDup.getInstance().loadViewAllFragment("department", String.valueOf(subDeptModelList.get(position).getDeptid()), String.valueOf(subDeptModelList.get(position).getStyleId()), "0", "0", "0", MainActivityDup.blockDisplayedText, "", "OnlyDepartment");
+                }
+            }
+        });
 
-//        if(subDeptModelList.size()>0 && subDeptModelList.size()==1){
-//            expandedListTextView.setVisibility(View.VISIBLE);
-//            expandedListTextView.setText(subDeptModelList.get(position).getStyle());
-//        }else if(subDeptModelList.size()>1){
-//
-//            for(int i=0;i<subDeptModelList.size();i++){
-//
-//                expandedListTextView.setVisibility(View.VISIBLE);
-//                expandedListTextView.setText(subDeptModelList.get(i).getStyle());
-//
-//            }
-////            Constant.issecondTime = true;
-//        }
-
-
-
-
-//            if(!Constant.finalSubDeptModelList.contains(subDeptModelList.get(position).getStyle())) {
-
-//                Constant.finalSubDeptModelList.add(subDeptModelList.get(position).getStyle());
-//            }
-
-
-//             if(Constant.finalSubDeptModelList != null && Constant.finalSubDeptModelList.size()>0) {
-
-//            if(FilterFragment.getInstance().finalSubDeptModelList != null){
-//
-//                if (!FilterFragment.getInstance().finalSubDeptModelList.contains(subDeptModelList.get(position).getStyle())) {
-//                    expandedListTextView.setVisibility(View.VISIBLE);
-//                    expandedListTextView.setText(subDeptModelList.get(position).getStyle());
-//                    FilterFragment.getInstance().finalSubDeptModelList.add(subDeptModelList.get(position).getStyle());
-//                }
-//
-//            }
-
-//                if (!Constant.finalSubDeptModelList.contains(subDeptModelList.get(position).getStyle())) {
-//                    expandedListTextView.setVisibility(View.VISIBLE);
-//                    Constant.finalSubDeptModelList.add(subDeptModelList.get(position).getStyle());
-//                    expandedListTextView.setText(subDeptModelList.get(position).getStyle());
-//                } else {
-//                    expandedListTextView.setVisibility(View.GONE);
-//                }
-//            }else{
-//                expandedListTextView.setVisibility(View.VISIBLE);
-//                Constant.finalSubDeptModelList.add(subDeptModelList.get(position).getStyle());
-//                expandedListTextView.setText(subDeptModelList.get(position).getStyle());
-//            }
-
-//            expandedListTextView.setTextColor(Color.BLACK);
-
-//        } else {
-//            gridViewRow = (View) convertView;
-//        }
-
-        return gridViewRow;
+        return convertView;
     }
 }
-

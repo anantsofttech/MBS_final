@@ -92,13 +92,7 @@ public class TaskGetOrderItemDetailData extends AsyncTask<String, Void, String> 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        /*if (Constant.liCardModel != null){
-            MainActivity.onUpdateCartItem(Constant.liCardModel);
-        }*/
-
-        if (taskGetOrderItemDetailDataEvent != null) {
-            taskGetOrderItemDetailDataEvent.onTaskGetOrderItemDetailDataResult(orderSummary);
-        }
+        taskGetOrderItemDetailDataEvent.onTaskGetOrderItemDetailDataResult(orderSummary);
 
         if(loading != null && loading.isShowing()){
             loading.dismiss();

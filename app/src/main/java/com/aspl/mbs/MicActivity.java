@@ -78,7 +78,7 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
         Glide.with(imageView.getContext())
                 .load(R.drawable.mic_gif)
                 .placeholder(placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true)
                 .fitCenter()
                 .into(new GlideDrawableImageViewTarget(imageView) {

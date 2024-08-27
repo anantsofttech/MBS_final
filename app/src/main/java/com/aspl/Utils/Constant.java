@@ -103,7 +103,7 @@ public class Constant {
     //public static String WS_BASE="http://192.168.172.211:889";
 
     public static String WS_BASE_URL = WS_BASE + "/WebStoreRestService.svc/";
-    public static String GETPAGES = "GetPages/";
+//    public static String GETPAGES = "GetPages/";
     public static String GETPAGES_FOR_ANDROID = "GetPagesForAndroid/";
     public static String GETPAGES_STATUS = "GetPagesStatus/";
     public static String SEND_DRINK_RECIPES= "SendDrinkRecipes";
@@ -255,6 +255,7 @@ public class Constant {
     public static String GET_CANCEL_CUST_CREDITCARD="CancelCustCreditCard/";
     public static String GET_USAPAY_CANCEL_CUST_CREDITCARD="USAPayCancelCustCreditCard/";
     public static String GET_CANCEL_ORDER="CancelOrder/";
+    public static String GET_CANCEL_ORDER_BY_CUSTOMER ="CancelOrderByCustomer/";
     public static String VoidTranscation="VoidTranscation/";
     public static String GETORDER_DETAILS="GetOrderDetails/";
     public static String USAPAYVoidTranscation="USAPayVoidTranscation/";

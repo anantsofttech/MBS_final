@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.DialogUtils;
@@ -97,7 +98,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyCardViewHold
         if (liShoppingCat.get(i).getInvLargeImageFullPath()!=null || !liShoppingCat.get(i).getInvLargeImageFullPath().isEmpty()) {
             Glide.with(context).load(liShoppingCat.get(i).getInvLargeImageFullPath())
                     .placeholder(R.drawable.noimage)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .skipMemoryCache(true).into(holder.imgProductImage);
         }
 
@@ -160,6 +161,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyCardViewHold
             public void onClick(View v) {
                 if(liShoppingCat.get(i).getGrpMemo()!= null && !liShoppingCat.get(i).getGrpMemo().equals("null") && !liShoppingCat.get(i).getGrpMemo().isEmpty()){
                     Utils.showDiscountgroupDialog(context,liShoppingCat.get(i).getDesc1(),liShoppingCat.get(i).getGrpMemo(),"", null);
+                }
+                else{
+                    Utils.showDiscountgroupDialog(context,liShoppingCat.get(i).getDesc1(),"No additional details have been entered by the business","", null);
                 }
             }
         });
@@ -342,70 +346,76 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyCardViewHold
 
         @Override
         public void onClick(View view) {
-            quantity = Integer.parseInt(tvQuantityChange.getText().toString());
-            if (view.getId() == imgCancel.getId()) {
-                if (myCardAdapterEvent != null) {
-                    myCardAdapterEvent.onCardItemRemoved(getAdapterPosition());
-                }
-            }
+            try {
 
-            if (view.getId() == imgPlus.getId()) {
+
                 quantity = Integer.parseInt(tvQuantityChange.getText().toString());
-                if (quantity >= 1)
-                    quantity = quantity + 1;
-                //tvQuantityChange.setText(String.valueOf(quantity));
-                if (Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPromoPrice()) > 0)
-                    tvTotal.setText(String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPromoPrice()) * quantity)));
-                else
-                    tvTotal.setText(String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getCartPrice()) * quantity)));
-
-
-                //tvTotal.setText(String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPrice()) * quantity)));
-
-                liShoppingCat.get(getAdapterPosition()).setQty(String.valueOf(quantity));
-//                Edited by Varun
-                if (Constant.Test_Ounces != 0){
-                    Constant.Test_Ounces=0;
-                }
-                Constant.Test_Ounces = Integer.parseInt(String.valueOf(liShoppingCat.get(getAdapterPosition()).getOunces()));
-//                END
-                if (myCardAdapterEvent != null)
-                    myCardAdapterEvent.onCardItemPlus(getAdapterPosition(), quantity);
-
-            }
-
-            if (view.getId() == imgMinus.getId()) {
-                quantity = Integer.parseInt(tvQuantityChange.getText().toString());
-                if (quantity > 1)
-                    quantity = quantity - 1;
-               // tvQuantityChange.setText(String.valueOf(quantity));
-                if (Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPromoPrice()) > 0)
-                    tvTotal.setText(String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPromoPrice()) * quantity)));
-                else
-                    tvTotal.setText(/*"Total : " + "$" +*/ String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getCartPrice()) * quantity)));
-
-                liShoppingCat.get(getAdapterPosition()).setQty(String.valueOf(quantity));
-                if (myCardAdapterEvent != null)
-                    myCardAdapterEvent.onCardItemMinus(getAdapterPosition(), quantity);
-            }
-
-            if (view.getId() == tvRemove.getId()) {
-                if (myCardAdapterEvent != null) {
-                    myCardAdapterEvent.onCardItemRemoved(getAdapterPosition());
-                }
-            }
-            if (view.getId() == tvMoveToWishList.getId()) {
-
-                if (UserModel.Cust_mst_ID == null || UserModel.Cust_mst_ID.isEmpty()) {
-                    Login.StartLoginDialog("wishlist", context);
-                }else{
-                    if (Constant.ISguest){
-                        DialogUtils.showDialog("Option not valid for guest account");
-                    }else {
-                        moveToCart(getAdapterPosition());
+                if (view.getId() == imgCancel.getId()) {
+                    if (myCardAdapterEvent != null) {
+                        myCardAdapterEvent.onCardItemRemoved(getAdapterPosition());
                     }
                 }
-                //Toast.makeText(context, "Move to wishlist : Under Process", Toast.LENGTH_SHORT).show();
+
+                if (view.getId() == imgPlus.getId()) {
+                    quantity = Integer.parseInt(tvQuantityChange.getText().toString());
+                    if (quantity >= 1)
+                        quantity = quantity + 1;
+                    //tvQuantityChange.setText(String.valueOf(quantity));
+                    if (Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPromoPrice()) > 0)
+                        tvTotal.setText(String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPromoPrice()) * quantity)));
+                    else
+                        tvTotal.setText(String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getCartPrice()) * quantity)));
+
+
+                    //tvTotal.setText(String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPrice()) * quantity)));
+
+                    liShoppingCat.get(getAdapterPosition()).setQty(String.valueOf(quantity));
+//                Edited by Varun
+                    if (Constant.Test_Ounces != 0) {
+                        Constant.Test_Ounces = 0;
+                    }
+                    Constant.Test_Ounces = Integer.parseInt(String.valueOf(liShoppingCat.get(getAdapterPosition()).getOunces()));
+//                END
+                    if (myCardAdapterEvent != null)
+                        myCardAdapterEvent.onCardItemPlus(getAdapterPosition(), quantity);
+
+                }
+
+                if (view.getId() == imgMinus.getId()) {
+                    quantity = Integer.parseInt(tvQuantityChange.getText().toString());
+                    if (quantity > 1)
+                        quantity = quantity - 1;
+                    // tvQuantityChange.setText(String.valueOf(quantity));
+                    if (Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPromoPrice()) > 0)
+                        tvTotal.setText(String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPromoPrice()) * quantity)));
+                    else
+                        tvTotal.setText(/*"Total : " + "$" +*/ String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getCartPrice()) * quantity)));
+
+                    liShoppingCat.get(getAdapterPosition()).setQty(String.valueOf(quantity));
+                    if (myCardAdapterEvent != null)
+                        myCardAdapterEvent.onCardItemMinus(getAdapterPosition(), quantity);
+                }
+
+                if (view.getId() == tvRemove.getId()) {
+                    if (myCardAdapterEvent != null) {
+                        myCardAdapterEvent.onCardItemRemoved(getAdapterPosition());
+                    }
+                }
+                if (view.getId() == tvMoveToWishList.getId()) {
+
+                    if (UserModel.Cust_mst_ID == null || UserModel.Cust_mst_ID.isEmpty()) {
+                        Login.StartLoginDialog("wishlist", context);
+                    } else {
+                        if (Constant.ISguest) {
+                            DialogUtils.showDialog("Option not valid for guest account");
+                        } else {
+                            moveToCart(getAdapterPosition());
+                        }
+                    }
+                    //Toast.makeText(context, "Move to wishlist : Under Process", Toast.LENGTH_SHORT).show();
+                }
+            }catch (Exception e){
+                Toast.makeText(context, "Please try again later.", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -424,7 +434,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyCardViewHold
         Glide.with(imageView.getContext())
                 .load(url)
                 .placeholder(placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true)
                 .fitCenter()
                 .into(new GlideDrawableImageViewTarget(imageView) {
@@ -504,7 +514,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyCardViewHold
         //end *************
 
         TaskDeleteWishList deleteWishList = new TaskDeleteWishList(this, "MovetoWishList Cart");
-        deleteWishList.execute(url);
+//        deleteWishList.execute(url);
+        deleteWishList.executeOnExecutor(TaskDeleteWishList.THREAD_POOL_EXECUTOR,url);
     }
 
     @Override
@@ -512,11 +523,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyCardViewHold
         if (myCardAdapterEvent != null) {
             if (wishList.getResult().equals("success")) {
 //          Edited By Varun for pop-up of Added
-//                if (string!=null && !string.isEmpty()){
-//                    if (string.equalsIgnoreCase("MovetoWishList Cart")){
-//                        DialogUtils.showDialog("Added in WishList!");
-//                    }
-//                }
+                if (string!=null && !string.isEmpty()){
+                    if (string.equalsIgnoreCase("MovetoWishList Cart")){
+                        DialogUtils.showDialog("Added in WishList!");
+                    }
+                }
 
 //                END
                 if (Constant.SCREEN_LAYOUT == 1) {

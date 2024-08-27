@@ -103,10 +103,7 @@ public class TaskOrderHistory extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-
-        if (taskOrderHistoryEvent != null) {
-            taskOrderHistoryEvent.onGetOrderHistoryResult(orderHistoryList,type);
-        }
+        taskOrderHistoryEvent.onGetOrderHistoryResult(orderHistoryList,type);
 
         if(loading != null && loading.isShowing()){
             loading.dismiss();

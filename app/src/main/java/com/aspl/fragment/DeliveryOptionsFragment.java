@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -155,7 +156,7 @@ public class DeliveryOptionsFragment extends Fragment
     CardView cvDeliveryOption, cvBillingOrShippingDetails;
     //    VARUNN
     public RadioButton rbPickUpAtStore, rbPayAtStore, rbPayWithCart, rbUberRush, rbHandOnDelivery, rbShip;
-//    RadioGroup rgMain, rgPickUpAtStore , rgShip;
+    //    RadioGroup rgMain, rgPickUpAtStore , rgShip;
     public CheckBox cbxShip, cbx_hand_delivery; //Edited by Janvi on 29th Sep * end ***//
     Spinner spinnerMobile, spinnerBsMobile, spinnerShippingService;
     ImageView imgSpinnerIcon, imgBsSpinnerIcon;
@@ -240,7 +241,7 @@ public class DeliveryOptionsFragment extends Fragment
     private boolean isHandlingChange = false;
     private boolean isHandlingChange2 = false;
     LinearLayout cvRadioButton;
-    CardView cv_radio_button_pick_up, cv_radio_button_ubber, cv_radio_button_hand_delivery, cv_radio_button_ship ;
+    CardView cv_radio_button_pick_up, cv_radio_button_pick_up_sub_menu, cv_radio_button_ubber, cv_radio_button_hand_delivery, cv_radio_button_hand_delivery_Check_box, cv_radio_button_ship ;
 
 
     public interface DeliveryOptionsEvent {
@@ -605,9 +606,15 @@ public class DeliveryOptionsFragment extends Fragment
 
         //    VARUNN
         cv_radio_button_ship = v.findViewById(R.id.cv_radio_button_ship);
+        cv_radio_button_ship.setOnClickListener(this);
         cv_radio_button_hand_delivery = v.findViewById(R.id.cv_radio_button_hand_delivery);
+        cv_radio_button_hand_delivery.setOnClickListener(this);
+        cv_radio_button_hand_delivery_Check_box = v.findViewById(R.id.cv_radio_button_hand_delivery_Check_box);
         cv_radio_button_ubber = v.findViewById(R.id.cv_radio_button_ubber);
+        cv_radio_button_ubber.setOnClickListener(this);
         cv_radio_button_pick_up = v.findViewById(R.id.cv_radio_button_pick_up);
+        cv_radio_button_pick_up.setOnClickListener(this);
+        cv_radio_button_pick_up_sub_menu = v.findViewById(R.id.cv_radio_button_pick_up_sub_menu);
 
         //    VARUNN
         //Radio Group
@@ -1367,6 +1374,7 @@ public class DeliveryOptionsFragment extends Fragment
             if(isDeliveryPage) {
                 llMain.setVisibility(View.VISIBLE);
                 cvRadioButton.setVisibility(View.VISIBLE);
+                cvRadioButton.setVisibility(View.VISIBLE);
                 if (liShippingData.get(0).getBSSetupPickUpStore())
                     //    VARUNN
                     cv_radio_button_pick_up.setVisibility(View.VISIBLE);
@@ -1636,6 +1644,9 @@ public class DeliveryOptionsFragment extends Fragment
 
                     if (_minimumHandDeliveryLimit > _total && !isStoreClosed) {
 
+                        if(tvMinimumAmountRadioGroupHandDelivery.getVisibility() == View.GONE){
+                            tvMinimumAmountRadioGroupHandDelivery.setVisibility(View.VISIBLE);
+                        }
                         tvMinimumAmountRadioGroupHandDelivery.setText("Delivery Minimum of $ " + liShippingData.get(0).getHandDeliveryPrice() + " not met.");
                         tvMinimumAmountRadioGroupHandDelivery.setTextColor(Color.RED);
 
@@ -2757,6 +2768,47 @@ public class DeliveryOptionsFragment extends Fragment
         if (view.getId() == btnPrev.getId()) {
             onBackPressed();
         }
+
+        if (view.getId()==cv_radio_button_pick_up.getId()){
+            updateRadioButtons(rbPickUpAtStore, "pick_up_store");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                cv_radio_button_pick_up.setCardBackgroundColor(context.getColor(R.color.pressed_color_lighter));
+                cv_radio_button_hand_delivery.setCardBackgroundColor(context.getColor(R.color.White));
+                cv_radio_button_ship.setCardBackgroundColor(context.getColor(R.color.White));
+                cv_radio_button_ubber.setCardBackgroundColor(context.getColor(R.color.White));
+            }
+        }
+
+        if (view.getId()==cv_radio_button_ubber.getId()){
+            updateRadioButtons(rbUberRush, "Ubber_Rush");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                cv_radio_button_ubber.setCardBackgroundColor(context.getColor(R.color.pressed_color_lighter));
+                cv_radio_button_pick_up.setCardBackgroundColor(context.getColor(R.color.White));
+                cv_radio_button_hand_delivery.setCardBackgroundColor(context.getColor(R.color.White));
+                cv_radio_button_ship.setCardBackgroundColor(context.getColor(R.color.White));
+            }
+        }
+
+        if (view.getId()==cv_radio_button_hand_delivery.getId()){
+            updateRadioButtons(rbHandOnDelivery, "Hand Delivery");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                cv_radio_button_hand_delivery.setCardBackgroundColor(context.getColor(R.color.pressed_color_lighter));
+                cv_radio_button_pick_up.setCardBackgroundColor(context.getColor(R.color.White));
+                cv_radio_button_ship.setCardBackgroundColor(context.getColor(R.color.White));
+                cv_radio_button_ubber.setCardBackgroundColor(context.getColor(R.color.White));
+            }
+        }
+
+        if (view.getId()==cv_radio_button_ship.getId()){
+            updateRadioButtons(rbShip, "Ship");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                cv_radio_button_ship.setCardBackgroundColor(context.getColor(R.color.pressed_color_lighter));
+                cv_radio_button_pick_up.setCardBackgroundColor(context.getColor(R.color.White));
+                cv_radio_button_hand_delivery.setCardBackgroundColor(context.getColor(R.color.White));
+                cv_radio_button_ubber.setCardBackgroundColor(context.getColor(R.color.White));
+            }
+        }
+
     }
 
 
@@ -3451,6 +3503,12 @@ public class DeliveryOptionsFragment extends Fragment
                     case R.id.rbg_delivery_option_fragment:
                         if (checkedId == R.id.rb_pick_up_at_store_delivery_option_fragment) {
                             updateRadioButtons(rbPickUpAtStore, "pick_up_store");
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                cv_radio_button_pick_up.setCardBackgroundColor(context.getColor(R.color.pressed_color_lighter));
+                                cv_radio_button_hand_delivery.setCardBackgroundColor(context.getColor(R.color.White));
+                                cv_radio_button_ship.setCardBackgroundColor(context.getColor(R.color.White));
+                            }
+//                            Toast.makeText(getActivity(),"selected pickup",Toast.LENGTH_SHORT).show();
                         }
                         break;
 
@@ -3463,12 +3521,24 @@ public class DeliveryOptionsFragment extends Fragment
                     case R.id.rbg_delivery_option_hand: // Hand Delivery
                         if (checkedId == R.id.rb_hand_on_delivery_delivery_option_fragment) {
                             updateRadioButtons(rbHandOnDelivery, "Hand Delivery");
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                cv_radio_button_hand_delivery.setCardBackgroundColor(context.getColor(R.color.pressed_color_lighter));
+                                cv_radio_button_pick_up.setCardBackgroundColor(context.getColor(R.color.White));
+                                cv_radio_button_ship.setCardBackgroundColor(context.getColor(R.color.White));
+                            }
+//                            Toast.makeText(getActivity(),"selected Hand Delivery",Toast.LENGTH_SHORT).show();
                         }
                         break;
 
                     case R.id.rbg_delivery_option_ship: // Ship
                         if (checkedId == R.id.rb_ship_delivery_option_fragment) {
                             updateRadioButtons(rbShip, "Ship");
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                cv_radio_button_ship.setCardBackgroundColor(context.getColor(R.color.pressed_color_lighter));
+                                cv_radio_button_pick_up.setCardBackgroundColor(context.getColor(R.color.White));
+                                cv_radio_button_hand_delivery.setCardBackgroundColor(context.getColor(R.color.White));
+                            }
+//                            Toast.makeText(getActivity(),"selected Ship",Toast.LENGTH_SHORT).show();
                         }
                         break;
 
@@ -3480,163 +3550,175 @@ public class DeliveryOptionsFragment extends Fragment
                 isHandlingChange = false;
             }
         }
+    };
 
-        private void updateRadioButtons(RadioButton selectedButton, String message) {
-            rbPickUpAtStore.setChecked(selectedButton == rbPickUpAtStore);
-            rbUberRush.setChecked(selectedButton == rbUberRush);
-            rbHandOnDelivery.setChecked(selectedButton == rbHandOnDelivery);
-            rbShip.setChecked(selectedButton == rbShip);
-            cvRadioButton.setBackground(null);
+    private void updateRadioButtons(RadioButton selectedButton, String message) {
+        rbPickUpAtStore.setChecked(selectedButton == rbPickUpAtStore);
+        rbUberRush.setChecked(selectedButton == rbUberRush);
+        rbHandOnDelivery.setChecked(selectedButton == rbHandOnDelivery);
+        rbShip.setChecked(selectedButton == rbShip);
+        cvRadioButton.setBackground(null);
 
-            if (selectedButton == rbPickUpAtStore){
-                rbShip.setChecked(false);
-                rbHandOnDelivery.setChecked(false);
-                rbUberRush.setChecked(false);
-                rbg_delivery_option_hand.clearCheck();
-                rbg_delivery_option_ubber.clearCheck();
-                rbg_delivery_option_ship.clearCheck();
-                cv_ship.setVisibility(View.GONE);
+        if (selectedButton == rbPickUpAtStore){
+            rbShip.setChecked(false);
+            rbHandOnDelivery.setChecked(false);
+            rbUberRush.setChecked(false);
+            rbg_delivery_option_hand.clearCheck();
+            rbg_delivery_option_ubber.clearCheck();
+            rbg_delivery_option_ship.clearCheck();
+            cv_ship.setVisibility(View.GONE);
+            cv_radio_button_pick_up_sub_menu.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                cv_radio_button_pick_up_sub_menu.setCardBackgroundColor(context.getColor(R.color.pressed_color_lighter_2_tone_light));
+            }
+            llPickUpAtStore.setVisibility(View.VISIBLE);
 
-                llPickUpAtStore.setVisibility(View.VISIBLE);
+            if (liShippingData.get(0).getBSSetupPayAtStore()) {
+                rbPayAtStore.setChecked(true);
+            }else{
+                rbPayWithCart.setChecked(true);
+            }
 
+            if (!tvWarnTwoHourAgo.getText().toString().isEmpty()) {
                 if (liShippingData.get(0).getBSSetupPayAtStore()) {
-                    rbPayAtStore.setChecked(true);
-                }else{
-                    rbPayWithCart.setChecked(true);
-                }
-
-                if (!tvWarnTwoHourAgo.getText().toString().isEmpty()) {
-                    if (liShippingData.get(0).getBSSetupPayAtStore()) {
-                        tvWarnTwoHourAgo.setVisibility(View.VISIBLE);
-                    } else {
-                        tvWarnTwoHourAgo.setVisibility(View.GONE);
-                    }
+                    tvWarnTwoHourAgo.setVisibility(View.VISIBLE);
                 } else {
                     tvWarnTwoHourAgo.setVisibility(View.GONE);
                 }
-
-                if (isStoreClosed && !liShippingData.get(0).getDontAcceptOrder()) {
-                    tvMinimumAmountRadioGroupHandDelivery.setVisibility(View.VISIBLE);
-                } else {
-                    tvMinimumAmountRadioGroupHandDelivery.setVisibility(View.GONE);
-                }
-
-                cbx_hand_delivery.setVisibility(View.GONE);
-                cbxShip.setVisibility(View.GONE);
-                ll_shipping_Service.setVisibility(View.GONE);
-
-                txtBillingfirstview.setVisibility(View.GONE);
-                cvBillingOrShippingDetails.setVisibility(View.GONE);
-                txtDeliveryDetails.setVisibility(View.GONE);
-                txtAddressLists.setVisibility(View.GONE);
-                tvClear.setVisibility(View.GONE);
-                cvDeliveryOption.setVisibility(View.GONE);
-                cbxShip.setChecked(false);
-                cbx_hand_delivery.setChecked(false);
-                btnNext.setText("NEXT");
-            }
-            else if (selectedButton == rbUberRush){
-                rbShip.setChecked(false);
-                rbHandOnDelivery.setChecked(false);
-                rbPickUpAtStore.setChecked(false);
-                rgMain.clearCheck();
-                rbg_delivery_option_hand.clearCheck();
-                rbg_delivery_option_ship.clearCheck();
-                cv_ship.setVisibility(View.GONE);
-                llPickUpAtStore.setVisibility(View.GONE);
+            } else {
                 tvWarnTwoHourAgo.setVisibility(View.GONE);
-                cbx_hand_delivery.setVisibility(View.GONE);
-                cbxShip.setVisibility(View.GONE);
-                ll_shipping_Service.setVisibility(View.GONE);
-                txtBillingfirstview.setVisibility(View.GONE);
-                cvBillingOrShippingDetails.setVisibility(View.GONE);
-                txtDeliveryDetails.setVisibility(View.GONE);
-                txtAddressLists.setVisibility(View.GONE);
-                tvClear.setVisibility(View.GONE);
-                cvDeliveryOption.setVisibility(View.GONE);
-                cbxShip.setChecked(false);
-                cbx_hand_delivery.setChecked(false);
-                btnNext.setText("NEXT");
             }
-            else if (selectedButton == rbHandOnDelivery){
-                rbShip.setChecked(false);
-                rbUberRush.setChecked(false);
-                rbPickUpAtStore.setChecked(false);
-                rbg_delivery_option_ubber.clearCheck();
-                rgMain.clearCheck();
-                rbg_delivery_option_ship.clearCheck();
-                cv_ship.setVisibility(View.GONE);
 
-                if (_minimumHandDeliveryLimit > _total) {
+//                if (isStoreClosed && !liShippingData.get(0).getDontAcceptOrder()) {
+//                    tvMinimumAmountRadioGroupHandDelivery.setVisibility(View.VISIBLE);
+//                } else {
+//                    tvMinimumAmountRadioGroupHandDelivery.setVisibility(View.GONE);
+//                }
 
+            cbx_hand_delivery.setVisibility(View.GONE);
+            cbxShip.setVisibility(View.GONE);
+            ll_shipping_Service.setVisibility(View.GONE);
 
-
-                    cbx_hand_delivery.setVisibility(View.VISIBLE);
-                    cbx_hand_delivery.setText("Accept $ " + liShippingData.get(0).getSurchargePrice() + " Delivery Fee since the order is below our minimum free delivery.");//janvi
-
-
-                    txtDeliveryDetails.setVisibility(View.GONE);
-                    txtAddressLists.setVisibility(View.GONE);
-                    tvClear.setVisibility(View.GONE);
-                    cvDeliveryOption.setVisibility(View.GONE);
-
-                    btnNext.setText("CONTINUE SHOPPING");
-                } else {
-                    txtDeliveryDetails.setVisibility(View.VISIBLE);
-                    txtAddressLists.setVisibility(View.VISIBLE);
-                    tvClear.setVisibility(View.VISIBLE);
-                    cvDeliveryOption.setVisibility(View.VISIBLE);
-                    txtDeliveryDetails.setText(getString(R.string.lbl_delivery_details));
-                    btnNext.setText("NEXT");
-                }
-
-
-                cbxShip.setVisibility(View.GONE);
-                ll_shipping_Service.setVisibility(View.GONE);
-                cbxShip.setChecked(false);
-                llPickUpAtStore.setVisibility(View.GONE);
-                tvWarnTwoHourAgo.setVisibility(View.GONE);
-                txtBillingfirstview.setVisibility(View.GONE);
-                cvBillingOrShippingDetails.setVisibility(View.GONE);
-
-
-            }
-            else if (selectedButton ==  rbShip){
-                rbHandOnDelivery.setChecked(false);
-                rbUberRush.setChecked(false);
-                rbPickUpAtStore.setChecked(false);
-                rbg_delivery_option_ubber.clearCheck();
-                rgMain.clearCheck();
-                rbg_delivery_option_hand.clearCheck();
-
-                callShippingWService();
-                Log.e("callShippingWService", "callShippingWService: 6");
-                cbxShip.setVisibility(View.VISIBLE);
-                txtBillingfirstview.setVisibility(View.VISIBLE);
-                cvBillingOrShippingDetails.setVisibility(View.VISIBLE);
-                txtBillingfirstview.setText(getString(R.string.lbl_billing_shipping_details));
-
-                llPickUpAtStore.setVisibility(View.GONE);
-                tvWarnTwoHourAgo.setVisibility(View.GONE);
-                cbx_hand_delivery.setVisibility(View.GONE);
-                txtDeliveryDetails.setVisibility(View.GONE);
-                txtAddressLists.setVisibility(View.GONE);
-                tvClear.setVisibility(View.GONE);
-                cvDeliveryOption.setVisibility(View.GONE);
-                btnNext.setText("NEXT");
-                cbx_hand_delivery.setChecked(false);
-            }
+            txtBillingfirstview.setVisibility(View.GONE);
+            cvBillingOrShippingDetails.setVisibility(View.GONE);
+            txtDeliveryDetails.setVisibility(View.GONE);
+            txtAddressLists.setVisibility(View.GONE);
+            tvClear.setVisibility(View.GONE);
+            cvDeliveryOption.setVisibility(View.GONE);
+            cv_radio_button_hand_delivery_Check_box.setVisibility(View.GONE);
+            cbxShip.setChecked(false);
+            cbx_hand_delivery.setChecked(false);
+            btnNext.setText("NEXT");
         }
-
-        private void resetRadioButtons() {
-            rbPickUpAtStore.setChecked(false);
-            rbUberRush.setChecked(false);
-            rbHandOnDelivery.setChecked(false);
+        else if (selectedButton == rbUberRush){
             rbShip.setChecked(false);
+            rbHandOnDelivery.setChecked(false);
+            rbPickUpAtStore.setChecked(false);
+            rgMain.clearCheck();
+            rbg_delivery_option_hand.clearCheck();
+            rbg_delivery_option_ship.clearCheck();
+            cv_ship.setVisibility(View.GONE);
+            cv_radio_button_pick_up_sub_menu.setVisibility(View.GONE);
+            cv_radio_button_hand_delivery_Check_box.setVisibility(View.GONE);
+            llPickUpAtStore.setVisibility(View.GONE);
+            tvWarnTwoHourAgo.setVisibility(View.GONE);
+            cbx_hand_delivery.setVisibility(View.GONE);
+            cbxShip.setVisibility(View.GONE);
+            ll_shipping_Service.setVisibility(View.GONE);
+            txtBillingfirstview.setVisibility(View.GONE);
+            cvBillingOrShippingDetails.setVisibility(View.GONE);
+            txtDeliveryDetails.setVisibility(View.GONE);
+            txtAddressLists.setVisibility(View.GONE);
+            tvClear.setVisibility(View.GONE);
+            cvDeliveryOption.setVisibility(View.GONE);
+            cbxShip.setChecked(false);
+            cbx_hand_delivery.setChecked(false);
+            btnNext.setText("NEXT");
+        }
+        else if (selectedButton == rbHandOnDelivery){
+            rbShip.setChecked(false);
+            rbUberRush.setChecked(false);
+            rbPickUpAtStore.setChecked(false);
+            rbg_delivery_option_ubber.clearCheck();
+            rgMain.clearCheck();
+            rbg_delivery_option_ship.clearCheck();
             cv_ship.setVisibility(View.GONE);
 
+            if (_minimumHandDeliveryLimit > _total) {
+
+
+                cv_radio_button_hand_delivery_Check_box.setVisibility(View.VISIBLE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    cv_radio_button_hand_delivery_Check_box.setCardBackgroundColor(context.getColor(R.color.pressed_color_lighter_2_tone_light));
+                }
+                cbx_hand_delivery.setVisibility(View.VISIBLE);
+                cbx_hand_delivery.setText("Accept $ " + liShippingData.get(0).getSurchargePrice() + " Delivery Fee since the order is below our minimum free delivery.");//janvi
+
+
+                txtDeliveryDetails.setVisibility(View.GONE);
+                txtAddressLists.setVisibility(View.GONE);
+                tvClear.setVisibility(View.GONE);
+                cvDeliveryOption.setVisibility(View.GONE);
+
+                btnNext.setText("CONTINUE SHOPPING");
+            } else {
+                txtDeliveryDetails.setVisibility(View.VISIBLE);
+                txtAddressLists.setVisibility(View.VISIBLE);
+                tvClear.setVisibility(View.VISIBLE);
+                cvDeliveryOption.setVisibility(View.VISIBLE);
+                txtDeliveryDetails.setText(getString(R.string.lbl_delivery_details));
+                btnNext.setText("NEXT");
+            }
+
+
+            cbxShip.setVisibility(View.GONE);
+            ll_shipping_Service.setVisibility(View.GONE);
+            cbxShip.setChecked(false);
+            cv_radio_button_pick_up_sub_menu.setVisibility(View.GONE);
+            llPickUpAtStore.setVisibility(View.GONE);
+            tvWarnTwoHourAgo.setVisibility(View.GONE);
+            txtBillingfirstview.setVisibility(View.GONE);
+            cvBillingOrShippingDetails.setVisibility(View.GONE);
+
+
         }
-    };
+        else if (selectedButton ==  rbShip){
+            rbHandOnDelivery.setChecked(false);
+            rbUberRush.setChecked(false);
+            rbPickUpAtStore.setChecked(false);
+            rbg_delivery_option_ubber.clearCheck();
+            rgMain.clearCheck();
+            rbg_delivery_option_hand.clearCheck();
+
+            callShippingWService();
+            Log.e("callShippingWService", "callShippingWService: 6");
+            cbxShip.setVisibility(View.VISIBLE);
+            txtBillingfirstview.setVisibility(View.VISIBLE);
+            cvBillingOrShippingDetails.setVisibility(View.VISIBLE);
+            txtBillingfirstview.setText(getString(R.string.lbl_billing_shipping_details));
+
+            llPickUpAtStore.setVisibility(View.GONE);
+            cv_radio_button_pick_up_sub_menu.setVisibility(View.GONE);
+            cv_radio_button_hand_delivery_Check_box.setVisibility(View.GONE);
+            tvWarnTwoHourAgo.setVisibility(View.GONE);
+            cbx_hand_delivery.setVisibility(View.GONE);
+            txtDeliveryDetails.setVisibility(View.GONE);
+            txtAddressLists.setVisibility(View.GONE);
+            tvClear.setVisibility(View.GONE);
+            cvDeliveryOption.setVisibility(View.GONE);
+            btnNext.setText("NEXT");
+            cbx_hand_delivery.setChecked(false);
+        }
+    }
+
+    private void resetRadioButtons() {
+        rbPickUpAtStore.setChecked(false);
+        rbUberRush.setChecked(false);
+        rbHandOnDelivery.setChecked(false);
+        rbShip.setChecked(false);
+        cv_ship.setVisibility(View.GONE);
+
+    }
 
     RadioGroup.OnCheckedChangeListener subListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
@@ -3896,6 +3978,9 @@ public class DeliveryOptionsFragment extends Fragment
 
         if (rbShip.isChecked()){
             cv_ship.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                cv_ship.setCardBackgroundColor(context.getColor(R.color.pressed_color_lighter_2_tone_light));
+            }
         }
 
         String url = Constant.WS_BASE_URL + Constant.GET_SHIPPING_SERVICE_BY_STORENO + Constant.STOREID ;
@@ -4993,23 +5078,24 @@ public class DeliveryOptionsFragment extends Fragment
 
     @Override
     public void onPOSBillingAddressResult(UpdatePOSBillingAddress updatePOSBillingAddress) {
-        Log.e("Address", "Result : " + updatePOSBillingAddress.getResult());
-        if (updatePOSBillingAddress.getResult().equals("success")) {
-            //Update Shipping Address Here... In Boxsalt
+        if (updatePOSBillingAddress!=null){
+            Log.e("Address", "Result : " + updatePOSBillingAddress.getResult());
+            if (updatePOSBillingAddress.getResult().equals("success")) {
+                //Update Shipping Address Here... In Boxsalt
 
 
-            sFirstName = (etFirstNameDo.getText().toString().isEmpty()) ? "0" : etFirstNameDo.getText().toString();
-            sLastName = (etLastNameDO.getText().toString().isEmpty()) ? "0" : etLastNameDO.getText().toString();
-            sCompanyName = (etCompanyDO.getText().toString().isEmpty()) ? "0" : etCompanyDO.getText().toString();
-            sAddressOne = (etAddressOneDO.getText().toString().isEmpty()) ? "0" : etAddressOneDO.getText().toString();
-            sAddressTwo = (etAddressTwoDO.getText().toString().isEmpty()) ? "0" : etAddressTwoDO.getText().toString();
-            sCity = (etCityDo.getText().toString().isEmpty()) ? "0" : etCityDo.getText().toString();
-            sState = (etStateDO.getText().toString().isEmpty()) ? "0" : etStateDO.getText().toString();
-            sZip = (etZIpDO.getText().toString().isEmpty()) ? "0" : etZIpDO.getText().toString();
-            sPhoneNo = (etPhoneNoDO.getText().toString().isEmpty()) ? "0" : etPhoneNoDO.getText().toString();
-            sPhoneType = (spinnerMobile.getSelectedItem().toString().isEmpty()) ? "0" : spinnerMobile.getSelectedItem().toString();
+                sFirstName = (etFirstNameDo.getText().toString().isEmpty()) ? "0" : etFirstNameDo.getText().toString();
+                sLastName = (etLastNameDO.getText().toString().isEmpty()) ? "0" : etLastNameDO.getText().toString();
+                sCompanyName = (etCompanyDO.getText().toString().isEmpty()) ? "0" : etCompanyDO.getText().toString();
+                sAddressOne = (etAddressOneDO.getText().toString().isEmpty()) ? "0" : etAddressOneDO.getText().toString();
+                sAddressTwo = (etAddressTwoDO.getText().toString().isEmpty()) ? "0" : etAddressTwoDO.getText().toString();
+                sCity = (etCityDo.getText().toString().isEmpty()) ? "0" : etCityDo.getText().toString();
+                sState = (etStateDO.getText().toString().isEmpty()) ? "0" : etStateDO.getText().toString();
+                sZip = (etZIpDO.getText().toString().isEmpty()) ? "0" : etZIpDO.getText().toString();
+                sPhoneNo = (etPhoneNoDO.getText().toString().isEmpty()) ? "0" : etPhoneNoDO.getText().toString();
+                sPhoneType = (spinnerMobile.getSelectedItem().toString().isEmpty()) ? "0" : spinnerMobile.getSelectedItem().toString();
 
-            String url;
+                String url;
 
 
             /*AddCustomerShippingAddress
@@ -5028,44 +5114,45 @@ public class DeliveryOptionsFragment extends Fragment
             /IsDefault */
 
 
-            if(liShippingData != null && liShippingData.size()>0){
-                url = Constant.WS_BASE_URL + Constant.ADD_CUSTOMER_SHIPPING_ADDRESS
-                        + UserModel.Cust_mst_ID /* CustomerId */
-                        + "/" + sFirstName      /* fName */
-                        + "/" + sLastName       /* lName */
-                        + "/" + sCompanyName    /* companyName */
-                        + "/" + sAddressOne     /* address! */
-                        + "/" + sAddressTwo     /* address2 */
-                        + "/" + sCity           /* city */
-                        + "/" + sState          /* state */
-                        + "/" + sZip            /* zip */
-                        + "/" + sPhoneNo        /* phone */
-                        + "/" + sPhoneType      /* phoneType */
-                        + "/" + Constant.STOREID/* storeno */
-                        + "/" + 0;              /*  */
+                if(liShippingData != null && liShippingData.size()>0){
+                    url = Constant.WS_BASE_URL + Constant.ADD_CUSTOMER_SHIPPING_ADDRESS
+                            + UserModel.Cust_mst_ID /* CustomerId */
+                            + "/" + sFirstName      /* fName */
+                            + "/" + sLastName       /* lName */
+                            + "/" + sCompanyName    /* companyName */
+                            + "/" + sAddressOne     /* address! */
+                            + "/" + sAddressTwo     /* address2 */
+                            + "/" + sCity           /* city */
+                            + "/" + sState          /* state */
+                            + "/" + sZip            /* zip */
+                            + "/" + sPhoneNo        /* phone */
+                            + "/" + sPhoneType      /* phoneType */
+                            + "/" + Constant.STOREID/* storeno */
+                            + "/" + 0;              /*  */
 
-            }else{
+                }else{
 
-                url = Constant.WS_BASE_URL + Constant.ADD_CUSTOMER_SHIPPING_ADDRESS
-                        + UserModel.Cust_mst_ID /* CustomerId */
-                        + "/" + sFirstName      /* fName */
-                        + "/" + sLastName       /* lName */
-                        + "/" + sCompanyName    /* companyName */
-                        + "/" + sAddressOne     /* address! */
-                        + "/" + sAddressTwo     /* address2 */
-                        + "/" + sCity           /* city */
-                        + "/" + sState          /* state */
-                        + "/" + sZip            /* zip */
-                        + "/" + sPhoneNo        /* phone */
-                        + "/" + sPhoneType      /* phoneType */
-                        + "/" + Constant.STOREID/* storeno */
-                        + "/" + 1;              /* isDefault*/
+                    url = Constant.WS_BASE_URL + Constant.ADD_CUSTOMER_SHIPPING_ADDRESS
+                            + UserModel.Cust_mst_ID /* CustomerId */
+                            + "/" + sFirstName      /* fName */
+                            + "/" + sLastName       /* lName */
+                            + "/" + sCompanyName    /* companyName */
+                            + "/" + sAddressOne     /* address! */
+                            + "/" + sAddressTwo     /* address2 */
+                            + "/" + sCity           /* city */
+                            + "/" + sState          /* state */
+                            + "/" + sZip            /* zip */
+                            + "/" + sPhoneNo        /* phone */
+                            + "/" + sPhoneType      /* phoneType */
+                            + "/" + Constant.STOREID/* storeno */
+                            + "/" + 1;              /* isDefault*/
+                }
+
+
+                TaskAddCustomerShippingAddress shippingAddress = new TaskAddCustomerShippingAddress(this);
+                Log.d("Address", "Call Shipping address : " + url);
+                shippingAddress.execute(url);
             }
-
-
-            TaskAddCustomerShippingAddress shippingAddress = new TaskAddCustomerShippingAddress(this);
-            Log.d("Address", "Call Shipping address : " + url);
-            shippingAddress.execute(url);
         }
     }
 

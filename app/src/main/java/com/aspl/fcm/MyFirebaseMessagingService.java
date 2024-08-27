@@ -235,8 +235,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.putExtra("URL", "" + data.get("URL").replace(" ", ""));
 
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            int pendingIntentFlags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+                    ? PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE
+                    : PendingIntent.FLAG_ONE_SHOT;
+
             PendingIntent pendingIntent = PendingIntent.getActivity(MyFirebaseMessagingService.this, 0 /* Request code */, intent,
-                    PendingIntent.FLAG_ONE_SHOT);
+                    pendingIntentFlags);
 
             String channelId = getString(R.string.default_notification_channel_id);
             Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -246,7 +251,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     mContext);
 
             Notification notificationBuilder = mBuilder
-                    .setSmallIcon(R.drawable.brandlogo)
+                    .setSmallIcon(R.drawable.ic_launcher)
                     .setTicker(title)
                     .setContentTitle(title)
                     .setContentText(message)

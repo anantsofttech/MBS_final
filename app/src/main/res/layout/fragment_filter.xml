@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:divider="@null"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec_home"

@@ -1,11 +1,15 @@
 package com.aspl.Adapter;
 
+import static android.app.PendingIntent.getActivity;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import androidx.core.content.ContextCompat;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.Utils;
@@ -66,12 +71,23 @@ public class DepartmentListAdapter extends RecyclerView.Adapter<DepartmentListAd
 
 
         if (!DepartmentList.get(position).getDeptImg().isEmpty()) {
-                Glide.with(context).load(imgUrl + DepartmentList.get(position)
-                        .getDeptImg()).placeholder(R.drawable.noimage)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+            if (DepartmentList.get(position).getDeptImg().contains("noimage")) {
+                Log.i("image", "no Image Url: " + imgNoImageUrl + DepartmentList.get(position)
+                        .getDeptImg());
+                Glide.with(context).load(imgNoImageUrl + DepartmentList.get(position)
+                                .getDeptImg()).placeholder(R.drawable.noimage)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .skipMemoryCache(true).into(holder.img_item);
 
+                // loadImage(imgNoImageUrl + DepartmentList.get(position).getInvLargeImage(), holder.img);
+            } else {
+                Log.i("image", "Image Url : " + imgUrl + DepartmentList.get(position).getDeptImg());
+                Glide.with(context).load(imgUrl + DepartmentList.get(position).getDeptImg())
+                        .placeholder(R.drawable.progress_bar).placeholder(R.drawable.noimage)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .skipMemoryCache(true).into(holder.img_item);
 
+            }
         }
         holder.tvDiscountName.setVisibility(View.INVISIBLE);
         holder.txtitemtitle.setVisibility(View.GONE);
@@ -158,10 +174,14 @@ public class DepartmentListAdapter extends RecyclerView.Adapter<DepartmentListAd
                 public void onClick(View view) {
                     JackDepartmentModel model = DepartmentList.get(getAdapterPosition());
 
-                    if (Constant.SCREEN_LAYOUT == 1) {
-                        MainActivity.getInstance().loadViewAllFragment("department",String.valueOf(model.getDeptId()),"0", "0","0", "0", MainActivity.blockDisplayedText, "", "OnlyDepartment");
-                    } else if (Constant.SCREEN_LAYOUT == 2) {
-                        MainActivityDup.getInstance().loadViewAllFragment("department",String.valueOf(model.getDeptId()),"0", "0", "0", "0", MainActivityDup.blockDisplayedText,"", "OnlyDepartment");
+                    try {
+                        if (Constant.SCREEN_LAYOUT == 1) {
+                            MainActivity.getInstance().loadViewAllFragment("department", String.valueOf(model.getDeptId()), "0", "0", "0", "0", MainActivity.blockDisplayedText, "", "OnlyDepartment");
+                        } else if (Constant.SCREEN_LAYOUT == 2) {
+                            MainActivityDup.getInstance().loadViewAllFragment("department", String.valueOf(model.getDeptId()), "0", "0", "0", "0", MainActivityDup.blockDisplayedText, "", "OnlyDepartment");
+                        }
+                    }catch(Exception e){
+                        Toast.makeText(context, "Please try again later.", Toast.LENGTH_SHORT).show();
                     }
 
 //                    if (Constant.SCREEN_LAYOUT == 1) {

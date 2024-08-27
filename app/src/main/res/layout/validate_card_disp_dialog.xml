@@ -6,146 +6,161 @@
     android:orientation="vertical"
     android:padding="@dimen/dimen_15">
 
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/txtTemp"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Card Endind in: Card Endind in:  "
-        android:textColor="@color/black" />
-
-    <TextView
-        android:id="@+id/txtTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="@dimen/dimen_18"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:text=""
-        android:textColor="@color/black" />
-
-    <LinearLayout
-        android:layout_marginTop ="27dp"
-        android:id="@+id/llmainCard"
-        android:layout_marginBottom="@dimen/dimen_13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/llCardEnding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txtCardEnding"
-                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/txtTemp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Card Ending In: "
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_15" />
+                android:text="Card Endind in: Card Endind in:  "
+                android:textColor="@color/black" />
 
             <TextView
-                android:layout_marginTop="@dimen/dimen_11"
-                android:id="@+id/txtApprovalCode"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Approval#: "
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_15"/>
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/dimen_18"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text=""
+                android:textColor="@color/black" />
 
-            <!--<TextView-->
-            <!--android:id="@+id/tv_cardEnding"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="0514"-->
-            <!--android:layout_marginLeft="@dimen/_5sdp"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textSize="@dimen/dimen_13" />-->
+            <LinearLayout
+                android:layout_marginTop ="27dp"
+                android:id="@+id/llmainCard"
+                android:layout_marginBottom="@dimen/dimen_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/llCardEnding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtCardEnding"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Card Ending In: "
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_15" />
+
+                    <TextView
+                        android:layout_marginTop="@dimen/dimen_11"
+                        android:id="@+id/txtApprovalCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Approval#: "
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_15"/>
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/tv_cardEnding"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="0514"-->
+                    <!--android:layout_marginLeft="@dimen/_5sdp"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textSize="@dimen/dimen_13" />-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/dimen_11"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:id="@+id/llCardApproval"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtCardnumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_15" />
+
+                    <TextView
+                        android:layout_marginTop="@dimen/dimen_11"
+                        android:id="@+id/txtApprovalNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_15" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/dimen_12"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/dimen_10"
+                android:layout_height="wrap_content">
+
+
+                <!--<Button-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginLeft="@dimen/dimen_7"-->
+                <!--android:id="@+id/btncancel"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="@dimen/dimen_ButtonPadding"-->
+                <!--android:background="@drawable/round_shap_red"-->
+                <!--android:text="CANCEL ORDER"-->
+                <!--android:textSize="@dimen/dimen_ButtonTextSize"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/White" />-->
+
+
+                <Button
+                    android:layout_gravity="center"
+                    android:id="@+id/btnOK"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dimen_7"
+                    android:padding="@dimen/dimen_ButtonPadding"
+                    android:background="@drawable/round_shap_red"
+                    android:text="@string/str_OK"
+                    android:textSize="@dimen/dimen_ButtonTextSize"
+                    android:textAllCaps="false"
+                    android:textColor="@color/White" />
+
+
+                <Button
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dimen_7"
+                    android:id="@+id/btncancel"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_shap_red"
+                    android:text="CANCEL ORDER"
+                    android:textSize="@dimen/dimen_ButtonTextSize"
+                    android:textAllCaps="false"
+                    android:textColor="@color/White" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="@dimen/_5sdp"
-            android:paddingRight="@dimen/dimen_11"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:id="@+id/llCardApproval"
-            android:orientation="vertical">
+    </androidx.core.widget.NestedScrollView>
 
-            <TextView
-                android:id="@+id/txtCardnumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_15" />
-
-            <TextView
-                android:layout_marginTop="@dimen/dimen_11"
-                android:id="@+id/txtApprovalNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_15" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="@dimen/dimen_12"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="@dimen/dimen_10"
-        android:layout_height="wrap_content">
-
-
-        <!--<Button-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginLeft="@dimen/dimen_7"-->
-            <!--android:id="@+id/btncancel"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="@dimen/dimen_ButtonPadding"-->
-            <!--android:background="@drawable/round_shap_red"-->
-            <!--android:text="CANCEL ORDER"-->
-            <!--android:textSize="@dimen/dimen_ButtonTextSize"-->
-            <!--android:textAllCaps="false"-->
-            <!--android:textColor="@color/White" />-->
-
-
-        <Button
-            android:layout_gravity="center"
-            android:id="@+id/btnOK"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/dimen_7"
-            android:padding="@dimen/dimen_ButtonPadding"
-            android:background="@drawable/round_shap_red"
-            android:text="@string/str_OK"
-            android:textSize="@dimen/dimen_ButtonTextSize"
-            android:textAllCaps="false"
-            android:textColor="@color/White" />
-
-
-        <Button
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dimen_7"
-            android:id="@+id/btncancel"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_shap_red"
-            android:text="CANCEL ORDER"
-            android:textSize="@dimen/dimen_ButtonTextSize"
-            android:textAllCaps="false"
-            android:textColor="@color/White" />
-
-    </LinearLayout>
 </LinearLayout>

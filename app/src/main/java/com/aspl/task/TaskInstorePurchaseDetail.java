@@ -337,10 +337,8 @@ public class TaskInstorePurchaseDetail extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        taskInstorePurchaseDetailEvent.onInstorePurchaseDetailResult(liInstorePurchaseModelList,positi);
 
-        if (liInstorePurchaseModelList != null) {
-            taskInstorePurchaseDetailEvent.onInstorePurchaseDetailResult(liInstorePurchaseModelList,positi);
-        }
 
         if (loading != null) {
             loading.dismiss();

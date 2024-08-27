@@ -6,10 +6,7 @@ import android.util.Log;
 
 import com.aspl.Utils.NetworkUtil;
 import com.aspl.mbsmodel.PayWareModel;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONException;
@@ -18,27 +15,20 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.List;
 
-/**
- * Created by admin on 1/10/2018.
- */
-
 public class TaskPayWare extends AsyncTask<String, Void, String> {
 
-    List<PayWareModel> payWareModels;
-    String fourdigitCardnum;
-    Context context;
-    //PayWareModel payWareModel;
-
-    public TaskPayWarEvent taskpayWarEvent;
+    private List<PayWareModel> payWareModels;
+    private String fourdigitCardnum;
+    private Context context;
+    private TaskPayWarEvent taskpayWarEvent;
 
     public interface TaskPayWarEvent {
-        //void onPaywareResponseHandle(String  payWareModel);
-        void onPaywareResponseHandle(List<PayWareModel> payWareModel, String fourdigitCardnum);
+        void onPaywareResponseHandle(List<PayWareModel> payWareModels, String fourdigitCardnum);
     }
 
     public TaskPayWare(Context context, TaskPayWarEvent taskpayWarEvent, String fourdigitcardnumber) {
         this.taskpayWarEvent = taskpayWarEvent;
-        fourdigitCardnum = fourdigitcardnumber;
+        this.fourdigitCardnum = fourdigitcardnumber;
         this.context = context;
     }
 
@@ -54,36 +44,28 @@ public class TaskPayWare extends AsyncTask<String, Void, String> {
             try {
                 NetworkUtil.doNetworkProcessGet(strings[0], responseStrBuilder);
                 response = responseStrBuilder.toString();
-
                 Log.i("web service", "Response : " + response);
                 ObjectMapper objectMapper = new ObjectMapper();
-                //payWareModel = objectMapper.readValue(response, PayWareModel.class);
                 payWareModels = objectMapper.readValue(response, new TypeReference<List<PayWareModel>>() {});
                 return response;
 
-            } catch (JsonParseException e) {
-                e.printStackTrace();
-            } catch (JsonGenerationException e) {
-                e.printStackTrace();
             } catch (SocketTimeoutException e) {
-                e.printStackTrace();
-            } catch (JsonMappingException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e("Network Error", "SocketTimeoutException: " + e.getMessage());
+                retry = true;
+                count++;
+            } catch (IOException | JSONException e) {
+                Log.e("Network Error", "Exception: " + e.getMessage());
+                retry = true;
+                count++;
             }
-            retry = true;
-            count += 1;
         } while (count < 3 && retry);
+
         return null;
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if (taskpayWarEvent != null && payWareModels != null)
-            taskpayWarEvent.onPaywareResponseHandle(payWareModels,fourdigitCardnum);
+        taskpayWarEvent.onPaywareResponseHandle(payWareModels, fourdigitCardnum);
     }
 }

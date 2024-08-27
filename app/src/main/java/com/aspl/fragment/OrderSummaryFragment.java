@@ -38,6 +38,7 @@ import com.aspl.mbsmodel.InstorePurchaseDetailModel;
 import com.aspl.mbsmodel.LstOrderTem;
 import com.aspl.mbsmodel.OrderSummary;
 import com.aspl.task.TaskGetOrderSummary;
+import com.aspl.task.TaskGetPosCustomerID;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -199,17 +200,17 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
         if (Constant.orderSummaryTemp != null || Constant.buttonclicked_InstoreDetail.equals("Instore Purchases")) {
             if (Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).isShowing()) {
 //                Edited by Varun for Toolbar gone Issue when place order
-//                if (Constant.check){
-//                    MainActivity.getInstance().ll_backbutton.setVisibility(View.VISIBLE);
-//                    Constant.check=false;
-//                }else {
+                if (Constant.check){
+                    MainActivity.getInstance().ll_backbutton.setVisibility(View.VISIBLE);
+                    Constant.check=false;
+                }else {
 //                ?END
                     Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).hide();
                     if (Constant.SCREEN_LAYOUT==1) {
                         MainActivity.getInstance().ll_backbutton.setVisibility(View.GONE);
 //                        MainActivity.getInstance().ll_Reward_main.setVisibility(View.GONE);
                     }
-//                }
+                }
             }
         }
 
@@ -1024,7 +1025,8 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
                 + orderId + "/" + Constant.STOREID;
 
         TaskGetOrderSummary orderSummary = new TaskGetOrderSummary(getActivity(), this, true, "");
-        orderSummary.execute(orderSummaryUrl);
+//        orderSummary.execute(orderSummaryUrl);
+        orderSummary.executeOnExecutor(TaskGetOrderSummary.THREAD_POOL_EXECUTOR,orderSummaryUrl);
 
     }
 
@@ -1161,7 +1163,7 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
                         llShip.setVisibility(View.GONE);
                         vShip.setVisibility(View.GONE);
                     } else {
-                        if (orderSummary.getIsShipTaxToOtherCountry() != null && !orderSummary.getIsShipTaxToOtherCountry()) {
+                        if (orderSummary.getIsShipTaxToOtherCountry() != null && !orderSummary.getIsShipTaxToOtherCountry().equals("null")&& !orderSummary.getIsShipTaxToOtherCountry()) {
                             llShip.setVisibility(View.GONE);
                             vShip.setVisibility(View.GONE);
                         } else {
@@ -1174,7 +1176,8 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
                 llGift.setVisibility(View.GONE);
                 vGift.setVisibility(View.GONE);
             }*/
-                    if (orderSummary.getIsTotalSavingDisplay() != null && orderSummary.getIsTotalSavingDisplay() && Float.parseFloat(orderSummary.getTotalSaving()) > 0) {
+                    if (orderSummary.getIsTotalSavingDisplay() != null && orderSummary.getIsTotalSavingDisplay()
+                            && !orderSummary.getIsTotalSavingDisplay().equals("null") && Float.parseFloat(orderSummary.getTotalSaving()) > 0) {
                         vTotalSaving.setVisibility(View.VISIBLE);
                         llTotalSaving.setVisibility(View.VISIBLE);
                     } else {
@@ -1191,7 +1194,8 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
                 llRewardUse.setVisibility(View.GONE);
             }*/
 
-                    if (orderSummary.getLoyaltyPoints() != null && !orderSummary.getLoyaltyPoints().isEmpty() && Float.parseFloat(orderSummary.getLoyaltyPoints()) > 0) {
+                    if (orderSummary.getLoyaltyPoints() != null && !orderSummary.getLoyaltyPoints().isEmpty()
+                            && !orderSummary.getLoyaltyPoints().equalsIgnoreCase("null") && Float.parseFloat(orderSummary.getLoyaltyPoints()) > 0) {
                         llLoyaltyReword.setVisibility(View.VISIBLE);
                         vLoyaltyReward.setVisibility(View.VISIBLE);
                         if (isFromReturnProcessing) {
@@ -1508,7 +1512,7 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
 //        ********************** Edited by Varun for billing address on Aug 2022 **********************
 
         if (orderSummary.getSAddress1()==""){
-            if (!orderSummary.getIsPickupStore().equals("True")) {
+            if (!orderSummary.getIsPickupStore().equals("True") && !Constant.buttonclicked_InstoreDetail.equalsIgnoreCase("Instore Purchases")) {
                 tvTitleBillingAddress.setText("To " + "\n" +
                         "Billing Address & Shipping Address: ");
                 tvTitleBillingAddress.setTextColor(getResources().getColor(R.color.black));

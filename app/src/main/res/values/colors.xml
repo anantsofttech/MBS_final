@@ -14,6 +14,12 @@
     <color name="tab_indicator_text">#808080</color>
     <color name="store_Namecolor">#742614</color>
     <color name="store_104color">#ffdcd4</color>
+<!--    <color name="pressed_color_lighter">#39D6EEF8</color>-->
+    <color name="pressed_color_lighter">#ebeffb</color>
+    <color name="pressed_color_lighter_1_tone_light">#f3f6fd</color>
+    <color name="pressed_color_lighter_2_tone_light">#f7f9fe</color>
+    <color name="pressed_color_lighter_1_tone_bright">#d0d9f7</color>
+    <color name="pressed_color_lighter_2_tone_bright">#c0c8f5</color>
 
 
 

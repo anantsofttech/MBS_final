@@ -1051,12 +1051,12 @@ public class DialogUtils {
     public static void showDialog(String message) {
         if (Constant.SCREEN_LAYOUT == 1) {
             myDialog = new Dialog(MainActivity.getInstance(), R.style.DialogSlideAnim_login);
-            myDialog.setCanceledOnTouchOutside(false);
+            myDialog.setCanceledOnTouchOutside(true);
             vDialog = LayoutInflater.from(MainActivity.getInstance()).inflate(R.layout.dialog_common_for_app, null);
 
         } else if (Constant.SCREEN_LAYOUT == 2) {
             myDialog = new Dialog(MainActivityDup.getInstance(), R.style.DialogSlideAnim_login);
-            myDialog.setCanceledOnTouchOutside(false);
+            myDialog.setCanceledOnTouchOutside(true);
             vDialog = LayoutInflater.from(MainActivityDup.getInstance()).inflate(R.layout.dialog_common_for_app, null);
         }
         llRootCommonDialog = vDialog.findViewById(R.id.ll_root_dialog_common_for_app);
@@ -1082,7 +1082,7 @@ public class DialogUtils {
             public void run() {
                 try {
 //                    sleep(3000);
-                    sleep(750); //cut off half time
+                    sleep(1500); //cut off half time
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
@@ -1208,7 +1208,7 @@ public class DialogUtils {
                 Glide.with(context).load(itemDescModel.getInvLargeImageFullPath())
                         .placeholder(R.drawable.noimage)
                         .error(R.drawable.no_image_new)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .skipMemoryCache(true).into(img_item);
             }
 
@@ -1396,7 +1396,7 @@ public class DialogUtils {
 //                            Glide.with(context).load(imgUrl + mainItemDescModel.getInvLargeImage())
                             Glide.with(context).load(mainItemDescModel.getInvSmallImageFullPath())
                                     .placeholder(R.drawable.noimage)/*.placeholder(d)*/
-                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                                     .skipMemoryCache(true).into(img_item);
 //                        }
                     }
@@ -2400,7 +2400,7 @@ public class DialogUtils {
                  Glide.with(context).load(lstOrderTem_forstartReturn.getInvLargeImageFullPath())
                          .placeholder(R.drawable.noimage)
                          .error(R.drawable.no_image_new)
-                         .diskCacheStrategy(DiskCacheStrategy.NONE)
+                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                          .skipMemoryCache(true).into(ivProdctImage);
             }
 

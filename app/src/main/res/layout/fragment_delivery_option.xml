@@ -62,30 +62,31 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="@dimen/dimen_10"
-                        android:layout_marginBottom="@dimen/_3sdp"
+                        android:layout_marginBottom="@dimen/_7sdp"
                         android:padding="@dimen/_3sdp"
-                        android:visibility="gone"
                         android:clickable="true"
                         android:focusableInTouchMode="true"
-                        tool:cardElevation="7dp"
+                        tool:cardElevation="4dp"
+                        android:visibility="gone"
                         tool:cardCornerRadius="@dimen/_8sdp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:paddingBottom="@dimen/_7sdp">
 
                             <RadioGroup
                                 android:id="@+id/rbg_delivery_option_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dimen_3"
-                                android:layout_marginTop="@dimen/dimen_10"
-                                android:layout_marginBottom="@dimen/_3sdp">
+                                android:layout_marginTop="@dimen/_7sdp"
+                                android:layout_marginBottom="@dimen/_2sdp">
 
                                 <RadioButton
                                     android:id="@+id/rb_pick_up_at_store_delivery_option_fragment"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:buttonTint="@android:color/tab_indicator_text"
                                     android:text="@string/lbl_pick_up_at_store"
@@ -97,87 +98,105 @@
 
                             </RadioGroup>
 
+                        </LinearLayout>
 
-                            <LinearLayout
-                                android:id="@+id/ll_rg_pick_up_at_store_delivery_option_fragment"
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_radio_button_pick_up_sub_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_25sdp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="@dimen/_7sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:clickable="true"
+                        android:focusableInTouchMode="true"
+                        tool:cardElevation="4dp"
+                        android:visibility="gone"
+                        tool:cardCornerRadius="@dimen/_8sdp">
+
+                        <LinearLayout
+                            android:id="@+id/ll_rg_pick_up_at_store_delivery_option_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:paddingBottom="@dimen/_7sdp"
+                            tools:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/tv_warn_two_hour_ago_delivery_option_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/dimen_DeliveryTextSize"
+                                android:textStyle="italic"
+                                android:visibility="gone"
+                                tools:text="Note: Store closes soon"
+                                tools:visibility="visible" />
+
+                            <RadioGroup
+                                android:id="@+id/rbg_pick_up_at_store_delivery_option_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dimen_10"
-                                android:orientation="vertical"
-                                android:visibility="gone"
-                                tools:visibility="visible">
+                                tools:ignore="UselessParent">
 
-                                <TextView
-                                    android:id="@+id/tv_warn_two_hour_ago_delivery_option_fragment"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/dimen_30"
-                                    android:textColor="@color/red"
-                                    android:textSize="@dimen/dimen_DeliveryTextSize"
-                                    android:textStyle="italic"
-                                    android:visibility="gone"
-                                    tools:text="Note: Store closes soon"
-                                    tools:visibility="visible" />
-
-                                <RadioGroup
-                                    android:id="@+id/rbg_pick_up_at_store_delivery_option_fragment"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    tools:ignore="UselessParent">
-
-                                    <RadioButton
-                                        android:id="@+id/rb_pay_at_store_delivery_option_fragment"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="@dimen/dimen_25"
-                                        android:buttonTint="@android:color/tab_indicator_text"
-                                        android:text="@string/lbl_pay_at_store"
-                                        android:textColor="@android:color/tab_indicator_text"
-                                        android:textSize="@dimen/dimen_DeliveryTextSize"
-                                        tools:ignore="UnusedAttribute" />
-
-                                    <RadioButton
-                                        android:id="@+id/rb_pay_with_cart_delivery_option_fragment"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="@dimen/dimen_25"
-                                        android:buttonTint="@android:color/tab_indicator_text"
-                                        android:text="@string/lbl_pay_with_card"
-                                        android:textColor="@android:color/tab_indicator_text"
-                                        android:textSize="@dimen/dimen_DeliveryTextSize"
-                                        tools:ignore="UnusedAttribute" />
-
-                                </RadioGroup>
-
-                                <LinearLayout
-                                    android:id="@+id/llAdvancePaymentOptions"
+                                <RadioButton
+                                    android:id="@+id/rb_pay_at_store_delivery_option_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/dimen_5"
-                                    android:layout_marginTop="-5dp"
-                                    android:layout_marginBottom="@dimen/_5sdp"
-                                    android:orientation="vertical"
-                                    android:paddingTop="-5dp">
+                                    android:buttonTint="@android:color/tab_indicator_text"
+                                    android:text="@string/lbl_pay_at_store"
+                                    android:textColor="@android:color/tab_indicator_text"
+                                    android:textSize="@dimen/dimen_DeliveryTextSize"
+                                    tools:ignore="UnusedAttribute" />
 
-                                    <!--<ListView-->
-                                    <!--android:id="@+id/listview"-->
-                                    <!--android:divider="@null"-->
-                                    <!--android:layout_width="match_parent"-->
-                                    <!--android:layout_height="match_parent"-->
-                                    <!--android:layout_marginStart="@dimen/dimen_45">-->
-                                    <!--</ListView>-->
+                                <RadioButton
+                                    android:id="@+id/rb_pay_with_cart_delivery_option_fragment"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/dimen_5"
+                                    android:buttonTint="@android:color/tab_indicator_text"
+                                    android:text="@string/lbl_pay_with_card"
+                                    android:textColor="@android:color/tab_indicator_text"
+                                    android:textSize="@dimen/dimen_DeliveryTextSize"
+                                    tools:ignore="UnusedAttribute" />
 
-                                    <androidx.recyclerview.widget.RecyclerView
-                                        android:id="@+id/recyclerview"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="@dimen/dimen_45"
-                                        android:nestedScrollingEnabled="false"
-                                        tools:ignore="UnusedAttribute" />
+                            </RadioGroup>
 
-                                </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/llAdvancePaymentOptions"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_marginTop="-5dp"
+                                android:layout_marginBottom="@dimen/_5sdp"
+                                android:orientation="vertical"
+                                android:paddingTop="-5dp">
+
+                                <!--<ListView-->
+                                <!--android:id="@+id/listview"-->
+                                <!--android:divider="@null"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_marginStart="@dimen/dimen_45">-->
+                                <!--</ListView>-->
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/recyclerview"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/dimen_30"
+                                    android:nestedScrollingEnabled="false"
+                                    tools:ignore="UnusedAttribute" />
+
                             </LinearLayout>
-
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -207,7 +226,7 @@
 
                             <RadioButton
                                 android:id="@+id/rb_uber_rush_delivery_option_fragment"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:buttonTint="@android:color/tab_indicator_text"
                                 android:text="@string/lbl_uber_rush"
@@ -226,31 +245,32 @@
                         android:layout_below="@+id/cv_radio_button_ubber"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginBottom="@dimen/_3sdp"
+                        android:layout_marginBottom="@dimen/_7sdp"
                         android:padding="@dimen/_3sdp"
                         android:visibility="gone"
                         android:clickable="true"
                         android:focusableInTouchMode="true"
-                        tool:cardElevation="7dp"
+                        tool:cardElevation="4dp"
                         tool:cardCornerRadius="@dimen/_8sdp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:paddingBottom="@dimen/_7sdp">
 
                             <RadioGroup
                                 android:id="@+id/rbg_delivery_option_hand"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dimen_3"
-                                android:layout_marginTop="@dimen/dimen_10"
+                                android:layout_marginTop="@dimen/_6sdp"
                                 android:layout_marginBottom="@dimen/_3sdp">
 
 
                                 <RadioButton
                                     android:id="@+id/rb_hand_on_delivery_delivery_option_fragment"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:buttonTint="@android:color/tab_indicator_text"
                                     android:text="@string/lbl_hand_delivery"
@@ -315,13 +335,41 @@
                                     android:visibility="gone" />-->
                             </RelativeLayout>
 
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_radio_button_hand_delivery_Check_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cv_radio_button_ubber"
+                        android:layout_marginLeft="@dimen/_25sdp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="@dimen/_7sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:visibility="gone"
+                        android:clickable="true"
+                        android:focusableInTouchMode="true"
+                        tool:cardElevation="4dp"
+                        tool:cardCornerRadius="@dimen/_8sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:paddingBottom="@dimen/_7sdp">
+
                             <!--Edited by Janvi 1st oct ********-->
 
                             <CheckBox
                                 android:id="@+id/cbx_hand_delivery_option_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dimen_25"
+                                android:layout_marginStart="@dimen/dimen_5"
                                 android:layout_marginTop="@dimen/_3sdp"
                                 android:buttonTint="@android:color/tab_indicator_text"
                                 android:gravity="top"
@@ -337,7 +385,7 @@
                                 android:id="@+id/tv_rg_hand_delivery_delivery_option_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="32dp"
+                                android:layout_marginStart="@dimen/dimen_5"
                                 android:layout_marginTop="@dimen/_3sdp"
                                 android:layout_marginBottom="@dimen/_3sdp"
                                 android:text="@string/lbl_hand_del"
@@ -357,11 +405,11 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:padding="@dimen/_3sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:visibility="gone"
+                        android:layout_marginBottom="@dimen/_4sdp"
                         android:clickable="true"
+                        android:visibility="gone"
                         android:focusableInTouchMode="true"
-                        tool:cardElevation="7dp"
+                        tool:cardElevation="4dp"
                         tool:cardCornerRadius="@dimen/_8sdp">
 
                         <RadioGroup
@@ -369,16 +417,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dimen_3"
-                            android:layout_marginTop="@dimen/dimen_10"
-                            android:layout_marginBottom="@dimen/_8sdp">
-
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:paddingBottom="@dimen/_7sdp">
 
                             <RadioButton
                                 android:id="@+id/rb_ship_delivery_option_fragment"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:buttonTint="@android:color/tab_indicator_text"
-                                android:gravity="center"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/lbl_ship"
                                 android:textColor="@android:color/tab_indicator_text"
                                 android:textSize="@dimen/dimen_DeliveryTextSize"
@@ -410,27 +458,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/cv_radio_button_ship"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="@dimen/_25sdp"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_3sdp"
                         android:padding="@dimen/_3sdp"
                         android:visibility="gone"
                         android:clickable="true"
                         android:focusableInTouchMode="true"
-                        tool:cardElevation="7dp"
+                        tool:cardElevation="5dp"
                         tool:cardCornerRadius="@dimen/_8sdp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/_3sdp"
+                            android:layout_marginStart="@dimen/dimen_5"
                             android:orientation="vertical">
 
                             <CheckBox
                                 android:id="@+id/cbx_ship_delivery_option_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dimen_10"
+                                android:layout_marginStart="@dimen/dimen_5"
                                 android:buttonTint="@android:color/tab_indicator_text"
                                 android:text="@string/lbl_ship_to_different_address"
                                 android:textColor="@android:color/tab_indicator_text"
@@ -442,7 +491,7 @@
                                 android:id="@+id/ll_shipping_Service"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="17dp"
+                                android:layout_marginStart="8dp"
                                 android:layout_marginEnd="@dimen/_7sdp"
                                 android:layout_marginBottom="@dimen/_10sdp"
                                 android:orientation="vertical"

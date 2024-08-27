@@ -652,7 +652,7 @@ public class ViewAllFragment extends Fragment implements
                         int totalItemCount = recyclerView.getAdapter().getItemCount();
 
                         // Check if the last visible item position is close to the total item count
-                        if (lastVisiblePosition >= totalItemCount - 4 && loadmore) {
+                        if (lastVisiblePosition >= totalItemCount - 6 && loadmore) {
                             count = count + 1;
                             loadmore = false;
                             if (isComeforSortFilter) {
@@ -786,6 +786,7 @@ public class ViewAllFragment extends Fragment implements
 
         if (updateCart.getResult().equalsIgnoreCase("success")) {
             Utils.vibrateDevice(getContext());
+            DialogUtils.showDialog("Added to cart!");
             onGetCartData("", null);
         }
     }

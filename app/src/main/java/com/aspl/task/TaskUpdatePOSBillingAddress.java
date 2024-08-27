@@ -77,11 +77,6 @@ public class TaskUpdatePOSBillingAddress extends AsyncTask<String, Void, String>
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if (updatePOSBillingAddress != null /*|| s.contains("success")*/){
-            if (myUpdatePOSBillingAddressEvent!=null)
-                myUpdatePOSBillingAddressEvent.onPOSBillingAddressResult(updatePOSBillingAddress);
-        }else{
-            //Toast.makeText(MainActivity.getInstance(), "Network error", Toast.LENGTH_SHORT).show();
-        }
+        myUpdatePOSBillingAddressEvent.onPOSBillingAddressResult(updatePOSBillingAddress);
     }
 }

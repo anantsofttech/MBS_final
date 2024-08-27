@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aspl.Adapter.ItemDetailAdapter;
 import com.aspl.Adapter.OnlinePurchaseAdapter;
@@ -396,7 +398,7 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
         view_between_storepurchase_Item.setBackgroundColor(Color.parseColor(Constant.themeModel.ThemeColor));
 
         if(!orderHistoryBtnText.isEmpty()){
-            if(orderHistoryBtnText.equals("Online Purchases")){
+            if(orderHistoryBtnText.equalsIgnoreCase("Online Purchases")){
 
                 count = 1;
                 GradientDrawable shape = new GradientDrawable();
@@ -421,7 +423,7 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
 
                 buttonclicked = "Online Purchases";
 
-            }else if(orderHistoryBtnText.equals("Instore Purchases")){
+            }else if(orderHistoryBtnText.equalsIgnoreCase("Instore Purchases")){
 
                 llOnlinestore = (LinearLayout) view.findViewById(R.id.llOnlinestore);
 
@@ -431,7 +433,7 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
 
                 buttonclicked = "Instore Purchases";
 
-            }else if(orderHistoryBtnText.equals("Item Details")){
+            }else if(orderHistoryBtnText.equalsIgnoreCase("Item Details")){
 
                 llOnlinestore = (LinearLayout) view.findViewById(R.id.llOnlinestore);
 
@@ -440,6 +442,27 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
                 setItemDetails_ThemeColorBgWithRadius();
 
                 buttonclicked = "Item Details";
+            }else{
+                count = 1;
+                GradientDrawable shape = new GradientDrawable();
+                shape.setShape(GradientDrawable.RECTANGLE);
+                shape.setCornerRadii(new float[]{8, 8, 8, 8, 8, 8, 8, 8});
+                shape.setColor(Color.parseColor(Constant.themeModel.ThemeColor));
+                btnOnlinePurchase.setBackgroundDrawable(shape);
+                btnOnlinePurchase.setTextColor(getResources().getColor(R.color.androidWhite));
+                btnStorePurchase.setTextColor(Color.parseColor(Constant.themeModel.ThemeColor));
+                btnStorePurchase.setBackgroundColor(getResources().getColor(R.color.transparent));
+                btnItemDetails.setTextColor(Color.parseColor(Constant.themeModel.ThemeColor));
+                btnItemDetails.setBackgroundColor(getResources().getColor(R.color.transparent));
+
+                llOnlinestore = (LinearLayout) view.findViewById(R.id.llOnlinestore);
+
+                GradientDrawable bgShape51 = (GradientDrawable) llOnlinestore.getBackground();
+                bgShape51.setStroke(2, Color.parseColor(Constant.themeModel.ThemeColor));
+
+                callOnlineOrderHistory(true);
+
+                buttonclicked = "Online Purchases";
             }
 
         }
@@ -546,7 +569,8 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
         String Url = Constant.WS_BASE_URL + Constant.GET_ORDER_ITEM_DETAIL_DATA  + "/" +  UserModel.Cust_mst_ID + "/" + storeno_selected + "/" + countItemDetail + "/" + "12" ;
 
         TaskGetOrderItemDetailData taskGetOrderItemDetailData = new TaskGetOrderItemDetailData(getActivity(),this, showProgressbar);
-        taskGetOrderItemDetailData.execute(Url);
+//        taskGetOrderItemDetailData.execute(Url);
+        taskGetOrderItemDetailData.executeOnExecutor(TaskGetOrderItemDetailData.THREAD_POOL_EXECUTOR,Url);
     }
 
 
@@ -599,12 +623,14 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
 //            String url = Constant.WS_BASE_URL + Constant.GET_POS_CUSTOMER_ID + "/" + UserModel.Cust_mst_ID + "/" + Constant.STOREID;
             String url = Constant.WS_BASE_URL + Constant.GET_POS_CUSTOMER_ID + "/" + UserModel.Cust_mst_ID + "/" + storeno_selected;
             TaskGetPosCustomerID taskGetPosCustomerID = new TaskGetPosCustomerID(this,showProgressbar);
-            taskGetPosCustomerID.execute(url);
+//            taskGetPosCustomerID.execute(url);
+            taskGetPosCustomerID.executeOnExecutor(TaskGetPosCustomerID.THREAD_POOL_EXECUTOR,url);
         }else{
 //            String url = Constant.WS_BASE_URL + Constant.GET_POS_CUSTOMER_ID + "/" + 0 + "/" + Constant.STOREID;
             String url = Constant.WS_BASE_URL + Constant.GET_POS_CUSTOMER_ID + "/" + 0 + "/" + storeno_selected;
             TaskGetPosCustomerID taskGetPosCustomerID = new TaskGetPosCustomerID(this,showProgressbar);
-            taskGetPosCustomerID.execute(url);
+//            taskGetPosCustomerID.execute(url);
+            taskGetPosCustomerID.executeOnExecutor(TaskGetPosCustomerID.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -638,7 +664,8 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
                 String url = Constant.WS_BASE_URL + Constant.GET_LIGHTNING_ORDERS + "/" + poscusId + "/" + storeno_selected + "/" + "1" + "/" + "12" +"/" + "invoice_date"
                         +"/" + "desc" +"/" + selected_month;
                 TaskGetLightningOrders taskGetLightningOrders = new TaskGetLightningOrders(context,this,showProgressbar);
-                taskGetLightningOrders.execute(url);
+//                taskGetLightningOrders.execute(url);
+                taskGetLightningOrders.executeOnExecutor(TaskGetLightningOrders.THREAD_POOL_EXECUTOR,url);
             }
         }
 
@@ -685,6 +712,7 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
 
         TaskOrderHistory taskOrderHistory = new TaskOrderHistory(this,getActivity(),"", showProgressloader);
         taskOrderHistory.execute(Url);
+//        taskOrderHistory.executeOnExecutor(TaskOrderHistory.THREAD_POOL_EXECUTOR,Url);
     }
 
 
@@ -693,28 +721,29 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
 
         swipeRefreshLayout.setRefreshing(false);
 
-        if(onlinePurchaseOrderList != null && onlinePurchaseOrderList.size() > 0){
+        try {
+            if (onlinePurchaseOrderList != null && onlinePurchaseOrderList.size() > 0) {
 
-            tv_Norecord.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
+                tv_Norecord.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
 
-            loadItemsAlerady = true;
+                loadItemsAlerady = true;
 
-            if (onlinePurchaseOrderList.size() >= 12) {
-                isneedtoloadAgain = true;
-                loadmore = true;
-            } else {
-                isneedtoloadAgain = false;
-                loadmore = false;
-            }
+                if (onlinePurchaseOrderList.size() >= 12) {
+                    isneedtoloadAgain = true;
+                    loadmore = true;
+                } else {
+                    isneedtoloadAgain = false;
+                    loadmore = false;
+                }
 
-            if (count == 1 && onlinePurchaseOrderList != null && onlinePurchaseOrderList.size() > 0) {
-                onlinePurchaseOrdersListing = onlinePurchaseOrderList;
+                if (count == 1 && onlinePurchaseOrderList != null && onlinePurchaseOrderList.size() > 0) {
+                    onlinePurchaseOrdersListing = onlinePurchaseOrderList;
 
-                onlinePurchaseAdapter = new OnlinePurchaseAdapter(getActivity(), onlinePurchaseOrdersListing);
-                recyclerView.setAdapter(onlinePurchaseAdapter);
+                    onlinePurchaseAdapter = new OnlinePurchaseAdapter(getActivity(), onlinePurchaseOrdersListing);
+                    recyclerView.setAdapter(onlinePurchaseAdapter);
 
-            } else {
+                } else {
 
 //                int startpos = onlinePurchaseOrdersListing.size();
 //                int newItemcount = onlinePurchaseOrderList.size();
@@ -724,10 +753,10 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
 //                int startpos = onlinePurchaseOrdersListing.size();
 //                int newItemcount = onlinePurchaseOrderList.size();
 
-                onlinePurchaseOrdersListing.addAll(onlinePurchaseOrderList);
-                onlinePurchaseAdapter = new OnlinePurchaseAdapter(getActivity(), onlinePurchaseOrdersListing);
-                recyclerView.setAdapter(onlinePurchaseAdapter);
-            }
+                    onlinePurchaseOrdersListing.addAll(onlinePurchaseOrderList);
+                    onlinePurchaseAdapter = new OnlinePurchaseAdapter(getActivity(), onlinePurchaseOrdersListing);
+                    recyclerView.setAdapter(onlinePurchaseAdapter);
+                }
 
 //            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 //                @Override
@@ -764,8 +793,11 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
 //                }
 //            });
 
-        }else{
-
+            } else {
+                tv_Norecord.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+            }
+        }catch (Exception e){
             tv_Norecord.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         }
@@ -782,7 +814,8 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
                 + orderId + "/" + storeno_selected;
 
         TaskGetOrderSummary orderSummary = new TaskGetOrderSummary(getActivity(),this,true,fromwhere);
-        orderSummary.execute(orderSummaryUrl);
+//        orderSummary.execute(orderSummaryUrl);
+        orderSummary.executeOnExecutor(TaskGetOrderSummary.THREAD_POOL_EXECUTOR,orderSummaryUrl);
     }
 
     @Override
@@ -819,6 +852,8 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
                     MainActivityDup.getInstance().loadOrderSummaryFragment(bundle, "comefromOrderDetail", buttonclicked, "ReturnProcessing");
                 }
             }
+        }else{
+            Toast.makeText(context, "PLease try after sometime.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -832,11 +867,12 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
 //            cancelOderUrl = Constant.WS_BASE_URL + Constant.GET_CANCEL_ORDER
 //                    + orderId + "/" + Constant.STOREID;
 //
-            cancelOderUrl = Constant.WS_BASE_URL + Constant.GET_CANCEL_ORDER
+            cancelOderUrl = Constant.WS_BASE_URL + Constant.GET_CANCEL_ORDER_BY_CUSTOMER
                     + orderId + "/" + storeno_selected;
 
             TaskCancelOrder taskCancelOrder = new TaskCancelOrder(getActivity(),this);
-            taskCancelOrder.execute(cancelOderUrl);
+//            taskCancelOrder.execute(cancelOderUrl);
+            taskCancelOrder.executeOnExecutor(TaskCancelOrder.THREAD_POOL_EXECUTOR,cancelOderUrl);
         }
     }
 
@@ -849,14 +885,25 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
             String resMSg = result[0];
 
             if (resMSg.equalsIgnoreCase(context.getResources().getString(R.string.successMsg))) {
+
+                if (getFragmentManager() != null && getFragmentManager().getBackStackEntryCount() != 0) {
+                    getFragmentManager().popBackStack();
+                }
+
                 if(Utils.cancelDialog != null && Utils.cancelDialog.isShowing()){
                     Utils.cancelDialog.dismiss();
+                }
+            }else if (resMSg.equals("success")){
+                if (getFragmentManager() != null && getFragmentManager().getBackStackEntryCount() != 0) {
+                    getFragmentManager().popBackStack();
+                }
 
-                    if (getFragmentManager() != null && getFragmentManager().getBackStackEntryCount() != 0) {
-                        getFragmentManager().popBackStack();
-                    }
+                if(Utils.cancelDialog != null && Utils.cancelDialog.isShowing()){
+                    Utils.cancelDialog.dismiss();
                 }
             }
+        }else{
+            Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -878,7 +925,8 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
                         + orderId + "/" + storeno_selected + "/" + weborderId;
 
                 TaskVoidTranscation taskVoidTranscation= new TaskVoidTranscation(getActivity(),this,false, orderId);
-                taskVoidTranscation.execute(voidTransactionUrl);
+//                taskVoidTranscation.execute(voidTransactionUrl);
+                taskVoidTranscation.executeOnExecutor(TaskVoidTranscation.THREAD_POOL_EXECUTOR,voidTransactionUrl);
             }
         }
     }
@@ -924,7 +972,8 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
             requestResponseUrl = Constant.WS_BASE_URL + Constant.RequestResponse + logid;
 
             TaskVoidTranscation taskVoidTranscation= new TaskVoidTranscation(getActivity(),this,true, "");
-            taskVoidTranscation.execute(requestResponseUrl);
+//            taskVoidTranscation.execute(requestResponseUrl);
+            taskVoidTranscation.executeOnExecutor(TaskVoidTranscation.THREAD_POOL_EXECUTOR,requestResponseUrl);
         }
     }
 
@@ -986,7 +1035,8 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
                 +"&storeNo=" + storeno_selected + "&InvoiceNO="  + invoiceNo ;
 
         TaskInstorePurchaseDetail taskInstorePurchaseDetail = new TaskInstorePurchaseDetail(getActivity(),this,position);
-        taskInstorePurchaseDetail.execute(lightningOrderDetailUrl);
+//        taskInstorePurchaseDetail.execute(lightningOrderDetailUrl);
+        taskInstorePurchaseDetail.executeOnExecutor(TaskInstorePurchaseDetail.THREAD_POOL_EXECUTOR,lightningOrderDetailUrl);
     }
 
     @Override
@@ -1001,6 +1051,8 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
                 bundle.putBoolean("isFromInstoreOrderDetail",true);
                 bundle.putString("buttonclicked",buttonclicked);
                 MainActivity.getInstance().loadOrderSummaryFragment(bundle,"comefromOrderDetail",buttonclicked, "ReturnProcessing");
+        }else{
+            Toast.makeText(context, "PLease try again later.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1011,7 +1063,8 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
 //        String Url1 = Constant.WS_BASE_URL + Constant.GET_RETURNPROCESS + Constant.STOREID;
         String Url1 = Constant.WS_BASE_URL + Constant.GET_RETURNPROCESS + storeno_selected;
         TaskReturnProcess taskReturnProcess = new TaskReturnProcess(this);
-        taskReturnProcess.execute(Url1);
+//        taskReturnProcess.execute(Url1);
+        taskReturnProcess.executeOnExecutor(TaskReturnProcess.THREAD_POOL_EXECUTOR,Url1);
     }
 
     @Override
@@ -1034,17 +1087,18 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
 
     public void callOrderDetailWS(String orderId) {
 
-        if(orderId != null && !orderId.isEmpty()){
-
-            if(orderId != null && !orderId.equalsIgnoreCase("null")&& !orderId.isEmpty()){
+        if(orderId != null && !orderId.equalsIgnoreCase("null")&& !orderId.isEmpty()){
 
                 String Url = Constant.WS_BASE_URL + Constant.GETORDER_DETAILS
                         + orderId + "/" + storeno_selected;
 
                 TaskOrderDetails taskOrderDetails= new TaskOrderDetails(this,context,orderId);
-                taskOrderDetails.execute(Url);
-            }
+//                taskOrderDetails.execute(Url);
+                taskOrderDetails.executeOnExecutor(TaskOrderDetails.THREAD_POOL_EXECUTOR,Url);
+        }else{
+            Toast.makeText(context, "Order ID not Found.", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     @Override
@@ -1052,24 +1106,25 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
 
         if(payWareModel != null && payWareModel.getTROUTD() != null && !payWareModel.getTROUTD().toString().isEmpty()){
             OrderHistoryFragment.getInstance().callUSAePayVoidTransactionOrderWS(orderID,payWareModel.getTROUTD().toString());
+        }else{
+            Toast.makeText(context, "TROUTD not found", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void callUSAePayVoidTransactionOrderWS(String orderID, String troutid) {
 
-        String voidTransactionUrl;
+        String voidTransactionUrl = "";
 
-        if(orderID != null && !orderID.isEmpty()){
-
-            if(troutid != null && !troutid.equalsIgnoreCase("null")&& !troutid.isEmpty()){
+        if(troutid != null && !troutid.equalsIgnoreCase("null")&& !troutid.isEmpty()){
 
                 voidTransactionUrl = Constant.WS_BASE_URL + Constant.USAPAYVoidTranscation
                         + orderID + "/" + storeno_selected + "/" + troutid;
 
                 TaskUSAPayVoidTranscation taskUSAPayVoidTranscation= new TaskUSAPayVoidTranscation(getActivity(),this,orderID);
-                taskUSAPayVoidTranscation.execute(voidTransactionUrl);
-            }
+//                taskUSAPayVoidTranscation.execute(voidTransactionUrl);
+                taskUSAPayVoidTranscation.executeOnExecutor(TaskUSAPayVoidTranscation.THREAD_POOL_EXECUTOR,voidTransactionUrl);
         }
+
 
     }
 

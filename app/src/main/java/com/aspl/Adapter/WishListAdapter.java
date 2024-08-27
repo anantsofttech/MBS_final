@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.Utils;
@@ -167,8 +168,15 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
         holder.tvSpecialOffers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(liShoppingCart.get(position).getGrpMemo()!= null && !liShoppingCart.get(position).getGrpMemo().equals("null") && !liShoppingCart.get(position).getGrpMemo().isEmpty()){
-                    Utils.showDiscountgroupDialog(context,liShoppingCart.get(position).getDesc1(),liShoppingCart.get(position).getGrpMemo(), "", null);
+                try {
+                    if (liShoppingCart.get(position).getGrpMemo() != null && !liShoppingCart.get(position).getGrpMemo().equals("null") && !liShoppingCart.get(position).getGrpMemo().isEmpty()) {
+                        Utils.showDiscountgroupDialog(context, liShoppingCart.get(position).getDesc1(), liShoppingCart.get(position).getGrpMemo(), "", null);
+                    }
+                    else{
+                        Utils.showDiscountgroupDialog(context, liShoppingCart.get(position).getDesc1(),"No additional details have been entered by the business", "", null);
+                    }
+                }catch(Exception e){
+                    Toast.makeText(context, "Please try again later.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -196,7 +204,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
         Glide.with(imageView.getContext())
                 .load(url)
                 .placeholder(placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true)
                 .fitCenter()
                 .into(new GlideDrawableImageViewTarget(imageView) {
@@ -290,19 +298,23 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
 
         @Override
         public void onClick(View view) {
-            if (view.getId() == /*tvRemove*/btnRemove.getId()) {
-                if (wishListAdapterEvent != null) {
+            try {
+                if (view.getId() == /*tvRemove*/btnRemove.getId()) {
+                    if (wishListAdapterEvent != null) {
 
-                    isfromwishlistRemove = true;
-                    wishListAdapterEvent.onRemoveClick(getAdapterPosition(), liShoppingCart);
+                        isfromwishlistRemove = true;
+                        wishListAdapterEvent.onRemoveClick(getAdapterPosition(), liShoppingCart);
+                    }
                 }
-            }
 
-            if (view.getId() == /*tvMoveToCart*/btnMoveToCard.getId()) {
-                if (wishListAdapterEvent != null) {
-                    isfromwishlistAddtoCart = true;
-                    wishListAdapterEvent.onMoveToCartClick(getAdapterPosition(), liShoppingCart);
+                if (view.getId() == /*tvMoveToCart*/btnMoveToCard.getId()) {
+                    if (wishListAdapterEvent != null) {
+                        isfromwishlistAddtoCart = true;
+                        wishListAdapterEvent.onMoveToCartClick(getAdapterPosition(), liShoppingCart);
+                    }
                 }
+            }catch (Exception e){
+                Toast.makeText(context, "Please try again later.", Toast.LENGTH_SHORT).show();
             }
         }
     }

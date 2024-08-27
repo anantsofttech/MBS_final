@@ -37,18 +37,6 @@ public class TaskUpdateBillingAddress extends AsyncTask<String, Void, String> {
         this.context = context;
     }
 
-//    @SuppressLint("ResourceType")
-//    @Override
-//    protected void onPreExecute() {
-//        super.onPreExecute();
-//
-//        loading = new ProgressDialog(context, R.style.MyprogressDTheme);
-//        loading.setCancelable(false);
-////        loading.setMessage(Constant.Message.AuthenticatingUser);
-//        loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        loading.show();
-//    }
-
     @Override
     protected String doInBackground(String... strings) {
         Log.i("web service", "request url : " + strings[0]);
@@ -66,17 +54,7 @@ public class TaskUpdateBillingAddress extends AsyncTask<String, Void, String> {
                 shippingData = objectMapper.readValue(response, ShippingData.class);
                 return response;
 
-            } catch (JsonParseException e) {
-                e.printStackTrace();
-            } catch (JsonGenerationException e) {
-                e.printStackTrace();
-            } catch (SocketTimeoutException e) {
-                e.printStackTrace();
-            } catch (JsonMappingException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (JSONException | IOException e) {
                 e.printStackTrace();
             }
             retry = true;
@@ -89,11 +67,6 @@ public class TaskUpdateBillingAddress extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if (myUpdateBillingAddressEvent!=null)
-            myUpdateBillingAddressEvent.onBillingAddressResult(shippingData);
-
-//        if(loading != null && loading.isShowing()){
-//            loading.dismiss();
-//        }
+        myUpdateBillingAddressEvent.onBillingAddressResult(shippingData);
     }
 }

@@ -90,7 +90,7 @@ public class ViewallAdapter extends RecyclerView.Adapter<ViewallAdapter.ViewallH
             if (listHomrItem.get(position).getInvLargeImageFullPath()!=null || !listHomrItem.get(position).getInvLargeImageFullPath().isEmpty()) {
                 Glide.with(context).load(listHomrItem.get(position).getInvLargeImageFullPath())
                         .placeholder(R.drawable.noimage)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .skipMemoryCache(true).into(holder.img_item);
             }
 
@@ -204,33 +204,44 @@ public class ViewallAdapter extends RecyclerView.Adapter<ViewallAdapter.ViewallH
 
 
 
-            holder.tvDiscountName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(listHomrItem.get(position).getGrpMemo()!= null && !listHomrItem.get(position).getGrpMemo().equals("null") && !listHomrItem.get(position).getGrpMemo().isEmpty()) {
+        holder.tvDiscountName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    if (listHomrItem.get(position).getGrpMemo() != null && !listHomrItem.get(position).getGrpMemo().equals("null") && !listHomrItem.get(position).getGrpMemo().isEmpty()) {
 
                         Utils.showDiscountgroupDialog(context, listHomrItem.get(position).getDesc1(), listHomrItem.get(position).getGrpMemo(), "", null);
                     }
+                    else{
+                        Utils.showDiscountgroupDialog(context, listHomrItem.get(position).getDesc1(), "No additional details have been entered by the business", "", null);
+                    }
+                }catch(Exception e){
+                    Toast.makeText(context, "Please try again later.", Toast.LENGTH_SHORT).show();
                 }
-            });
+            }
+        });
 
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                    if(listHomrItem.get(position).getItemMstId() != null &&
-                            !listHomrItem.get(position).getItemMstId().isEmpty()){
+                try {
+                    if (listHomrItem.get(position).getItemMstId() != null &&
+                            !listHomrItem.get(position).getItemMstId().isEmpty()) {
                         itemsku = listHomrItem.get(position).getItemMstId();
                     }
 
                     if (Constant.SCREEN_LAYOUT == 1) {
-                        MainActivity.getInstance().loadItemDescriptionFragment(itemsku,"ViewAllFragment");
+                        MainActivity.getInstance().loadItemDescriptionFragment(itemsku, "ViewAllFragment");
                     } else if (Constant.SCREEN_LAYOUT == 2) {
-                        MainActivityDup.getInstance().loadItemDescriptionFragment(itemsku,"ViewAllFragment");
+                        MainActivityDup.getInstance().loadItemDescriptionFragment(itemsku, "ViewAllFragment");
                     }
+                }catch(Exception e){
+                    Toast.makeText(context, "Please try again later.", Toast.LENGTH_SHORT).show();
                 }
-            });
+            }
+        });
 
         if (!listHomrItem.get(position).getInventoryRating().isEmpty() && Integer.parseInt(listHomrItem.get(position).getInventoryRating()) > 0) {
             holder.ratingBar.setVisibility(View.VISIBLE);
@@ -256,7 +267,7 @@ public class ViewallAdapter extends RecyclerView.Adapter<ViewallAdapter.ViewallH
         Glide.with(imageView.getContext())
                 .load(url)
                 .placeholder(placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true)
                 .fitCenter()
                 .into(new GlideDrawableImageViewTarget(imageView) {

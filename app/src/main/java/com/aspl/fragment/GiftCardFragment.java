@@ -180,12 +180,12 @@ public class GiftCardFragment extends Fragment implements TaskGiftcard.TaskGiftc
                 if (context != null) {
                     if(giftcardModel.getLogo() != null && !giftcardModel.getLogo().isEmpty()) {
                         Glide.with(context).load(giftc_imgUrl + giftcardModel.getLogo())
-                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
                                 .skipMemoryCache(true).into(img_giftcard);
                     }else{
 
                         Glide.with(context).load(giftc_default_imgUrl)
-                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
                                 .skipMemoryCache(true).into(img_giftcard);
                     }
                 }

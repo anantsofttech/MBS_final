@@ -91,13 +91,7 @@ public class TaskCancelOrder extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        /*if (Constant.liCardModel != null){
-            MainActivity.onUpdateCartItem(Constant.liCardModel);
-        }*/
-
-        if (mytaskCancelOrderEvent != null && orderSummary != null) {
-            mytaskCancelOrderEvent.onTaskCancelOrderResult(orderSummary);
-        }
+        mytaskCancelOrderEvent.onTaskCancelOrderResult(orderSummary);
 
         if(loading != null){
             loading.dismiss();
