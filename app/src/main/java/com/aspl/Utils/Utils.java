@@ -2518,6 +2518,20 @@ public class Utils{
                     }
                 });
             }
+        }else if(!title.isEmpty() && title.equalsIgnoreCase("Gift Card Amount Error")){
+            tv_title.setVisibility(View.VISIBLE);
+            tv_title.setText(title);
+            view_line.setVisibility(View.VISIBLE);
+            tv_message.setVisibility(View.VISIBLE);
+            tv_message.setText(msg);
+            tv_message2.setVisibility(View.GONE);
+        }else if (!title.isEmpty() && title.equalsIgnoreCase("Invalid Quantity")){
+            tv_title.setVisibility(View.VISIBLE);
+            tv_title.setText(title);
+            view_line.setVisibility(View.VISIBLE);
+            tv_message.setVisibility(View.VISIBLE);
+            tv_message.setText(msg);
+            tv_message2.setVisibility(View.GONE);
         }
 
         btn_ok.setOnClickListener(new View.OnClickListener() {

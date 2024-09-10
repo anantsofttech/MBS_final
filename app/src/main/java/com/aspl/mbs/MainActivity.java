@@ -126,6 +126,7 @@ import com.aspl.fragment.DeliveryOptionsFragment;
 import com.aspl.fragment.EditShippingAddressFragment;
 import com.aspl.fragment.FilterFragment;
 import com.aspl.fragment.GiftCardFragment;
+import com.aspl.fragment.GiftCardFragment2;
 import com.aspl.fragment.HomepageFragment;
 import com.aspl.fragment.ItemDescriptionsFragment;
 import com.aspl.fragment.Login;
@@ -263,6 +264,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     public PopupWindow popupWindow;
     WishListFragment wishListFragment;
     GiftCardFragment giftCardFragment;
+    GiftCardFragment2 giftCardFragment2;
     RewardFragment rewardFragment;
     AboutUsFragment aboutUsFragment;
     ChnagePasswordFragment changePassword;
@@ -312,7 +314,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     public static boolean iscomfromSort = false;
     ImageView imgpersonlogo;
     public static TextView txtPersonName, txtPersonEmail;
-    public TextView txtdepartment, tvWishList, txtNotification;
+    public TextView txtdepartment, tvWishList, txtNotification, tvGiftCard;
     ImageView searchClear, searchCamera;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 29;
     private final int REQ_CODE_SPEECH_INPUT = 100;
@@ -479,6 +481,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         tvWishList = findViewById(R.id.tv_menu_wishlist);
         tvWishList.setBackgroundColor(Color.WHITE);
         tvWishList.setTextColor(ContextCompat.getColor(this, R.color.Header));
+
+        tvGiftCard = findViewById(R.id.tv_menu_giftcard);
+        tvGiftCard.setBackgroundColor(Color.WHITE);
+        tvGiftCard.setTextColor(ContextCompat.getColor(this, R.color.Header));
+
         txtdepartment.setBackgroundColor(Color.WHITE);
         txtdepartment.setTextColor(ContextCompat.getColor(this, R.color.Header));
 
@@ -715,6 +722,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
         txthome.setOnClickListener(this);
         tvWishList.setOnClickListener(this);
+        tvGiftCard.setOnClickListener(this);
         txtevent_cal.setOnClickListener(this);
         llFilter.setOnClickListener(this);
         llSort.setOnClickListener(this);
@@ -1848,6 +1856,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                 //launchMarket();
                 loadWishListFragment();
                 break;
+
+            case R.id.tv_menu_giftcard:
+                isActiveSearchDept = false;
+                mDrawer.closeDrawers();
+                callGiftCardFragment();
+                break;
+
             case R.id.txtevent_cal:
                 mDrawer.closeDrawers();
                 LoadWebVew(Constant.URL + EVENT_CALENDER);
@@ -1936,6 +1951,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
             default:
                 break;
         }
+    }
+
+    private void callGiftCardFragment() {
+
+
+        llsortandfilter.setVisibility(View.GONE);
+        mContainer.setVisibility(View.GONE);
+        llcheckInternet.setVisibility(View.GONE);
+        mContent.setVisibility(View.VISIBLE);
+
+        giftCardFragment2 = new GiftCardFragment2();
+        loadFragment(giftCardFragment2,"Gift Card 2");
+
+        invalidateOptionsMenu();
+
     }
 
     public int getToolBarHeight() {
@@ -2107,11 +2137,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     public void clearBackStack() {
         final FragmentManager fragmentManager = getSupportFragmentManager();
         while (fragmentManager.getBackStackEntryCount() != 0) {
-//            if (Constant.x){
-//                Constant.x =false;
-//            }else {
                 fragmentManager.popBackStackImmediate();
-//            }
+                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
         }
     }
 

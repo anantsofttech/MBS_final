@@ -140,30 +140,35 @@ public class CardFragment extends Fragment implements View.OnClickListener
         if (Constant.SCREEN_LAYOUT == 1) {
             final FragmentManager fragmentManager = getFragmentManager();
             if (fragmentManager != null) {
-                while (fragmentManager.getBackStackEntryCount() != 0) {
-                    fragmentManager.popBackStackImmediate();
-                }
+                // Clear all fragments from the back stack
+                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
-            if (getFragmentManager() != null && getFragmentManager().getBackStackEntryCount() > 0) {
+
+            // Navigate back if needed, and perform actions for MainActivity
+            if (MainActivity.getInstance() != null) {
                 MainActivity.getInstance().onBackPressed();
+                MainActivity.showHomePage();
+                MainActivity.getInstance().loadHomeWebPage();
             }
-            MainActivity.showHomePage();
-            MainActivity.getInstance().loadHomeWebPage();
 
         } else if (Constant.SCREEN_LAYOUT == 2) {
             final FragmentManager fragmentManager = getFragmentManager();
             if (fragmentManager != null) {
-                while (fragmentManager.getBackStackEntryCount() != 0) {
-                    fragmentManager.popBackStackImmediate();
-                }
+                // Clear all fragments from the back stack
+                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
-            if (getFragmentManager() != null && getFragmentManager().getBackStackEntryCount() > 0) {
+
+            // Navigate back if needed, and perform actions for MainActivityDup
+            if (MainActivityDup.getInstance() != null) {
                 MainActivityDup.getInstance().onBackPressed();
+                MainActivityDup.showHomePage();
+                MainActivityDup.getInstance().loadHomeWebPage();
             }
-            MainActivityDup.showHomePage();
-            MainActivityDup.getInstance().loadHomeWebPage();
         }
+
+// Ensure the flag is reset
         CardFragment.getInstance().isComeFromCard = false;
+
     }
 
 

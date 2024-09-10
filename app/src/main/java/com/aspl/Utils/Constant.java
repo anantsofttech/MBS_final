@@ -159,6 +159,7 @@ public class Constant {
     public static String IMG_NOTIFICATION_URL = "/img/Notification/";
     public static String IMG_BANNER_URL="WebStoreImages/banners/";
 
+    public static String IMG_Gift_Card_URL="WebStoreImages/GiftCards/";
     public static String IMG_DEPARTMENT="/WebStoreImages/Department/";
     public static String IMG_NO_IMAGE = "/WebStoreImages/NoImage/";
     public static String GET_GLOBALSETTING = "GetGlobalSettings/";
@@ -213,6 +214,11 @@ public class Constant {
 //    Note: If card is saved then Pass MerchantContractID = 0 and if user enter new card or clear form then Pass MerchantContractID = 2  12345
     public static String WS_USAPAY_PAYMENT_TRANSACTION_DETAILS = "USAePayPreAuthorization/";
     public static String CHECK_GIFTCARD_BALANCE = "CheckGiftCardBalance";
+
+//    Edited by Varun for Gift Card
+    public static String GET_GIFT_CARD_SETUP_DATA = "GetGiftCardSetupData/";
+
+
 //   Edited by Varun for multi pack new API
 //     home page API
     public static String GET_INVENTORYBY_HOMEPAGEDATA="GetinventoryByHomePageData/";
