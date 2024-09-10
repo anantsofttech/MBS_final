@@ -1,6 +1,5 @@
 package com.aspl.fragment;
 
-
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -26,13 +25,12 @@ import com.aspl.mbs.R;
 import com.aspl.mbsmodel.RewardModel;
 import com.aspl.mbsmodel.UserModel;
 import com.aspl.task.TaskReward;
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
-
-import androidmads.library.qrgenearator.QRGContents;
-import androidmads.library.qrgenearator.QRGEncoder;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.common.BitMatrix;
 
 import static android.content.Context.WINDOW_SERVICE;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,12 +45,11 @@ public class RewardFragment extends Fragment implements TaskReward.TaskRewardEve
 
     private ImageView qrCodeIV;
     Bitmap bitmap;
-    QRGEncoder qrgEncoder;
+    QRCodeWriter qrCodeWriter;
 
     public RewardFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,7 +58,6 @@ public class RewardFragment extends Fragment implements TaskReward.TaskRewardEve
         rewardFragment = this;
         View view = inflater.inflate(R.layout.fragment_reward, container, false);
         return view;
-
     }
 
     @Override
@@ -86,9 +82,7 @@ public class RewardFragment extends Fragment implements TaskReward.TaskRewardEve
         tv_programtxt = (TextView) view.findViewById(R.id.tv_programtxt);
 
         qrCodeIV = view.findViewById(R.id.idIVQrcode);
-
     }
-
 
     @Override
     public void onResume() {
@@ -130,15 +124,14 @@ public class RewardFragment extends Fragment implements TaskReward.TaskRewardEve
 
         Utils.hideKeyboard();
     }
-    private void loadRewardWSData() {
 
+    private void loadRewardWSData() {
         String url = null;
         if (UserModel.Cust_mst_ID != null) {
-            //URL :- http://192.168.172.211:889/WebStoreRestService.svc/GetCustomerCartData/188856/wishlist/707
+            // URL :- http://192.168.172.211:889/WebStoreRestService.svc/GetCustomerCartData/188856/wishlist/707
             url = Constant.WS_BASE_URL + Constant.GET_LOYALTY_INFO + UserModel.Cust_mst_ID + "/" + Constant.STOREID;
-            TaskReward taskReward = new TaskReward(RewardFragment.this,getContext());
+            TaskReward taskReward = new TaskReward(RewardFragment.this, getContext());
             taskReward.execute(url);
-            
         }
     }
 
@@ -154,7 +147,7 @@ public class RewardFragment extends Fragment implements TaskReward.TaskRewardEve
                 tv_lastPurchase.setVisibility(View.VISIBLE);
                 tv_lastPurchase_Val.setVisibility(View.VISIBLE);
                 tv_lastPurchase_Val.setText(rewardModel.getLastPurchaseDate());
-            }else{
+            } else {
                 tv_lastPurchase.setVisibility(View.GONE);
                 tv_lastPurchase_Val.setVisibility(View.GONE);
             }
@@ -166,14 +159,7 @@ public class RewardFragment extends Fragment implements TaskReward.TaskRewardEve
             } else {
                 tv_rewardsVal.setText(rewardModel.getLoyaltyCard());
 
-
-            }
-
-            if (rewardModel.getLoyaltyCard().equals("") || rewardModel.getLoyaltyCard().equals(null)){
-                qrCodeIV.setVisibility(View.GONE);
-            }else{
-
-//                QR CODE
+                // QR CODE
                 qrCodeIV.setVisibility(View.VISIBLE);
 
                 WindowManager manager = (WindowManager) getContext().getSystemService(WINDOW_SERVICE);
@@ -185,15 +171,23 @@ public class RewardFragment extends Fragment implements TaskReward.TaskRewardEve
                 int smallerDimension = width < height ? width : height;
                 smallerDimension = smallerDimension * 3 / 4;
 
-                qrgEncoder = new QRGEncoder(rewardModel.getLoyaltyCard(), null, QRGContents.Type.TEXT, smallerDimension);
+                qrCodeWriter = new QRCodeWriter();
 
                 try {
-                    bitmap = qrgEncoder.encodeAsBitmap();
+                    BitMatrix bitMatrix = qrCodeWriter.encode(rewardModel.getLoyaltyCard(), BarcodeFormat.QR_CODE, smallerDimension, smallerDimension);
+                    int bitMatrixWidth = bitMatrix.getWidth();  // Renamed to avoid conflict
+                    int bitMatrixHeight = bitMatrix.getHeight(); // Renamed to avoid conflict
+                    bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.RGB_565);
+                    for (int x = 0; x < bitMatrixWidth; x++) {
+                        for (int y = 0; y < bitMatrixHeight; y++) {
+                            bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                        }
+                    }
                     qrCodeIV.setImageBitmap(bitmap);
                 } catch (WriterException e) {
-                    Log.e(TAG,"QRCODE"+e.toString());
+                    Log.e(TAG, "QRCODE" + e.toString());
                 }
-//                 END
+                // END
             }
 
             if (rewardModel.getProgramingRule() != null && !rewardModel.getProgramingRule().equals("")) {
@@ -206,78 +200,40 @@ public class RewardFragment extends Fragment implements TaskReward.TaskRewardEve
                     tv_rewardpoint.setVisibility(View.VISIBLE);
                     tv_rewardPointValue.setVisibility(View.VISIBLE);
                     tv_rewardPointValue.setText(rewardModel.getPoints());
-                }else{
+                } else {
                     tv_rewardpoint.setVisibility(View.GONE);
                     tv_rewardPointValue.setVisibility(View.GONE);
                 }
 
                 if (rewardModel.getRebate() != null && !rewardModel.getRebate().equals("")) {
-
                     double rebate = Double.parseDouble(rewardModel.getRebate());
-
                     if (rebate > 0) {
                         tv_rebateAvailable.setVisibility(View.VISIBLE);
                         tv_rebateAvailableVal.setVisibility(View.VISIBLE);
                         tv_rebateAvailableVal.setText("$" + rewardModel.getRebate());
-                    }else{
+                    } else {
                         tv_rebateAvailable.setVisibility(View.GONE);
                         tv_rebateAvailableVal.setVisibility(View.GONE);
                     }
-                }
-                else{
+                } else {
                     tv_rebateAvailable.setVisibility(View.GONE);
                     tv_rebateAvailableVal.setVisibility(View.GONE);
                 }
 
-            } else if (rewardModel.getLoyaltyType().equals("Online")) {
-
-                if (rewardModel.getRebate() != null && !rewardModel.getRebate().equals("")) {
-
-                    double rebate = Double.parseDouble(rewardModel.getRebate());
-
-                    if (rebate > 0) {
-                        tv_rebateAvailable.setVisibility(View.VISIBLE);
-                        tv_rebateAvailableVal.setVisibility(View.VISIBLE);
-                        tv_rebateAvailableVal.setText("$" + rewardModel.getRebate());
-                    }else{
-                        tv_rebateAvailable.setVisibility(View.GONE);
-                        tv_rebateAvailableVal.setVisibility(View.GONE);
-                    }
-                }else {
-                    tv_rebateAvailable.setVisibility(View.GONE);
-                    tv_rebateAvailableVal.setVisibility(View.GONE);
-                }
-
-            } else if (rewardModel.getLoyaltyType().equals("Skoop")) {
-
-                if (rewardModel.getPhoneNo().equals("") || !rewardModel.getPhoneNo().equals("M")) {
+                if (rewardModel.getPoints() != null && !rewardModel.getPoints().equals("") && !rewardModel.getPoints().equals("0")) {
+                    tv_rewards.setVisibility(View.VISIBLE);
+                    tv_rewardsVal.setVisibility(View.VISIBLE);
+                    tv_rewardsVal.setText(rewardModel.getPoints());
+                } else {
                     tv_rewards.setVisibility(View.GONE);
                     tv_rewardsVal.setVisibility(View.GONE);
-                } else {
-                    if (rewardModel.getRebate() != null && !rewardModel.getRebate().equals("")) {
-
-                        double rebate = Double.parseDouble(rewardModel.getRebate());
-
-                        if (rebate > 0) {
-                            tv_rebateAvailable.setVisibility(View.VISIBLE);
-                            tv_rebateAvailableVal.setVisibility(View.VISIBLE);
-                            tv_rebateAvailableVal.setText("$" + rewardModel.getRebate());
-
-                        } else {
-                            tv_rebateAvailable.setVisibility(View.GONE);
-                            tv_rebateAvailableVal.setVisibility(View.GONE);
-                        }
-                    }else{
-                        tv_rebateAvailable.setVisibility(View.GONE);
-                        tv_rebateAvailableVal.setVisibility(View.GONE);
-                    }
                 }
             }
         }
     }
+
+//    @Override
+//    public void onRewardError(String message) {
+//        // Handle error case
+//    }
 }
-
-
-
-
-
