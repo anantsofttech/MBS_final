@@ -733,7 +733,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_weight="18"
                                     android:gravity="end"
-                                    android:text=""
+                                    android:text="$0.00"
                                     android:textSize="@dimen/dimen_12"
                                     android:textStyle="bold" />
                             </LinearLayout>
@@ -940,8 +940,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_below="@+id/ll_title_cart_item_order_summary_fragment"
-                            android:layout_marginLeft="@dimen/dimen_10"
-                            android:layout_marginRight="@dimen/dimen_10"
+                            android:layout_marginLeft="@dimen/dimen_20"
+                            android:layout_marginRight="@dimen/dimen_20"
                             android:layout_marginTop="5dp"
                             android:background="@android:color/darker_gray" />
 
@@ -956,11 +956,22 @@
                             android:nestedScrollingEnabled="false"
                             tools:ignore="UnusedAttribute" />
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_view_Gift_Card_order_summary_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/recycler_view_order_summary_fragment"
+                            android:layout_marginLeft="@dimen/dimen_10"
+                            android:layout_marginRight="@dimen/dimen_10"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:nestedScrollingEnabled="false"
+                            tools:ignore="UnusedAttribute" />
+
                         <TextView
                             android:id="@+id/tv_gift_wrap_flag_order_summary_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/recycler_view_order_summary_fragment"
+                            android:layout_below="@+id/recycler_view_Gift_Card_order_summary_fragment"
                             android:layout_marginBottom="@dimen/dimen_10"
                             android:layout_marginLeft="@dimen/dimen_10"
                             android:layout_marginRight="@dimen/dimen_10"
@@ -1636,8 +1647,8 @@
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
-<!--                Pickup hours and location -->
-<!--                Edited by varun -->
+                <!--                Pickup hours and location -->
+                <!--                Edited by varun -->
                 <LinearLayout
                     android:id="@+id/ll_pick_up"
                     android:layout_width="match_parent"

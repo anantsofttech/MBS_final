@@ -49,6 +49,13 @@
                     android:nestedScrollingEnabled="false"
                     tools:ignore="UnusedAttribute" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/card_Gift_card_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:ignore="UnusedAttribute" />
+
                 <!-- Total Saving-->
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -463,18 +470,18 @@
                                 android:focusable="true" />
 
                             <!--<TextView-->
-                                <!--android:id="@+id/tv_title_legal"-->
-                                <!--android:layout_marginTop="@dimen/_5sdp"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:layout_below="@+id/cbx_i_agree_card_fragment"-->
-                                <!--android:focusable="true"-->
-                                <!--android:layout_centerInParent="true"-->
-                                <!--android:focusableInTouchMode="true"-->
-                                <!--android:text="@string/Legal_Disclaimer"-->
-                                <!--android:textColor="@color/black"-->
-                                <!--android:textSize="@dimen/dimen_12"-->
-                                <!--android:textStyle="italic" />-->
+                            <!--android:id="@+id/tv_title_legal"-->
+                            <!--android:layout_marginTop="@dimen/_5sdp"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_below="@+id/cbx_i_agree_card_fragment"-->
+                            <!--android:focusable="true"-->
+                            <!--android:layout_centerInParent="true"-->
+                            <!--android:focusableInTouchMode="true"-->
+                            <!--android:text="@string/Legal_Disclaimer"-->
+                            <!--android:textColor="@color/black"-->
+                            <!--android:textSize="@dimen/dimen_12"-->
+                            <!--android:textStyle="italic" />-->
 
                         </LinearLayout>
 

@@ -29,8 +29,10 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aspl.Adapter.CardAdapter;
+import com.aspl.Adapter.Gift_Card_CartAdapter;
 import com.aspl.Utils.BSTheme;
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.DeviceInfo;
@@ -49,10 +51,12 @@ import com.aspl.mbsmodel.UserModel;
 import com.aspl.task.TaskCart;
 import com.aspl.task.TaskCustomerData;
 import com.aspl.task.TaskDeleteCartItem;
+import com.aspl.task.TaskRemoveGiftCard;
 import com.aspl.task.TaskShippingData;
 import com.aspl.task.TaskStoreDeliveryHours;
 import com.aspl.task.TaskTwentyOneYear;
 import com.aspl.task.TaskUpdateCartQuantity;
+import com.aspl.task.TaskUpdateGiftCardQty;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -71,8 +75,9 @@ import java.util.List;
 
 public class CardFragment extends Fragment implements View.OnClickListener
         , TaskCart.TaskCardEvent
-        , CardAdapter.CardAdapterEvent
-       /* , TaskTwentyOneYear.TaskTwentyOneYearEvent*/
+        , CardAdapter.CardAdapterEvent, Gift_Card_CartAdapter.Gift_Card_CartAdapterEvent, TaskRemoveGiftCard.TaskRemoveGiftCardListener
+        ,TaskUpdateGiftCardQty.onTaskCompleted_GC_QTY_Updated
+        /* , TaskTwentyOneYear.TaskTwentyOneYearEvent*/
         , TaskUpdateCartQuantity.TaskUpdateCartQuantityEvent, TaskCustomerData.TaskCustomerEvent, TaskShippingData.TaskShippingEvent, TaskStoreDeliveryHours.StoreDeliveryHoursEvent, TaskTwentyOneYear.TaskTwentyOneYearEvent {
 
     public static final String TAG = "CardFragment";
@@ -93,7 +98,7 @@ public class CardFragment extends Fragment implements View.OnClickListener
     public static TextView tvlegendSalesTax, tvlegendMiscTax, tvlegendFlatTax, tvlegendWineTax, tvlegendBottleDeposite, tvlegendNonTaxable;
     public static CheckBox checkbox;
     public static Button btnNext, btnContinueShopping, btnContinueShoppingEmpty;
-    public static RecyclerView recyclerView;
+    public static RecyclerView recyclerView, recyclerView_gift_card;
     static CardView cvTotal;
     //List<CardModel> cardModels = new ArrayList<>();
     public static List<ShoppingCardModel> liShoppingCard = new ArrayList<>();
@@ -105,6 +110,7 @@ public class CardFragment extends Fragment implements View.OnClickListener
     String Price;
 
     private static CardAdapter cardAdapter;
+    private static Gift_Card_CartAdapter giftCardCartAdapter;
     public Menu menu;
 
     int Requested_Quantity=0;
@@ -119,7 +125,7 @@ public class CardFragment extends Fragment implements View.OnClickListener
     }
 
     CardEvent mCardEvent;
-        public static CardFragment cardFragment;
+    public static CardFragment cardFragment;
 
     public static CardFragment getInstance()     {
         return cardFragment;
@@ -211,7 +217,7 @@ public class CardFragment extends Fragment implements View.OnClickListener
         //new Async_getCommonService(MainActivity.getInstance(),urls).execute();
     }
 
-////    *************** Edited by Varun for shopping cart on 29 july 2022 *********************
+    ////    *************** Edited by Varun for shopping cart on 29 july 2022 *********************
 ////          not to refresh when login
     public void oncall() {
 
@@ -263,15 +269,26 @@ public class CardFragment extends Fragment implements View.OnClickListener
         super.onViewCreated(view, savedInstanceState);
         //Initialize the views
         initViews(view);
-        LinearLayoutManager linearLayoutManager=null;
-        if(Constant.SCREEN_LAYOUT==1){
-             linearLayoutManager = new LinearLayoutManager(MainActivity.getInstance());
-        }else if(Constant.SCREEN_LAYOUT==2) {
-             linearLayoutManager = new LinearLayoutManager(MainActivityDup.getInstance());
+        LinearLayoutManager linearLayoutManager = null;
+        LinearLayoutManager gf_linearLayoutManager = null;
+
+// Set the layout managers based on the screen layout constant
+        if (Constant.SCREEN_LAYOUT == 1) {
+            linearLayoutManager = new LinearLayoutManager(MainActivity.getInstance());
+            gf_linearLayoutManager = new LinearLayoutManager(MainActivity.getInstance());
+        } else if (Constant.SCREEN_LAYOUT == 2) {
+            linearLayoutManager = new LinearLayoutManager(MainActivityDup.getInstance());
+            gf_linearLayoutManager = new LinearLayoutManager(MainActivityDup.getInstance());
         }
 
+// Set up the first RecyclerView
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
+
+// Set up the second RecyclerView
+        recyclerView_gift_card.setLayoutManager(gf_linearLayoutManager);
+        recyclerView_gift_card.setHasFixedSize(true);
+
         swipeRefreshLayout.setOnRefreshListener(
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
@@ -306,13 +323,13 @@ public class CardFragment extends Fragment implements View.OnClickListener
         String url = null;
         if (UserModel.Cust_mst_ID != null) {
 //            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID;
-            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
+            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V2 + UserModel.Cust_mst_ID + "/" + Constant.MY_CART + Constant.STOREID + Constant.ENCODE_TOKEN_ID;
             TaskCart taskCart = new TaskCart(cardFragment, "");
 //            taskCart.execute(url);
             taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
         } else {
 //            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + Constant.SESSION + Constant.STOREID;
-            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V1 + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + Constant.SESSION + Constant.STOREID  + Constant.ENCODE_TOKEN_ID;
+            url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_CARD_DATA_V2 + DeviceInfo.getDeviceId(getActivity()) + "0011" + "/" + Constant.SESSION + Constant.STOREID  + Constant.ENCODE_TOKEN_ID;
             TaskCart taskCart = new TaskCart(cardFragment, "");
 //            taskCart.execute(url);
             taskCart.executeOnExecutor(TaskCart.THREAD_POOL_EXECUTOR,url);
@@ -325,30 +342,72 @@ public class CardFragment extends Fragment implements View.OnClickListener
         swipeRefreshLayout.setRefreshing(false);
         CardFragment.liShoppingCard = liShoppingCard;
 
+        Constant.Gift_Card_liCardModel.clear();
+        Constant.Inventory_liCardModel.clear();
+
+        int quntity = 0;
+        for (int i = 0; i < liShoppingCard.size(); i++) {
+            // Check if the GiftCard list is not null
+            if (liShoppingCard.get(i).getLstGiftCard() != null) {
+                for (int j = 0; j < liShoppingCard.get(i).getLstGiftCard().size(); j++) {
+                    // Check if the Gift Card quantity is not null or empty
+                    String gCQuantity = liShoppingCard.get(i).getLstGiftCard().get(j).getgCQuantity();
+                    if (gCQuantity != null && !gCQuantity.trim().isEmpty()) {
+                        try {
+                            quntity += Integer.parseInt(gCQuantity);
+                        } catch (NumberFormatException e) {
+
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                Constant.Gift_Card_liCardModel.add(liShoppingCard.get(i));
+            } else {
+
+                String qty = liShoppingCard.get(i).getQty();
+                if (qty != null && !qty.trim().isEmpty()) {
+                    try {
+                        quntity += Integer.parseInt(qty);
+                    } catch (NumberFormatException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+                Constant.Inventory_liCardModel.add(liShoppingCard.get(i));
+            }
+        }
+
         if (CardFragment.liShoppingCard.size() > 0) {
             if(Constant.SCREEN_LAYOUT==1){
-                if (CardFragment.liShoppingCard.get(0).getCartID() == 0) {
+                if (CardFragment.liShoppingCard.get(0).getCartID() == 0 && Constant.Gift_Card_liCardModel.get(0).getLstGiftCard().size()==0) {
                     /** Clear Shopping Cart Icon Count **/
                     MainActivity.getInstance().updateShoppingCartItemCount(0);
                     rlRoot.setVisibility(View.VISIBLE);
                     llRootMain.setVisibility(View.GONE);
                     llRootEmpty.setVisibility(View.VISIBLE);
                 } else {
-                    int quntity = 0;
-                    for (int i = 0; i < liShoppingCard.size(); i++) {
-                        quntity = quntity + Integer.parseInt(liShoppingCard.get(i).getQty());
-                    }
-                        MainActivity.countMenu.setTitle(String.valueOf(quntity));
+
+                    MainActivity.countMenu.setTitle(String.valueOf(quntity));
                     //below line added newly for counter qty update
                     MainActivity.getInstance().updateShoppingCartItemCount(quntity);
                     /////
                     llRootEmpty.setVisibility(View.GONE);
                     rlRoot.setVisibility(View.VISIBLE);
                     cvTotal.setVisibility(View.VISIBLE);
-                    cardAdapter = new CardAdapter(MainActivity.getInstance(), this, liShoppingCard);
-                    recyclerView.setAdapter(cardAdapter);
+                    if (Constant.Inventory_liCardModel!=null && !Constant.Inventory_liCardModel.isEmpty() && Constant.Inventory_liCardModel.get(0).getCartID()!=0) {
+                        cardAdapter = new CardAdapter(MainActivity.getInstance(), this, Constant.Inventory_liCardModel);
+                        recyclerView.setAdapter(cardAdapter);
+                        cardAdapter.notifyDataSetChanged();
+                    }
+
+                    if (Constant.Gift_Card_liCardModel!=null) {
+                        giftCardCartAdapter = new Gift_Card_CartAdapter(MainActivity.getInstance(), this, Constant.Gift_Card_liCardModel.get(0).getLstGiftCard());
+                        recyclerView_gift_card.setAdapter(giftCardCartAdapter);
+                        giftCardCartAdapter.notifyDataSetChanged();
+                    }
+
                     onCalculateTotal(liShoppingCard);
-                    cardAdapter.notifyDataSetChanged();
+
                 }
             }else if(Constant.SCREEN_LAYOUT==2) {
                 if (CardFragment.liShoppingCard.get(0).getCartID() == 0) {
@@ -359,11 +418,11 @@ public class CardFragment extends Fragment implements View.OnClickListener
                     llRootMain.setVisibility(View.GONE);
                     llRootEmpty.setVisibility(View.VISIBLE);
                 } else {
-                    int quntity = 0;
-                    for (int i = 0; i < liShoppingCard.size(); i++) {
-                        quntity = quntity + Integer.parseInt(liShoppingCard.get(i).getQty());
-                    }
-                        MainActivityDup.countMenu.setTitle(String.valueOf(quntity));
+//                    int quntity = 0;
+//                    for (int i = 0; i < liShoppingCard.size(); i++) {
+//                        quntity = quntity + Integer.parseInt(liShoppingCard.get(i).getQty());
+//                    }
+                    MainActivityDup.countMenu.setTitle(String.valueOf(quntity));
                     llRootEmpty.setVisibility(View.GONE);
                     rlRoot.setVisibility(View.VISIBLE);
                     cvTotal.setVisibility(View.VISIBLE);
@@ -455,12 +514,27 @@ public class CardFragment extends Fragment implements View.OnClickListener
         _actualTotal = 0.0f;
 
         for (int i = 0; i < liShoppingCard.size(); i++) {
-            if (liShoppingCard.get(i).getCartPrice() != null && !liShoppingCard.get(i).toString().isEmpty()) {
-                if (Float.parseFloat(liShoppingCard.get(i).getCartPrice()) > 0 && liShoppingCard.get(i).getQty() != null) {
-                    //_subTotal = _subTotal + Double.valueOf(liShoppingCard.get(i).getCartPrice()) * Double.valueOf(liShoppingCard.get(i).getQty());
+            if (liShoppingCard.get(i).getCartPrice() != null && !liShoppingCard.get(i).getCartPrice().isEmpty()) {
+                if (Float.parseFloat(liShoppingCard.get(i).getCartPrice()) > 0 && liShoppingCard.get(i).getQty() != null && !liShoppingCard.get(i).getQty().isEmpty()) {
+                    // Calculate subtotal for regular items
                     _subTotal = _subTotal + Float.parseFloat(liShoppingCard.get(i).getCartPrice()) * Float.parseFloat(liShoppingCard.get(i).getQty());
                 }
+            } else {
+                // Ensure getLstGiftCard() is not null before attempting to access or iterate over it
+                if (liShoppingCard.get(i).getLstGiftCard() != null) {
+                    for (int j = 0; j < liShoppingCard.get(i).getLstGiftCard().size(); j++) {
+                        // Check for null or empty values for amount and quantity
+                        String amountPur = liShoppingCard.get(i).getLstGiftCard().get(j).getAmoutPur();
+                        String gCQuantity = liShoppingCard.get(i).getLstGiftCard().get(j).getgCQuantity();
+
+                        if (amountPur != null && !amountPur.isEmpty() && Float.parseFloat(amountPur) > 0 && gCQuantity != null && !gCQuantity.isEmpty()) {
+                            // Calculate subtotal for gift cards
+                            _subTotal = _subTotal + Float.parseFloat(amountPur) * Float.parseFloat(gCQuantity);
+                        }
+                    }
+                }
             }
+
             if (liShoppingCard.get(i).getIsSalesTax()) {
                 vSalesTax.setVisibility(View.VISIBLE);
                 llSalesTax.setVisibility(View.VISIBLE);
@@ -481,8 +555,9 @@ public class CardFragment extends Fragment implements View.OnClickListener
             }
 
             //Bottle Deposit
-            if (Double.valueOf(liShoppingCard.get(i).getBottledeposit()) != null)
+            if (liShoppingCard.get(i).getBottledeposit() != null){
                 _bottleDeposit = _bottleDeposit + Float.parseFloat(liShoppingCard.get(i).getBottledeposit()) * Float.parseFloat(liShoppingCard.get(i).getQty());
+            }
 
             //Bottle Deposit visibility
             if (_bottleDeposit > 0) {
@@ -537,12 +612,37 @@ public class CardFragment extends Fragment implements View.OnClickListener
             }
 //            Edited by Varun for to remove the $ from the price
 //            _actualTotal = _actualTotal + Float.parseFloat(liShoppingCard.get(i).getPrice()) * Float.parseFloat(liShoppingCard.get(i).getQty());
-            if (liShoppingCard.get(i).getPrice().contains("$")){
-                Price = liShoppingCard.get(i).getPrice().replace("$","");
-                _actualTotal = _actualTotal + Float.parseFloat(Price) * Float.parseFloat(liShoppingCard.get(i).getQty());
-            }else {
-                _actualTotal = _actualTotal + Float.parseFloat(liShoppingCard.get(i).getCartPrice()) * Float.parseFloat(liShoppingCard.get(i).getQty());
+            if (liShoppingCard.get(i).getLstGiftCard() != null) {
+                for (int j = 0; j < liShoppingCard.get(i).getLstGiftCard().size(); j++) {
+                    String amountPur = liShoppingCard.get(i).getLstGiftCard().get(j).getAmoutPur();
+                    String gCQuantity = liShoppingCard.get(i).getLstGiftCard().get(j).getgCQuantity();
+
+                    // Check if amountPur and gCQuantity are not null
+                    if (amountPur != null && gCQuantity != null) {
+                        if (amountPur.contains("$")) {
+                            Price = amountPur.replace("$", "");
+                            _actualTotal = _actualTotal + Float.parseFloat(Price) * Float.parseFloat(gCQuantity);
+                        } else {
+                            _actualTotal = _actualTotal + Float.parseFloat(amountPur) * Float.parseFloat(gCQuantity);
+                        }
+                    }
+                }
+            } else {
+                String price = liShoppingCard.get(i).getPrice();
+                String cartPrice = liShoppingCard.get(i).getCartPrice();
+                String qty = liShoppingCard.get(i).getQty();
+
+                // Check if price and qty are not null
+                if (price != null && qty != null) {
+                    if (price.contains("$")) {
+                        Price = price.replace("$", "");
+                        _actualTotal = _actualTotal + Float.parseFloat(Price) * Float.parseFloat(qty);
+                    } else if (cartPrice != null) {
+                        _actualTotal = _actualTotal + Float.parseFloat(cartPrice) * Float.parseFloat(qty);
+                    }
+                }
             }
+
             /*if (Double.valueOf(liShoppingCard.get(i).getPromoPrice()) != null){
                 _totalSaving = Float.parseFloat(liShoppingCard.get(i).getPrice()) - Float.parseFloat(liShoppingCard.get(i).getPromoPrice());
             }*/
@@ -714,61 +814,40 @@ public class CardFragment extends Fragment implements View.OnClickListener
         boolean _salesTax = false, _wineTax = false, _bottleDeposite = false;
         for (int i = 0; i < CardFragment.liShoppingCard.size(); i++) {
             //tvlegendSalesTax.setVisibility(View.GONE);
-            if (!CardFragment.liShoppingCard.get(i).getTax11().isEmpty())
-                tvlegendSalesTax.setVisibility(View.VISIBLE);
-            if (!CardFragment.liShoppingCard.get(i).getTax22().isEmpty())
-                tvlegendWineTax.setVisibility(View.VISIBLE);
-            if (!CardFragment.liShoppingCard.get(i).getTax33().isEmpty())
-                tvlegendMiscTax.setVisibility(View.VISIBLE);
-            if (!CardFragment.liShoppingCard.get(i).getTax44().isEmpty())
-                tvlegendFlatTax.setVisibility(View.VISIBLE);
-            if (!CardFragment.liShoppingCard.get(i).getTax55().isEmpty())
-                tvlegendBottleDeposite.setVisibility(View.VISIBLE);
-            if (!CardFragment.liShoppingCard.get(i).getTax66().isEmpty())
-                tvlegendNonTaxable.setVisibility(View.VISIBLE);
-            /*if (CardFragment.liShoppingCard.get(i).getTax11().equals("T")) {
-                tvlegendSalesTax.setVisibility(View.VISIBLE);
+            if (CardFragment.liShoppingCard.get(i).getLstGiftCard() == null) {
+                // Check if Tax11 is not null and not empty
+                if (CardFragment.liShoppingCard.get(i).getTax11() != null && !CardFragment.liShoppingCard.get(i).getTax11().isEmpty()) {
+                    tvlegendSalesTax.setVisibility(View.VISIBLE);
+                }
+
+                // Check if Tax22 is not null and not empty
+                if (CardFragment.liShoppingCard.get(i).getTax22() != null && !CardFragment.liShoppingCard.get(i).getTax22().isEmpty()) {
+                    tvlegendWineTax.setVisibility(View.VISIBLE);
+                }
+
+                // Check if Tax33 is not null and not empty
+                if (CardFragment.liShoppingCard.get(i).getTax33() != null && !CardFragment.liShoppingCard.get(i).getTax33().isEmpty()) {
+                    tvlegendMiscTax.setVisibility(View.VISIBLE);
+                }
+
+                // Check if Tax44 is not null and not empty
+                if (CardFragment.liShoppingCard.get(i).getTax44() != null && !CardFragment.liShoppingCard.get(i).getTax44().isEmpty()) {
+                    tvlegendFlatTax.setVisibility(View.VISIBLE);
+                }
+
+                // Check if Tax55 is not null and not empty
+                if (CardFragment.liShoppingCard.get(i).getTax55() != null && !CardFragment.liShoppingCard.get(i).getTax55().isEmpty()) {
+                    tvlegendBottleDeposite.setVisibility(View.VISIBLE);
+                }
+
+                // Check if Tax66 is not null and not empty
+                if (CardFragment.liShoppingCard.get(i).getTax66() != null && !CardFragment.liShoppingCard.get(i).getTax66().isEmpty()) {
+                    tvlegendNonTaxable.setVisibility(View.VISIBLE);
+                }
             }
-            if (CardFragment.liShoppingCard.get(i).getTax22().equals("T2")) {
-                tvlegendSalesTax.setVisibility(View.VISIBLE);
-                tvlegendBottleDeposite.setVisibility(View.VISIBLE);
-            }
-            if (CardFragment.liShoppingCard.get(i).getTax33().equals("T T2")) {
-                tvlegendWineTax.setVisibility(View.VISIBLE);
-                tvlegendSalesTax.setVisibility(View.VISIBLE);
-            }
-            if (CardFragment.liShoppingCard.get(i).getTax44().equals("T T2 D")) {
-                tvlegendWineTax.setVisibility(View.VISIBLE);
-                tvlegendSalesTax.setVisibility(View.VISIBLE);
-                tvlegendBottleDeposite.setVisibility(View.VISIBLE);
-                break;
-            }*/
-            /*if (CardFragment.liShoppingCard.get(i).getIsSalesTax()) {
-                tvlegendSalesTax.setVisibility(View.VISIBLE);
-            }*/
-            /*else {
-                vLegend.setVisibility(View.GONE);
-                rlLegend.setVisibility(View.GONE);
-            }*/
 
         }
     }
-
-
-    /*public static double roundMyData(double Rval, int no) {
-        //no = No of decimal after . you want to print
-        double p = (float) Math.pow(10, no);
-        Rval = Rval * p;
-        double tmp = Math.floor(Rval);
-        return tmp / p;
-    }
-
-    public static double round(double time) {
-        time = Math.round(100 * time);
-        return time /= 100;
-    }*/
-
-
     public static void onSetEmpty() {
         if (rlRoot != null)
             rlRoot.setVisibility(View.VISIBLE);
@@ -782,21 +861,118 @@ public class CardFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCardItemRemoved(int position) {
         onRemoveFromWeb(position);
-        liShoppingCard.remove(position);
-        Constant.liCardModel = liShoppingCard;
+        Constant.Inventory_liCardModel.remove(position);
+        Constant.liCardModel.clear();
+        Constant.liCardModel.addAll(Constant.Inventory_liCardModel);
+        Constant.liCardModel.addAll(Constant.Gift_Card_liCardModel);
 //        Edited By Varun for pop-up of Added
 //        DialogUtils.showDialog("Removed from Cart!");
 //        END
-        if (liShoppingCard.size() == 0) {
+        if (Constant.Inventory_liCardModel.size() == 0 && Constant.Gift_Card_liCardModel.get(0).getLstGiftCard().size()==0) {
             onSetEmpty();
         } else {
-            onCalculateTotal(liShoppingCard);
+            onCalculateTotal(Constant.liCardModel);
             recyclerView.removeViewAt(position);
             cardAdapter.notifyItemRemoved(position);
-            cardAdapter.notifyItemRangeChanged(position, liShoppingCard.size());
+            cardAdapter.notifyItemRangeChanged(position,Constant.Inventory_liCardModel.size());
             cardAdapter.notifyDataSetChanged();
         }
     }
+
+
+    @Override
+    public void onCartGiftCardItemPlus(int adapterPosition, String giftcardId, String giftcardQty) {
+
+        String url = "";
+        int qty = Integer.parseInt(giftcardQty) + 1;
+
+        if (UserModel.Cust_mst_ID != null && !UserModel.Cust_mst_ID.isEmpty()) {
+            url = Constant.WS_BASE_URL + Constant.UPDATE_GC_PURCHASE_QTY + giftcardId + "/" + UserModel.Cust_mst_ID + "/" + Constant.STOREID + "/" + qty;
+        } else {
+            url = Constant.WS_BASE_URL + Constant.UPDATE_GC_PURCHASE_QTY + giftcardId + "/" + DeviceInfo.getDeviceId(MainActivity.getInstance()) + "0011" + "/" + Constant.STOREID + "/" + qty;
+        }
+        TaskUpdateGiftCardQty taskUpdateGiftCardQty = new TaskUpdateGiftCardQty((TaskUpdateGiftCardQty.onTaskCompleted_GC_QTY_Updated) this, adapterPosition);
+        taskUpdateGiftCardQty.execute(url);
+
+    }
+
+    @Override
+    public void onCartGiftCardItem_minus(int adapterPosition, String giftcardId, String giftcardQty) {
+        String url = "";
+        int qty = Integer.parseInt(giftcardQty) - 1;
+
+        if (UserModel.Cust_mst_ID != null && !UserModel.Cust_mst_ID.isEmpty()) {
+            url = Constant.WS_BASE_URL + Constant.UPDATE_GC_PURCHASE_QTY + giftcardId + "/" + UserModel.Cust_mst_ID + "/" + Constant.STOREID + "/" + qty;
+        } else {
+            url = Constant.WS_BASE_URL + Constant.UPDATE_GC_PURCHASE_QTY + giftcardId + "/" + DeviceInfo.getDeviceId(MainActivity.getInstance()) + "0011" + "/" + Constant.STOREID + "/" + qty;
+        }
+        TaskUpdateGiftCardQty taskUpdateGiftCardQty = new TaskUpdateGiftCardQty((TaskUpdateGiftCardQty.onTaskCompleted_GC_QTY_Updated) this, adapterPosition);
+        taskUpdateGiftCardQty.execute(url);
+    }
+
+    @Override
+    public void onTaskCompleted_GC_QTY_Updated(String result, int position) {
+        String trimmedResult = result.trim().replaceAll("^\"|\"$", "");
+
+        if (trimmedResult.equalsIgnoreCase("success")) {
+            Toast.makeText(getContext(), "QTY UPDATED !!!", Toast.LENGTH_SHORT).show();
+            onGetCartData();
+            Utils.vibrateDevice(getContext());
+        } else {
+            Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onCardGiftCardItemRemoved(int position, String giftcard_id) {
+
+        String url = "";
+
+        if (UserModel.Cust_mst_ID!=null && !UserModel.Cust_mst_ID.isEmpty()) {
+            url = Constant.WS_BASE_URL + Constant.UPDATE_GIFT_CARD_STATUS + Constant.STOREID + "/" + UserModel.Cust_mst_ID + "/" + giftcard_id + "/" + "cancel";
+        }else{
+            url = Constant.WS_BASE_URL + Constant.UPDATE_GIFT_CARD_STATUS + Constant.STOREID + "/" + DeviceInfo.getDeviceId(MainActivity.getInstance()) + "0011" + "/" + giftcard_id + "/" + "cancel";
+        }
+
+        TaskRemoveGiftCard removeGiftCard = new TaskRemoveGiftCard(this,position);
+//        deleteCartItem.execute(url);
+        removeGiftCard.execute(url);
+
+    }
+
+    public void onTaskCompleted(String result, int position) {
+        String trimmedResult = result.trim().replaceAll("^\"|\"$", "");
+
+        if (trimmedResult.equalsIgnoreCase("success")) {
+            // Remove the gift card from the list
+            Constant.Gift_Card_liCardModel.get(0).getLstGiftCard().remove(position);
+
+            // Clear and update the shared model
+            Constant.liCardModel.clear();
+            Constant.liCardModel.addAll(Constant.Inventory_liCardModel);
+            Constant.liCardModel.addAll(Constant.Gift_Card_liCardModel);
+
+            // Check if both lists are empty
+            if ((Constant.Inventory_liCardModel == null || Constant.Inventory_liCardModel.isEmpty() || Constant.Inventory_liCardModel.get(0).getCartID() == 0)
+                    && Constant.Gift_Card_liCardModel.get(0).getLstGiftCard().size() == 0) {
+                onSetEmpty();
+            } else {
+                // Get the adapter from the RecyclerView
+                Gift_Card_CartAdapter adapter = (Gift_Card_CartAdapter) recyclerView_gift_card.getAdapter();
+
+                if (adapter != null) {
+                    onCalculateTotal(Constant.liCardModel);
+                    recyclerView_gift_card.removeViewAt(position);
+                    adapter.notifyItemRemoved(position);
+                    adapter.notifyItemRangeChanged(position,Constant.Gift_Card_liCardModel.get(0).getLstGiftCard().size());
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        } else {
+            Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     public void onRemoveFromWeb(int position) {
         String url;
@@ -884,8 +1060,8 @@ public class CardFragment extends Fragment implements View.OnClickListener
     @Override
     public void onUpdateQuantityResult(UpdateCartQuantity updateCartQuantity) {
         if (updateCartQuantity.getResult().equalsIgnoreCase("success")) {
-            Utils.vibrateDevice(getContext());
             onGetCartData();
+            Utils.vibrateDevice(getContext());
         } else if(updateCartQuantity.getResult().equalsIgnoreCase("Not enough Stock")){
             //updateCartQuantity.
             Log.e("Log","Qty="+updateCartQuantity.getQty());
@@ -999,6 +1175,7 @@ public class CardFragment extends Fragment implements View.OnClickListener
         btnContinueShoppingEmpty.setOnClickListener(CardFragment.getInstance());
 
         recyclerView = view.findViewById(R.id.card_recycler_view);
+        recyclerView_gift_card = view.findViewById(R.id.card_Gift_card_recycler_view);
         cvTotal = view.findViewById(R.id.card_total_rv_shopping_card);
     }
 
@@ -1288,15 +1465,15 @@ public class CardFragment extends Fragment implements View.OnClickListener
 
             Date d = new Date();
 
-                for (int i = 0; i < Constant.liOnlyStoreHour.size(); i++) {
-                    if (today.equals(Constant.liOnlyStoreHour.get(i).getStoreDay())) {
-                        pos = i;
+            for (int i = 0; i < Constant.liOnlyStoreHour.size(); i++) {
+                if (today.equals(Constant.liOnlyStoreHour.get(i).getStoreDay())) {
+                    pos = i;
 
-                        if (Constant.liOnlyStoreHour.get(i).getClosed()) {
-                            isStoreClosedtoday = true;
-                        }
+                    if (Constant.liOnlyStoreHour.get(i).getClosed()) {
+                        isStoreClosedtoday = true;
                     }
                 }
+            }
 
 //            String openTime = Constant.liOnlyStoreHour.get(pos).getOpenTime();
             String closeTime1 = Constant.liOnlyStoreHour.get(pos).getCloseTime();

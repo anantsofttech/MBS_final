@@ -10,6 +10,7 @@ import com.aspl.mbsmodel.CardModel;
 import com.aspl.mbsmodel.ContatInfo;
 import com.aspl.mbsmodel.DataFrontModel;
 import com.aspl.mbsmodel.DataHomePageBlockModel;
+import com.aspl.mbsmodel.DatabaseInfo;
 import com.aspl.mbsmodel.DeleteAccountModel;
 import com.aspl.mbsmodel.DepartmentModel;
 import com.aspl.mbsmodel.EditShippingData;
@@ -56,11 +57,11 @@ public class Constant {
      *
      **/
 //////    local 707.
-//      public static String IMG_BASE = "http://192.168.172.244:808/";
-//      public static String URL = "http://192.168.172.244:888/";
-//      public static String WS_BASE = "http://192.168.172.244:889";
-//      public static String WS_BASE_POS_URL = "http://192.168.172.244:140/CsCode/WebStoreOnlineService.asmx/";
-//      public static String WS_BASE_FOR_POS_LIGHTNING = "http://192.168.172.244:140/CsCode/WebStoreOnlineService.asmx/";
+      public static String IMG_BASE = "http://192.168.172.244:808/";
+      public static String URL = "http://192.168.172.244:888/";
+      public static String WS_BASE = "http://192.168.172.244:889";
+      public static String WS_BASE_POS_URL = "http://192.168.172.244:140/CsCode/WebStoreOnlineService.asmx/";
+      public static String WS_BASE_FOR_POS_LIGHTNING = "http://192.168.172.244:140/CsCode/WebStoreOnlineService.asmx/";
 
     /**
      * Test Sever
@@ -69,11 +70,11 @@ public class Constant {
 
 //    public static String IMG_BASE = "http://testimages.lightningpos.com/";
 //
-    public static String IMG_BASE = "https://testimages.lightningpos.com/";
-    public static String URL = "https://ecomtest.lightningpos.com/";
-    public static String WS_BASE = "https://ecomtestWCF.lightningpos.com";
-    public static String WS_BASE_POS_URL = "https://ecomtest.lightningpos.com/Home/";
-    public static String WS_BASE_FOR_POS_LIGHTNING = "https://evo.lightningpos.com/CSCode/WebStoreOnlineService.asmx/";
+//    public static String IMG_BASE = "https://testimages.lightningpos.com/";
+//    public static String URL = "https://ecomtest.lightningpos.com/";
+//    public static String WS_BASE = "https://ecomtestWCF.lightningpos.com";
+//    public static String WS_BASE_POS_URL = "https://ecomtest.lightningpos.com/Home/";
+//    public static String WS_BASE_FOR_POS_LIGHTNING = "https://evo.lightningpos.com/CSCode/WebStoreOnlineService.asmx/";
 
 
     /**
@@ -134,7 +135,7 @@ public class Constant {
     public static String GET_CORPORATE_STORE_SUBSTORELIST= "GetCorporateStoreSubStoreListForEcom";
     public static String GET_CORPORATE_STORE_SUBSTORELIST_V1= "GetCorporateStoreSubStoreListForEcom_V1";
     public static String SAVE_CUS_DEFAULT_LOCATION= "SaveCustomerDefaultLocation";
-
+    public static String GET_DATA_BASE_DETAIL= "GetDataBaseDetail/";
     //this is for forgetPassword
     public static String GENERATE_OTP = "GenerateOTP/";
     public static String CHECK_OTP = "CheckOTP/";
@@ -164,6 +165,10 @@ public class Constant {
     public static String IMG_NO_IMAGE = "/WebStoreImages/NoImage/";
     public static String GET_GLOBALSETTING = "GetGlobalSettings/";
     public static String DELETE_CART = "InsertCartData/";
+    public static String GC_ADD_TO_CART = "GCAddToCart/";
+    public static String UPDATE_GIFT_CARD_STATUS = "Update_GiftcardStatus/";
+    public static String UPDATE_GC_PURCHASE_QTY = "UpdateGCPurchaseQty/";
+    public static String UPDATE_BROWSER_GIFT_CARD_AFTER_LOGIN = "UpdateBrowserGiftCardAfterLogin/";
     public static String GET_SHIPPING_DATA = "GetShippingAddress/";
     public static String GET_CUSTOMER_DATA = "GetCustomerData/";
     public static String GET_STORE_HOUR = "GetDeliveryHours/";
@@ -233,6 +238,7 @@ public class Constant {
     public static String GET_CUSTOMERCARTDATA_V1="GetCustomerCartData_V1/";
     public static String GET_CUSTOMER_CARD_DATA = "GetCustomerCartData/";
     public static String GET_CUSTOMER_CARD_DATA_V1 = "GetCustomerCartData_V1/";
+    public static String GET_CUSTOMER_CARD_DATA_V2 = "GetCustomerCartData_V2/";
     public static String GET_INVENTORYBY_SPECIALOFFER="GetinventoryBySpecialOffer/";
     public static String GET_INVENTORYBY_SPECIALOFFER_V1="GetinventoryBySpecialOffer_V1/";
     public static String GET_INVENTORY_PRAMOTION="GetinventoryByPromotion/";
@@ -376,6 +382,7 @@ public class Constant {
     //  public static UserModel userModel = new UserModel();
     public static TwentyOneYear twentyOneYear = new TwentyOneYear();
     public static ContatInfo contatInfo = new ContatInfo();
+    public static com.aspl.mbsmodel.DatabaseInfo DatabaseInfo = new DatabaseInfo();
     /* public static ArrayList<FooterModel> FooterList=new ArrayList<>();*/
     public static ArrayList<DepartmentModel> DepartmentList = new ArrayList<>();
     public static List<JackDepartmentModel> DepartmentList1;
@@ -406,6 +413,8 @@ public class Constant {
     public static List<MbsDataModel> Otherlist = new ArrayList<>();
     public static List<MbsDataModel> FooterModelList = new ArrayList<>();
     public static List<ShoppingCardModel> liCardModel = new ArrayList<>();
+    public static List<ShoppingCardModel> Inventory_liCardModel = new ArrayList<>();
+    public static List<ShoppingCardModel> Gift_Card_liCardModel = new ArrayList<>();
     public static ShippingData customerData = new ShippingData();
 
     public static String LOGIN_TYPE = "";

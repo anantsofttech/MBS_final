@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.aspl.Adapter.OrderSummaryGiftCardItemAdapter;
 import com.aspl.Adapter.OrderSummaryItemAdapter;
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.Utils;
@@ -64,7 +65,7 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
 
     public double _Tax1 = 0.0f, _Tax2 = 0.0f, _Tax3 = 0.0f, _Tax4 = 0.0f, _bottleDepositnew = 0.0f;
     NestedScrollView nestedScrollView;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView ,recyclerViewGift_card_item;
     CardView cvOrderInfo, cv_notes, cvBillingAddressDetail, cvPayments, cvDelivery, cvShipping,
             cvDeliveryAddress, cv_pickup_time, cv_orderdetail_paidvia, cv_purchased_at;
     RelativeLayout rlRoot, rlOrderInfo, rlPaymentOption, rlFinancialData, rlDeliveryOption, rlRootBillingAddress, rlRootShippingAddress, rlRootDeliveryAddress;
@@ -76,7 +77,7 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
 //            llOld_statictax_value, ll_dynamic_tax_sequence_with_value
 //            ll_tax1, ll_tax2, ll_tax3, ll_tax4;
 
-//    Edited by Varun pick up hours and location
+    //    Edited by Varun pick up hours and location
     LinearLayout ll_pick_up , ll_dayaftertomorrow;
     TextView tv_main_location, tv_1,tv_2,tv_3,tv_4,tv_5,tv_6,tv_7,tv_8,tv_9,tv_10,tv_11,tv_main_hours;
 
@@ -84,7 +85,7 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
 
     View vTitleCartItem, vRV, vTotal, vSubTotal, vSalesTax, vWineTax,
             vBottleDeposit, vMiscTax, vFlatTax, vShip, vTotalSaving,
-            vLoyaltyReward, vNoTaxAreBeingApplied, vMyReward, vRewardUse, vTip;
+            vLoyaltyReward, vNoTaxAreBeingApplied, vMyReward, vRewardUse, vTip ;
     //            vTip,view_tax1, view_tax2, view_tax3, view_tax4;
     TextView tvTitleOrderInfo, tvTitleYourOrderSuccessful, tvTitlePayment;
     TextView tvTitleGiftWrap, tvTitleItemName, tvTitleItemPrice, tvTitleItemQuantity;
@@ -120,6 +121,7 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
 
     //PaymentCartItemListAdapter paymentAdapter;
     OrderSummaryItemAdapter itemAdapter;
+    OrderSummaryGiftCardItemAdapter itemAdapter2;
 
     public static OrderSummaryFragment orderSummaryFragment;
     OrderSummaryEvent myOrderSummaryEvent;
@@ -153,15 +155,25 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.recycler_view_order_summary_fragment);
-        LinearLayoutManager linearLayoutManager = null;
+        recyclerViewGift_card_item = view.findViewById(R.id.recycler_view_Gift_Card_order_summary_fragment);
+
+        LinearLayoutManager orderSummaryLayoutManager = null;
+        LinearLayoutManager giftCardLayoutManager = null;
+
         if (Constant.SCREEN_LAYOUT == 1) {
-            linearLayoutManager = new LinearLayoutManager(MainActivity.getInstance());
+            orderSummaryLayoutManager = new LinearLayoutManager(MainActivity.getInstance());
+            giftCardLayoutManager = new LinearLayoutManager(MainActivity.getInstance());
         } else if (Constant.SCREEN_LAYOUT == 2) {
-            linearLayoutManager = new LinearLayoutManager(MainActivityDup.getInstance());
+            orderSummaryLayoutManager = new LinearLayoutManager(MainActivityDup.getInstance());
+            giftCardLayoutManager = new LinearLayoutManager(MainActivityDup.getInstance());
         }
 
-        recyclerView.setLayoutManager(linearLayoutManager);
+        // Set the layout managers separately
+        recyclerView.setLayoutManager(orderSummaryLayoutManager);
         recyclerView.setHasFixedSize(true);
+
+        recyclerViewGift_card_item.setLayoutManager(giftCardLayoutManager);
+        recyclerViewGift_card_item.setHasFixedSize(true);
 
 /*
         itemAdapter = new PaymentCartItemListAdapter(MainActivity.getInstance(),
@@ -911,9 +923,16 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
             orderstatus = orderSummary.getOrderStatus();
         }
 
-        itemAdapter = new OrderSummaryItemAdapter(orderSummary.getLstOrderTems(), isFromOrderdatail, isFromInstoreOrderdatail, orderstatus, isFromReturnProcessing);
-        recyclerView.setAdapter(itemAdapter);
-        itemAdapter.notifyDataSetChanged();
+        if (orderSummary.getLstGiftCardDetail()!=null){
+            itemAdapter2 = new OrderSummaryGiftCardItemAdapter(orderSummary.getLstGiftCardDetail(), isFromOrderdatail, isFromInstoreOrderdatail, orderstatus, isFromReturnProcessing);
+            recyclerViewGift_card_item.setAdapter(itemAdapter2);
+            itemAdapter2.notifyDataSetChanged();
+        }
+        if (orderSummary.getLstOrderTems()!=null){
+            itemAdapter = new OrderSummaryItemAdapter(orderSummary.getLstOrderTems(), isFromOrderdatail, isFromInstoreOrderdatail, orderstatus, isFromReturnProcessing);
+            recyclerView.setAdapter(itemAdapter);
+            itemAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -1055,9 +1074,16 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
             orderstatus = orderSummary.getOrderStatus();
         }
 
-        itemAdapter = new OrderSummaryItemAdapter(orderSummary.getLstOrderTems(), isFromOrderdatail, isFromInstoreOrderdatail, orderstatus, isFromReturnProcessing);
-        recyclerView.setAdapter(itemAdapter);
-        itemAdapter.notifyDataSetChanged();
+        if (orderSummary.getLstGiftCardDetail()!=null){
+            itemAdapter2 = new OrderSummaryGiftCardItemAdapter(orderSummary.getLstGiftCardDetail(), isFromOrderdatail, isFromInstoreOrderdatail, orderstatus, isFromReturnProcessing);
+            recyclerViewGift_card_item.setAdapter(itemAdapter2);
+            itemAdapter2.notifyDataSetChanged();
+        }
+        if (orderSummary.getLstOrderTems()!=null){
+            itemAdapter = new OrderSummaryItemAdapter(orderSummary.getLstOrderTems(), isFromOrderdatail, isFromInstoreOrderdatail, orderstatus, isFromReturnProcessing);
+            recyclerView.setAdapter(itemAdapter);
+            itemAdapter.notifyDataSetChanged();
+        }
     }
 
     private void setOrderDetailofDynamicdata(OrderSummary orderSummary, List<InstorePurchaseDetailModel> listsOf_instorePurchase_detail) {
@@ -1070,9 +1096,16 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
             orderstatus = orderSummary.getOrderStatus();
         }
 
-        itemAdapter = new OrderSummaryItemAdapter(orderSummary.getLstOrderTems(), isFromOrderdatail, isFromInstoreOrderdatail, orderstatus, isFromReturnProcessing);
-        recyclerView.setAdapter(itemAdapter);
-        itemAdapter.notifyDataSetChanged();
+        if (orderSummary.getLstGiftCardDetail()!=null){
+            itemAdapter2 = new OrderSummaryGiftCardItemAdapter(orderSummary.getLstGiftCardDetail(), isFromOrderdatail, isFromInstoreOrderdatail, orderstatus, isFromReturnProcessing);
+            recyclerViewGift_card_item.setAdapter(itemAdapter2);
+            itemAdapter2.notifyDataSetChanged();
+        }
+        if (orderSummary.getLstOrderTems()!=null){
+            itemAdapter = new OrderSummaryItemAdapter(orderSummary.getLstOrderTems(), isFromOrderdatail, isFromInstoreOrderdatail, orderstatus, isFromReturnProcessing);
+            recyclerView.setAdapter(itemAdapter);
+            itemAdapter.notifyDataSetChanged();
+        }
 
     }
 

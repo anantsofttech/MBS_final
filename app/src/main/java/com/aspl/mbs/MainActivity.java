@@ -181,6 +181,7 @@ import com.aspl.task.TaskNotificationList;
 import com.aspl.task.TaskReOrder;
 import com.aspl.task.TaskSearch;
 import com.aspl.task.TaskSessionToCart;
+import com.aspl.task.TaskSessionToCart_GC;
 import com.aspl.task.TaskStoreDeliveryHours;
 import com.aspl.task.TaskStoreLocationInfo;
 import com.aspl.task.TaskTwentyOneYear;
@@ -2135,11 +2136,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
     // CLEAR BACK STACK.
     public void clearBackStack() {
-        final FragmentManager fragmentManager = getSupportFragmentManager();
-        while (fragmentManager.getBackStackEntryCount() != 0) {
-                fragmentManager.popBackStackImmediate();
-                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        while (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
 
@@ -3497,15 +3496,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
     public static void moveSessionToCart() {
         String seesion = DeviceInfo.getDeviceId(MainActivity.getInstance()) + "0011";
-        String seesionUrl;
+        String seesionUrl,sessionUrl2;
         TaskSessionToCart sessionToCard = new TaskSessionToCart();
         if (UserModel.Cust_mst_ID != null && !seesion.isEmpty()) {
             seesionUrl = WS_BASE_URL + UPDATE_SESSION_TO_CART
                     + seesion + "/" + UserModel.Cust_mst_ID + "/" + STOREID;
 //            Edited by Varun For Speed -up
 //            sessionToCard.execute(seesionUrl);
-            sessionToCard.executeOnExecutor(TaskSessionToCart.THREAD_POOL_EXECUTOR,seesionUrl);
+            sessionToCard.executeOnExecutor(TaskSessionToCart.THREAD_POOL_EXECUTOR, seesionUrl);
         }
+        check_for_gift_card_data();
+    }
+
+//    Edited By Varun for GiftCard
+    private static void check_for_gift_card_data() {
+        String seesion = DeviceInfo.getDeviceId(MainActivity.getInstance()) + "0011";
+        String url;
+        TaskSessionToCart_GC sessionToCart_gc = new TaskSessionToCart_GC();
+        if (UserModel.Cust_mst_ID != null && !seesion.isEmpty()) {
+            url = WS_BASE_URL + UPDATE_BROWSER_GIFT_CARD_AFTER_LOGIN
+                    + seesion + "/" + UserModel.Cust_mst_ID + "/" + STOREID;
+            sessionToCart_gc.executeOnExecutor(TaskSessionToCart.THREAD_POOL_EXECUTOR,url);
+        }
+
     }
 
     public void callResume() {

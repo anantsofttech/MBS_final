@@ -20,17 +20,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.DialogUtils;
 import com.aspl.Utils.Utils;
 import com.aspl.mbsmodel.ContatInfo;
+import com.aspl.mbsmodel.DatabaseInfo;
 import com.aspl.mbsmodel.StoreLocationModel;
 import com.aspl.task.TaskContactInfo;
+import com.aspl.task.TaskDataBaseDetail;
 import com.aspl.task.TaskFCMTokenRegister;
 import com.aspl.task.TaskStoreLocationInfo;
 import com.aspl.ws.Async_getCommonService;
@@ -56,6 +62,7 @@ import java.util.List;
 
 import static com.aspl.Utils.Constant.GET_CONTACT_INFO;
 import static com.aspl.Utils.Constant.GET_CORPORATE_STORE_SUBSTORELIST_V1;
+import static com.aspl.Utils.Constant.GET_DATA_BASE_DETAIL;
 import static com.aspl.Utils.Constant.STOREID;
 import static com.aspl.Utils.Constant.WS_BASE_URL;
 import static com.aspl.Utils.Constant.contatInfo;
@@ -64,7 +71,7 @@ import static com.aspl.Utils.Constant.contatInfo;
  * Created by new on 07/11/2017.
  */
 public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegister.TaskFCMTokenRegistrationListener,
-       TaskContactInfo.TaskContactInfoEvent, TaskStoreLocationInfo.TaskStoreLocationEvent,OnMapReadyCallback {
+       TaskContactInfo.TaskContactInfoEvent, TaskStoreLocationInfo.TaskStoreLocationEvent,OnMapReadyCallback, TaskDataBaseDetail.TaskDataBaseDetailEvent {
     Handler handler = new Handler();
     //    LinearLayout ll_splace;
     FrameLayout fl_splace;
@@ -170,7 +177,7 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
         }
 
         Constant.MainSTOREID = Constant.STOREID;
-        callgetThemeWS();
+        calldatabaseWS();
         Date buildDate = com.aspl.mbs.BuildConfig.BUILD_TIME;
         SimpleDateFormat simple = new SimpleDateFormat("MM/dd/yyyy");
         tvDate.setText("Version Date: " + simple.format(buildDate));
@@ -191,8 +198,51 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
         }).start();
     }
 
+    private void calldatabaseWS() {
 
 
+        if(Constant.STOREID.equals(Constant.MainSTOREID)){
+            setStorelogo(Constant.STOREID);
+        }else{
+            setStorelogo(Constant.MainSTOREID);
+        }
+
+        String URL = WS_BASE_URL + GET_DATA_BASE_DETAIL + STOREID ;
+
+        TaskDataBaseDetail taskDataBaseDetail = new TaskDataBaseDetail(this,this);
+        taskDataBaseDetail.executeOnExecutor(TaskDataBaseDetail.THREAD_POOL_EXECUTOR, URL);
+
+    }
+
+    @Override
+    public void DatabaseInfoEventResult(DatabaseInfo databaseInfo) {
+        if (!databaseInfo.getEnableOnlineStore()) {
+            // Inflate custom layout
+            LayoutInflater inflater = LayoutInflater.from(splaceScreen);
+            View dialogView = inflater.inflate(R.layout.dialog_custom_button, null);
+
+            // Create AlertDialog and set the custom view
+            AlertDialog.Builder builder = new AlertDialog.Builder(splaceScreen);
+            builder.setView(dialogView);
+            builder.setCancelable(false); // Prevent dismissing on back press
+
+            // Find the button in the custom layout
+            Button closeButton = dialogView.findViewById(R.id.dialog_button_close_logoff);
+            closeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Close the application
+                   finish();
+                }
+            });
+
+            // Show the dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
+            callgetThemeWS();
+        }
+    }
     public void callgetThemeWS() {
 
 //        callcontactinfo();
@@ -211,12 +261,6 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                 }
             }
             //end
-        }
-
-        if(Constant.STOREID.equals(Constant.MainSTOREID)){
-            setStorelogo(Constant.STOREID);
-        }else{
-            setStorelogo(Constant.MainSTOREID);
         }
 
 //        Edited by Varun For Speed -up

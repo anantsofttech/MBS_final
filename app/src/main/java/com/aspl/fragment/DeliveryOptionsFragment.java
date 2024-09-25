@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -354,14 +355,16 @@ public class DeliveryOptionsFragment extends Fragment
 
         String url = Constant.WS_BASE_URL + Constant.GET_DEL_MIN_DATA + "/" + Constant.STOREID;
         TaskDeliveryFeeSalesTax taskDeliveryFeeSalesTax = new TaskDeliveryFeeSalesTax(this);
-        taskDeliveryFeeSalesTax.execute(url);
+//        taskDeliveryFeeSalesTax.execute(url);
+        taskDeliveryFeeSalesTax.executeOnExecutor(TaskDeliveryFeeSalesTax.THREAD_POOL_EXECUTOR,url);
     }
 
     private void loadContactInfoWSdata() {
 
         String getContactInfoURL = Constant.WS_BASE_URL + Constant.GET_CONTACT_INFO + "/" + Constant.STOREID;
         TaskContactInfo taskContactInfo = new TaskContactInfo(this,getActivity());
-        taskContactInfo.execute(getContactInfoURL);
+//        taskContactInfo.execute(getContactInfoURL);
+        taskContactInfo.executeOnExecutor(TaskContactInfo.THREAD_POOL_EXECUTOR,getContactInfoURL);
     }
 
     @Override
@@ -377,7 +380,8 @@ public class DeliveryOptionsFragment extends Fragment
     private void onCallpaymentOptions() {
         String url = Constant.WS_BASE_URL + Constant.GET_ADVANCE_PAYMENT_OPTIONS + "/" + Constant.STOREID;
         TaskAdvancePaymentOptions taskpaymentOptions = new TaskAdvancePaymentOptions(this);
-        taskpaymentOptions.execute(url);
+//        taskpaymentOptions.execute(url);
+        taskpaymentOptions.executeOnExecutor(TaskAdvancePaymentOptions.THREAD_POOL_EXECUTOR,url);
     }
 
 
@@ -967,7 +971,8 @@ public class DeliveryOptionsFragment extends Fragment
                     if (charSequence.length() == 5) {
                         //http://192.168.172.211:889/WebStoreRestService.svc/GetZipCode/11001
                         String Url = Constant.WS_BASE_URL + Constant.GET_ZIP_CODE + charSequence.toString();
-                        new Async_getAddress(getActivity(), Url, 3).execute();
+//                        new Async_getAddress(getActivity(), Url, 3).execute();
+                        new Async_getAddress(getActivity(), Url, 3).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
                 }
 
@@ -1004,7 +1009,8 @@ public class DeliveryOptionsFragment extends Fragment
                     if (charSequence.length() == 5) {
                         //http://192.168.172.211:889/WebStoreRestService.svc/GetZipCode/11001
                         String Url = Constant.WS_BASE_URL + Constant.GET_ZIP_CODE + charSequence.toString();
-                        new Async_getAddress(getActivity(), Url, 4).execute();
+//                        new Async_getAddress(getActivity(), Url, 4).execute();
+                        new Async_getAddress(getActivity(), Url, 4).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
                 }
 
@@ -1332,6 +1338,7 @@ public class DeliveryOptionsFragment extends Fragment
             String url = Constant.WS_BASE_URL + Constant.GET_SHIPPING_DATA + UserModel.Cust_mst_ID + "/" + Constant.STOREID;
             TaskShippingData taskShippingData = new TaskShippingData(this, false, getActivity());
             taskShippingData.execute(url);
+//            taskShippingData.executeOnExecutor(TaskShippingData.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -1378,7 +1385,7 @@ public class DeliveryOptionsFragment extends Fragment
                 if (liShippingData.get(0).getBSSetupPickUpStore())
                     //    VARUNN
                     cv_radio_button_pick_up.setVisibility(View.VISIBLE);
-                    rbPickUpAtStore.setVisibility(View.VISIBLE);
+                rbPickUpAtStore.setVisibility(View.VISIBLE);
                 if (liShippingData.get(0).getBSSetupPayAtStore())
                     rbPayAtStore.setVisibility(View.VISIBLE);
                 //uncomment below code and comment above two line to changes give by Tom.
@@ -1393,7 +1400,7 @@ public class DeliveryOptionsFragment extends Fragment
                 if (liShippingData.get(0).getBSSetupUberRush())
                     //    VARUNN
                     cv_radio_button_ubber.setVisibility(View.VISIBLE);
-                    rbUberRush.setVisibility(View.VISIBLE);
+                rbUberRush.setVisibility(View.VISIBLE);
                 if (liShippingData.get(0).getBSSetupHandDelivery()) {
 //                    boolean isStoreClosed = false;
                     isStoreClosed = false;
@@ -1772,14 +1779,20 @@ public class DeliveryOptionsFragment extends Fragment
         Date d = new Date();
         String day = sdf.format(d);
         boolean isStoreClosed = false;
-        for (int i = 0; i < liDeliveryHour.size(); i++) {
-            if (day.equals(liDeliveryHour.get(i).getStoreDay())) {
-                position = i;
-                if (liDeliveryHour.get(i).getClosed()) {
-                    isStoreClosed = true;
+        if (liDeliveryHour != null && !liDeliveryHour.isEmpty()) {
+            for (int i = 0; i < liDeliveryHour.size(); i++) {
+                if (day.equals(liDeliveryHour.get(i).getStoreDay())) {
+                    position = i;
+                    if (liDeliveryHour.get(i).getClosed()) {
+                        isStoreClosed = true;
+                    }
                 }
             }
+        } else {
+            // Handle the case where liDeliveryHour is null or empty
+            Log.e("DeliveryOptionsFragment", "liDeliveryHour is null or empty");
         }
+
 
         String openTime = liDeliveryHour.get(position).getOpenTime();
         String closeTime = liDeliveryHour.get(position).getCloseTime();
@@ -1840,7 +1853,8 @@ public class DeliveryOptionsFragment extends Fragment
         if (UserModel.Cust_mst_ID != null) {
             String url = Constant.WS_BASE_URL + Constant.GET_CUSTOMER_DATA + UserModel.Cust_mst_ID + "/" + Constant.STOREID;
             TaskCustomerData taskCustomerData = new TaskCustomerData(getActivity(), this);
-            taskCustomerData.execute(url);
+//            taskCustomerData.execute(url);
+            taskCustomerData.executeOnExecutor(TaskCustomerData.THREAD_POOL_EXECUTOR,url);
         }
     }
 
@@ -1851,7 +1865,8 @@ public class DeliveryOptionsFragment extends Fragment
     public void onCallDeliveryHour() {
         String url = Constant.WS_BASE_URL + Constant.GET_STORE_HOUR + "/" + Constant.STOREID + "/delivery";
         TaskStoreHour taskStoreHour = new TaskStoreHour(this, 1);
-        taskStoreHour.execute(url);
+//        taskStoreHour.execute(url);
+        taskStoreHour.executeOnExecutor(TaskStoreHour.THREAD_POOL_EXECUTOR,url);
     }
 
 
@@ -1871,7 +1886,8 @@ public class DeliveryOptionsFragment extends Fragment
     public void onCallStoreHour() {
         String url = Constant.WS_BASE_URL + Constant.GET_STORE_HOUR + "/" + Constant.STOREID + "/store";
         TaskStoreHour taskStoreHour = new TaskStoreHour(this, 2);
-        taskStoreHour.execute(url);
+//        taskStoreHour.execute(url);
+        taskStoreHour.executeOnExecutor(TaskStoreHour.THREAD_POOL_EXECUTOR,url);
     }
 
 
@@ -2389,7 +2405,8 @@ public class DeliveryOptionsFragment extends Fragment
             cv_ship.setVisibility(View.GONE);
             String Url1 = Constant.WS_BASE_URL + Constant.GET_DELI_ZIP_CODES + Constant.STOREID;
             TaskGetZipCode taskzipcode = new TaskGetZipCode(getActivity(), this);
-            taskzipcode.execute(Url1);
+//            taskzipcode.execute(Url1);
+            taskzipcode.executeOnExecutor(TaskGetZipCode.THREAD_POOL_EXECUTOR,Url1);
         }
 
         if (addressesDialog.isShowing())
@@ -2759,7 +2776,8 @@ public class DeliveryOptionsFragment extends Fragment
 
                 String Url1 = Constant.WS_BASE_URL + Constant.GET_DELI_ZIP_CODES + Constant.STOREID;
                 TaskGetZipCode taskzipcode = new TaskGetZipCode(getActivity(), this);
-                taskzipcode.execute(Url1);
+//                taskzipcode.execute(Url1);
+                taskzipcode.executeOnExecutor(TaskGetZipCode.THREAD_POOL_EXECUTOR,Url1);
             } else {
                 callNext();
             }
@@ -2944,7 +2962,8 @@ public class DeliveryOptionsFragment extends Fragment
         String Url = Constant.WS_BASE_URL + Constant.GET_DELIVERY_HOURS + "/" +  Constant.STOREID + "/" + "store";
 
         TaskStoreDeliveryHours taskStoreDeliveryHours = new TaskStoreDeliveryHours(this,getActivity(),"deliveryOption");
-        taskStoreDeliveryHours.execute(Url);
+//        taskStoreDeliveryHours.execute(Url);
+        taskStoreDeliveryHours.executeOnExecutor(TaskStoreDeliveryHours.THREAD_POOL_EXECUTOR,Url);
     }
 
     @Override
@@ -3986,7 +4005,8 @@ public class DeliveryOptionsFragment extends Fragment
         String url = Constant.WS_BASE_URL + Constant.GET_SHIPPING_SERVICE_BY_STORENO + Constant.STOREID ;
 
         TaskShippingServiceDetails taskShippingServiceDetails = new TaskShippingServiceDetails(this,getActivity());
-        taskShippingServiceDetails.execute(url);
+//        taskShippingServiceDetails.execute(url);
+        taskShippingServiceDetails.executeOnExecutor(TaskShippingServiceDetails.THREAD_POOL_EXECUTOR,url);
 
 
     }
@@ -4278,7 +4298,8 @@ public class DeliveryOptionsFragment extends Fragment
         if (activity!=null){
             String Url = Constant.WS_BASE_URL + Constant.GETSHIPPING_FLAT_RATES_BYSTORENO + _total +"/"+Constant.STOREID;
             TaskShippingFlatRateByStoreNo taskShippingFlatRateByStoreNo = new TaskShippingFlatRateByStoreNo(this,getActivity(),Constant.GETSHIPPING_FLAT_RATES_BYSTORENO);
-            taskShippingFlatRateByStoreNo.execute(Url);
+//            taskShippingFlatRateByStoreNo.execute(Url);
+            taskShippingFlatRateByStoreNo.executeOnExecutor(TaskShippingFlatRateByStoreNo.THREAD_POOL_EXECUTOR,Url);
         }
     }
 
@@ -4311,7 +4332,8 @@ public class DeliveryOptionsFragment extends Fragment
                     + finalToaddress.trim() + "/" + finalToCity.trim() + "/" + finalToState.trim() + "/" + Constant.cartcount;
 
             TaskShippingRates taskShippingRates = new TaskShippingRates(this,getActivity(),Constant.CALCULATE_SHIPPING_RATES_UPS, servicename);
-            taskShippingRates.execute(Url);
+//            taskShippingRates.execute(Url);
+            taskShippingRates.executeOnExecutor(TaskShippingRates.THREAD_POOL_EXECUTOR,Url);
 
         }
         else if(servicename.equalsIgnoreCase("FedEx")){
@@ -4320,7 +4342,8 @@ public class DeliveryOptionsFragment extends Fragment
                     + finalToaddress.trim() + "/" + finalToCity.trim() + "/" + finalToState.trim() + "/" + Constant.cartcount;
 
             TaskShippingRates taskShippingRates = new TaskShippingRates(this,getActivity(),Constant.CALCULATE_SHIPPING_RATES_FEDEX,servicename);
-            taskShippingRates.execute(Url);
+//            taskShippingRates.execute(Url);
+            taskShippingRates.executeOnExecutor(TaskShippingRates.THREAD_POOL_EXECUTOR,Url);
 
         }
         else if(servicename.equalsIgnoreCase("USPS")){
@@ -4331,7 +4354,8 @@ public class DeliveryOptionsFragment extends Fragment
                     +formattedDate + "/" + finalToaddress.trim() + "/" + finalToCity.trim() + "/" + finalToState.trim();
 
             TaskShippingRates taskShippingRates = new TaskShippingRates(this,getActivity(),Constant.CALCULATE_SHIPPING_RATES_USPS,servicename);
-            taskShippingRates.execute(Url);
+//            taskShippingRates.execute(Url);
+            taskShippingRates.executeOnExecutor(TaskShippingRates.THREAD_POOL_EXECUTOR,Url);
         }
     }
 
@@ -4921,7 +4945,8 @@ public class DeliveryOptionsFragment extends Fragment
 
             TaskInsertTempOrder insertTempOrder = new TaskInsertTempOrder(this);
             Log.d("Address", "Temp Order : " + tempUrl);
-            insertTempOrder.execute(tempUrl);
+//            insertTempOrder.execute(tempUrl);
+            insertTempOrder.executeOnExecutor(TaskInsertTempOrder.THREAD_POOL_EXECUTOR,tempUrl);
         }
 
     }
@@ -4974,7 +4999,8 @@ public class DeliveryOptionsFragment extends Fragment
                 tipValue + "/" + tipSubTotalValue + "/" + tipCCValue + "/" + flagTipCashTip;
 
         TaskUpdateBillingTip taskUpdateBillingTip = new TaskUpdateBillingTip(this);
-        taskUpdateBillingTip.execute(tipUrl);
+//        taskUpdateBillingTip.execute(tipUrl);
+        taskUpdateBillingTip.executeOnExecutor(TaskUpdateBillingTip.THREAD_POOL_EXECUTOR,tipUrl);
     }
 
     /**
@@ -5018,7 +5044,8 @@ public class DeliveryOptionsFragment extends Fragment
 
         TaskUpdateBillingAddress billingAddress = new TaskUpdateBillingAddress(getActivity(), this);
         Log.d(TAG, "billing address call : " + billingAddressUrl);
-        billingAddress.execute(billingAddressUrl);
+//        billingAddress.execute(billingAddressUrl);
+        billingAddress.executeOnExecutor(TaskUpdateBillingAddress.THREAD_POOL_EXECUTOR,billingAddressUrl);
     }
 
 
@@ -5069,7 +5096,8 @@ public class DeliveryOptionsFragment extends Fragment
 
         TaskUpdatePOSBillingAddress posBillingAddress = new TaskUpdatePOSBillingAddress(this);
         Log.d("Address", "URL :  " + shippingAddress);
-        posBillingAddress.execute(shippingAddress);
+//        posBillingAddress.execute(shippingAddress);
+        posBillingAddress.executeOnExecutor(TaskUpdatePOSBillingAddress.THREAD_POOL_EXECUTOR,shippingAddress);
 
         if (myDeliveryOptionsEvent != null)
             myDeliveryOptionsEvent.nextFromDeliveryOption(addDataIntoBundle());
@@ -5151,7 +5179,8 @@ public class DeliveryOptionsFragment extends Fragment
 
                 TaskAddCustomerShippingAddress shippingAddress = new TaskAddCustomerShippingAddress(this);
                 Log.d("Address", "Call Shipping address : " + url);
-                shippingAddress.execute(url);
+//                shippingAddress.execute(url);
+                shippingAddress.executeOnExecutor(TaskAddCustomerShippingAddress.THREAD_POOL_EXECUTOR,url);
             }
         }
     }
@@ -5214,7 +5243,8 @@ public class DeliveryOptionsFragment extends Fragment
 
         TaskUpdatePOSShippingAddress posShippingAddress = new TaskUpdatePOSShippingAddress(this);
         Log.d("Address", "POS Shipping Address Call : " + posShippingAddressUrl);
-        posShippingAddress.execute(posShippingAddressUrl);
+//        posShippingAddress.execute(posShippingAddressUrl);
+        posShippingAddress.executeOnExecutor(TaskUpdatePOSShippingAddress.THREAD_POOL_EXECUTOR,posShippingAddressUrl);
     }
 
     @Override
@@ -5304,12 +5334,14 @@ public class DeliveryOptionsFragment extends Fragment
         if(Constant.SCREEN_LAYOUT==1){
             String twentyOneYearUrl = Constant.WS_BASE_URL + Constant.GET_GLOBALSETTING + Constant.STOREID;
             TaskTwentyOneYear taskTwentyOneYear = new TaskTwentyOneYear(this);
-            taskTwentyOneYear.execute(twentyOneYearUrl);
+//            taskTwentyOneYear.execute(twentyOneYearUrl);
+            taskTwentyOneYear.executeOnExecutor(TaskTwentyOneYear.THREAD_POOL_EXECUTOR,twentyOneYearUrl);
 
         }else if(Constant.SCREEN_LAYOUT==2) {
             String twentyOneYearUrl = Constant.WS_BASE_URL + Constant.GET_GLOBALSETTING + Constant.STOREID;
             TaskTwentyOneYear taskTwentyOneYear = new TaskTwentyOneYear(this);
-            taskTwentyOneYear.execute(twentyOneYearUrl);
+//            taskTwentyOneYear.execute(twentyOneYearUrl);
+            taskTwentyOneYear.executeOnExecutor(TaskTwentyOneYear.THREAD_POOL_EXECUTOR,twentyOneYearUrl);
         }
     }
 

@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aspl.Utils.Constant;
 import com.aspl.mbs.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.List;
 
 public class GiftCardAdapter extends RecyclerView.Adapter<GiftCardAdapter.ViewHolder> {
@@ -52,6 +54,9 @@ public class GiftCardAdapter extends RecyclerView.Adapter<GiftCardAdapter.ViewHo
 
         Glide.with(context)
                 .load(url1)
+                .placeholder(R.drawable.no_image_new)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
                 .into(holder.imageView);
 
         // Set border for selected item
@@ -85,6 +90,11 @@ public class GiftCardAdapter extends RecyclerView.Adapter<GiftCardAdapter.ViewHo
     public int getItemCount() {
         return imageUrls.size();
     }
+
+    public int getSelectedPosition() {
+        return selectedPosition;
+    }
+
 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {

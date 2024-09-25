@@ -48,6 +48,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aspl.Adapter.ImageAdapter;
+import com.aspl.Adapter.PaymentCartGiftCardListAdapter;
 import com.aspl.Adapter.PaymentCartItemListAdapter;
 import com.aspl.Utils.BSTheme;
 import com.aspl.Utils.Constant;
@@ -147,12 +148,12 @@ public class PaymentFragment extends Fragment
 
     ProgressBar progressBar;
     NestedScrollView nestedScrollView;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView, recyclerView2;
     CardView cvOrderInfo, cvPayment, cvPaymentOptions,cv_pickup_time;
     RelativeLayout rlRoot, rl_main_payment_layout, rlOrderInfo, rlFinancialData, rlRootRewardCashAvailable, rlRootSaveCard, rlRootCardDetail, rlRootBillingAddress;
     LinearLayout llTitlesCartItem, llSalesTax, llWineTax, llBottleDeposit, llMiscTax, llFlatTax, llSubTotal, llTotal, llShip, llTotalSaving, llLoyaltyReword, llButtonRoot, llMyReward,  llTip, ll_Delivery_fee; //ll_Delivery_fee Edited by Janvi 1stOct end ******
     public static LinearLayout llHideCheckBox;
-    View vTitleCartItem, vTotal, vSalesTax, vWineTax, vBottleDeposit, vMiscTax, vFlatTax, vShip, vTotalSaving, vLoyaltyReward, vNoTaxAreBeingApplied, vMyReward, vTip, view_subtotal; //Edited by Janvi 2nd Oct ** end*****
+    View vTitleCartItem, vTotal, vSalesTax, vWineTax, vBottleDeposit, vMiscTax, vFlatTax, vShip, vTotalSaving, vLoyaltyReward, vNoTaxAreBeingApplied, vMyReward, vTip, view_subtotal , view_rv_cart_gift_card_payment_fragment; //Edited by Janvi 2nd Oct ** end*****
     TextView tvTitleOrderInfo, tvTitlePayment;
     TextView tvTitleGiftWrap, tvTitleItemName, tvTitleItemPrice, tvTitleItemQuantity,tv_pickup_time;
     TextView tvTitleSubTotal, tvTitleTotal, tvTitleSalesTax, tvTitleWineTax, tvTitleBottleDeposit, tvTitleMiscTax, tvTitleFlatTax, tvTitleShip, tvTitleTotalSaving, tvTitleLoyaltyReward, tvNoTaxAreBeingApplied, tvTitleMyReward, tvTitleTip;
@@ -192,6 +193,7 @@ public class PaymentFragment extends Fragment
     String pickupDay = "";
 
     PaymentCartItemListAdapter paymentAdapter;
+    PaymentCartGiftCardListAdapter paymentCartGiftCardListAdapter;
     public static PaymentFragment paymentFragment;
     public PaymentEvent myPaymentEvent;
     LoyaltyInfo l;
@@ -270,88 +272,80 @@ public class PaymentFragment extends Fragment
         boolean isNeedtoDisplayUpdate_popup = false;
         realTimeInventoryList.clear();
         realTimePriceList.clear();
-        if(!liShoppingCard.get(0).getRealTime_Inventory().isEmpty() && liShoppingCard.get(0).getRealTime_Inventory().equalsIgnoreCase("True")) {
+        if (liShoppingCard.get(0).getRealTime_Inventory() != null && !liShoppingCard.get(0).getRealTime_Inventory().isEmpty() &&
+                liShoppingCard.get(0).getRealTime_Inventory().equalsIgnoreCase("True")) {
+
             for (int i = 0; i < liShoppingCard.size(); i++) {
-                if (liShoppingCard.get(i).getSN().equalsIgnoreCase("Y")) {
+                if (liShoppingCard.get(i).getSN() != null && liShoppingCard.get(i).getSN().equalsIgnoreCase("Y")) {
                     ShoppingCardModel shoppingCardModel = liShoppingCard.get(i);
-//                    Edited by Varun for Real time Inventory of Price
-//                    for the Price and qty both change in one inventory
+
+                    // Real-time Inventory Price check
                     Float v = 0.0f;
-                    v= v + Float.parseFloat(liShoppingCard.get(i).getCartPrice()) * Float.parseFloat(liShoppingCard.get(i).getQty());
-//                    Edited by Varun for multi pack real time inventory check
-                    if (!liShoppingCard.get(i).getInvType().equals("M")) {
-                        if (Integer.parseInt(liShoppingCard.get(i).getQty()) > Integer.parseInt(liShoppingCard.get(i).getQtyOnHand())) {
-//                        if (!_subTotal.equals(v)) {
-                            if (!liShoppingCard.get(i).getPromoPrice().equals(Constant.Test.get(i).getPromoPrice())) {
-//                                realTimeInventoryList.add(shoppingCardModel);
-                                Constant.isCHECKOUT = true;
-                            } else if (!liShoppingCard.get(i).getCartPrice().equals(Constant.Test.get(i).getCartPrice())) {
-//                                realTimeInventoryList.add(shoppingCardModel);
-                                Constant.isCHECKOUT = true;
-                            }
-//                        }
-//
-                            realTimeInventoryList.add(shoppingCardModel);
-                            isNeedtoDisplayUpdate_popup = true;
-                        }
-////                    Edited by Varun for Real time Inventory of Price
-//                        else if (!_subTotal.equals(v)) {
-//                            if (!liShoppingCard.get(i).getPromoPrice().equals(Constant.Test.get(i).getPromoPrice())) {
-//                                realTimeInventoryList.add(shoppingCardModel);
-//                                Constant.isCHECKOUT = true;
-//                            } else if (!liShoppingCard.get(i).getCartPrice().equals(Constant.Test.get(i).getCartPrice())) {
-//                                realTimeInventoryList.add(shoppingCardModel);
-//                                Constant.isCHECKOUT = true;
-//                            }
-//                        }
-                    }else {
-//                          END
-                        if (Integer.parseInt(liShoppingCard.get(i).getQty()) * Integer.parseInt((String) liShoppingCard.get(i).getOunces()) > Integer.parseInt(liShoppingCard.get(i).getQtyOnHand())) {
-                            if (!liShoppingCard.get(i).getPromoPrice().equals(Constant.Test.get(i).getPromoPrice())) {
-                                Constant.isCHECKOUT = true;
-                            } else if (!liShoppingCard.get(i).getCartPrice().equals(Constant.Test.get(i).getCartPrice())) {
-                                Constant.isCHECKOUT = true;
-                            }
-                            realTimeInventoryList.add(shoppingCardModel);
-                            isNeedtoDisplayUpdate_popup = true;
-                        }
+                    if (liShoppingCard.get(i).getCartPrice() != null && liShoppingCard.get(i).getQty() != null) {
+                        v = v + Float.parseFloat(liShoppingCard.get(i).getCartPrice()) * Float.parseFloat(liShoppingCard.get(i).getQty());
                     }
-//                    Edited by Varun for Real time Inventory of Price
-                    if (!_subTotal.equals(v)) {
-                        if (!liShoppingCard.get(i).getPromoPrice().equals(Constant.Test.get(i).getPromoPrice())) {
+
+                    // Multi-pack check
+                    if (liShoppingCard.get(i).getInvType() != null && !liShoppingCard.get(i).getInvType().equals("M")) {
+                        if (liShoppingCard.get(i).getQty() != null && liShoppingCard.get(i).getQtyOnHand() != null &&
+                                Integer.parseInt(liShoppingCard.get(i).getQty()) > Integer.parseInt(liShoppingCard.get(i).getQtyOnHand())) {
+
+                            if (liShoppingCard.get(i).getPromoPrice() != null && !liShoppingCard.get(i).getPromoPrice().equals(Constant.Test.get(i).getPromoPrice())) {
+                                Constant.isCHECKOUT = true;
+                            } else if (liShoppingCard.get(i).getCartPrice() != null && !liShoppingCard.get(i).getCartPrice().equals(Constant.Test.get(i).getCartPrice())) {
+                                Constant.isCHECKOUT = true;
+                            }
+
                             realTimeInventoryList.add(shoppingCardModel);
-                            Constant.isCHECKOUT = true;
-                        } else if (!liShoppingCard.get(i).getCartPrice().equals(Constant.Test.get(i).getCartPrice())) {
+                            isNeedtoDisplayUpdate_popup = true;
+                        }
+
+                    } else {
+                        // Multi-pack case
+                        if (liShoppingCard.get(i).getQty() != null && liShoppingCard.get(i).getOunces() != null &&
+                                Integer.parseInt(liShoppingCard.get(i).getQty()) * Integer.parseInt((String) liShoppingCard.get(i).getOunces()) > Integer.parseInt(liShoppingCard.get(i).getQtyOnHand())) {
+
+                            if (liShoppingCard.get(i).getPromoPrice() != null && !liShoppingCard.get(i).getPromoPrice().equals(Constant.Test.get(i).getPromoPrice())) {
+                                Constant.isCHECKOUT = true;
+                            } else if (liShoppingCard.get(i).getCartPrice() != null && !liShoppingCard.get(i).getCartPrice().equals(Constant.Test.get(i).getCartPrice())) {
+                                Constant.isCHECKOUT = true;
+                            }
+
                             realTimeInventoryList.add(shoppingCardModel);
-                            Constant.isCHECKOUT = true;
+                            isNeedtoDisplayUpdate_popup = true;
                         }
                     }
 
-//                     END
+                    // Real-time Inventory Price
+                    if (_subTotal != null && !_subTotal.equals(v)) {
+                        if (liShoppingCard.get(i).getPromoPrice() != null && !liShoppingCard.get(i).getPromoPrice().equals(Constant.Test.get(i).getPromoPrice())) {
+                            realTimeInventoryList.add(shoppingCardModel);
+                            Constant.isCHECKOUT = true;
+                        } else if (liShoppingCard.get(i).getCartPrice() != null && !liShoppingCard.get(i).getCartPrice().equals(Constant.Test.get(i).getCartPrice())) {
+                            realTimeInventoryList.add(shoppingCardModel);
+                            Constant.isCHECKOUT = true;
+                        }
+                    }
                 }
             }
-//            if (realTimeInventoryList.size() > 0 && isNeedtoDisplayUpdate_popup) {
-//                Utils.showRealTimeInventoryDialog(getContext(), "Real time inventory", realTimeInventoryList);
-//                isNeedtoDisplayUpdate_popup = false;
-//
-//            } else {
-//                savePlaceOrder();
-//            }
+
+            // Check if the popup needs to be displayed
+            if (realTimeInventoryList.size() > 0 && isNeedtoDisplayUpdate_popup) {
+                // Show inventory update popup
+                Utils.showRealTimeInventoryDialog(getContext(), "Real time inventory", realTimeInventoryList);
+                isNeedtoDisplayUpdate_popup = false;
+                return;  // Add return to prevent savePlaceOrder from being called
+            }
         }
-        if (realTimeInventoryList.size() > 0 && isNeedtoDisplayUpdate_popup) {
-            Utils.showRealTimeInventoryDialog(getContext(), "Real time inventory", realTimeInventoryList);
-            isNeedtoDisplayUpdate_popup = false;
-        }
-////        Edited by Varun for real time inventory of Price
-        else if (realTimeInventoryList.size() > 0 && Constant.isCHECKOUT){
-//            Utils.showRealTimePriceDialog(getContext(), "Price", realTimePriceList);
+
+// Real-time Price Check
+        if (realTimeInventoryList.size() > 0 && Constant.isCHECKOUT) {
             Utils.showRealTimeInventoryDialog(getContext(), "Price", realTimeInventoryList);
-            Constant.isCHECKOUT=false;
+            Constant.isCHECKOUT = false;
+        } else {
+            savePlaceOrder();  // This will be called only if no other conditions are met
         }
-////        END
-        else {
-            savePlaceOrder();
-        }
+
     }
 
 
@@ -694,24 +688,65 @@ public class PaymentFragment extends Fragment
 
         gridView = view.findViewById(R.id.gridView1);
 
+        // Initialize RecyclerViews and Layout Managers
         recyclerView = view.findViewById(R.id.recycler_view_payment_fragment);
-        LinearLayoutManager linearLayoutManager=null;
-        if(Constant.SCREEN_LAYOUT==1){
-            linearLayoutManager = new LinearLayoutManager(MainActivity.getInstance());
-            paymentAdapter = new PaymentCartItemListAdapter(MainActivity.getInstance(),
-                    this,
-                    Constant.liCardModel);
-        }else if(Constant.SCREEN_LAYOUT==2) {
-            linearLayoutManager = new LinearLayoutManager(MainActivityDup.getInstance());
-            paymentAdapter = new PaymentCartItemListAdapter(MainActivityDup.getInstance(),
-                    this,
-                    Constant.liCardModel);
+        recyclerView2 = view.findViewById(R.id.recycler_view_Gift_Card_payment_fragment);
+//        view_rv_cart_gift_card_payment_fragment = view.findViewById(R.id.view_rv_cart_gift_card_payment_fragment);
+
+// Separate LinearLayoutManagers for each RecyclerView
+        LinearLayoutManager linearLayoutManager1 = null;
+        LinearLayoutManager linearLayoutManager2 = null;
+
+// Check for valid cart items and set the adapter for recyclerView
+        if (Constant.Inventory_liCardModel != null && !Constant.Inventory_liCardModel.isEmpty()
+                && Constant.Inventory_liCardModel.get(0).getCartID() != 0) {
+
+            // Setup layout manager and adapter based on SCREEN_LAYOUT
+            if (Constant.SCREEN_LAYOUT == 1) {
+                linearLayoutManager1 = new LinearLayoutManager(MainActivity.getInstance());
+                paymentAdapter = new PaymentCartItemListAdapter(MainActivity.getInstance(),
+                        this,
+                        Constant.Inventory_liCardModel);
+            } else if (Constant.SCREEN_LAYOUT == 2) {
+                linearLayoutManager1 = new LinearLayoutManager(MainActivityDup.getInstance());
+                paymentAdapter = new PaymentCartItemListAdapter(MainActivityDup.getInstance(),
+                        this,
+                        Constant.Inventory_liCardModel);
+            }
+
+//            if (Constant.Gift_Card_liCardModel!=null){
+//                view_rv_cart_gift_card_payment_fragment.setVisibility(View.VISIBLE);
+//            }
+            // Set layout manager and adapter for recyclerView
+            recyclerView.setLayoutManager(linearLayoutManager1);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setAdapter(paymentAdapter);
+            paymentAdapter.notifyDataSetChanged();
         }
 
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(paymentAdapter);
-        paymentAdapter.notifyDataSetChanged();
+// Check for valid gift card items and set the adapter for recyclerView2
+        if (Constant.Gift_Card_liCardModel != null && !Constant.Gift_Card_liCardModel.isEmpty()
+                && Constant.Gift_Card_liCardModel.get(0).getLstGiftCard() != null) {
+
+            // Setup layout manager and adapter based on SCREEN_LAYOUT
+            if (Constant.SCREEN_LAYOUT == 1) {
+                linearLayoutManager2 = new LinearLayoutManager(MainActivity.getInstance());
+                paymentCartGiftCardListAdapter = new PaymentCartGiftCardListAdapter(MainActivity.getInstance(),
+                        this,
+                        Constant.Gift_Card_liCardModel.get(0).getLstGiftCard());
+            } else if (Constant.SCREEN_LAYOUT == 2) {
+                linearLayoutManager2 = new LinearLayoutManager(MainActivityDup.getInstance());
+                paymentCartGiftCardListAdapter = new PaymentCartGiftCardListAdapter(MainActivityDup.getInstance(),
+                        this,
+                        Constant.Gift_Card_liCardModel.get(0).getLstGiftCard());
+            }
+
+            // Set layout manager and adapter for recyclerView2
+            recyclerView2.setLayoutManager(linearLayoutManager2);
+            recyclerView2.setHasFixedSize(true);
+            recyclerView2.setAdapter(paymentCartGiftCardListAdapter);  // Fix adapter assignment
+            paymentCartGiftCardListAdapter.notifyDataSetChanged();
+        }
 
         checkUSAePAYactivestatus();
 
@@ -3237,7 +3272,7 @@ public class PaymentFragment extends Fragment
             Log.d("existingCartUrl", "savePlaceOrder: URl : " + url);
 
             showPaymentProcessDialog(fourdigitcardnumber, Amount);
-            Log.d("dialog ", "Showing dialog during competed transaction ");
+            Log.d("dialog 1 ", "Showing dialog during competed transaction from USA epay");
 //            taskPayWare.execute(url);
             taskPayWare.executeOnExecutor(TaskPayWare.THREAD_POOL_EXECUTOR,url);
 
@@ -3270,7 +3305,7 @@ public class PaymentFragment extends Fragment
             showPaymentProcessDialog(fourdigitcardnumber, Amount);
             //janvi
 
-            Log.d("dialog ", "Showing dialog during competed transaction ");
+            Log.d("dialog ", "Showing dialog during competed transaction from Pay ware ");
 //            taskPayWare.execute(url);
             taskPayWare.executeOnExecutor(TaskPayWare.THREAD_POOL_EXECUTOR,url);
         }

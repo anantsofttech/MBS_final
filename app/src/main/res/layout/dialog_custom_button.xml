@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/dialog_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The application is no longer available."
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:padding="16dp" />
+
+    <Button
+        android:id="@+id/dialog_button_close_logoff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Close and Logoff"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/custom_button_background"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp" />
+
+</LinearLayout>

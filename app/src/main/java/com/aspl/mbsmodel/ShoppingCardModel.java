@@ -1,6 +1,7 @@
 package com.aspl.mbsmodel;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -134,10 +135,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "tax55",
         "tax66",
         "ItemonPromotionIndicator",
-        "FormatcartPrice"
+        "FormatcartPrice",
+        "lstGiftCard"
 })
 public class ShoppingCardModel {
 
+    @JsonProperty("lstGiftCard")
+    private List<LstGiftCard_cart> lstGiftCard;
     @JsonProperty("FormatcartPrice")
     private String FormatcartPrice;
     @JsonProperty("ItemonPromotionIndicator")
@@ -1614,6 +1618,14 @@ public class ShoppingCardModel {
 
     public void setItemonPromotionIndicator(String itemonPromotionIndicator) {
         ItemonPromotionIndicator = itemonPromotionIndicator;
+    }
+
+    public List<LstGiftCard_cart> getLstGiftCard() {
+        return lstGiftCard;
+    }
+
+    public void setLstGiftCard(List<LstGiftCard_cart> lstGiftCard) {
+        this.lstGiftCard = lstGiftCard;
     }
 }
 

@@ -12,6 +12,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,28 +32,34 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aspl.Adapter.GiftCardAdapter;
 import com.aspl.Utils.Constant;
+import com.aspl.Utils.DeviceInfo;
 import com.aspl.Utils.Utils;
 import com.aspl.mbs.MainActivity;
 import com.aspl.mbs.MainActivityDup;
 import com.aspl.mbs.R;
+import com.aspl.mbsmodel.GCAddtoCartModel;
 import com.aspl.mbsmodel.GiftCardSettingsModel;
 import com.aspl.mbsmodel.UserModel;
+import com.aspl.task.TaskGCAddtoCart;
 import com.aspl.task.TaskGetGiftCardData;
 import com.bumptech.glide.Glide;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnImageClickListener, View.OnClickListener, TaskGetGiftCardData.TaskGetGiftCardDataEvent {
+public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnImageClickListener, View.OnClickListener,
+        TaskGetGiftCardData.TaskGetGiftCardDataEvent , TaskGCAddtoCart.TaskGCAddtoCartEvent {
 
     RecyclerView rv_sub_giftcard;
     ImageView iv_main_image;
-    LinearLayout ll_email_gift_card , ll_email_layout , ll_text_layout, ll_message_giftcart2, ll_delivery_date_giftcart2 , ll_delivery, ll_to_email_2,ll_to_email_3 ;
+    LinearLayout ll_email_gift_card , ll_email_layout , ll_text_layout, ll_message_giftcart2, ll_delivery_date_giftcart2 , ll_delivery, ll_to_email_2,ll_to_email_3, ll_QTY ;
     Button btn_email_gift_card, btn_text_gift_card, btn_physical_gift_card, btn_back_gift_card, btn_add_to_cart_gift_card ;
     View view_between_email_gift_card, view_between_btn_text_gift_card;
     EditText edt_price_giftcard, edt_qty_giftcard;
@@ -67,6 +74,8 @@ public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnIma
     private List<String> imageUrls = new ArrayList<>();
     GiftCardSettingsModel giftCardSettingsModel;
     LinearLayout ll_gitcard_not_allowed,ll_giftcard2;
+
+    String card_type = "";
     public GiftCardFragment2() {
         // Required empty public constructor
     }
@@ -232,6 +241,8 @@ public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnIma
         bgShape51.setCornerRadius(8); // Optional: Set corner radius if needed
         ll_email_gift_card.setBackground(bgShape51);
 
+        ll_QTY = view.findViewById(R.id.ll_QTY);
+
         // Set default physical card theme on initial load
         setphysical_card_ThemeColorBgWithRadius();
 
@@ -253,6 +264,8 @@ public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnIma
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     formatPhoneNumber(edtMobile);
+                }else{
+                    edtMobile.setError(null);
                 }
             }
         });
@@ -266,18 +279,21 @@ public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnIma
             @Override
             public void onClick(View view) {
                 setemail_ThemeColorBgWithRadius();
+                card_type = "Email";
             }
         });
         btn_text_gift_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 settext_ThemeColorBgWithRadius();
+                card_type = "Text";
             }
         });
         btn_physical_gift_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setphysical_card_ThemeColorBgWithRadius();
+                card_type = "Physical";
             }
         });
 
@@ -296,12 +312,190 @@ public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnIma
         btn_add_to_cart_gift_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Add to Cart functionality is pending!", Toast.LENGTH_LONG).show();
+
+                validation_of_add_to_cart_WS();
+
             }
         });
 
         // Set up the calendar for date selection
         setcalender();
+    }
+
+    private void validation_of_add_to_cart_WS() {
+        boolean isValid = true; // Track if all validations pass
+
+        if (card_type.equals("Email")) {
+            // Validate email fields
+            if (!validateEmailField(edt_to_email_giftcard, "Invalid email")) {
+                isValid = false;
+            }
+            if (ll_to_email_2.getVisibility() == View.VISIBLE && !validateEmailField(edt_to_email_giftcard_2, "Invalid email")) {
+                isValid = false;
+            }
+            if (ll_to_email_3.getVisibility() == View.VISIBLE && !validateEmailField(edt_to_email_giftcard_3, "Invalid email")) {
+                isValid = false;
+            }
+
+            // Validate date field
+            if (!validateField(edt_select_date, "Invalid date")) {
+                isValid = false;
+            }
+
+            // Validate quantity field
+            if (!validateQuantityField(edt_qty_giftcard, "Invalid QTY")) {
+                isValid = false;
+            }
+
+        } else if (card_type.equals("Text")) {
+            // Validate mobile and message fields
+            if (!validateField(edtMobile, "Invalid Phone")) {
+                isValid = false;
+            }
+            if (!validateField(edt_message_giftcard, "Invalid message")) {
+                isValid = false;
+            }
+
+            // Validate date and quantity fields
+            if (!validateField(edt_select_date, "Invalid date")) {
+                isValid = false;
+            }
+            if (!validateQuantityField(edt_qty_giftcard, "Invalid QTY")) {
+                isValid = false;
+            }
+
+        } else if (card_type.equals("Physical")) {
+            // Validate quantity field
+            if (!validateQuantityField(edt_qty_giftcard, "Invalid QTY")) {
+                isValid = false;
+            }
+        }
+
+        if (isValid) {
+            call_add_to_cart_for_gift_card();
+        }
+    }
+
+    // Helper method to validate a generic EditText field
+    private boolean validateField(EditText field, String errorMessage) {
+        if (field.getText().toString().trim().isEmpty()) {
+            field.setError(errorMessage);
+            return false;
+        }
+        return true;
+    }
+
+    // Helper method to validate email fields
+    private boolean validateEmailField(EditText field, String errorMessage) {
+        String email = field.getText().toString().trim();
+        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            field.setError(errorMessage);
+            return false;
+        }
+        return true;
+    }
+
+    // Helper method to validate quantity field with special condition (cannot be 0)
+    private boolean validateQuantityField(EditText field, String errorMessage) {
+        String quantity = field.getText().toString().trim();
+        if (quantity.isEmpty() || quantity.equals("0")) {
+            field.setError(errorMessage);
+            return false;
+        }
+        return true;
+    }
+
+    @SuppressLint("LongLogTag")
+    private void call_add_to_cart_for_gift_card() {
+
+        // Check if the price field is visible and process accordingly
+
+        String amount = (edt_price_giftcard.getVisibility() == View.VISIBLE && !edt_price_giftcard.getText().toString().trim().isEmpty())
+                ? edt_price_giftcard.getText().toString().trim().replace("$", "")
+                : "0";
+
+        String phone = (ll_text_layout.getVisibility() == View.VISIBLE && !edtMobile.getText().toString().trim().isEmpty())
+                ? edtMobile.getText().toString().trim().replaceAll("[^0-9]", "")
+                : "0";
+
+        String quantity = (ll_QTY.getVisibility() == View.VISIBLE && !edt_qty_giftcard.getText().toString().trim().isEmpty())
+                ? edt_qty_giftcard.getText().toString().trim()
+                : "0";
+
+        String toEmail1 = (ll_email_layout.getVisibility() == View.VISIBLE && !edt_to_email_giftcard.getText().toString().trim().isEmpty())
+                ? edt_to_email_giftcard.getText().toString().trim()
+                : "0";
+
+        String toEmail2 = (ll_to_email_2.getVisibility() == View.VISIBLE && !edt_to_email_giftcard_2.getText().toString().trim().isEmpty())
+                ? edt_to_email_giftcard_2.getText().toString().trim()
+                : "0";
+
+        String toEmail3 = (ll_to_email_3.getVisibility() == View.VISIBLE && !edt_to_email_giftcard_3.getText().toString().trim().isEmpty())
+                ? edt_to_email_giftcard_3.getText().toString().trim()
+                : "0";
+
+        String userName = (ll_email_layout.getVisibility() == View.VISIBLE && !edt_from_email_giftcard.getText().toString().trim().isEmpty())
+                ? edt_from_email_giftcard.getText().toString().trim()
+                : "0";
+
+        String message = (ll_message_giftcart2.getVisibility() == View.VISIBLE && !edt_message_giftcard.getText().toString().trim().isEmpty())
+                ? edt_message_giftcard.getText().toString().trim()
+                : "0";
+
+        String deliveryDate = (ll_delivery_date_giftcart2.getVisibility() == View.VISIBLE && !edt_select_date.getText().toString().trim().isEmpty())
+                ? edt_select_date.getText().toString().trim()
+                : "0";
+
+        if (!deliveryDate.equals("0")) {
+            try {
+                SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                Date date = inputFormat.parse(deliveryDate);
+                deliveryDate = outputFormat.format(date);
+            } catch (ParseException e) {
+                deliveryDate = "0"; // Default value if parsing fails
+            }
+        }
+
+        int selectedGCDesignPosition = adapter.getSelectedPosition();
+        selectedGCDesignPosition = selectedGCDesignPosition + 1; // Increment by 1
+
+        String customer_id = (UserModel.Cust_mst_ID != null && !UserModel.Cust_mst_ID.isEmpty())
+                ? UserModel.Cust_mst_ID
+                : "0";
+
+        String session_id = DeviceInfo.getDeviceId(MainActivity.getInstance()) + "0011";
+
+        String url = "";
+        url = WS_BASE_URL + Constant.GC_ADD_TO_CART + STOREID + "/" + customer_id + "/" + session_id + "/" + amount + "/" + card_type
+                + "/" + quantity + "/" + toEmail1 + "/" + toEmail2 + "/" + toEmail3 + "/" + phone + "/" + userName + "/" + message + "/"
+                + deliveryDate + "/" + selectedGCDesignPosition;
+
+        Log.e("GC_Add_to_Cart", url );
+
+//        Toast.makeText(getContext(), "Add to Cart Functionality is pending!!!", Toast.LENGTH_LONG).show();
+
+        TaskGCAddtoCart taskGCAddtoCart = new TaskGCAddtoCart(getContext(), this);
+        taskGCAddtoCart.execute(url);
+
+    }
+
+    @Override
+    public void GCaddToCartEventResult(GCAddtoCartModel gcAddtoCartModel) {
+        // Check if gcAddtoCartModel is null
+        if (gcAddtoCartModel != null && gcAddtoCartModel.getResult() != null) {
+            // Check if the result is "success"
+            if (gcAddtoCartModel.getResult().equalsIgnoreCase("success")) {
+                MainActivity.getInstance().loadCardFragment();
+//                Toast.makeText(getContext(), "Added to Cart!", Toast.LENGTH_LONG).show();
+            } else {
+                // Handle the case where the result is not "success"
+//                Toast.makeText(getContext(), "Failed to add to Cart!", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            // Handle the case where gcAddtoCartModel is null
+//            Toast.makeText(getContext(), "Cart data is null!", Toast.LENGTH_LONG).show();
+        }
     }
 
     // Helper method to format phone numbers
@@ -365,6 +559,7 @@ public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnIma
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             // No action needed here
+            edt_qty_giftcard.setError(null);  // To clear the error
         }
 
         @Override
@@ -414,6 +609,11 @@ public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnIma
     private void setcalender() {
         final Calendar myCalendar1 = Calendar.getInstance();
 
+        // Set today's date initially in the EditText
+        String myFormat = "MM/dd/yyyy"; // Date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
+        edt_select_date.setText(dateFormat.format(myCalendar1.getTime())); // Automatically set today's date
+
         // Listener for when the date is set
         DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -423,8 +623,6 @@ public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnIma
                 myCalendar1.set(Calendar.DAY_OF_MONTH, day);
 
                 // Format and set the selected date in the EditText
-                String myFormat = "MM/dd/yyyy"; // Date format
-                SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
                 edt_select_date.setText(dateFormat.format(myCalendar1.getTime()));
 
                 // Reset selected time position
@@ -436,7 +634,7 @@ public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnIma
         edt_select_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Initialize DatePickerDialog with current date
+                // Initialize DatePickerDialog with the current date
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), date1,
                         myCalendar1.get(Calendar.YEAR), myCalendar1.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH));
@@ -590,6 +788,8 @@ public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnIma
         btn_text_gift_card.setBackgroundColor(getResources().getColor(R.color.transparent));
         btn_email_gift_card.setTextColor(Color.parseColor(Constant.themeModel.ThemeColor));
         btn_email_gift_card.setBackgroundColor(getResources().getColor(R.color.transparent));
+
+        card_type = "Physical";
 
         // Set visibility for related views
         view_between_email_gift_card.setVisibility(View.VISIBLE);

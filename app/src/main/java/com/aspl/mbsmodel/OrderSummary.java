@@ -74,7 +74,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "lstOrderTems",
         "page_count",
         "ShippingType",
-        "ShippingCharge"
+        "ShippingCharge",
+        "lstGiftCardDetail"
 })
 public class OrderSummary{
 
@@ -195,6 +196,8 @@ public class OrderSummary{
     private Boolean isShipTaxToOtherCountry;
     @JsonProperty("lstOrderTems")
     private List<LstOrderTem> lstOrderTems = null;
+    @JsonProperty("lstGiftCardDetail")
+    private List<lstGiftCardDetail> lstGiftCardDetail = null;
     @JsonProperty("page_count")
     private Integer pageCount;
     @JsonIgnore
@@ -884,6 +887,15 @@ public class OrderSummary{
     public void setShippingCharge(String shippingCharge) {
         ShippingCharge = shippingCharge;
     }
+
+    public List<com.aspl.mbsmodel.lstGiftCardDetail> getLstGiftCardDetail() {
+        return lstGiftCardDetail;
+    }
+
+    public void setLstGiftCardDetail(List<com.aspl.mbsmodel.lstGiftCardDetail> lstGiftCardDetail) {
+        this.lstGiftCardDetail = lstGiftCardDetail;
+    }
+
     //
 //    @Override
 //    public int describeContents() {
