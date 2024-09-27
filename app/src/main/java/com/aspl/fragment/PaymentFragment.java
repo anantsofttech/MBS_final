@@ -1197,8 +1197,7 @@ public class PaymentFragment extends Fragment
         tv_11 = v.findViewById(R.id.tv_11);
         tv_main_location = v.findViewById(R.id.tv_main_location);
         tv_main_hours = v.findViewById(R.id.tv_main_location);
-
-//        END
+//      END
 
 
         // Button
@@ -1411,7 +1410,6 @@ public class PaymentFragment extends Fragment
                 Constant.isUSAePAY = true;
             }
         }
-
     }
 
 //    END
@@ -2384,23 +2382,39 @@ public class PaymentFragment extends Fragment
 
 //         ****************    Edited by Varun Validator for USAePAY on btn click **************
 //              getCustomerCarddataPaymentWS();
-            if (rbPayAtStore){
+            if (rbPayAtStore && !rbHandOnDelivery && !rbPayWithCart && !rbShip) {
+                Log.e(TAG, "GOING: 3");
                 getCustomerCarddataPaymentWS();
-            }else{
-//                Edited Varun for zip not match
-                if (etZip.getText().toString().equals("") || etZip.getText().toString()==null){
+            } else {
+
+                boolean isValid = true;
+
+                if (etZip.getText() == null || etZip.getText().toString().trim().isEmpty()) {
                     etZip.setError("Invalid Zip");
-                }else {
-//                END
+                    isValid = false;
+                } else if (etCardNumber.getText() == null || etCardNumber.getText().toString().trim().isEmpty()) {
+                    etCardNumber.setError("Invalid Card");
+                    isValid = false;
+                } else if (etCvv.getText() == null || etCvv.getText().toString().trim().isEmpty()) {
+                    etCvv.setError("Invalid CVV");
+                    isValid = false;
+                } else if (etExpiration.getText() == null || etExpiration.getText().toString().trim().isEmpty()) {
+                    etExpiration.setError("Invalid Month/Year");
+                    isValid = false;
+                }
+
+                if (isValid) {
                     if (etCardNumber.isFocusable()) {
                         if (!Validator.validateCard(etCardNumber.getText().toString().trim())) {
                             etCvv.clearFocus();
                             etCardNumber.requestFocus();
                             etCardNumber.setError("Invalid Card");
                         } else {
+                            Log.e(TAG, "GOING: 1");
                             getCustomerCarddataPaymentWS();
                         }
                     } else {
+                        Log.e(TAG, "GOING: 2");
                         getCustomerCarddataPaymentWS();
                     }
                 }

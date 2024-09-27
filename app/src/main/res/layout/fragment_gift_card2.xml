@@ -205,7 +205,7 @@
                                     android:layout_gravity="center_vertical"
                                     android:gravity="center_vertical"
                                     android:selectAllOnFocus="true"
-                                    android:inputType="textVisiblePassword|textNoSuggestions|number"
+                                    android:inputType="number"
                                     android:hint=" Enter Amount "/>
 
                             </LinearLayout>

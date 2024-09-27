@@ -57,25 +57,22 @@ public class Constant {
      *
      **/
 //////    local 707.
-      public static String IMG_BASE = "http://192.168.172.244:808/";
-      public static String URL = "http://192.168.172.244:888/";
-      public static String WS_BASE = "http://192.168.172.244:889";
-      public static String WS_BASE_POS_URL = "http://192.168.172.244:140/CsCode/WebStoreOnlineService.asmx/";
-      public static String WS_BASE_FOR_POS_LIGHTNING = "http://192.168.172.244:140/CsCode/WebStoreOnlineService.asmx/";
+//      public static String IMG_BASE = "http://192.168.172.244:808/";
+//      public static String URL = "http://192.168.172.244:888/";
+//      public static String WS_BASE = "http://192.168.172.244:889";
+//      public static String WS_BASE_POS_URL = "http://192.168.172.244:140/CsCode/WebStoreOnlineService.asmx/";
+//      public static String WS_BASE_FOR_POS_LIGHTNING = "http://192.168.172.244:140/CsCode/WebStoreOnlineService.asmx/";
 
     /**
      * Test Sever
      **/
 //////707,105,2401
-
-//    public static String IMG_BASE = "http://testimages.lightningpos.com/";
 //
-//    public static String IMG_BASE = "https://testimages.lightningpos.com/";
-//    public static String URL = "https://ecomtest.lightningpos.com/";
-//    public static String WS_BASE = "https://ecomtestWCF.lightningpos.com";
-//    public static String WS_BASE_POS_URL = "https://ecomtest.lightningpos.com/Home/";
-//    public static String WS_BASE_FOR_POS_LIGHTNING = "https://evo.lightningpos.com/CSCode/WebStoreOnlineService.asmx/";
-
+    public static String IMG_BASE = "https://testimages.lightningpos.com/";
+    public static String URL = "https://ecomtest.lightningpos.com/";
+    public static String WS_BASE = "https://ecomtestWCF.lightningpos.com";
+    public static String WS_BASE_POS_URL = "https://ecomtest.lightningpos.com/Home/";
+    public static String WS_BASE_FOR_POS_LIGHTNING = "https://evo.lightningpos.com/CSCode/WebStoreOnlineService.asmx/";
 
     /**
      * Secure Server

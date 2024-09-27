@@ -313,8 +313,11 @@ public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnIma
             @Override
             public void onClick(View view) {
 
-                validation_of_add_to_cart_WS();
-
+                if(edt_price_giftcard.hasFocus()){
+                    edt_price_giftcard.clearFocus();
+                }else{
+                    validation_of_add_to_cart_WS();
+                }
             }
         });
 

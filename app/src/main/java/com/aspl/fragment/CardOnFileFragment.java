@@ -160,9 +160,6 @@ public class CardOnFileFragment extends Fragment implements TaskCustomerCard.Tas
             }
         }
 
-
-
-
     }
 
 //    END
