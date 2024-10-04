@@ -487,6 +487,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         tvGiftCard.setBackgroundColor(Color.WHITE);
         tvGiftCard.setTextColor(ContextCompat.getColor(this, R.color.Header));
 
+//        if(Constant.STOREID.equals("707")|| Constant.STOREID.equals("105") || Constant.STOREID.equals("7365")){
+//            tvGiftCard.setVisibility(View.VISIBLE);
+//        }else{
+//            tvGiftCard.setVisibility(View.GONE);
+//        }
+
         txtdepartment.setBackgroundColor(Color.WHITE);
         txtdepartment.setTextColor(ContextCompat.getColor(this, R.color.Header));
 

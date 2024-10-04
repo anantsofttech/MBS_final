@@ -105,8 +105,6 @@ public class Constant {
     public static String GETPAGES_FOR_ANDROID = "GetPagesForAndroid/";
     public static String GETPAGES_STATUS = "GetPagesStatus/";
     public static String SEND_DRINK_RECIPES= "SendDrinkRecipes";
-
-
     /*
      *
      * Layout two menu

@@ -355,6 +355,11 @@ public class GiftCardFragment2 extends Fragment implements GiftCardAdapter.OnIma
             if (!validateField(edtMobile, "Invalid Phone")) {
                 isValid = false;
             }
+            if(edtMobile.getText().toString().length()!=14){
+                edtMobile.requestFocus();
+                edtMobile.setError("Invalid Phone");
+                isValid = false;
+            }
             if (!validateField(edt_message_giftcard, "Invalid message")) {
                 isValid = false;
             }
