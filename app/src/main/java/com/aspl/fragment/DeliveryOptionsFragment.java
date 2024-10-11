@@ -1794,6 +1794,7 @@ public class DeliveryOptionsFragment extends Fragment
         }
 
 
+        assert liDeliveryHour != null;
         String openTime = liDeliveryHour.get(position).getOpenTime();
         String closeTime = liDeliveryHour.get(position).getCloseTime();
         String pattern = "hh:mm a";

@@ -24,6 +24,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
@@ -3532,6 +3533,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         Utils.hideKeyboard();
         String token = FirebaseInstanceId.getInstance().getToken();
         Log.e("Log", "token=" + token);
+//        Log.e("Log", "deviceid=" + DeviceInfo.getDeviceId(MainActivity.this));
+
         if (!themeModel.ThemeColor.isEmpty()) {
 
 ////            Edited by Varun for backbutton

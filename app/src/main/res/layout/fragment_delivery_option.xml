@@ -485,6 +485,7 @@
                                 android:textColor="@android:color/tab_indicator_text"
                                 android:textSize="@dimen/dimen_DeliveryTextSize"
                                 android:visibility="gone"
+                                android:padding="@dimen/_7sdp"
                                 tools:ignore="UnusedAttribute" />
 
                             <LinearLayout
