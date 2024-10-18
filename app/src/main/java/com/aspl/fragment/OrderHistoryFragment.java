@@ -1052,7 +1052,7 @@ public class OrderHistoryFragment extends Fragment implements TaskOrderHistory.T
                 bundle.putString("buttonclicked",buttonclicked);
                 MainActivity.getInstance().loadOrderSummaryFragment(bundle,"comefromOrderDetail",buttonclicked, "ReturnProcessing");
         }else{
-            Toast.makeText(context, "PLease try again later.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Please try again later.", Toast.LENGTH_SHORT).show();
         }
     }
 

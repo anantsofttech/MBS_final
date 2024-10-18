@@ -324,7 +324,7 @@ public class Constant {
     public static String URL_PAGE_SHIPPING_ADDRESS = URL + "home/AndroidShippingAddress";
     public static String URL_PAGE_CREDIT_CARD = URL + "Home/AndroidCreditCard";
     public static String URL_TEST_HOME = URL + "Home/IndexApp";
-    public static String URL_PAGE_CHANGE_PASSWORD = URL + "Home/AndroidCFhangePassword";
+    public static String URL_PAGE_CHANGE_PASSWORD = URL + "Home/AndroidChangePassword";
     public static String URL_PAGE_WISHLIST = URL + "BoxSalt/WishList/";
     public static String URL_PAGE_GIFTCARD = URL + "Pages/AndroidGiftCard?storename=";
     public static String URL_PAGE_JOBAPPLICATION = URL + "Pages/JobApplication?storename=";

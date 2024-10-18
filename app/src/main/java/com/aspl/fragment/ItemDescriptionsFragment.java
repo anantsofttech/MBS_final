@@ -402,12 +402,10 @@ public class ItemDescriptionsFragment extends Fragment implements View.OnClickLi
 
         tv_promoprice=view.findViewById(R.id.tv_promoprice);
 
-
         ivAddtoCart_up.setBackground(roundDrawable);
 
 
-//            END
-
+//      END
 
         tvQty.setText("1");
         tvPlus.setOnClickListener(this);
