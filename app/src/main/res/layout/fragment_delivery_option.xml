@@ -306,7 +306,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="32dp"
                                     android:layout_marginTop="@dimen/_3sdp"
-                                    android:text="Delivery Minimum of $ XX.XX not met."
+                                    android:text="Delivery Minimum of $XX.XX not met."
                                     android:textColor="@android:color/tab_indicator_text"
                                     android:textSize="@dimen/dimen_DeliveryTextSize"
                                     android:visibility="gone" />
@@ -373,7 +373,7 @@
                                 android:layout_marginTop="@dimen/_3sdp"
                                 android:buttonTint="@android:color/tab_indicator_text"
                                 android:gravity="top"
-                                android:text="Accept $ XX.XX  Delivery Fee since the order is below our minimum free delivery."
+                                android:text="Accept $XX.XX  Delivery Fee since the order is below our minimum free delivery."
                                 android:textColor="@android:color/tab_indicator_text"
                                 android:textSize="@dimen/dimen_DeliveryTextSize"
                                 android:visibility="gone"

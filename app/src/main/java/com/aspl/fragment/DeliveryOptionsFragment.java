@@ -1654,7 +1654,7 @@ public class DeliveryOptionsFragment extends Fragment
                         if(tvMinimumAmountRadioGroupHandDelivery.getVisibility() == View.GONE){
                             tvMinimumAmountRadioGroupHandDelivery.setVisibility(View.VISIBLE);
                         }
-                        tvMinimumAmountRadioGroupHandDelivery.setText("Delivery Minimum of $ " + liShippingData.get(0).getHandDeliveryPrice() + " not met.");
+                        tvMinimumAmountRadioGroupHandDelivery.setText("Delivery Minimum of $" + liShippingData.get(0).getHandDeliveryPrice() + " not met.");
                         tvMinimumAmountRadioGroupHandDelivery.setTextColor(Color.RED);
 
                     }else if(_minimumHandDeliveryLimit > _total && isStoreClosed && !liShippingData.get(0).getDontAcceptOrder()) {
@@ -1662,7 +1662,7 @@ public class DeliveryOptionsFragment extends Fragment
                         if(tvMinimumAmountRadioGroupHandDelivery.getVisibility() == View.GONE){
                             tvMinimumAmountRadioGroupHandDelivery.setVisibility(View.VISIBLE);
                         }
-                        tvMinimumAmountRadioGroupHandDelivery.setText("Delivery Minimum of $ " + liShippingData.get(0).getHandDeliveryPrice() + " not met.");
+                        tvMinimumAmountRadioGroupHandDelivery.setText("Delivery Minimum of $" + liShippingData.get(0).getHandDeliveryPrice() + " not met.");
                         tvMinimumAmountRadioGroupHandDelivery.setTextColor(Color.RED);
 
                     } else if(_total > _minimumHandDeliveryLimit && isStoreClosed && !liShippingData.get(0).getDontAcceptOrder()){
@@ -3672,7 +3672,7 @@ public class DeliveryOptionsFragment extends Fragment
                     cv_radio_button_hand_delivery_Check_box.setCardBackgroundColor(context.getColor(R.color.pressed_color_lighter_2_tone_light));
                 }
                 cbx_hand_delivery.setVisibility(View.VISIBLE);
-                cbx_hand_delivery.setText("Accept $ " + liShippingData.get(0).getSurchargePrice() + " Delivery Fee since the order is below our minimum free delivery.");//janvi
+                cbx_hand_delivery.setText("Accept $" + liShippingData.get(0).getSurchargePrice() + " Delivery Fee since the order is below our minimum free delivery.");//janvi
 
 
                 txtDeliveryDetails.setVisibility(View.GONE);

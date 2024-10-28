@@ -280,7 +280,6 @@ public class Constant {
     public static String SIGN_UP_CUSTOMER_FOR_LOYALTY_REWARD_FROM_ECOM="SignUpCustomerForLoyaltyRewardFromEcom/";
 
 
-
     public static String GET_HOME_PAGE_BLOCK_DATA="GetHomePageBlocksData/";
     public static String GET_INVENTORYBLOCK_DATAFORFRONT="GetBlockDataForFront/";
     public static String GET_TEMPLATE="GetTemplate/";
