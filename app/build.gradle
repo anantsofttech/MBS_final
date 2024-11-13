@@ -405,6 +405,21 @@ android {
             ]
         }
 
+        store178 {
+            minSdkVersion 21
+            targetSdkVersion 34
+            versionCode 1
+            versionName '1.0'
+            dimension "store"
+            //applicationId "com.aspl.testflavor"
+            applicationId "com.aspl.mbs.store178" //Editde by Janvi *******
+            resValue "string", "app_names", "Montague Wine & Spirits" //end ************
+            multiDexEnabled true
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+        }
+
     }
     useLibrary 'org.apache.http.legacy'
 }

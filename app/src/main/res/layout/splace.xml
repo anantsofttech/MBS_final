@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--edited by Janvi 19th Oct-->
 <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:orientation="vertical" android:layout_width="match_parent"-->
-    <!--android:gravity="center"-->
-    <!--android:id="@+id/ll_splace"-->
-    <!--android:layout_height="match_parent">-->
+<!--android:orientation="vertical" android:layout_width="match_parent"-->
+<!--android:gravity="center"-->
+<!--android:id="@+id/ll_splace"-->
+<!--android:layout_height="match_parent">-->
 
-    <!--<ImageView-->
-        <!--android:id="@+id/splaceImage"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center_horizontal" />-->
+<!--<ImageView-->
+<!--android:id="@+id/splaceImage"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_gravity="center_horizontal" />-->
 <!--</LinearLayout>-->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:id="@+id/fl_splace"
     android:background="@android:color/white"
@@ -24,7 +23,20 @@
         android:id="@+id/splaceImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_gravity="center" />
+    <SurfaceView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
+    <!-- <VideoView
+         android:id="@+id/videoView"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:visibility="gone"
+         android:layout_gravity="center" />-->
 
     <TextView
         android:textStyle="bold"
@@ -43,4 +55,4 @@
 
 </FrameLayout>
 
-<!--end *********-->
+    <!--end *********-->

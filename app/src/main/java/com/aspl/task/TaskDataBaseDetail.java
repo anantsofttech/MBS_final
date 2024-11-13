@@ -73,7 +73,7 @@ public class TaskDataBaseDetail extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
 
-        if(taskDataBaseDetailEvent != null){
+        if(taskDataBaseDetailEvent != null && Constant.DatabaseInfo != null){
             taskDataBaseDetailEvent.DatabaseInfoEventResult(Constant.DatabaseInfo);
         }
     }
