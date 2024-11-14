@@ -1245,7 +1245,7 @@ public class OrderSummaryFragment extends Fragment implements View.OnClickListen
 
             if (orderSummary.getComments() != null && !orderSummary.getComments().isEmpty() && !orderSummary.getComments().equals("null")) {
                 cv_notes.setVisibility(View.VISIBLE);
-                tv_note_title.setText("Order Notes ");
+                tv_note_title.setText("Order Notes: ");
 
 //                if(orderSummary.getComments().contains("♠♥")){
 //                    String notes = orderSummary.getComments().trim().replace("♠♥","\n");

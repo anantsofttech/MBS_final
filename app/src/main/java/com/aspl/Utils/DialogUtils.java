@@ -1653,7 +1653,6 @@ public class DialogUtils {
 
         }
 
-
         EditText et_cart_number = (EditText) editCardDialog.findViewById(R.id.et_cart_number);
         TextView card_number = editCardDialog.findViewById(R.id.card_number);
         card_number.setText("("+cardno+")");
@@ -1667,7 +1666,6 @@ public class DialogUtils {
 //        et_cart_number.setFocusable(false);
 
 //        et_cart_number.setSelection(et_cart_number.getText().length());
-
 
         et_cart_number.setOnTouchListener(new View.OnTouchListener() {
             @Override

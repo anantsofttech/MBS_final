@@ -216,7 +216,6 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 
     private void calldatabaseWS() {
 
-
         if(Constant.STOREID.equals(Constant.MainSTOREID)){
             setStorelogo(Constant.STOREID);
         }else{
@@ -312,7 +311,7 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
             //end
         }
 
-//        Edited by Varun For Speed -up
+//        Edited by Varun For Speed-up
 
         String baseUrl = Constant.WS_BASE_URL;
         String storeId = Constant.STOREID;
@@ -611,7 +610,6 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                 getIntent().hasExtra("android.intent.extra.shortcut.ID")) {
 
             String shortcutId = getIntent().getStringExtra("android.intent.extra.shortcut.ID");
-
 
             if ("cart".equals(shortcutId)) {
                 Intent intent = new Intent(this, Constant.SCREEN_LAYOUT == 1 ? MainActivity.class : MainActivityDup.class);
