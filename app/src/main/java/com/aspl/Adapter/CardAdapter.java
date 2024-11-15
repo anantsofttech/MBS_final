@@ -383,17 +383,18 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyCardViewHold
 
                 if (view.getId() == imgMinus.getId()) {
                     quantity = Integer.parseInt(tvQuantityChange.getText().toString());
-                    if (quantity > 1)
+                    if (quantity > 1) {
                         quantity = quantity - 1;
-                    // tvQuantityChange.setText(String.valueOf(quantity));
-                    if (Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPromoPrice()) > 0)
-                        tvTotal.setText(String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPromoPrice()) * quantity)));
-                    else
-                        tvTotal.setText(/*"Total : " + "$" +*/ String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getCartPrice()) * quantity)));
+                        // tvQuantityChange.setText(String.valueOf(quantity));
+                        if (Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPromoPrice()) > 0)
+                            tvTotal.setText(String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getPromoPrice()) * quantity)));
+                        else
+                            tvTotal.setText(/*"Total : " + "$" +*/ String.valueOf(df.format(Double.parseDouble(liShoppingCat.get(getAdapterPosition()).getCartPrice()) * quantity)));
 
-                    liShoppingCat.get(getAdapterPosition()).setQty(String.valueOf(quantity));
-                    if (myCardAdapterEvent != null)
-                        myCardAdapterEvent.onCardItemMinus(getAdapterPosition(), quantity);
+                        liShoppingCat.get(getAdapterPosition()).setQty(String.valueOf(quantity));
+                        if (myCardAdapterEvent != null)
+                            myCardAdapterEvent.onCardItemMinus(getAdapterPosition(), quantity);
+                    }
                 }
 
                 if (view.getId() == tvRemove.getId()) {

@@ -279,7 +279,6 @@ public class Constant {
 //    SignUp Customer For Loyalty Reward From Ecom
     public static String SIGN_UP_CUSTOMER_FOR_LOYALTY_REWARD_FROM_ECOM="SignUpCustomerForLoyaltyRewardFromEcom/";
 
-
     public static String GET_HOME_PAGE_BLOCK_DATA="GetHomePageBlocksData/";
     public static String GET_INVENTORYBLOCK_DATAFORFRONT="GetBlockDataForFront/";
     public static String GET_TEMPLATE="GetTemplate/";
@@ -551,7 +550,6 @@ public class Constant {
     public static Float pPromoPrice=0.0f;
     public static Float pPrice=0.0f;
 
-
     public static List<ShoppingCardModel> Test = new ArrayList<ShoppingCardModel>();
 
     public static int check_multi_position = -1;
@@ -563,7 +561,6 @@ public class Constant {
 
     public static Dialog dialog_Delete_My_Online_Account;
 
-
 //    Edited by Varun for pick up hours and location
     public static Boolean rbPayAtStore  = false;
     public static Boolean rbPickUpAtStore  = false;
@@ -572,7 +569,6 @@ public class Constant {
     public static String today="";
     public static String tomorrow="";
     public static String pick_up_time="";
-
 
     public static String LockStoreName="";
     public static String LockStoreAddress="";

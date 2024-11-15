@@ -58,10 +58,9 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Created by mic on 11/28/2017.
  */
-
 public class Login {
 
-
+    private static boolean isProcessing = false;
     public static Dialog loginDialog;
     public static boolean isHidden = false;
     public static boolean isHiddenSignup = false;
@@ -327,12 +326,12 @@ public class Login {
 
                 String CurrentTAG = sign_txt_signin.getText().toString();
                 sign_edtEmailIDFirst.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    // edtEmailID.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    txtPasswordHint.setVisibility(View.GONE);
-                    if (Constant.SCREEN_LAYOUT == 1) {
-                        sign_input_layout_empid_for_email.setHint(MainActivity.getInstance().getString(R.string.str_email));
-                        if (CurrentTAG.contains(MainActivity.getInstance().getString(R.string.str_signin))) {
-                            Tag = "signin";
+                // edtEmailID.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                txtPasswordHint.setVisibility(View.GONE);
+                if (Constant.SCREEN_LAYOUT == 1) {
+                    sign_input_layout_empid_for_email.setHint(MainActivity.getInstance().getString(R.string.str_email));
+                    if (CurrentTAG.contains(MainActivity.getInstance().getString(R.string.str_signin))) {
+                        Tag = "signin";
 
 //              Edited by Janvi 5th Oct ***************************
 //                            sign_btnContinue.setText(MainActivity.getInstance().getString(R.string.str_next));
@@ -342,81 +341,81 @@ public class Login {
 //                            sign_txt_forget_instruction.setVisibility(View.GONE);
 //                            sign_edtEmailID.setText("");
 
-                            if(sign_edtEmailIDFirst.getError()!=null && sign_edtEmailIDFirst.getText().length() == 0){
-                                sign_edtEmailIDFirst.setError(null);
-                            }
-
-                            if(!s.equals("") && s.equals("wishlist")){
-                                sign_btnContinue.setText(MainActivity.getInstance().getString(R.string.str_next));
-                                sign_txtloginhead.setText(MainActivity.getInstance().getString(R.string.str_wishlistHeader));
-                                tvRegisterToWishlist.setVisibility(View.VISIBLE);
-                                tvRegisterToWishlist.setText(MainActivity.getInstance().getString(R.string.str_registerToWishList));
-                                sign_txt_signin.setVisibility(View.GONE);
-                                sign_txt_recover.setVisibility(View.VISIBLE);
-                                sign_txt_forget_instruction.setVisibility(View.GONE);
-//                                sign_edtEmailID.setText("");
-                                sign_edtEmailIDFirst.setText("");
-                                sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                                sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-
-
-                            }else{
-                                tvRegisterToWishlist.setVisibility(View.GONE);
-                                sign_btnContinue.setText(MainActivity.getInstance().getString(R.string.str_next));
-                                sign_txtloginhead.setText(MainActivity.getInstance().getString(R.string.str_signinHeader));
-                                sign_txt_signin.setVisibility(View.GONE);
-                                sign_txt_recover.setVisibility(View.VISIBLE);
-                                sign_txt_forget_instruction.setVisibility(View.GONE);
-//                                sign_edtEmailID.setText("");
-                                sign_edtEmailIDFirst.setText("");
-//                                sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                                sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                            }
-//                            end *************************
-                            //done
-                            sign_btnPrev.setVisibility(View.GONE);
-                        } else if (CurrentTAG.contains(MainActivity.getInstance().getString(R.string.str_forgetPassword))) {
-                            Tag = "recover";
-                            sign_btnContinue.setText(MainActivity.getInstance().getString(R.string.str_recover_passwrod));
-                            sign_txtloginhead.setText(MainActivity.getInstance().getString(R.string.str_forgetPassword));
-                            sign_txt_signin.setVisibility(View.VISIBLE);
-                            sign_txt_forget_instruction.setText("Enter your Email and we will send you the Instructions.");
-                            sign_txt_forget_instruction.setVisibility(View.VISIBLE);
-                            sign_txt_recover.setVisibility(View.GONE);
-//                            sign_edtEmailID.setText("");
-                            sign_input_layout_empid_for_email.setVisibility(View.VISIBLE);
-                            sign_edtEmailIDFirst.setText("");
-                            sign_edtEmailIDFirst.requestFocus();
-                            sign_input_layout_empid_for.setVisibility(View.GONE);
-                            sign_btnPrev.setVisibility(View.GONE);
-                            sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-//                            sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                            sign_txt_signin.setText(MainActivity.getInstance().getString(R.string.str_signin));
-                        //done
-                        } else if (CurrentTAG.contains("Resend One Time Password")) {
-                            isResentOTP = true;
-//                            sign_txt_forget_instruction.setVisibility(View.GONE);
-                            String Url;
-                            if (Constant.LOGIN_TYPE.equalsIgnoreCase("accnotactive")) {
-                                Url = Constant.WS_BASE_URL + Constant.GENERATE_OTP + EmailID + "/" + "SignIn/" + Constant.STOREID;
-                            } else if (Constant.LOGIN_TYPE.equalsIgnoreCase("forgotpassword")) {
-                                Url = Constant.WS_BASE_URL + Constant.GENERATE_OTP + EmailID + "/" + "forgotpassword/" + Constant.STOREID;
-                            } else {
-                                Url = Constant.WS_BASE_URL + Constant.GENERATE_OTP + EmailID + "/" + "SignInNew/" + Constant.STOREID;
-                            }
-                            new Async_getCommonService(MainActivity.getInstance(), Url).execute();
-                            sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-//                            sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        } else {
-                            //Resend Password logic come
-
+                        if(sign_edtEmailIDFirst.getError()!=null && sign_edtEmailIDFirst.getText().length() == 0){
+                            sign_edtEmailIDFirst.setError(null);
                         }
-//                        sign_btnPrev.setVisibility(View.GONE);
-                    } else if (Constant.SCREEN_LAYOUT == 2) {
 
-                        sign_input_layout_empid_for_email.setHint(MainActivityDup.getInstance().getString(R.string.str_email));
-                        if (CurrentTAG.contains(MainActivityDup.getInstance().getString(R.string.str_signin))) {
-                            Tag = "signin";
+                        if(!s.equals("") && s.equals("wishlist")){
+                            sign_btnContinue.setText(MainActivity.getInstance().getString(R.string.str_next));
+                            sign_txtloginhead.setText(MainActivity.getInstance().getString(R.string.str_wishlistHeader));
+                            tvRegisterToWishlist.setVisibility(View.VISIBLE);
+                            tvRegisterToWishlist.setText(MainActivity.getInstance().getString(R.string.str_registerToWishList));
+                            sign_txt_signin.setVisibility(View.GONE);
+                            sign_txt_recover.setVisibility(View.VISIBLE);
+                            sign_txt_forget_instruction.setVisibility(View.GONE);
+//                                sign_edtEmailID.setText("");
+                            sign_edtEmailIDFirst.setText("");
+                            sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                            sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+
+
+                        }else{
+                            tvRegisterToWishlist.setVisibility(View.GONE);
+                            sign_btnContinue.setText(MainActivity.getInstance().getString(R.string.str_next));
+                            sign_txtloginhead.setText(MainActivity.getInstance().getString(R.string.str_signinHeader));
+                            sign_txt_signin.setVisibility(View.GONE);
+                            sign_txt_recover.setVisibility(View.VISIBLE);
+                            sign_txt_forget_instruction.setVisibility(View.GONE);
+//                                sign_edtEmailID.setText("");
+                            sign_edtEmailIDFirst.setText("");
+//                                sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                            sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        }
+//                            end *************************
+                        //done
+                        sign_btnPrev.setVisibility(View.GONE);
+                    } else if (CurrentTAG.contains(MainActivity.getInstance().getString(R.string.str_forgetPassword))) {
+                        Tag = "recover";
+                        sign_btnContinue.setText(MainActivity.getInstance().getString(R.string.str_recover_passwrod));
+                        sign_txtloginhead.setText(MainActivity.getInstance().getString(R.string.str_forgetPassword));
+                        sign_txt_signin.setVisibility(View.VISIBLE);
+                        sign_txt_forget_instruction.setText("Enter your Email and we will send you the Instructions.");
+                        sign_txt_forget_instruction.setVisibility(View.VISIBLE);
+                        sign_txt_recover.setVisibility(View.GONE);
+//                            sign_edtEmailID.setText("");
+                        sign_input_layout_empid_for_email.setVisibility(View.VISIBLE);
+                        sign_edtEmailIDFirst.setText("");
+                        sign_edtEmailIDFirst.requestFocus();
+                        sign_input_layout_empid_for.setVisibility(View.GONE);
+                        sign_btnPrev.setVisibility(View.GONE);
+                        sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+//                            sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        sign_txt_signin.setText(MainActivity.getInstance().getString(R.string.str_signin));
+                        //done
+                    } else if (CurrentTAG.contains("Resend One Time Password")) {
+                        isResentOTP = true;
+//                            sign_txt_forget_instruction.setVisibility(View.GONE);
+                        String Url;
+                        if (Constant.LOGIN_TYPE.equalsIgnoreCase("accnotactive")) {
+                            Url = Constant.WS_BASE_URL + Constant.GENERATE_OTP + EmailID + "/" + "SignIn/" + Constant.STOREID;
+                        } else if (Constant.LOGIN_TYPE.equalsIgnoreCase("forgotpassword")) {
+                            Url = Constant.WS_BASE_URL + Constant.GENERATE_OTP + EmailID + "/" + "forgotpassword/" + Constant.STOREID;
+                        } else {
+                            Url = Constant.WS_BASE_URL + Constant.GENERATE_OTP + EmailID + "/" + "SignInNew/" + Constant.STOREID;
+                        }
+                        new Async_getCommonService(MainActivity.getInstance(), Url).execute();
+                        sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+//                            sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                    } else {
+                        //Resend Password logic come
+
+                    }
+//                        sign_btnPrev.setVisibility(View.GONE);
+                } else if (Constant.SCREEN_LAYOUT == 2) {
+
+                    sign_input_layout_empid_for_email.setHint(MainActivityDup.getInstance().getString(R.string.str_email));
+                    if (CurrentTAG.contains(MainActivityDup.getInstance().getString(R.string.str_signin))) {
+                        Tag = "signin";
 
 //              Edited by Janvi 5th Oct ***************************
 //                            sign_btnContinue.setText(MainActivityDup.getInstance().getString(R.string.str_next));
@@ -427,80 +426,80 @@ public class Login {
 //                            sign_edtEmailID.setText("");
 
 
-                            if(sign_edtEmailIDFirst.getError()!=null && sign_edtEmailIDFirst.getText().length() == 0){
-                                sign_edtEmailIDFirst.setError(null);
-                            }
+                        if(sign_edtEmailIDFirst.getError()!=null && sign_edtEmailIDFirst.getText().length() == 0){
+                            sign_edtEmailIDFirst.setError(null);
+                        }
 
 
-                            if(!s.equals("") && s.equals("wishlist")){
-                                sign_btnContinue.setText(MainActivityDup.getInstance().getString(R.string.str_next));
-                                sign_txtloginhead.setText(MainActivityDup.getInstance().getString(R.string.str_wishlistHeader));
-                                tvRegisterToWishlist.setVisibility(View.VISIBLE);
-                                tvRegisterToWishlist.setText(MainActivityDup.getInstance().getString(R.string.str_registerToWishList));
-                                sign_txt_signin.setVisibility(View.GONE);
-                                sign_txt_recover.setVisibility(View.VISIBLE);
-                                sign_txt_forget_instruction.setVisibility(View.GONE);
+                        if(!s.equals("") && s.equals("wishlist")){
+                            sign_btnContinue.setText(MainActivityDup.getInstance().getString(R.string.str_next));
+                            sign_txtloginhead.setText(MainActivityDup.getInstance().getString(R.string.str_wishlistHeader));
+                            tvRegisterToWishlist.setVisibility(View.VISIBLE);
+                            tvRegisterToWishlist.setText(MainActivityDup.getInstance().getString(R.string.str_registerToWishList));
+                            sign_txt_signin.setVisibility(View.GONE);
+                            sign_txt_recover.setVisibility(View.VISIBLE);
+                            sign_txt_forget_instruction.setVisibility(View.GONE);
 //                                sign_edtEmailID.setText("");
-                                sign_edtEmailIDFirst.setText("");
-                                sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                                sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-
-                            }else{
-                                sign_btnContinue.setText(MainActivityDup.getInstance().getString(R.string.str_next));
-                                sign_txtloginhead.setText(MainActivityDup.getInstance().getString(R.string.str_signinHeader));
-                                sign_txt_signin.setVisibility(View.GONE);
-                                sign_txt_recover.setVisibility(View.VISIBLE);
-                                sign_txt_forget_instruction.setVisibility(View.GONE);
-//                                sign_edtEmailID.setText("");
-//                                sign_edtEmailID.setText("");
-                                sign_edtEmailIDFirst.setText("");
-                                sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);                  sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                            }
-
-                            sign_btnPrev.setVisibility(View.GONE);
-              //end*******************************
-
-                        } else if (CurrentTAG.contains(MainActivityDup.getInstance().getString(R.string.str_forgetPassword))) {
-                            Tag = "recover";
-                            sign_btnContinue.setText(MainActivityDup.getInstance().getString(R.string.str_recover_passwrod));
-                            sign_txtloginhead.setText(MainActivityDup.getInstance().getString(R.string.str_forgetPassword));
-                            sign_txt_signin.setVisibility(View.VISIBLE);
-                            sign_txt_forget_instruction.setText("Enter your Email and we will send you the Instructions.");
-                            sign_txt_forget_instruction.setVisibility(View.VISIBLE);
-                            sign_txt_recover.setVisibility(View.GONE);
-//                            sign_edtEmailID.setText("");
-                            sign_input_layout_empid_for_email.setVisibility(View.VISIBLE);
                             sign_edtEmailIDFirst.setText("");
-                            sign_edtEmailIDFirst.requestFocus();
-                            sign_input_layout_empid_for.setVisibility(View.GONE);
-                            sign_btnPrev.setVisibility(View.GONE);
-                            sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-//                            sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                            sign_txt_signin.setText(MainActivity.getInstance().getString(R.string.str_signin));
-                        } else if (CurrentTAG.contains("Resend One Time Password")) {
-//                            sign_txt_forget_instruction.setVisibility(View.GONE);
-                            String Url;
-                            if (Constant.LOGIN_TYPE.equalsIgnoreCase("accnotactive")) {
-                                Url = Constant.WS_BASE_URL + Constant.GENERATE_OTP + EmailID + "/" + "SignIn/" + Constant.STOREID;
-                            } else if (Constant.LOGIN_TYPE.equalsIgnoreCase("forgotpassword")) {
-                                Url = Constant.WS_BASE_URL + Constant.GENERATE_OTP + EmailID + "/" + "forgotpassword/" + Constant.STOREID;
-                            } else {
-                                Url = Constant.WS_BASE_URL + Constant.GENERATE_OTP + EmailID + "/" + "SignInNew/" + Constant.STOREID;
-                            }
                             sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                             sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 
-                            new Async_getCommonService(MainActivityDup.getInstance(), Url).execute();
-
-                            // CheckPassword();
-                        } else {
-                            //Resend Password logic come
-
+                        }else{
+                            sign_btnContinue.setText(MainActivityDup.getInstance().getString(R.string.str_next));
+                            sign_txtloginhead.setText(MainActivityDup.getInstance().getString(R.string.str_signinHeader));
+                            sign_txt_signin.setVisibility(View.GONE);
+                            sign_txt_recover.setVisibility(View.VISIBLE);
+                            sign_txt_forget_instruction.setVisibility(View.GONE);
+//                                sign_edtEmailID.setText("");
+//                                sign_edtEmailID.setText("");
+                            sign_edtEmailIDFirst.setText("");
+                            sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);                  sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                         }
-//                        sign_btnPrev.setVisibility(View.GONE);
-                    }
 
-                    //Signin After
+                        sign_btnPrev.setVisibility(View.GONE);
+                        //end*******************************
+
+                    } else if (CurrentTAG.contains(MainActivityDup.getInstance().getString(R.string.str_forgetPassword))) {
+                        Tag = "recover";
+                        sign_btnContinue.setText(MainActivityDup.getInstance().getString(R.string.str_recover_passwrod));
+                        sign_txtloginhead.setText(MainActivityDup.getInstance().getString(R.string.str_forgetPassword));
+                        sign_txt_signin.setVisibility(View.VISIBLE);
+                        sign_txt_forget_instruction.setText("Enter your Email and we will send you the Instructions.");
+                        sign_txt_forget_instruction.setVisibility(View.VISIBLE);
+                        sign_txt_recover.setVisibility(View.GONE);
+//                            sign_edtEmailID.setText("");
+                        sign_input_layout_empid_for_email.setVisibility(View.VISIBLE);
+                        sign_edtEmailIDFirst.setText("");
+                        sign_edtEmailIDFirst.requestFocus();
+                        sign_input_layout_empid_for.setVisibility(View.GONE);
+                        sign_btnPrev.setVisibility(View.GONE);
+                        sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+//                            sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        sign_txt_signin.setText(MainActivity.getInstance().getString(R.string.str_signin));
+                    } else if (CurrentTAG.contains("Resend One Time Password")) {
+//                            sign_txt_forget_instruction.setVisibility(View.GONE);
+                        String Url;
+                        if (Constant.LOGIN_TYPE.equalsIgnoreCase("accnotactive")) {
+                            Url = Constant.WS_BASE_URL + Constant.GENERATE_OTP + EmailID + "/" + "SignIn/" + Constant.STOREID;
+                        } else if (Constant.LOGIN_TYPE.equalsIgnoreCase("forgotpassword")) {
+                            Url = Constant.WS_BASE_URL + Constant.GENERATE_OTP + EmailID + "/" + "forgotpassword/" + Constant.STOREID;
+                        } else {
+                            Url = Constant.WS_BASE_URL + Constant.GENERATE_OTP + EmailID + "/" + "SignInNew/" + Constant.STOREID;
+                        }
+                        sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+
+                        new Async_getCommonService(MainActivityDup.getInstance(), Url).execute();
+
+                        // CheckPassword();
+                    } else {
+                        //Resend Password logic come
+
+                    }
+//                        sign_btnPrev.setVisibility(View.GONE);
+                }
+
+                //Signin After
 
             }
         });
@@ -765,6 +764,7 @@ public class Login {
 
             }
         });
+        ///multiple dialog pop dismiss code by viraj patel(30/10/2024)
         sign_btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -775,14 +775,27 @@ public class Login {
 
 //                sign_input_layout_empid_for.setVisibility(View.VISIBLE);
 //                sign_input_layout_empid_for_email.setVisibility(View.GONE);
-                tvRegisterToWishlist.setVisibility(View.GONE);
 
-                //end *********
-                sign_txtotperror.setVisibility(View.GONE);
+
+                if (isProcessing) {
+
+                    return; //If already processing, ignore this click
+                }
+                ///wishlist text visible code 15/11/24
+                /*tvRegisterToWishlist.setVisibility(View.GONE);*/
+                //end
+
+                isProcessing = true; //Set flag to true to block further clicks
+
+
+
+                sign_txtotperror.setVisibility(View.GONE); //other side part login
                 sign_llmiddle.setVisibility(View.VISIBLE);
                 sign_confirm_password.setVisibility(View.GONE);
                 sign_confirm_input_layout_password.setVisibility(View.GONE);
                 txtPasswordHint.setVisibility(View.GONE);
+                //end by viraj (30/10/2024)
+
                 //if(Tag)
 
 //                String email = sign_edtEmailID.getText().toString().trim();
@@ -799,7 +812,7 @@ public class Login {
                     str_recover_passwrod = MainActivity.getInstance().getString(R.string.str_recover_passwrod);
                     str_Congratulation_indtruct = MainActivity.getInstance().getString(R.string.str_Congratulation_indtruct);
                     if (sign_txtloginhead.getText().toString().equalsIgnoreCase(str_signinHeader) || sign_txtloginhead.getText().toString().equalsIgnoreCase(str_wishlist)) {
-                     //end *********************
+                        //end *********************
 //                        strGlobalEmail = sign_edtEmailID.getText().toString();
                         strGlobalEmail = sign_edtEmailIDFirst.getText().toString().toLowerCase();
                         if (email.matches(emailPattern) && email.length() > 0) {
@@ -831,7 +844,7 @@ public class Login {
                         sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 //                        sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 
-                    //done
+                        //done
                     }
                     else if (sign_btnContinue.getText().toString().equalsIgnoreCase(str_recover_passwrod)) {
 
@@ -891,7 +904,7 @@ public class Login {
                         setOTPDesign();
 //                        sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 //                        sign_edtEmailIDFirst.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                    //done
+                        //done
 
 
                     }
@@ -919,9 +932,9 @@ public class Login {
                             if (Constant.Guest_WD.equalsIgnoreCase("guest")){
                                 Constant.Guest_WD = "";
                                 Constant.LOGIN_TYPE ="newuser";
-                                 Url = Constant.WS_BASE_URL + Constant.CHANGE_PASSWORD + EmailID + "/" + str_psw + "/"+Constant.LOGIN_TYPE +"/" + Constant.STOREID;
+                                Url = Constant.WS_BASE_URL + Constant.CHANGE_PASSWORD + EmailID + "/" + str_psw + "/"+Constant.LOGIN_TYPE +"/" + Constant.STOREID;
                             }else {
-                                 Url = Constant.WS_BASE_URL + Constant.CHANGE_PASSWORD + EmailID + "/" + str_psw + "/GET/" + Constant.STOREID;
+                                Url = Constant.WS_BASE_URL + Constant.CHANGE_PASSWORD + EmailID + "/" + str_psw + "/GET/" + Constant.STOREID;
                             }
 //                            END
 //                            Url = Constant.WS_BASE_URL + Constant.CHANGE_PASSWORD + EmailID + "/" + str_psw + "/GET/" + Constant.STOREID;
@@ -948,7 +961,7 @@ public class Login {
                     if (sign_txtloginhead.getText().toString().equalsIgnoreCase(str_signinHeader) || sign_txtloginhead.getText().toString().equalsIgnoreCase(str_wishlist)) {
                         //end ************************
 //                         strGlobalEmail = sign_edtEmailID.getText().toString();
-                         strGlobalEmail = sign_edtEmailIDFirst.getText().toString().toLowerCase();
+                        strGlobalEmail = sign_edtEmailIDFirst.getText().toString().toLowerCase();
                         if (email.matches(emailPattern) && email.length() > 0) {
                             //Toast.makeText(getApplicationContext(),"valid email address",Toast.LENGTH_SHORT).show();
                             // or
@@ -1064,9 +1077,12 @@ public class Login {
                         new Async_getCommonService(MainActivityDup.getInstance(), Url).execute();
                     }
                 }
-
+                // code by viraj lakhani(11/11/2024)
+                view.postDelayed(() -> isProcessing = false, 1000);
+                // code end
             }
         });
+        //end
 
         WindowManager.LayoutParams params = loginDialog.getWindow().getAttributes();
         params.width = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -1194,7 +1210,7 @@ public class Login {
 
 //        if (sign_txtloginhead.getText().toString().equalsIgnoreCase(MainActivity.getInstance().getString(R.string.str_enterpassword))){
 //            sign_edtEmailID.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_open_eye, 0);
-            passwordVisibility();
+        passwordVisibility();
 //        }
 
 //        sign_edtEmailID.setFilters(new InputFilter[] {});
@@ -1255,13 +1271,13 @@ public class Login {
         sign_edtEmailID.setCompoundDrawablePadding(25);
 
         try {
-        sign_edtEmailID.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
-                final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
+            sign_edtEmailID.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    final int DRAWABLE_LEFT = 0;
+                    final int DRAWABLE_TOP = 1;
+                    final int DRAWABLE_RIGHT = 2;
+                    final int DRAWABLE_BOTTOM = 3;
 
                     if (sign_edtEmailID.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds() != null) {
 
@@ -1306,9 +1322,9 @@ public class Login {
                     }
 
 
-                return false;
-            }
-        });
+                    return false;
+                }
+            });
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -1320,7 +1336,7 @@ public class Login {
             loginDialog.dismiss();
         }
         View view = null;
-                if (Constant.SCREEN_LAYOUT == 1) {
+        if (Constant.SCREEN_LAYOUT == 1) {
             Signupdialog = new Dialog(MainActivity.getInstance(), R.style.DialogSlideAnim_Signup);
             view = LayoutInflater.from(MainActivity.getInstance()).inflate(R.layout.sign_up_dialog, null);
         } else if (Constant.SCREEN_LAYOUT == 2) {
@@ -1503,11 +1519,11 @@ public class Login {
                     } else if (edtMobile.length() == 5) {
                         //edtMobile.setText("");
 
-                            String last = edtMobile.getText().toString();
-                            last = last.substring(last.length() - 1);
+                        String last = edtMobile.getText().toString();
+                        last = last.substring(last.length() - 1);
 
-                            edtMobile.setText(temp + ") " + last);
-                            edtMobile.setSelection(7);
+                        edtMobile.setText(temp + ") " + last);
+                        edtMobile.setSelection(7);
 
 //                        if(edtMobile.length() == 6){
 //
@@ -1827,11 +1843,14 @@ public class Login {
                 Login.StartLoginDialog("" + strGlobalEmail, mContext);
             }
         });
+        ///code by viraj lakhani(30/10/2024)
         btncreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //dialog.dismiss();
-
+                // multiple dialog close code by viraj patel(30/10/2024)
+                btncreateAccount.setEnabled(false);
+                //end by viraj(30/10/2024)
                 String password = signup_edtpassword.getText().toString();
                 String conf_password = signup_edtcnfPassword.getText().toString();
 
@@ -1849,7 +1868,7 @@ public class Login {
 
 //                Edited by Varun for guest login
                 if (checkBox.isChecked()){
-                   Constant.ISguest=true;
+                    Constant.ISguest=true;
                 }else{
                     Constant.ISguest=false;
                 }
@@ -1898,6 +1917,7 @@ public class Login {
                             String Url = Constant.WS_BASE_URL + Constant.CREAT_USER + strGlobalEmail + "/" + strfirstname + "/" + strLastname + "/" + password + "/" + Constant.STOREID + "/" + strCompanyname + "/" + address1 + "/" + address2 + "/" + zip + "/" + city + "/" + state + "/" + mobile + "/" + Constant.ISguest ;
                             Url = Url.replaceAll(" ", "%20");
                             new Async_getCommonService(MainActivity.getInstance(), Url).execute();
+
                         }
                     }else {
 //                        END
@@ -1933,6 +1953,7 @@ public class Login {
                             String Url = Constant.WS_BASE_URL + Constant.CREAT_USER + strGlobalEmail + "/" + strfirstname + "/" + strLastname + "/" + password + "/" + Constant.STOREID + "/" + strCompanyname + "/" + address1 + "/" + address2 + "/" + zip + "/" + city + "/" + state + "/" + mobile + "/" + Constant.ISguest;
                             Url = Url.replaceAll(" ", "%20");
                             new Async_getCommonService(MainActivity.getInstance(), Url).execute();
+
                         }
                     }
                 } else if (Constant.SCREEN_LAYOUT == 2) {
@@ -1976,34 +1997,34 @@ public class Login {
                     }else {
 //                        END
 
-                    if (!edt_cnf_email.getText().toString().equalsIgnoreCase(strGlobalEmail)) {
-                        Utils.showValidationDialog(MainActivityDup.getInstance(), MainActivityDup.getInstance().getString(R.string.str_signup_validation1), "");
-                    } else if (strfirstname.isEmpty() || strLastname.isEmpty() || address1.isEmpty() || zip.isEmpty() ||
-                            city.isEmpty() || state.isEmpty() || mobile.isEmpty() || password.isEmpty() || conf_password.isEmpty()) {
+                        if (!edt_cnf_email.getText().toString().equalsIgnoreCase(strGlobalEmail)) {
+                            Utils.showValidationDialog(MainActivityDup.getInstance(), MainActivityDup.getInstance().getString(R.string.str_signup_validation1), "");
+                        } else if (strfirstname.isEmpty() || strLastname.isEmpty() || address1.isEmpty() || zip.isEmpty() ||
+                                city.isEmpty() || state.isEmpty() || mobile.isEmpty() || password.isEmpty() || conf_password.isEmpty()) {
 
-                        Utils.showValidationDialog(MainActivityDup.getInstance(), MainActivityDup.getInstance().getString(R.string.str_signup_validation2), "");
-                    } else if (password.length() < 8) {
-                        Utils.showValidationDialog(MainActivityDup.getInstance(), MainActivityDup.getInstance().getString(R.string.str_psw_validation1), "");
-                    } else if (!password.equals(conf_password)) {
-                        Utils.showValidationDialog(MainActivityDup.getInstance(), MainActivityDup.getInstance().getString(R.string.str_psw_validation2), "");
-                    } else if (onlynumbers.length() < 10 || onlynumbers.length() > 10) {
-                        Utils.showValidationDialog(MainActivity.getInstance(), MainActivity.getInstance().getString(R.string.valid_phone_number_simple), "");
-                    } else {
-                        if (address2.isEmpty())
-                            address2 = "null";
+                            Utils.showValidationDialog(MainActivityDup.getInstance(), MainActivityDup.getInstance().getString(R.string.str_signup_validation2), "");
+                        } else if (password.length() < 8) {
+                            Utils.showValidationDialog(MainActivityDup.getInstance(), MainActivityDup.getInstance().getString(R.string.str_psw_validation1), "");
+                        } else if (!password.equals(conf_password)) {
+                            Utils.showValidationDialog(MainActivityDup.getInstance(), MainActivityDup.getInstance().getString(R.string.str_psw_validation2), "");
+                        } else if (onlynumbers.length() < 10 || onlynumbers.length() > 10) {
+                            Utils.showValidationDialog(MainActivity.getInstance(), MainActivity.getInstance().getString(R.string.valid_phone_number_simple), "");
+                        } else {
+                            if (address2.isEmpty())
+                                address2 = "null";
 
-                        if (strCompanyname.isEmpty()) {
-                            strCompanyname = "null";
-                        }
+                            if (strCompanyname.isEmpty()) {
+                                strCompanyname = "null";
+                            }
 //                        mobile = mobile.replace("(", "").replace(")", "").replace(" ", "").replace("-", "");
 //                        Edited by Varun for guest login
 //                        +"/" + Constant.ISguest
 //                        String Url = Constant.WS_BASE_URL + Constant.CREAT_USER + strGlobalEmail + "/" + strfirstname + "/" + strLastname + "/" + password + "/" + Constant.STOREID + "/" + strCompanyname + "/" + address1 + "/" + address2 + "/" + zip + "/" + city + "/" + state + "/" + mobile;
-                        String Url = Constant.WS_BASE_URL + Constant.CREAT_USER + strGlobalEmail + "/" + strfirstname + "/" + strLastname + "/" + password + "/" + Constant.STOREID + "/" + strCompanyname + "/" + address1 + "/" + address2 + "/" + zip + "/" + city + "/" + state + "/" + mobile + "/" + Constant.ISguest;
-                        Url = Url.replaceAll(" ", "%20");
-                        new Async_getCommonService(MainActivityDup.getInstance(), Url).execute();
+                            String Url = Constant.WS_BASE_URL + Constant.CREAT_USER + strGlobalEmail + "/" + strfirstname + "/" + strLastname + "/" + password + "/" + Constant.STOREID + "/" + strCompanyname + "/" + address1 + "/" + address2 + "/" + zip + "/" + city + "/" + state + "/" + mobile + "/" + Constant.ISguest;
+                            Url = Url.replaceAll(" ", "%20");
+                            new Async_getCommonService(MainActivityDup.getInstance(), Url).execute();
 //                        END
-                     }
+                        }
                     }
                 }
 
@@ -2278,30 +2299,30 @@ public class Login {
                 if (loginSuccessDialog.isShowing())
                     loginSuccessDialog.dismiss();
 
-                    try{
-                        if (CardFragment.getInstance().isComeFromCard) {
+                try{
+                    if (CardFragment.getInstance().isComeFromCard) {
 //                            //************ Edited by Varun for shopping cart on 29 july 2022 **********
 //                            //                                    not to refresh when login
 //
-                            if (Constant.SCREEN_LAYOUT==1){
+                        if (Constant.SCREEN_LAYOUT==1){
 //                                MainActivity.getInstance().loadCardFragment();
 //                                CardFragment.getInstance().getCustomerData();
 //                                CardFragment.getInstance().onGetCartData();
-                                CardFragment.getInstance().oncall();
-                            }else if (Constant.SCREEN_LAYOUT==2){
-                                //     CardFragment.getInstance().oncall();
-                                // MainActivityDup.getInstance().loadCardFragment();
-                                CardFragment.getInstance().oncall();
-                            }
+                            CardFragment.getInstance().oncall();
+                        }else if (Constant.SCREEN_LAYOUT==2){
+                            //     CardFragment.getInstance().oncall();
+                            // MainActivityDup.getInstance().loadCardFragment();
+                            CardFragment.getInstance().oncall();
+                        }
 //                            //  CardFragment.getInstance().redirectToHome();
 //                            //*********** END ***********
 //                            CardFragment.getInstance().redirectToHome();
-                        }
-                    }catch (NullPointerException e){
-
-                    }catch (Exception e){
-
                     }
+                }catch (NullPointerException e){
+
+                }catch (Exception e){
+
+                }
             }
         });
 
@@ -2378,35 +2399,35 @@ public class Login {
         loginDialog.dismiss();
 //        Edited by Varun for guest login
 
-            Constant.ISguest=true;
-            Constant.AppPref.edit().putString("email", Constant.Guest_Email)
-                    .putString("password", otpModel.Password)
-                    .putBoolean("ISguest",Constant.ISguest).apply();
-            Login.setUserDetail(otpModel);
-            Login.onLoginSuccess(otpModel);
-            Constant.LHSLIDER_LIST.clear();
-            Constant.AccountList.clear();
-            Constant.AccountList2.clear();
-            Utils.getAccountList2();
+        Constant.ISguest=true;
+        Constant.AppPref.edit().putString("email", Constant.Guest_Email)
+                .putString("password", otpModel.Password)
+                .putBoolean("ISguest",Constant.ISguest).apply();
+        Login.setUserDetail(otpModel);
+        Login.onLoginSuccess(otpModel);
+        Constant.LHSLIDER_LIST.clear();
+        Constant.AccountList.clear();
+        Constant.AccountList2.clear();
+        Utils.getAccountList2();
 
-            Constant.LHSLIDER_LIST.put("My Account", Constant.AccountList2);
-            Log.e("ghdfg", "onPostExecute: "+Constant.AccountList2 );
-            if (Constant.SCREEN_LAYOUT == 1) {
-                MainActivity.getInstance().tvWishList.setVisibility(View.GONE);
-                MainActivity.getInstance().loadHomeWebPage();
-                MainActivity.getInstance().onGetCartData("");
-                MainActivity.getInstance().mManage_expList.setVisibility(View.VISIBLE);
-                ArrayList<String> TitleList = new ArrayList<String>(Constant.LHSLIDER_LIST.keySet());
-                MainActivity.getInstance().mManage_expList.setAdapter(new ExpandAdapter(mContext, Constant.LHSLIDER_LIST, TitleList));
+        Constant.LHSLIDER_LIST.put("My Account", Constant.AccountList2);
+        Log.e("ghdfg", "onPostExecute: "+Constant.AccountList2 );
+        if (Constant.SCREEN_LAYOUT == 1) {
+            MainActivity.getInstance().tvWishList.setVisibility(View.GONE);
+            MainActivity.getInstance().loadHomeWebPage();
+            MainActivity.getInstance().onGetCartData("");
+            MainActivity.getInstance().mManage_expList.setVisibility(View.VISIBLE);
+            ArrayList<String> TitleList = new ArrayList<String>(Constant.LHSLIDER_LIST.keySet());
+            MainActivity.getInstance().mManage_expList.setAdapter(new ExpandAdapter(mContext, Constant.LHSLIDER_LIST, TitleList));
 
-            } else if (Constant.SCREEN_LAYOUT == 2) {
-                MainActivityDup.getInstance().loadHomeWebPage();
-                MainActivityDup.getInstance().onGetCartData();
-                if (ProfileFragment_layout2.getInstance() != null) {
-                    ProfileFragment_layout2.getInstance().LoadAccountList();
-                }
-                //MainActivityDup.getInstance().mManage_expList.setVisibility(View.VISIBLE);
+        } else if (Constant.SCREEN_LAYOUT == 2) {
+            MainActivityDup.getInstance().loadHomeWebPage();
+            MainActivityDup.getInstance().onGetCartData();
+            if (ProfileFragment_layout2.getInstance() != null) {
+                ProfileFragment_layout2.getInstance().LoadAccountList();
             }
+            //MainActivityDup.getInstance().mManage_expList.setVisibility(View.VISIBLE);
+        }
 
 
     }
@@ -2438,7 +2459,5 @@ public class Login {
         adapter.addAll(newEmailSet);
         adapter.notifyDataSetChanged();
     }
-
-
 
 }
