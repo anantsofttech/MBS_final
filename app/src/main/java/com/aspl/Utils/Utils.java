@@ -2229,6 +2229,9 @@ public class Utils{
             public void onClick(View v) {
 
                 dialog.dismiss();
+                // payment declined to top scroll auto by viraj patel(21/11/24)
+                PaymentFragment.getInstance().scrollToTop();
+                //code end by viraj (21/11/24)
                 if(Validate_instruct.equalsIgnoreCase("APPROVED")){
                     PaymentFragment.getInstance().loadOrderSummary();
                 }else if (txtTitle.getText().equals("APPROVED")){

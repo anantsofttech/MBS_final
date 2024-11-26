@@ -3387,7 +3387,6 @@ public class PaymentFragment extends Fragment
                                 callSaveCard("0", "0", "0", etAddressOne.getText().toString().trim(), etCity.getText().toString().trim(),
                                         etState.getText().toString().trim(), etZip.getText().toString().trim(), "0", "0"
                                         , etCardNumber.getText().toString().replace(" ", "").trim(), expMonth, expYear);
-
                             }
                         } else {
                             //cvv
@@ -4092,4 +4091,14 @@ public class PaymentFragment extends Fragment
             paymentProcess.dismiss();
         }
     }
+
+    // payment declined to top scroll auto by viraj patel(21/11/24)
+    public  void scrollToTop() {
+        // Scroll the ScrollView to the top
+        nestedScrollView.scrollTo(0, 0);
+
+        // Focus the first field
+        rl_main_payment_layout.requestFocus();
+    }
+    //end code by viraj patel(21/11/24)
 }

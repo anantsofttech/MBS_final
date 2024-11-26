@@ -33,6 +33,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -314,7 +315,6 @@ public class DeliveryOptionsFragment extends Fragment
             _bottleDeposit = bundle.getFloat("bottle_deposit", 0);
             _shipping = bundle.getFloat("shipping", 0);
             _lPoints = bundle.getFloat("loyalty_reward", 0);
-
 //            ********* Edited by Varun*********
             _totalSaving = bundle.getFloat("total_saving",0);
 //            ********* END **********
@@ -1770,10 +1770,10 @@ public class DeliveryOptionsFragment extends Fragment
         }
     }
 
+    ///code by viraj patel(18/11/2024)
 
     public static void warnTwoHourAgo(List<StoreHour> liDeliveryHour) {
-
-        /** Warn user Before 2 Hour closing the store **/
+  /*      *//** Warn user Before 2 Hour closing the store **//*
         int position = 0;
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.US);
         Date d = new Date();
@@ -1843,10 +1843,84 @@ public class DeliveryOptionsFragment extends Fragment
             }
         }else if(isStoreClosed){
             tvWarnTwoHourAgo.setText("Note: Store is closed today");
+        }*/
+
+        // Check if the list is null or empty
+
+        if (liDeliveryHour == null || liDeliveryHour.isEmpty()) {
+            Log.e(TAG, "Delivery hours list is empty or null.oncreae");
+            tvWarnTwoHourAgo.setText(""); // Clear the warning text if no delivery hours are available
+            return; // Exit the method early
+        }
+
+/** Warn user Before 2 Hour closing the store **/
+        int position = 0;
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.US);
+        Date d = new Date();
+        String day = sdf.format(d);
+        boolean isStoreClosed = false;
+
+        for (int i = 0; i < liDeliveryHour.size(); i++) {
+            if (day.equals(liDeliveryHour.get(i).getStoreDay())) {
+                position = i;
+                if (liDeliveryHour.get(i).getClosed()) {
+                    isStoreClosed = true;
+                }
+                break; // Exit the loop once the current day is found
+            }
+        }
+
+// Ensure the position is valid
+        if (position >= liDeliveryHour.size()) {
+            Log.e(TAG, "Position is out of bounds: " + position);
+            return; // Exit the method early
+        }
+
+        String openTime = liDeliveryHour.get(position).getOpenTime();
+        String closeTime = liDeliveryHour.get(position).getCloseTime();
+        String pattern = "hh:mm a";
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat sdfs = new SimpleDateFormat(pattern, Locale.US);
+        Calendar c = Calendar.getInstance();
+        TimeZone tz = c.getTimeZone();
+        sdfs.setTimeZone(tz);
+        String currentDates = sdfs.format(Calendar.getInstance().getTime().getTime());
+
+        Date openDate = null, closeDate = null, currentDate = null;
+        try {
+            openDate = sdfs.parse(openTime);
+            closeDate = sdfs.parse(closeTime);
+            currentDate = sdfs.parse(currentDates);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (!isStoreClosed && Utils.storeTime(openTime, closeTime)) {
+            long mills = 0;
+            if (closeDate != null && currentDate != null) {
+                mills = closeDate.getTime() - currentDate.getTime();
+            }
+            int hours = (int) (mills / (1000 * 60 * 60));
+            int minute = (int) (mills / (1000 * 60)) % 60;
+
+            String diff = hours + " : " + minute;
+            if (hours == 2 && minute == 0) {
+                tvWarnTwoHourAgo.setText("Note: Store closes @" + closeTime);
+            } else if (hours == 1) {
+                tvWarnTwoHourAgo.setText("Note: Store closes @" + closeTime);
+            } else if (hours == 0 && minute <= 60 && minute >= 0) {
+                tvWarnTwoHourAgo.setText("Note: Store closes @" + closeTime);
+            } else {
+                tvWarnTwoHourAgo.setText("");
+            }
+        } else if (isStoreClosed) {
+            tvWarnTwoHourAgo.setText("Note: Store is closed today");
         }
 
     }
 
+
+    //code end by viraj
     /**
      * Call Customer data/address web service
      **/
@@ -2372,8 +2446,7 @@ public class DeliveryOptionsFragment extends Fragment
                 vAlternativeAD.setVisibility(View.GONE);
             }
         }
-
-        WindowManager.LayoutParams params = addressesDialog.getWindow().getAttributes();
+      /*  WindowManager.LayoutParams params = addressesDialog.getWindow().getAttributes();
         params.width = WindowManager.LayoutParams.WRAP_CONTENT;
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
@@ -2381,7 +2454,27 @@ public class DeliveryOptionsFragment extends Fragment
         addressesDialog.getWindow().setGravity(Gravity.CENTER);
         WindowManager.LayoutParams layoutParam = addressesDialog.getWindow().getAttributes();
         addressesDialog.getWindow().setAttributes(layoutParam);
+        addressesDialog.show();*/
+//*
+
+/// dialog buttom white spece remove by viraj lakhani  15/11/24
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+
+
+        WindowManager.LayoutParams params = addressesDialog.getWindow().getAttributes();
+        params.width = (int) (width * 0.9);  // 90% of screen width
+        params.height = (int) (height * 0.9); // 60% of screen height
+        addressesDialog.getWindow().setAttributes(params);
+
+        // Show dialog
+        addressesDialog.setContentView(vAddressesDialog);
+        addressesDialog.getWindow().setGravity(Gravity.CENTER);
         addressesDialog.show();
+        /////end
+
     }
 
 
@@ -5384,3 +5477,7 @@ public class DeliveryOptionsFragment extends Fragment
     }
 
 }
+
+
+
+
