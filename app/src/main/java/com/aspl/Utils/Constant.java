@@ -103,7 +103,9 @@ public class Constant {
     public static String WS_BASE_URL = WS_BASE + "/WebStoreRestService.svc/";
 //    public static String GETPAGES = "GetPages/";
     public static String GETPAGES_FOR_ANDROID = "GetPagesForAndroid/";
+
     public static String GETPAGES_STATUS = "GetPagesStatus/";
+
     public static String SEND_DRINK_RECIPES= "SendDrinkRecipes";
     /*
      *
@@ -120,10 +122,13 @@ public class Constant {
     public static String SELECTED_LOCATION_STOREID = "707";
     public static String MainSTOREID = "";
     public static String PREVIOUS_STOREID = "";
+    public static String xyz = "";
+    public static String abc = "";
 
     public static String CREAT_USER = "InsertNewUserFromCart/";
     public static String CHECK_PASSWORD = "CheckPassword/";
     public static String CHANGE_PASSWORD = "InsertPassword/";
+//    public static String CHANGE_PASSWORD = "InsertPassword/";
 
     public static String GET_SITE_INFO = "GetSiteInfo";
     //store location
