@@ -68,11 +68,11 @@ public class Constant {
      **/
 //////707,105,2401
 //
-//    public static String IMG_BASE = "https://testimages.lightningpos.com/";
-//    public static String URL = "https://ecomtest.lightningpos.com/";
-//    public static String WS_BASE = "https://ecomtestWCF.lightningpos.com";
-//    public static String WS_BASE_POS_URL = "https://ecomtest.lightningpos.com/Home/";
-//    public static String WS_BASE_FOR_POS_LIGHTNING = "https://evo.lightningpos.com/CSCode/WebStoreOnlineService.asmx/";
+    public static String IMG_BASE = "https://testimages.lightningpos.com/";
+    public static String URL = "https://ecomtest.lightningpos.com/";
+    public static String WS_BASE = "https://ecomtestWCF.lightningpos.com";
+    public static String WS_BASE_POS_URL = "https://ecomtest.lightningpos.com/Home/";
+    public static String WS_BASE_FOR_POS_LIGHTNING = "https://evo.lightningpos.com/CSCode/WebStoreOnlineService.asmx/";
 
     /**
      * Secure Server
@@ -80,11 +80,11 @@ public class Constant {
      */
 
 //327,315,57,44,99,7365,90,3824,2105,178
-      public static String IMG_BASE = "https://images.lightningpos.com/";
-      public static String URL="https://ecomsecure.lightningpos.com/";
-      public static String WS_BASE="https://ecomsecureWCF.lightningpos.com";
-      public static String WS_BASE_POS_URL = "https://evo.lightningpos.com/CSCode/LightningOnlineService1.asmx/";
-      public static String WS_BASE_FOR_POS_LIGHTNING = "https://posservice.lightningpos.com/CSCode/WebStoreOnlineService.asmx/";
+//      public static String IMG_BASE = "https://images.lightningpos.com/";
+//      public static String URL="https://ecomsecure.lightningpos.com/";
+//      public static String WS_BASE="https://ecomsecureWCF.lightningpos.com";
+//      public static String WS_BASE_POS_URL = "https://evo.lightningpos.com/CSCode/LightningOnlineService1.asmx/";
+//      public static String WS_BASE_FOR_POS_LIGHTNING = "https://posservice.lightningpos.com/CSCode/WebStoreOnlineService.asmx/";
 
 
     //*****************

@@ -3144,7 +3144,7 @@ public class DeliveryOptionsFragment extends Fragment
 
             if(!isStoreClosedtoday){
 
-                int todayTimediff = getTimeDifference(closeTime,"", today);
+                int[] todayTimediff = getTimeDifference(closeTime,"", today);
 
                 gethourIntervals(todayTimediff,closeTime, "", today,"");
             }
@@ -3167,7 +3167,7 @@ public class DeliveryOptionsFragment extends Fragment
             if(!isStoreClosedtomorrow){
 
                 int minWithZeroHourTomorrow = 0;
-                int tomorrowTimediff = getTimeDifference(nextDayCloseTime,nextDayOpenTime,"tomorrow");
+                int[] tomorrowTimediff = getTimeDifference(nextDayCloseTime,nextDayOpenTime,"tomorrow");
 
                 gethourIntervals(tomorrowTimediff, nextDayCloseTime,nextDayOpenTime,tomorrowDay,"tomorrow");
             }
@@ -3176,55 +3176,50 @@ public class DeliveryOptionsFragment extends Fragment
         }
     }
 
-    private int getTimeDifference(String closeTime, String opentime, String diffDay) {
+    //pickeup time  fix by viraj patel(02/12/24)
 
-        Date date1 = null,date2 = null;
-        long difference;
-        int days;
-        int hours = 0;
-        int min = 0;
-
+    private int[] getTimeDifference(String closeTime, String openTime, String diffDay) {
+        Date date1 = null, date2 = null;
         try {
-            if(diffDay.equals("tomorrow")&& !opentime.isEmpty()){
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
-//                String currenthour = simpleDateFormat.format(opentime);
-                date1 = simpleDateFormat.parse(opentime);
-                date2 = simpleDateFormat.parse(closeTime);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
 
-            }else{
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
-                String currenthour = simpleDateFormat.format(Calendar.getInstance().getTime());
-                // Date date1 = calendar.getTime();
-                date1 = simpleDateFormat.parse(currenthour);
-                date2 = simpleDateFormat.parse(closeTime);
+            // If the time difference is for tomorrow, use the open time
+            if (diffDay.equals("tomorrow") && !openTime.isEmpty()) {
+                date1 = simpleDateFormat.parse(openTime);
+            } else {
+                // Otherwise, calculate the difference from the current time
+                String currentHour = simpleDateFormat.format(Calendar.getInstance().getTime());
+                date1 = simpleDateFormat.parse(currentHour);
             }
 
-            if (date1 != null && date2 != null) {
-                difference = date2.getTime() - date1.getTime();
+            // Parse the close time
+            date2 = simpleDateFormat.parse(closeTime);
 
-                days = (int) (difference / (1000*60*60*24));
-                hours = (int) ((difference - (1000*60*60*24*days)) / (1000*60*60));
-                min = (int) (difference - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
-//                minWithZeroHour = min;
-//                if(hours<0){
-//                    hours = hours;
-//                }else{
-//                    hours = hours;
-//                }
-//                hours = (hours < 0 ? -hours : hours);
+            if (date1 != null && date2 != null) {
+                // Calculate the difference in milliseconds viraj
+                long difference = date2.getTime() - date1.getTime();
+
+                // Convert the difference into hours and minutes viraj
+                int hours = (int) (difference / (1000 * 60 * 60));
+                int minutes = (int) ((difference % (1000 * 60 * 60)) / (1000 * 60));
+
+                return new int[]{hours, minutes}; // Return both hours and minutes viraj
             }
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return hours;
+        return new int[]{0, 0}; // Default in case of error viraj
     }
-
-    private void gethourIntervals(int hours, String closeTime, String nextDayOpenTime, String displayDay, String s) {
+    /// pickup time fix by viraj lakhani(27/11/24)
+    private void gethourIntervals(int[] timeDifference, String closeTime, String nextDayOpenTime, String displayDay, String s) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
-        Calendar calendar = null;
+        Calendar calendar = new GregorianCalendar();
+        int hours = timeDifference[0];
+        int minutes = timeDifference[1];
 
-        int totalinterval = hours*5;
+        int totalinterval = (hours * 4) + (minutes / 15); // minutes add totalinterval by viraj
+
         String opentime24hour = "";
         String today_tomrrowday = "";
 
@@ -3319,6 +3314,7 @@ public class DeliveryOptionsFragment extends Fragment
                 calendar.set(Calendar.HOUR, currenthour);
                 calendar.set(Calendar.MINUTE, currentMinCal);
                 calendar.set(Calendar.SECOND, 0);
+                totalinterval = (totalinterval > 0) ? totalinterval - 1 : totalinterval;
             }
 
         }
@@ -3340,7 +3336,7 @@ public class DeliveryOptionsFragment extends Fragment
             pickupModel.setCurrentday(today_tomrrowday);
 
             if(!day2.equals(closeTime)){
-                results.add(pickupModel);
+                  results.add(pickupModel);
             }
 
 //            String[] gethourArray = day.split(":");
@@ -3401,7 +3397,7 @@ public class DeliveryOptionsFragment extends Fragment
 //            }
         }
     }
-
+/// code end by viraj lakhani(27/11/24)
     private int getMinuteInterval(String closeTime, String opentime, String diffDay) {
         Date date1 = null,date2 = null;
         long difference;
@@ -3415,7 +3411,6 @@ public class DeliveryOptionsFragment extends Fragment
 //                String currenthour = simpleDateFormat.format(opentime);
                 date1 = simpleDateFormat.parse(opentime);
                 date2 = simpleDateFormat.parse(closeTime);
-
             }else{
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
                 String currenthour = simpleDateFormat.format(Calendar.getInstance().getTime());

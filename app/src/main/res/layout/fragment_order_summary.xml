@@ -1504,6 +1504,7 @@
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
+                <!--UI change by viraj 04/12/24-->
                 <!-- Payment option -->
                 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tool="http://schemas.android.com/apk/res-auto"
@@ -1526,10 +1527,8 @@
                         android:id="@+id/rl_payment_option_order_summary_fragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dimen_10"
-                        android:layout_marginRight="@dimen/dimen_10"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:layout_marginTop="@dimen/dimen_10">
+                        android:layout_margin="@dimen/dimen_10"
+                        android:layout_marginBottom="@dimen/dimen_10">
 
                         <TextView
                             android:id="@+id/tv_title_payment_option_order_summary_fragment"
@@ -1567,6 +1566,7 @@
                     android:visibility="visible"
                     tool:cardElevation="4dp"
                     tool:cardCornerRadius="5dp"
+                    android:layout_marginTop="6dp"
                     tools:ignore="UnusedAttribute">
 
                     <!-- Delivery option -->
@@ -1597,7 +1597,7 @@
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
-
+                <!--code end by viraj 04/12/24-->
                 <!--notes-->
                 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tool="http://schemas.android.com/apk/res-auto"
@@ -1822,10 +1822,12 @@
                     </LinearLayout>
 
                 </LinearLayout>
-<!--                END -->
+                <!--                END -->
 
             </RelativeLayout>
 
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </LinearLayout>
+
+
