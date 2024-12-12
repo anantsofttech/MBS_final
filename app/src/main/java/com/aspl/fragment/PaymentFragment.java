@@ -1279,6 +1279,8 @@ public class PaymentFragment extends Fragment
             }
         });
 
+
+        // keyborad next button bug fix by viraj (04/12/24)
         etCardNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
@@ -1293,7 +1295,7 @@ public class PaymentFragment extends Fragment
                             etCardNumber.setImeOptions(EditorInfo.IME_ACTION_NEXT);
                             etCardNumber.clearFocus();
                             etCvv.setFocusable(true);
-                            etCvv.requestFocus();
+                            etExpiration.requestFocus();
                         }
                     }
                     return true;
@@ -1302,7 +1304,7 @@ public class PaymentFragment extends Fragment
                 }
                 return false;
             }});
-
+        /// code end by viraj patel(04/12/24)
         etExpiration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -2388,20 +2390,22 @@ public class PaymentFragment extends Fragment
             } else {
 
                 boolean isValid = true;
-
+                ///code change by viraj 04/12/24
                 if (etZip.getText() == null || etZip.getText().toString().trim().isEmpty()) {
                     etZip.setError("Invalid Zip");
                     isValid = false;
                 } else if (etCardNumber.getText() == null || etCardNumber.getText().toString().trim().isEmpty()) {
                     etCardNumber.setError("Invalid Card");
                     isValid = false;
-                } else if (etCvv.getText() == null || etCvv.getText().toString().trim().isEmpty()) {
-                    etCvv.setError("Invalid CVV");
-                    isValid = false;
                 } else if (etExpiration.getText() == null || etExpiration.getText().toString().trim().isEmpty()) {
                     etExpiration.setError("Invalid Month/Year");
                     isValid = false;
+                }else if (etCvv.getText() == null || etCvv.getText().toString().trim().isEmpty()) {
+                    etCvv.setError("Invalid CVV");
+                    isValid = false;
                 }
+
+                // code end by viraj 04/12/24
 
                 if (isValid) {
                     if (etCardNumber.isFocusable()) {

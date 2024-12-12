@@ -1,6 +1,5 @@
 package com.aspl.mbs;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,10 +8,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
-import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
 import android.graphics.drawable.Icon;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -24,19 +21,13 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowInsets;
-import android.view.WindowInsetsController;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.VideoView;
+import android.widget.Toast;
 
 import com.aspl.Utils.Constant;
 import com.aspl.Utils.DialogUtils;
@@ -86,24 +77,21 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
     FrameLayout fl_splace;
     public static SplaceScreen splaceScreen;
     ImageView splaceImage;
-    SurfaceView videoView;
-    //VideoView videoView;
     String URL;
     String CustomerId;
     TextView tvDate;
     String latestVersionName;
-    private MediaPlayer mediaPlayer;
+
     public static SplaceScreen getInstance() {
         return splaceScreen;
     }
 
-    @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         splaceScreen = this;
         setContentView(R.layout.splace);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         int color = Color.parseColor("#FFFFFF");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -115,10 +103,7 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 
         fl_splace = (FrameLayout)findViewById(R.id.fl_splace);
         splaceImage = (ImageView) findViewById(R.id.splaceImage);
-        //code by viraj patel(07/11/24)
-        videoView = (SurfaceView) findViewById(R.id.videoView);
-        //videoView = (VideoView) findViewById(R.id.videoView);
-        //end
+
         //Edited by Janvi 19th Oct
         tvDate = (TextView)findViewById(R.id.tvDate);
 
@@ -199,7 +184,6 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
         SimpleDateFormat simple = new SimpleDateFormat("MM/dd/yyyy");
         tvDate.setText("Version Date: " + simple.format(buildDate));
 
-
 //        Constant.AppPref = getSharedPreferences(Constant.PrefName, MODE_PRIVATE);
 
         new Thread(() -> {
@@ -231,65 +215,32 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 
     @Override
     public void DatabaseInfoEventResult(DatabaseInfo databaseInfo) {
-        // add try catch by Janvi -- start
-        try{
-            if (databaseInfo != null && !databaseInfo.getEnableOnlineStore()) {
-                // Inflate custom layout
-                LayoutInflater inflater = LayoutInflater.from(splaceScreen);
-                View dialogView = inflater.inflate(R.layout.dialog_custom_button, null);
+        if (!databaseInfo.getEnableOnlineStore()) {
+            // Inflate custom layout
+            LayoutInflater inflater = LayoutInflater.from(splaceScreen);
+            View dialogView = inflater.inflate(R.layout.dialog_custom_button, null);
 
-                // Create AlertDialog and set the custom view
-                AlertDialog.Builder builder = new AlertDialog.Builder(splaceScreen);
-                builder.setView(dialogView);
-                builder.setCancelable(false); // Prevent dismissing on back press
+            // Create AlertDialog and set the custom view
+            AlertDialog.Builder builder = new AlertDialog.Builder(splaceScreen);
+            builder.setView(dialogView);
+            builder.setCancelable(false); // Prevent dismissing on back press
 
-                // Find the button in the custom layout
-                Button closeButton = dialogView.findViewById(R.id.dialog_button_close_logoff);
-                closeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // Close the application
-                        finish();
-                    }
-                });
+            // Find the button in the custom layout
+            Button closeButton = dialogView.findViewById(R.id.dialog_button_close_logoff);
+            closeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Close the application
+                    finish();
+                }
+            });
 
-                // Show the dialog
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            } else {
-                callgetThemeWS();
-            }
-        }catch(Exception e){
-            e.printStackTrace();
+            // Show the dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
             callgetThemeWS();
         }
-        // add try catch by Janvi -- end
-//        if (databaseInfo != null && !databaseInfo.getEnableOnlineStore()) {
-//            // Inflate custom layout
-//            LayoutInflater inflater = LayoutInflater.from(splaceScreen);
-//            View dialogView = inflater.inflate(R.layout.dialog_custom_button, null);
-//
-//            // Create AlertDialog and set the custom view
-//            AlertDialog.Builder builder = new AlertDialog.Builder(splaceScreen);
-//            builder.setView(dialogView);
-//            builder.setCancelable(false); // Prevent dismissing on back press
-//
-//            // Find the button in the custom layout
-//            Button closeButton = dialogView.findViewById(R.id.dialog_button_close_logoff);
-//            closeButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    // Close the application
-//                    finish();
-//                }
-//            });
-//
-//            // Show the dialog
-//            AlertDialog dialog = builder.create();
-//            dialog.show();
-//        } else {
-//            callgetThemeWS();
-//        }
     }
     public void callgetThemeWS() {
 
@@ -356,21 +307,15 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 
         }
     }
-    //// code by viraj patel(07/11/2024)
+
     private void setStorelogo(String STOREID) {
 
         try{
 
             if(STOREID.equals("57")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
-                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                        FrameLayout.LayoutParams.MATCH_PARENT,
-                        FrameLayout.LayoutParams.MATCH_PARENT
-                );
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(500, 500);
                 layoutParams.gravity = Gravity.CENTER;
                 splaceImage.setLayoutParams(layoutParams);
-                videoView.setLayoutParams(layoutParams);
                 Glide.with(this)
 //                        .load(R.drawable.img_store57)
                         .load(R.drawable.app_logo_storeno57_new)
@@ -378,56 +323,32 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             }else if(STOREID.equals("44")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.store44_applogo)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             }else if(STOREID.equals("99")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.img_store99_default)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             }else if(STOREID.equals("7365")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.store7365_applogo)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             }
-            else if(STOREID.equals("105")) {
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
+            else if(STOREID.equals("105")){
                 Glide.with(this)
                         .load(R.drawable.store105_applogo)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
-                /// splace screen video add by viraj patel(07/11/2024)
-
-
-               /* Uri videoUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.store105_splace);
-                videoView.setVideoURI(videoUri);
-
-                // Play the video in a loop
-                videoView.setOnPreparedListener(mp -> mp.setLooping(true));
-                videoView.start();*/
-              /*  videoView.getLayoutParams().width = WindowManager.LayoutParams.MATCH_PARENT;
-                videoView.getLayoutParams().height = WindowManager.LayoutParams.MATCH_PARENT;
-                playVideo(R.raw.store105_splace);
-                hideSystemUI();*/
-                //end
             }
             else if(STOREID.equals("104")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.applogo_store104)
                         .fitCenter()
@@ -437,8 +358,6 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
             }
 
             else if(STOREID.equals("90")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.app_iconstore90_new)
                         .fitCenter()
@@ -446,42 +365,34 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                         .into(splaceImage);
             }
             else if(STOREID.equals("3824")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.applogo3824_big)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             }else if(STOREID.equals("315")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.pws_app_large_icon315)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             }else if(STOREID.equals("96")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.applogo_wineroom_fh_store96)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             } else if(STOREID.equals("540")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.applogo_store540)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
+
             }
 //            Edited by Varun for app logo and splash screen image change
             else if(STOREID.equals("327")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
+
                 FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(500, 500);
                 layoutParams.gravity = Gravity.CENTER;
                 splaceImage.setLayoutParams(layoutParams);
@@ -494,9 +405,8 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                         .into(splaceImage);
 
             }else if(STOREID.equals("707")){
-                splaceImage.setVisibility(View.GONE);
-                videoView.setVisibility(View.VISIBLE);
-                /*FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(500, 500);
+
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(500, 500);
                 layoutParams.gravity = Gravity.CENTER;
                 splaceImage.setLayoutParams(layoutParams);
 
@@ -504,27 +414,17 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                         .load(R.drawable.applogo_327_new)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(splaceImage);*/
-/// splace screen video add by viraj patel(08/11/2024)
-                videoView.getLayoutParams().width = WindowManager.LayoutParams.MATCH_PARENT;
-                videoView.getLayoutParams().height = WindowManager.LayoutParams.MATCH_PARENT;
-                playVideo(R.raw.store105_splace);
-                hideSystemUI();
-                //end
+                        .into(splaceImage);
 
             }
 //            END
             else if(STOREID.equals("1802")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.app_loading_screen_1802)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             } else if(STOREID.equals("2105")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.applogo_splashscreen_2105)
                         .fitCenter()
@@ -532,77 +432,62 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                         .into(splaceImage);
 
             }else if(STOREID.equals("224")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.app_icon_224)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             }else if(STOREID.equals("4450")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.splash_4450_new)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             }else if(STOREID.equals("4473")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.splash_4473)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             }else if(STOREID.equals("400")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.splash_cheers_400)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             }else if(STOREID.equals("1040")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.splash_liquor_land_1040)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             } else if(STOREID.equals("3310")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.splash_westside_beverage_3310)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             } else if(STOREID.equals("2401")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
                 Glide.with(this)
                         .load(R.drawable.splash_2401)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
-
-            } else if(STOREID.equals("178")){
-                splaceImage.setVisibility(View.VISIBLE);
-                videoView.setVisibility(View.GONE);
+            }else if(STOREID.equals("178")){
                 Glide.with(this)
                         .load(R.drawable.app_icon_178)
                         .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             }
+
+
         }catch (Exception e){
             e.printStackTrace();
         }
 
     }
-    //end
+
     public void gotoDeshboard() {
 
         if (getIntent() != null && getIntent().getAction() != null &&
@@ -610,6 +495,7 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                 getIntent().hasExtra("android.intent.extra.shortcut.ID")) {
 
             String shortcutId = getIntent().getStringExtra("android.intent.extra.shortcut.ID");
+
 
             if ("cart".equals(shortcutId)) {
                 Intent intent = new Intent(this, Constant.SCREEN_LAYOUT == 1 ? MainActivity.class : MainActivityDup.class);
@@ -831,8 +717,8 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
 
             String storeLocationURL = WS_BASE_URL + GET_CORPORATE_STORE_SUBSTORELIST_V1 + "/" + STOREID + "/" + zip;
             TaskStoreLocationInfo taskStoreLocationInfo = new TaskStoreLocationInfo(this, SplaceScreen.this, false);
-//          Edited by Varun For Speed -up
-//          taskStoreLocationInfo.execute(storeLocationURL);
+//            Edited by Varun For Speed -up
+//            taskStoreLocationInfo.execute(storeLocationURL);
             taskStoreLocationInfo.executeOnExecutor(TaskStoreLocationInfo.THREAD_POOL_EXECUTOR, storeLocationURL);
 
         }
@@ -880,64 +766,4 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
             UpdateApp();
         }
     }
-    // video splace screen code by viraj (08/11/2024)
-    private void playVideo(int videoResId) {
-        SurfaceHolder surfaceHolder = videoView.getHolder();
-        surfaceHolder.addCallback(new SurfaceHolder.Callback() {
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                try {
-                    mediaPlayer = new MediaPlayer();
-                    AssetFileDescriptor afd = getResources().openRawResourceFd(videoResId);
-                    mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-                    afd.close();
-                    mediaPlayer.setDisplay(holder);
-                    mediaPlayer.setLooping(true);
-                    mediaPlayer.setOnPreparedListener(mp -> mediaPlayer.start());
-                    mediaPlayer.prepareAsync();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                // No need to handle this for now
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-                if (mediaPlayer != null) {
-                    mediaPlayer.release();
-                    mediaPlayer = null;
-                }
-            }
-        });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
-    }
-    private void hideSystemUI() {
-        // Hide system bars for a true full-screen experience
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            getWindow().setDecorFitsSystemWindows(false);
-            getWindow().getInsetsController().hide(WindowInsets.Type.systemBars());
-        } else {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            );
-        }
-    }
-    //end
 }
