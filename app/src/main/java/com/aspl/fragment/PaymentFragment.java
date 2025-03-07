@@ -3659,18 +3659,23 @@ public class PaymentFragment extends Fragment
             }
 
         }else {
-            Log.d("Address", "Result : " + updatePOSBillingAddress.getResult());
-            if (updatePOSBillingAddress != null && !updatePOSBillingAddress.getResult().isEmpty() && updatePOSBillingAddress.getResult().equals("success")) {
 
-                Utils.showCardValidationDialog(getActivity(), "APPROVED", fourDigitCardNoValue, _authCode);
-// if (myPaymentEvent != null) {
-//                myPaymentEvent.loadOrderSummaryFragment(i);
-//                //Hide dialog when order completed...
-//                //hideDialog();
+            // commented by janvi 7th_march_2025 due to below response app was locked up, So comment below code,
+            // becuase if and else both are same - Commented start here ------------------
+
+//            Log.d("Address", "Result : " + updatePOSBillingAddress.getResult());
+//            if (updatePOSBillingAddress != null && !updatePOSBillingAddress.getResult().isEmpty() && updatePOSBillingAddress.getResult().equals("success")) {
+//
+//                Utils.showCardValidationDialog(getActivity(), "APPROVED", fourDigitCardNoValue, _authCode);
+//
+//            } else {
+//                Utils.showCardValidationDialog(getActivity(), "APPROVED", fourDigitCardNoValue, _authCode);
 //            }
-            } else {
-                Utils.showCardValidationDialog(getActivity(), "APPROVED", fourDigitCardNoValue, _authCode);
-            }
+
+            // commented end here --------------
+
+            Utils.showCardValidationDialog(getActivity(), "APPROVED", fourDigitCardNoValue, _authCode);
+
         }
     }
 

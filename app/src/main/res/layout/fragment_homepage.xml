@@ -247,14 +247,14 @@
             tool:cardElevation="5dp"
             android:layout_gravity="center">
 
-            <com.santalu.autoviewpager.AutoViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:avp_autoScroll="true"
-                app:avp_duration="5000"
-                app:avp_indeterminate="true"
-                tool:ignore="SpeakableTextPresentCheck" />
+<!--            <com.santalu.autoviewpager.AutoViewPager-->
+<!--                android:id="@+id/view_pager"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:avp_autoScroll="true"-->
+<!--                app:avp_duration="5000"-->
+<!--                app:avp_indeterminate="true"-->
+<!--                tool:ignore="SpeakableTextPresentCheck" />-->
 
         </androidx.cardview.widget.CardView>
 

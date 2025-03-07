@@ -84,7 +84,6 @@ import com.aspl.task.TaskViewAll;
 import com.aspl.task.TaskWishListItem;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.santalu.autoviewpager.AutoViewPager;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -170,7 +169,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
     public ExpandableListView dept_expList;
     //    TextView txtdepartment;
 //    LinearLayout llMain;
-    AutoViewPager viewPager;
+//    AutoViewPager viewPager;
     /*Data--------------*/
     public static List<HomeItemModel> HomeItemList = new ArrayList<HomeItemModel>();
     public static List<HomeItemModel> NewAdditionList = new ArrayList<HomeItemModel>();
@@ -236,14 +235,19 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         filterFragment = this;
         View rootView = inflater.inflate(R.layout.fragment_homepage, container, false);
 
-        viewPager = (AutoViewPager) rootView.findViewById(R.id.view_pager);
+//        viewPager = (AutoViewPager) rootView.findViewById(R.id.view_pager);
         cvBannerImages = (CardView) rootView.findViewById(R.id.cvBannerImages);
-        //  viewPager.setOffscreenPageLimit(1);
 
 
         if (isAdded()) {
+
             llhome_main = rootView.findViewById(R.id.llhome_main);
-            llhome_main.setBackgroundColor(Color.parseColor(Constant.themeModel.Backgroundcolor));
+            try {
+                llhome_main.setBackgroundColor(Color.parseColor(Constant.themeModel.Backgroundcolor));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
             linHompage = rootView.findViewById(R.id.linHompage);
             linNewAddition = rootView.findViewById(R.id.linNewAddition);
             linStaffPick = rootView.findViewById(R.id.linStaffPick);
@@ -255,8 +259,6 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
             linAllItems = rootView.findViewById(R.id.linAllItems);
             linRecentviewed = rootView.findViewById(R.id.linRecentviewed);
             linPRamotionBlock = rootView.findViewById(R.id.linPRamotionBlock);
-//            linPRamotionBlock1 = rootView.findViewById(R.id.linPRamotionBlock1);
-//            linPRamotionBlock2 = rootView.findViewById(R.id.linPRamotionBlock2);
             lindiscountblock2 = rootView.findViewById(R.id.lindiscountblock2);
             lindiscountBlock = rootView.findViewById(R.id.lindiscountBlock);
             linAnnouncemnetBlock = rootView.findViewById(R.id.linAnnouncemnetBlock);
@@ -2206,23 +2208,19 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
     public void onGetBannerItemResult(List<BannerModel> bannerItemList) {
         BannerItemList.clear();
         this.BannerItemList = bannerItemList;
-        // if (isAdded()) {
-        //autoScrollAdapter.notifyDataSetChanged();
-        if (isAdded()) {
-            if (BannerItemList != null && BannerItemList.size() > 0) {
-//                viewPager.setVisibility(View.VISIBLE);
-                cvBannerImages.setVisibility(View.VISIBLE);
-                if (viewPager != null && bannerItemList != null && bannerItemList.size() > 0) {
-                    autoScrollAdapter = new AutoScrollAdapter(getChildFragmentManager());
-                    viewPager.setAdapter(autoScrollAdapter);
-                }
-            } else {
-                cvBannerImages.setVisibility(View.GONE);
-//                viewPager.setVisibility(View.GONE);
-            }
-        }
-        //}
-        //viewPager.setOffscreenPageLimit(BannerItemList.size());
+
+//        if (isAdded()) {
+//            if (BannerItemList != null && BannerItemList.size() > 0) {
+//
+//                cvBannerImages.setVisibility(View.VISIBLE);
+//                if (viewPager != null && bannerItemList != null && bannerItemList.size() > 0) {
+//                    autoScrollAdapter = new AutoScrollAdapter(getChildFragmentManager());
+//                    viewPager.setAdapter(autoScrollAdapter);
+//                }
+//            } else {
+//                cvBannerImages.setVisibility(View.GONE);
+//            }
+//        }
 
     }
 
