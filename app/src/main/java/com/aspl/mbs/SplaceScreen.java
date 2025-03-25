@@ -92,6 +92,8 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
         splaceScreen = this;
         setContentView(R.layout.splace);
 
+//        Toast.makeText(SplaceScreen.this, "check" , Toast.LENGTH_LONG).show();
+
         int color = Color.parseColor("#FFFFFF");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

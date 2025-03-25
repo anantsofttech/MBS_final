@@ -256,6 +256,12 @@
 <!--                app:avp_indeterminate="true"-->
 <!--                tool:ignore="SpeakableTextPresentCheck" />-->
 
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_PagerForimg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -306,8 +312,6 @@
                     android:orientation="horizontal">
 
                 </LinearLayout>
-
-
 
                 <LinearLayout
                     android:id="@+id/linStaffPick"

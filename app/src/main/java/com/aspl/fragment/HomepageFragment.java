@@ -20,6 +20,8 @@ import androidx.core.widget.NestedScrollView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
 import android.text.Layout;
 import android.util.Log;
 import android.util.TypedValue;
@@ -39,6 +41,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aspl.Adapter.BannerViewPagerAdapter;
 import com.aspl.Adapter.DepartmentListAdapter;
 import com.aspl.Adapter.DiscountBlockAdapter;
 import com.aspl.Adapter.HomePageListAdapter;
@@ -91,6 +94,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -115,6 +120,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         TaskPramotionItem.TaskPramotionItemEvent, TaskViewAll.TaskViewAllEvent , TaskAddtoCart.TaskAddToCartEvent ,
         TaskCart.TaskCardEvent , TaskCheckUSAePAYStatus.TaskCheckUSAePAYStatusEvent , TaskUpdatetoCart.TaskUpdateCart{
 
+    private Timer timerbanner;
+    private int currentPageBanner = 0;
+
     private Boolean isBlock2;
     private CardView block2;
     private int count =0;
@@ -122,6 +130,12 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
     private boolean blocksChecked = false;
     public HomepageFragment() {
     }
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        startAutoScrollBannerSlider();
+//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -209,7 +223,9 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 
 
     String CustomerID = "";
-    AutoScrollAdapter autoScrollAdapter;
+    ViewPager view_PagerForimg;
+    BannerViewPagerAdapter bannerViewPagerAdapter;
+//    AutoScrollAdapter autoScrollAdapter;
     ObservableWebView Container;
     TextView BannerText, tvStoreNameText, tvStoreaddress, tvStoreDistance, tvStoreOpen, tvChangeLocation;
     CardView cvBannerContent, cvStorelocation , cvBannerImages , cvContainer, cvReward;
@@ -235,6 +251,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         filterFragment = this;
         View rootView = inflater.inflate(R.layout.fragment_homepage, container, false);
 
+        view_PagerForimg = (ViewPager) rootView.findViewById(R.id.view_PagerForimg);
 //        viewPager = (AutoViewPager) rootView.findViewById(R.id.view_pager);
         cvBannerImages = (CardView) rootView.findViewById(R.id.cvBannerImages);
 
@@ -567,7 +584,6 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                 Constant.isUSAePAY = true;
             }
         }
-
     }
 
 //    END
@@ -2209,18 +2225,55 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
         BannerItemList.clear();
         this.BannerItemList = bannerItemList;
 
-//        if (isAdded()) {
-//            if (BannerItemList != null && BannerItemList.size() > 0) {
-//
-//                cvBannerImages.setVisibility(View.VISIBLE);
+        if (isAdded()) {
+            if (BannerItemList != null && BannerItemList.size() > 0) {
+
+                cvBannerImages.setVisibility(View.VISIBLE);
+
+//                Commented and edited new code by janvi for autoscroll android's viewpager
 //                if (viewPager != null && bannerItemList != null && bannerItemList.size() > 0) {
 //                    autoScrollAdapter = new AutoScrollAdapter(getChildFragmentManager());
 //                    viewPager.setAdapter(autoScrollAdapter);
 //                }
-//            } else {
-//                cvBannerImages.setVisibility(View.GONE);
-//            }
-//        }
+                // commented previous code
+                //start new code
+                if (view_PagerForimg != null && bannerItemList != null && bannerItemList.size() > 0) {
+                    bannerViewPagerAdapter = new BannerViewPagerAdapter(getContext(), BannerItemList);
+                    view_PagerForimg.setAdapter(bannerViewPagerAdapter);
+                    startAutoScrollBannerSlider();
+                }
+
+            } else {
+                cvBannerImages.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+    private void startAutoScrollBannerSlider() {
+
+        if(bannerViewPagerAdapter != null && view_PagerForimg != null){
+
+            timerbanner = new Timer();
+            timerbanner.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if( getActivity() != null) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+//                            if (currentPage == labTestViewPagerAdapter.getCount() - 1) {
+                                if (currentPageBanner == bannerViewPagerAdapter.getCount()) {
+                                    currentPageBanner = 0;
+                                }
+                                view_PagerForimg.setCurrentItem(currentPageBanner++, true);
+                            }
+                        });
+                    }
+                }
+            }, 500, 3000);
+        }
+
 
     }
 
@@ -3129,6 +3182,5 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
     private String getFormatedAmount(int amount){
         return NumberFormat.getNumberInstance(Locale.US).format(amount);
     }
-
 
 }

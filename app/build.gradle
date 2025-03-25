@@ -9,8 +9,8 @@ android {
         applicationId "com.aspl.mbs"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 6
-        versionName '1.6'
+        versionCode 11
+        versionName '1.11'
         multiDexEnabled true
     }
     dexOptions {
@@ -36,11 +36,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             buildConfigField "java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)"
-            debuggable false
+//            debuggable true
         }
         debug {
             buildConfigField "java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)"
             minifyEnabled false
+            debuggable true
         }
         jnidebug {
             initWith debug
@@ -89,8 +90,8 @@ android {
         store327 {
             minSdkVersion 21
             targetSdkVersion 34
-            versionCode 20
-            versionName '1.20'
+            versionCode 21
+            versionName '1.21'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store327"
@@ -122,8 +123,8 @@ android {
         store57 {
             minSdkVersion 21
             targetSdkVersion 34
-            versionCode 27
-            versionName '1.27'
+            versionCode 28
+            versionName '1.28'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store57" //Editde by Janvi *******
@@ -213,8 +214,8 @@ android {
         store3824 {
             minSdkVersion 21
             targetSdkVersion 34
-            versionCode 19
-            versionName '1.19'
+            versionCode 20
+            versionName '1.20'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store3824"
@@ -228,8 +229,8 @@ android {
         store96 {
             minSdkVersion 21
             targetSdkVersion 34
-            versionCode 15
-            versionName '1.15'
+            versionCode 16
+            versionName '1.16'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store96"
@@ -243,8 +244,8 @@ android {
         store540 {
             minSdkVersion 21
             targetSdkVersion 34
-            versionCode 16
-            versionName '1.16'
+            versionCode 17
+            versionName '1.17'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store540"
@@ -273,8 +274,8 @@ android {
         store1802 {
             minSdkVersion 21
             targetSdkVersion 34
-            versionCode 7
-            versionName '1.7'
+            versionCode 8
+            versionName '1.8'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store1802"
@@ -318,8 +319,8 @@ android {
         store4450 {
             minSdkVersion 21
             targetSdkVersion 34
-            versionCode 10
-            versionName '1.10'
+            versionCode 11
+            versionName '1.11'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store4450"
@@ -348,8 +349,8 @@ android {
         store4473 {
             minSdkVersion 21
             targetSdkVersion 34
-            versionCode 10
-            versionName '1.10'
+            versionCode 11
+            versionName '1.11'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store4473"
@@ -363,8 +364,8 @@ android {
         store400 {
             minSdkVersion 21
             targetSdkVersion 34
-            versionCode 3
-            versionName '1.3'
+            versionCode 4
+            versionName '1.4'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store400"
@@ -378,8 +379,8 @@ android {
         store1040 {
             minSdkVersion 21
             targetSdkVersion 34
-            versionCode 9
-            versionName '1.9'
+            versionCode 10
+            versionName '1.10'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store1040"
@@ -393,8 +394,8 @@ android {
         store3310 {
             minSdkVersion 21
             targetSdkVersion 34
-            versionCode 6
-            versionName '1.6'
+            versionCode 7
+            versionName '1.7'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store3310"
@@ -408,8 +409,8 @@ android {
         store178 {
             minSdkVersion 21
             targetSdkVersion 34
-            versionCode 2
-            versionName '1.2'
+            versionCode 3
+            versionName '1.3'
             dimension "store"
             //applicationId "com.aspl.testflavor"
             applicationId "com.aspl.mbs.store178" //Editde by Janvi *******
@@ -485,7 +486,7 @@ dependencies {
 //        exclude group: 'conflicting-group', module: 'conflicting-module'
 //    }
 //    implementation files('libs/QRGenearator-1.0.3.jar')
-
+//    implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'com.google.zxing:core:3.4.1'
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 

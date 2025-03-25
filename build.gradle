@@ -2,11 +2,13 @@
 
 buildscript {
     repositories {
-        jcenter()
-        mavenCentral()
         google()
+        mavenCentral()
+        jcenter()  // Optional, but some older dependencies may still require it
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
+//        classpath 'com.android.tools.build:gradle:7.4.1'
         classpath 'com.android.tools.build:gradle:7.1.3'
 //        classpath 'com.android.tools.build:gradle:3.6.1'
 //        classpath 'com.android.tools.build:gradle:4.1.3'
@@ -23,16 +25,14 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+
 //        mavenLocal()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-//        maven {                                  // <-- Add this
-//            url 'https://maven.google.com/'
-//            name 'Google'
-//        }
+
+//        maven { url "https://jitpack.io" }
 //        google()
 
+        mavenCentral()
+        jcenter()
         maven {
             url "https://maven.google.com"
             maven { url 'https://jitpack.io' }
