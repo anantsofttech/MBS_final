@@ -2218,7 +2218,7 @@ public class PaymentFragment extends Fragment
         this.l = l;
         if (l != null/* && !rbPayAtStore*/) {
 
-            if(l.getPoints() != null && !l.getPoints().isEmpty()){
+            if(l.getPoints() != null && !l.getPoints().trim().isEmpty() && !l.getAwardPoint().trim().isEmpty()){
                 if (Integer.parseInt(l.getPoints()) >= Integer.parseInt(l.getAwardPoint()) &&
                         Integer.parseInt(l.getAwardPoint()) > 0) {
                     if (!l.getLoyaltyCard().equalsIgnoreCase("")&&l.getLoyaltyCard()!=null) {

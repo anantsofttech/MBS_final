@@ -24,6 +24,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
@@ -42,6 +43,7 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.multidex.BuildConfig;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -429,7 +431,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.e("", "onCreate: Varun reach the MAin Activity On create method");
+//        Log.e("", "onCreate: Varun reach the MAin Activity On create method");
+
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build());
+        }
 
         setContentView(R.layout.activity_main);
 //     Edited by Varun for faster Shopping Experience in item description

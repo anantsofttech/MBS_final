@@ -79,7 +79,7 @@ public class Constant {
      *
      */
 
-//327,315,57,44,99,7365,90,3824,2105,178
+//327,315,57,44,99,7365,90,3824,2105,178,3853
       public static String IMG_BASE = "https://images.lightningpos.com/";
       public static String URL="https://ecomsecure.lightningpos.com/";
       public static String WS_BASE="https://ecomsecureWCF.lightningpos.com";

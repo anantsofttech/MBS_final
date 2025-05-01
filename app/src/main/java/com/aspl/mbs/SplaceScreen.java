@@ -178,6 +178,8 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
             Constant.STOREID = "3310";
         }else if (StoreConstant.StoreNo.STORE178 == StoreConstant.storeNo) {
             Constant.STOREID = "178";
+        }else if (StoreConstant.StoreNo.STORE3853 == StoreConstant.storeNo) {
+            Constant.STOREID = "3853";
         }
 
         Constant.MainSTOREID = Constant.STOREID;
@@ -479,6 +481,12 @@ public class SplaceScreen extends AppCompatActivity implements TaskFCMTokenRegis
                 Glide.with(this)
                         .load(R.drawable.app_icon_178)
                         .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(splaceImage);
+            }else if(STOREID.equals("3853")){
+                Glide.with(this)
+                        .load(R.drawable.splashscreen_3853)
+                        .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(splaceImage);
             }
