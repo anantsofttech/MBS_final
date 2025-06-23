@@ -47,6 +47,9 @@ import java.util.List;
  */
 public class Constant {
 
+    //    previous privacy policy url for playstore
+//    https://www.computerperfect.com/privacypolicy.html
+
     public static ProgressDialog pDialog;
     /**
      * IBM Local Server

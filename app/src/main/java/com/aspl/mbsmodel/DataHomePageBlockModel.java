@@ -94,7 +94,4 @@ public class DataHomePageBlockModel {
     @JsonProperty("type")
     private String type;
 
-
-
-
 }

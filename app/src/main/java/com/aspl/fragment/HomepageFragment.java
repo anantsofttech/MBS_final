@@ -1293,7 +1293,7 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
                 Container.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
             }
             if (webdatamodel != null && webdatamodel.getBlockDescription() != null) {
-//                ?Edited by Varun for Html Text not Seen in live store 57
+//               Edited by Varun for Html Text not Seen in live store 57
                 String htmlContent = webdatamodel.getBlockDescription();
                 if (htmlContent.contains("<img")) {
                     // If <img> tags are present, wrap the image with a container div and apply styling to control its size
@@ -2571,8 +2571,8 @@ public class HomepageFragment extends Fragment implements HomePageListAdapter.Ho
 
         @Override
         public Fragment getItem(int position) {
-            Log.e("Loe", "banner size=" + BannerItemList.size());
-            Log.e("Loe", position + "=banner size1=" + BannerItemList.get(position).getImage());
+            Log.e("Log", "banner size=" + BannerItemList.size());
+            Log.e("Log", position + "=banner size1=" + BannerItemList.get(position).getImage());
             return AutoScrollPagerFragment.newInstance(BannerItemList.get(position));
         }
 

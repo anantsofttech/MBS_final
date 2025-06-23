@@ -179,13 +179,21 @@ public class Async_getCommonService extends AsyncTask<String, Void, Void> implem
                         }
                     } else {
                         if (mbsDataModel.status) {
-                            if (i != 0) {
-                                if(mbsDataModel.PageName.trim().equalsIgnoreCase("WishList")){
-                                }else{
-                                    Constant.FooterList.add(mbsDataModel);
-                                }
 
+                            // if condition added recently for privacy 23-06-2025 start *********
+                            if(mbsDataModel.PageName.trim().equalsIgnoreCase("Privacy")){
+                                Constant.FooterList.add(mbsDataModel);
+                            } // end********
+                            else{
+                                if (i != 0) {
+                                    if(mbsDataModel.PageName.trim().equalsIgnoreCase("WishList")){
+                                    }else{
+                                        Constant.FooterList.add(mbsDataModel);
+                                    }
+
+                                }
                             }
+
                         }
                     }
                 }
